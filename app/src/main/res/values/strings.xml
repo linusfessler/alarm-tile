@@ -3,6 +3,15 @@
     <string name="tile_label">Alarm</string>
     <string name="title_activity_alarm">Alarm</string>
 
+    <string name="menu_title_feature_requests">Feature Requests</string>
+    <string name="menu_title_donate">Donate</string>
+
+    <string name="activity_feature_requests_title">Feature Requests</string>
+    <string name="activity_features_requests_content">asdfasdfasdf</string>
+
+    <string name="activity_donate_title">Donate</string>
+    <string name="activity_donate_content">asdfasdfasdf</string>
+
     <string name="alarm">Alarm</string>
     <string name="snooze">Snooze</string>
     <string name="dismiss">Dismiss</string>

@@ -9,11 +9,13 @@ import android.preference.PreferenceFragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
-// TODO: Credits, Support me
+// TODO: Feature requests / donate activity content
 // TODO: Fix dismiss/snooze
 // TODO: Don't return to main activity
-// TODO: Set icon
 // TODO: Option to hide launcher icon
 // TODO: If snoozing, also listen for snooze_delay changes
 // TODO: Active tile?
@@ -68,6 +70,27 @@ public class MainActivity extends AppCompatActivity {
             addPreferencesFromResource(R.xml.preferences);
             findPreference("dnd_enter").setOnPreferenceChangeListener(dndChangeListener);
             findPreference("alarm_delay").setOnPreferenceChangeListener(alarmChangeListener);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.feature_requests:
+                startActivity(new Intent(this, FeatureRequestsActivity.class));
+                return true;
+            case R.id.donate:
+                startActivity(new Intent(this, DonateActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

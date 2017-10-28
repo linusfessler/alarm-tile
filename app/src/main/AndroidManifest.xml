@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
@@ -23,17 +24,20 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".FeatureRequestsActivity"/>
+
+        <activity android:name=".DonateActivity"/>
+
         <activity
-            android:name="AlarmActivity"
+            android:name=".AlarmActivity"
             android:label="@string/title_activity_alarm"
-            android:theme="@style/AlarmTheme"
             android:screenOrientation="portrait"
-            android:showOnLockScreen="true">
-        </activity>
+            android:showOnLockScreen="true"
+            android:theme="@style/AlarmTheme"/>
 
         <service
             android:name=".AlarmService"
-            android:icon="@drawable/ic_alarm_black_24dp"
+            android:icon="@drawable/ic_action_alarm"
             android:label="@string/tile_label"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>

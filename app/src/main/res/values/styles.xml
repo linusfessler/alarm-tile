@@ -6,7 +6,7 @@
 
     <style name="AlarmTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@color/black_overlay</item>
+        <item name="android:windowBackground">@color/windowBackground</item>
     </style>
 
 </resources>
