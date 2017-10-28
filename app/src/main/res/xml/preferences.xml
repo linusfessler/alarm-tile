@@ -1,0 +1,57 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/pref_category_time">
+
+        <linusfessler.alarmtile.TimePreference
+            android:key="alarm_delay"
+            android:title="@string/pref_title_alarm_delay"/>
+
+        <linusfessler.alarmtile.TimePreference
+            android:key="snooze_delay"
+            android:title="@string/pref_title_snooze_delay"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_category_customize">
+
+        <RingtonePreference
+            android:defaultValue="content://settings/system/alarm_sound"
+            android:key="alarm_sound"
+            android:ringtoneType="alarm"
+            android:title="@string/pref_title_alarm_sound"
+            android:showSilent="true" />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="alarm_vibrate"
+            android:title="@string/pref_title_alarm_vibrate"
+            android:summary="@string/pref_summary_alarm_vibrate" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_category_dnd">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="dnd_enter"
+            android:title="@string/pref_title_dnd_enter"
+            android:summary="@string/pref_summary_dnd_enter" />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="dnd_exit"
+            android:dependency="dnd_enter"
+            android:title="@string/pref_title_dnd_exit"
+            android:summary="@string/pref_summary_dnd_exit" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="dnd_priority"
+            android:dependency="dnd_enter"
+            android:title="@string/pref_title_dnd_priority"
+            android:summary="@string/pref_summary_dnd_priority" />
+
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
