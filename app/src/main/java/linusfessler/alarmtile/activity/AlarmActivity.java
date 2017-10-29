@@ -40,13 +40,13 @@ public class AlarmActivity extends Activity {
     private void snooze() {
         LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BroadcastActions.SNOOZED));
         stopService(new Intent(this, AlarmService.class));
-        finish();
+        finishAndRemoveTask();
     }
 
     private void dismiss() {
         LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BroadcastActions.DISMISSED));
         stopService(new Intent(this, AlarmService.class));
-        finish();
+        finishAndRemoveTask();
     }
 
     public void onSnooze(View view) {
