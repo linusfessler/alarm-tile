@@ -3,14 +3,15 @@
     <string name="tile_label">Alarm</string>
     <string name="title_activity_alarm">Alarm</string>
 
-    <string name="menu_title_feature_requests">Feature Requests</string>
-    <string name="menu_title_donate">Donate</string>
+    <string name="menu_title_about">About</string>
 
-    <string name="activity_feature_requests_title">Feature Requests</string>
-    <string name="activity_features_requests_content">asdfasdfasdf</string>
-
-    <string name="activity_donate_title">Donate</string>
-    <string name="activity_donate_content">asdfasdfasdf</string>
+    <string name="activity_about_title">About</string>
+    <string name="activity_about_title_contact">Contact</string>
+    <string name="activity_about_content_contact">Please send me any feedback, ideas, feature requests and bugs via email (linusfessler@gmail.com) or write a review on the Google Play Store.</string>
+    <string name="activity_about_title_donate">Donate</string>
+    <string name="activity_about_content_donate">If you feel generous and want to support me, donations are greatly appreciated. http://PayPal.Me/LinusFessler</string>
+    <string name="activity_about_title_credits">Credits</string>
+    <string name="activity_about_content_credits">Material Icons: Copyright 2017 Google Inc.</string>
 
     <string name="alarm">Alarm</string>
     <string name="snooze">Snooze</string>
@@ -35,4 +36,8 @@
     <string name="pref_summary_dnd_exit">When alarm is dismissed</string>
     <string name="pref_title_dnd_priority">Priority Notifications</string>
     <string name="pref_summary_dnd_priority">Don\'t suppress priority notifications</string>
+
+    <string name="pref_category_launcher">Launcher</string>
+    <string name="pref_title_launcher_hide_icon">Hide Launcher Icon</string>
+    <string name="pref_summary_launcher_hide_icon">Read first: you will only be able to open the settings by long pressing the tile.</string>
 </resources>

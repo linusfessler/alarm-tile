@@ -1,4 +1,4 @@
-package linusfessler.alarmtile;
+package linusfessler.alarmtile.service;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,43 +9,43 @@ import android.preference.PreferenceManager;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 
-public class AlarmService extends TileService {
+import linusfessler.alarmtile.AlarmScheduler;
+import linusfessler.alarmtile.BroadcastActions;
 
-    private Alarm alarm;
+public class AlarmTileService extends TileService {
+
+    private AlarmScheduler alarmScheduler;
     private SharedPreferences preferences;
 
     private BroadcastReceiver alarmChangedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d(AlarmService.class.getSimpleName(), "aölsdkjfaölskd");
-            dismiss();
-            //int alarmDelay = preferences.getInt("alarm_delay", 0);
-            //schedule(alarmDelay);
+            int alarmDelay = preferences.getInt("alarm_delay", 0);
+            alarmScheduler.reschedule(alarmDelay, false);
         }
     };
 
     private BroadcastReceiver snoozeReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            dismiss();
             int snoozeDelay = preferences.getInt("snooze_delay", 0);
-            schedule(snoozeDelay);
+            alarmScheduler.reschedule(snoozeDelay, true);
         }
     };
 
     private BroadcastReceiver dismissReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            dismiss();
+            setTileInactive();
+            alarmScheduler.dismiss();
         }
     };
 
     @Override
     public void onCreate() {
         super.onCreate();
-        alarm = new Alarm(this);
+        alarmScheduler = new AlarmScheduler(this);
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(alarmChangedReceiver, new IntentFilter(BroadcastActions.ALARM_CHANGED));
@@ -55,35 +55,39 @@ public class AlarmService extends TileService {
 
     @Override
     public void onTileAdded() {
-        Tile tile = getQsTile();
-        tile.setState(Tile.STATE_INACTIVE);
-        tile.updateTile();
+        setTileInactive();
     }
 
     @Override
     public void onClick() {
         Tile tile = getQsTile();
+        if (tile == null) {
+            return;
+        }
+
         if (tile.getState() == Tile.STATE_INACTIVE) {
+            setTileActive();
             int alarmDelay = preferences.getInt("alarm_delay", 0);
-            schedule(alarmDelay);
+            alarmScheduler.schedule(alarmDelay);
         } else {
-            dismiss();
+            setTileInactive();
+            alarmScheduler.dismiss();
         }
     }
 
-    private void schedule(int delay) {
+    private void setTileActive() {
         Tile tile = getQsTile();
-        tile.setState(Tile.STATE_ACTIVE);
-        tile.updateTile();
-
-        alarm.schedule(delay);
+        if (tile != null) {
+            tile.setState(Tile.STATE_ACTIVE);
+            tile.updateTile();
+        }
     }
 
-    private void dismiss() {
+    private void setTileInactive() {
         Tile tile = getQsTile();
-        tile.setState(Tile.STATE_INACTIVE);
-        tile.updateTile();
-
-        alarm.dismiss();
+        if (tile != null) {
+            tile.setState(Tile.STATE_INACTIVE);
+            tile.updateTile();
+        }
     }
 }

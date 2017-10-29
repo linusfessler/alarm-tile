@@ -7,9 +7,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
-public class Alarm {
+import linusfessler.alarmtile.activity.AlarmActivity;
+import linusfessler.alarmtile.activity.MainActivity;
+
+public class AlarmScheduler {
+
+    public static boolean snoozing = false;
 
     private static final int REQUEST_CODE = 0;
 
@@ -18,12 +22,14 @@ public class Alarm {
     private NotificationManager notificationManager;
     private SharedPreferences preferences;
 
-    private PendingIntent pendingIntent;
-    private PendingIntent showIntent;
+    private PendingIntent getPendingIntent(int flags) {
+        Intent intent = new Intent(context, AlarmActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        return PendingIntent.getActivity(context, REQUEST_CODE, intent, flags);
+    }
 
-    public Alarm(Context context) {
+    public AlarmScheduler(Context context) {
         this.context = context;
-
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -32,9 +38,10 @@ public class Alarm {
     public void schedule(int delay) {
         setDnd(true);
 
-        pendingIntent = PendingIntent.getActivity(context, REQUEST_CODE, new Intent(context, AlarmActivity.class), PendingIntent.FLAG_ONE_SHOT);
-        showIntent = PendingIntent.getActivity(context, REQUEST_CODE + 1, new Intent(context, MainActivity.class), PendingIntent.FLAG_ONE_SHOT);
         if (alarmManager != null) {
+            PendingIntent pendingIntent = getPendingIntent(PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent showIntent = PendingIntent.getActivity(context, REQUEST_CODE + 1, new Intent(context, MainActivity.class), 0);
+
             alarmManager.setAlarmClock(
                     new AlarmManager.AlarmClockInfo(
                             System.currentTimeMillis() + delay,
@@ -45,23 +52,24 @@ public class Alarm {
         }
     }
 
-    public void dismiss() {
-        setDnd(false);
+    public void reschedule(int delay, boolean snoozing) {
+        AlarmScheduler.snoozing = snoozing;
+        cancelPendingIntent();
+        schedule(delay);
+    }
 
+    public void dismiss() {
+        AlarmScheduler.snoozing = false;
+        setDnd(false);
+        cancelPendingIntent();
+    }
+
+    private void cancelPendingIntent() {
         if (alarmManager != null) {
-            if (pendingIntent == null) {
-                pendingIntent = PendingIntent.getActivity(context, REQUEST_CODE, new Intent(context, AlarmActivity.class), PendingIntent.FLAG_NO_CREATE);
-            }
+            PendingIntent pendingIntent = getPendingIntent(PendingIntent.FLAG_NO_CREATE);
             if (pendingIntent != null) {
                 alarmManager.cancel(pendingIntent);
                 pendingIntent.cancel();
-            }
-
-            if (showIntent == null) {
-                showIntent = PendingIntent.getActivity(context, REQUEST_CODE + 1, new Intent(context, MainActivity.class), PendingIntent.FLAG_NO_CREATE);
-            }
-            if (showIntent != null) {
-                showIntent.cancel();
             }
         }
     }

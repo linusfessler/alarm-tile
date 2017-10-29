@@ -1,24 +1,24 @@
-package linusfessler.alarmtile;
+package linusfessler.alarmtile.activity;
 
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-// TODO: Feature requests / donate activity content
-// TODO: Fix dismiss/snooze
-// TODO: Don't return to main activity
-// TODO: Option to hide launcher icon
-// TODO: If snoozing, also listen for snooze_delay changes
-// TODO: Active tile?
+import linusfessler.alarmtile.AlarmScheduler;
+import linusfessler.alarmtile.BroadcastActions;
+import linusfessler.alarmtile.LauncherActivity;
+import linusfessler.alarmtile.PermissionUtility;
+import linusfessler.alarmtile.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -55,11 +55,37 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        private Preference.OnPreferenceChangeListener alarmChangeListener = new Preference.OnPreferenceChangeListener() {
+        private Preference.OnPreferenceChangeListener alarmDelayChangeListener = new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
-                Log.d(MainActivity.class.getSimpleName(), "asldkfjl");
                 LocalBroadcastManager.getInstance(getContext()).sendBroadcast(new Intent(BroadcastActions.ALARM_CHANGED));
+                return true;
+            }
+        };
+
+        private Preference.OnPreferenceChangeListener snoozeDelayChangeListener = new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object o) {
+                if (AlarmScheduler.snoozing) {
+                    LocalBroadcastManager.getInstance(getContext()).sendBroadcast(new Intent(BroadcastActions.SNOOZED));
+                }
+                return true;
+            }
+        };
+
+        private Preference.OnPreferenceChangeListener hideLauncherIconListener = new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object o) {
+                boolean enabled = (boolean) o;
+                PackageManager packageManager = getContext().getPackageManager();
+                packageManager.setComponentEnabledSetting(
+                        new ComponentName(getContext(), LauncherActivity.class),
+                        enabled ? PackageManager.COMPONENT_ENABLED_STATE_DISABLED : PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                        PackageManager.DONT_KILL_APP
+                );
+                if (enabled) {
+                    startActivity(new Intent(getContext(), MainActivity.class));
+                }
                 return true;
             }
         };
@@ -69,7 +95,9 @@ public class MainActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences);
             findPreference("dnd_enter").setOnPreferenceChangeListener(dndChangeListener);
-            findPreference("alarm_delay").setOnPreferenceChangeListener(alarmChangeListener);
+            findPreference("alarm_delay").setOnPreferenceChangeListener(alarmDelayChangeListener);
+            findPreference("snooze_delay").setOnPreferenceChangeListener(snoozeDelayChangeListener);
+            findPreference("hide_launcher_icon").setOnPreferenceChangeListener(hideLauncherIconListener);
         }
     }
 
@@ -83,11 +111,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.feature_requests:
-                startActivity(new Intent(this, FeatureRequestsActivity.class));
-                return true;
-            case R.id.donate:
-                startActivity(new Intent(this, DonateActivity.class));
+            case R.id.about:
+                startActivity(new Intent(this, AboutActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
