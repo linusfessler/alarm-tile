@@ -10,8 +10,8 @@ public class TimeFormatter {
         return String.format(Locale.getDefault(), "%02d:%02d", i, j);
     }
 
-    public static String formatMillis(long millis) {
-        return String.format(Locale.getDefault(), "%01dms", millis);
+    public static String formatMillis(String millis) {
+        return String.format(Locale.getDefault(), "%sms", millis);
     }
 
     public static String formatHoursMinutes(int hours, int minutes) {

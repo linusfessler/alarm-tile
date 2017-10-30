@@ -29,9 +29,7 @@
 
     <string name="pref_category_vibration_pattern">Vibration Pattern</string>
     <string name="pref_title_vibration_duration">Vibration Duration</string>
-    <string name="pref_summary_vibration_duration">In milliseconds</string>
     <string name="pref_title_vibration_pause">Pause Duration</string>
-    <string name="pref_summary_vibration_pause">In milliseconds</string>
 
     <string name="pref_category_dnd">Do Not Disturb</string>
     <string name="pref_title_dnd_enter">Enter Do Not Disturb</string>

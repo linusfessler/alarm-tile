@@ -29,19 +29,17 @@
         android:title="@string/pref_category_vibration_pattern"
         android:dependency="vibrate">
 
-        <linusfessler.alarmtile.VibrationDurationPreference
+        <linusfessler.alarmtile.MilliSecondsPreference
             android:defaultValue="500"
             android:key="vibration_duration"
             android:title="@string/pref_title_vibration_duration"
-            android:summary="@string/pref_summary_vibration_duration"
             android:numeric="integer"
             android:maxLength="10" />
 
-        <linusfessler.alarmtile.VibrationDurationPreference
+        <linusfessler.alarmtile.MilliSecondsPreference
             android:defaultValue="500"
             android:key="pause_duration"
             android:title="@string/pref_title_vibration_pause"
-            android:summary="@string/pref_summary_vibration_pause"
             android:numeric="integer"
             android:maxLength="10" />
 

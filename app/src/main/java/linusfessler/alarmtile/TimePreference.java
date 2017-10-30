@@ -1,7 +1,6 @@
 package linusfessler.alarmtile;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -33,11 +32,6 @@ public class TimePreference extends DialogPreference {
     }
 
     @Override
-    protected Object onGetDefaultValue(TypedArray a, int index) {
-        return (a.getString(index));
-    }
-
-    @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
         int timeInMinutes = getPersistedInt(0) / 60000;
         hours = timeInMinutes / 60;
@@ -52,10 +46,10 @@ public class TimePreference extends DialogPreference {
             hours = timePicker.getHour();
             minutes = timePicker.getMinute();
             int timeInMinutes = 60 * hours + minutes;
-            setSummary(getSummary());
             int timeInMillis = 60000 * timeInMinutes;
             if (callChangeListener(timeInMillis)) {
                 persistInt(timeInMillis);
+                setSummary(getSummary());
             }
         }
     }

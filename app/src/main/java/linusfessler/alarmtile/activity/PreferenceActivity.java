@@ -15,8 +15,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import java.util.Locale;
-
 import linusfessler.alarmtile.AlarmScheduler;
 import linusfessler.alarmtile.BroadcastActions;
 import linusfessler.alarmtile.LauncherActivity;
@@ -76,6 +74,14 @@ public class PreferenceActivity extends AppCompatActivity {
             }
         };
 
+        private Preference.OnPreferenceChangeListener vibrationDurationChangeListener = new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object o) {
+                long millis = Long.parseLong((String) o);
+                return millis > 0;
+            }
+        };
+
         private Preference.OnPreferenceChangeListener hideLauncherIconChangeListener = new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
@@ -102,6 +108,7 @@ public class PreferenceActivity extends AppCompatActivity {
             findPreference("dnd_enter").setOnPreferenceChangeListener(dndChangeListener);
             findPreference("alarm_delay").setOnPreferenceChangeListener(alarmDelayChangeListener);
             findPreference("snooze_delay").setOnPreferenceChangeListener(snoozeDelayChangeListener);
+            findPreference("vibration_duration").setOnPreferenceChangeListener(vibrationDurationChangeListener);
             findPreference("hide_launcher_icon").setOnPreferenceChangeListener(hideLauncherIconChangeListener);
         }
     }
