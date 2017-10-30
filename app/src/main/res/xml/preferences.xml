@@ -1,6 +1,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="@string/pref_category_time">
+    <PreferenceCategory android:title="@string/pref_category_alarm">
 
         <linusfessler.alarmtile.TimePreference
             android:key="alarm_delay"
@@ -9,10 +9,6 @@
         <linusfessler.alarmtile.TimePreference
             android:key="snooze_delay"
             android:title="@string/pref_title_snooze_delay"/>
-
-    </PreferenceCategory>
-
-    <PreferenceCategory android:title="@string/pref_category_customize">
 
         <RingtonePreference
             android:defaultValue="content://settings/system/alarm_sound"
@@ -23,9 +19,31 @@
 
         <SwitchPreference
             android:defaultValue="true"
-            android:key="alarm_vibrate"
-            android:title="@string/pref_title_alarm_vibrate"
-            android:summary="@string/pref_summary_alarm_vibrate" />
+            android:key="vibrate"
+            android:title="@string/pref_title_vibrate"
+            android:summary="@string/pref_summary_vibrate" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/pref_category_vibration_pattern"
+        android:dependency="vibrate">
+
+        <linusfessler.alarmtile.VibrationDurationPreference
+            android:defaultValue="500"
+            android:key="vibration_duration"
+            android:title="@string/pref_title_vibration_duration"
+            android:summary="@string/pref_summary_vibration_duration"
+            android:numeric="integer"
+            android:maxLength="10" />
+
+        <linusfessler.alarmtile.VibrationDurationPreference
+            android:defaultValue="500"
+            android:key="pause_duration"
+            android:title="@string/pref_title_vibration_pause"
+            android:summary="@string/pref_summary_vibration_pause"
+            android:numeric="integer"
+            android:maxLength="10" />
 
     </PreferenceCategory>
 

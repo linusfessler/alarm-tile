@@ -17,7 +17,7 @@ import android.support.annotation.Nullable;
 
 public class AlarmService extends Service {
 
-    private static final long[] VIBRATION_PATTERN = { 500, 500 };
+    private static final long[] DEFAULT_VIBRATION_PATTERN = { 500, 500 };
 
     private Ringtone alarmTone;
     private Vibrator vibrator;
@@ -36,14 +36,17 @@ public class AlarmService extends Service {
             alarmTone.play();
         }
 
-        boolean vibrate = preferences.getBoolean("alarm_vibrate", true);
+        boolean vibrate = preferences.getBoolean("vibrate", true);
         if (vibrate) {
             vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             if (vibrator != null) {
+                long vibrationPause = Long.parseLong(preferences.getString("pause_duration", String.valueOf(DEFAULT_VIBRATION_PATTERN[0])));
+                long vibrationDuration = Long.parseLong(preferences.getString("vibration_duration", String.valueOf(DEFAULT_VIBRATION_PATTERN[1])));
+                long[] vibrationPattern = new long[]{ vibrationPause, vibrationDuration };
                 if (Build.VERSION.SDK_INT >= 26) {
-                    vibrator.vibrate(VibrationEffect.createWaveform(VIBRATION_PATTERN, 0));
+                    vibrator.vibrate(VibrationEffect.createWaveform(vibrationPattern, 0));
                 } else {
-                    vibrator.vibrate(VIBRATION_PATTERN, 0);
+                    vibrator.vibrate(vibrationPattern, 0);
                 }
             }
         }

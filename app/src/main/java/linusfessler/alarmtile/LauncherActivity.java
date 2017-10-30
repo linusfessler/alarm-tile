@@ -1,5 +1,5 @@
 package linusfessler.alarmtile;
 
-import linusfessler.alarmtile.activity.MainActivity;
+import linusfessler.alarmtile.activity.PreferenceActivity;
 
-public class LauncherActivity extends MainActivity {}
+public class LauncherActivity extends PreferenceActivity {}

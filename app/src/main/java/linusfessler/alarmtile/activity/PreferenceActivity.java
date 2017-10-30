@@ -8,11 +8,14 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
+import java.util.Locale;
 
 import linusfessler.alarmtile.AlarmScheduler;
 import linusfessler.alarmtile.BroadcastActions;
@@ -20,7 +23,7 @@ import linusfessler.alarmtile.LauncherActivity;
 import linusfessler.alarmtile.PermissionUtility;
 import linusfessler.alarmtile.R;
 
-public class MainActivity extends AppCompatActivity {
+public class PreferenceActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -73,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        private Preference.OnPreferenceChangeListener hideLauncherIconListener = new Preference.OnPreferenceChangeListener() {
+        private Preference.OnPreferenceChangeListener hideLauncherIconChangeListener = new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
                 boolean enabled = (boolean) o;
@@ -84,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                         PackageManager.DONT_KILL_APP
                 );
                 if (enabled) {
-                    startActivity(new Intent(getContext(), MainActivity.class));
+                    startActivity(new Intent(getContext(), PreferenceActivity.class));
                 }
                 return true;
             }
@@ -94,10 +97,12 @@ public class MainActivity extends AppCompatActivity {
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences);
+            PreferenceManager.setDefaultValues(getContext(), R.xml.preferences, false);
+
             findPreference("dnd_enter").setOnPreferenceChangeListener(dndChangeListener);
             findPreference("alarm_delay").setOnPreferenceChangeListener(alarmDelayChangeListener);
             findPreference("snooze_delay").setOnPreferenceChangeListener(snoozeDelayChangeListener);
-            findPreference("hide_launcher_icon").setOnPreferenceChangeListener(hideLauncherIconListener);
+            findPreference("hide_launcher_icon").setOnPreferenceChangeListener(hideLauncherIconChangeListener);
         }
     }
 

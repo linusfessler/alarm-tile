@@ -9,7 +9,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import linusfessler.alarmtile.activity.AlarmActivity;
-import linusfessler.alarmtile.activity.MainActivity;
+import linusfessler.alarmtile.activity.PreferenceActivity;
 
 public class AlarmScheduler {
 
@@ -40,7 +40,7 @@ public class AlarmScheduler {
 
         if (alarmManager != null) {
             PendingIntent pendingIntent = getPendingIntent(PendingIntent.FLAG_UPDATE_CURRENT);
-            PendingIntent showIntent = PendingIntent.getActivity(context, REQUEST_CODE + 1, new Intent(context, MainActivity.class), 0);
+            PendingIntent showIntent = PendingIntent.getActivity(context, REQUEST_CODE + 1, new Intent(context, PreferenceActivity.class), 0);
 
             alarmManager.setAlarmClock(
                     new AlarmManager.AlarmClockInfo(

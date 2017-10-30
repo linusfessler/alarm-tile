@@ -20,14 +20,18 @@
     <string name="dialog_dnd_title">Permission needed</string>
     <string name="dialog_dnd_message">This option requires permission to change the Do Not Disturb mode. Please enable the permission on the following screen and then press the back button.</string>
 
-    <string name="pref_category_time">Time</string>
+    <string name="pref_category_alarm">Alarm</string>
     <string name="pref_title_alarm_delay">Alarm</string>
     <string name="pref_title_snooze_delay">Snooze</string>
-
-    <string name="pref_category_customize">Customize</string>
     <string name="pref_title_alarm_sound">Alarm Sound</string>
-    <string name="pref_title_alarm_vibrate">Vibrate</string>
-    <string name="pref_summary_alarm_vibrate">When alarm goes off</string>
+    <string name="pref_title_vibrate">Vibrate</string>
+    <string name="pref_summary_vibrate">When alarm goes off</string>
+
+    <string name="pref_category_vibration_pattern">Vibration Pattern</string>
+    <string name="pref_title_vibration_duration">Vibration Duration</string>
+    <string name="pref_summary_vibration_duration">In milliseconds</string>
+    <string name="pref_title_vibration_pause">Pause Duration</string>
+    <string name="pref_summary_vibration_pause">In milliseconds</string>
 
     <string name="pref_category_dnd">Do Not Disturb</string>
     <string name="pref_title_dnd_enter">Enter Do Not Disturb</string>
@@ -39,5 +43,5 @@
 
     <string name="pref_category_launcher">Launcher</string>
     <string name="pref_title_launcher_hide_icon">Hide Launcher Icon</string>
-    <string name="pref_summary_launcher_hide_icon">Read first: you will only be able to open the settings by long pressing the tile.</string>
+    <string name="pref_summary_launcher_hide_icon">Note: You will only be able to open the settings by long pressing the tile.</string>
 </resources>

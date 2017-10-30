@@ -21,23 +21,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
-        android:textSize="42sp"
-        app:layout_constraintBottom_toTopOf="@id/guideline"
+        android:textSize="52sp"
+        app:layout_constraintBottom_toTopOf="@id/alarm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
+        android:id="@+id/alarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/alarm"
         android:textColor="@android:color/white"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@id/time"
+        app:layout_constraintVertical_bias="0.55" />
 
     <Button
         android:layout_width="0dp"

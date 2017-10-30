@@ -18,26 +18,32 @@ public class AlarmTileService extends TileService {
     private AlarmScheduler alarmScheduler;
     private SharedPreferences preferences;
 
+    private boolean isActive;
+
     private BroadcastReceiver alarmChangedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            int alarmDelay = preferences.getInt("alarm_delay", 0);
-            alarmScheduler.reschedule(alarmDelay, false);
+            if (isActive) {
+                int alarmDelay = preferences.getInt("alarm_delay", 0);
+                alarmScheduler.reschedule(alarmDelay, false);
+            }
         }
     };
 
     private BroadcastReceiver snoozeReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            int snoozeDelay = preferences.getInt("snooze_delay", 0);
-            alarmScheduler.reschedule(snoozeDelay, true);
+            if (isActive) {
+                int snoozeDelay = preferences.getInt("snooze_delay", 0);
+                alarmScheduler.reschedule(snoozeDelay, true);
+            }
         }
     };
 
     private BroadcastReceiver dismissReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            setTileInactive();
+            setInactive();
             alarmScheduler.dismiss();
         }
     };
@@ -55,7 +61,7 @@ public class AlarmTileService extends TileService {
 
     @Override
     public void onTileAdded() {
-        setTileInactive();
+        setInactive();
     }
 
     @Override
@@ -66,16 +72,17 @@ public class AlarmTileService extends TileService {
         }
 
         if (tile.getState() == Tile.STATE_INACTIVE) {
-            setTileActive();
+            setActive();
             int alarmDelay = preferences.getInt("alarm_delay", 0);
             alarmScheduler.schedule(alarmDelay);
         } else {
-            setTileInactive();
+            setInactive();
             alarmScheduler.dismiss();
         }
     }
 
-    private void setTileActive() {
+    private void setActive() {
+        isActive = true;
         Tile tile = getQsTile();
         if (tile != null) {
             tile.setState(Tile.STATE_ACTIVE);
@@ -83,7 +90,8 @@ public class AlarmTileService extends TileService {
         }
     }
 
-    private void setTileInactive() {
+    private void setInactive() {
+        isActive = false;
         Tile tile = getQsTile();
         if (tile != null) {
             tile.setState(Tile.STATE_INACTIVE);

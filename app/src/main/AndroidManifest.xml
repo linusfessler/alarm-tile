@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.PreferenceActivity"
             android:label="@string/app_name"
             android:launchMode="singleInstance">
             <intent-filter>
