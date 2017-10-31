@@ -68,7 +68,7 @@ public class PreferenceActivity extends AppCompatActivity {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
                 if (AlarmScheduler.snoozing) {
-                    LocalBroadcastManager.getInstance(getContext()).sendBroadcast(new Intent(BroadcastActions.SNOOZED));
+                    LocalBroadcastManager.getInstance(getContext()).sendBroadcast(new Intent(BroadcastActions.SNOOZE_CHANGED));
                 }
                 return true;
             }

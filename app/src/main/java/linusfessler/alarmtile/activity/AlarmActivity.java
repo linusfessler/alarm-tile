@@ -34,6 +34,7 @@ public class AlarmActivity extends Activity {
         TextView time = findViewById(R.id.time);
         time.setText(TimeFormatter.format(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
 
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BroadcastActions.STARTED));
         startService(new Intent(this, AlarmService.class));
     }
 

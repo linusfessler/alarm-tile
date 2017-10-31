@@ -13,7 +13,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import linusfessler.alarmtile.AlarmScheduler;
 import linusfessler.alarmtile.BroadcastActions;
 
-public class AlarmTileService extends TileService {
+public class AlarmSchedulerService extends TileService {
 
     private AlarmScheduler alarmScheduler;
     private SharedPreferences preferences;
@@ -30,13 +30,29 @@ public class AlarmTileService extends TileService {
         }
     };
 
-    private BroadcastReceiver snoozeReceiver = new BroadcastReceiver() {
+    private BroadcastReceiver snoozeChangedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (isActive) {
                 int snoozeDelay = preferences.getInt("snooze_delay", 0);
-                alarmScheduler.reschedule(snoozeDelay, true);
+                alarmScheduler.reschedule(snoozeDelay, false);
             }
+        }
+    };
+
+    private BroadcastReceiver startedReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            setUnavailable();
+        }
+    };
+
+    private BroadcastReceiver snoozeReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            setActive();
+            int snoozeDelay = preferences.getInt("snooze_delay", 0);
+            alarmScheduler.reschedule(snoozeDelay, true);
         }
     };
 
@@ -55,6 +71,8 @@ public class AlarmTileService extends TileService {
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(alarmChangedReceiver, new IntentFilter(BroadcastActions.ALARM_CHANGED));
+        LocalBroadcastManager.getInstance(this).registerReceiver(snoozeChangedReceiver, new IntentFilter(BroadcastActions.SNOOZE_CHANGED));
+        LocalBroadcastManager.getInstance(this).registerReceiver(startedReceiver, new IntentFilter(BroadcastActions.STARTED));
         LocalBroadcastManager.getInstance(this).registerReceiver(snoozeReceiver, new IntentFilter(BroadcastActions.SNOOZED));
         LocalBroadcastManager.getInstance(this).registerReceiver(dismissReceiver, new IntentFilter(BroadcastActions.DISMISSED));
     }
@@ -86,6 +104,14 @@ public class AlarmTileService extends TileService {
         Tile tile = getQsTile();
         if (tile != null) {
             tile.setState(Tile.STATE_ACTIVE);
+            tile.updateTile();
+        }
+    }
+
+    private void setUnavailable() {
+        Tile tile = getQsTile();
+        if (tile != null) {
+            tile.setState(Tile.STATE_UNAVAILABLE);
             tile.updateTile();
         }
     }

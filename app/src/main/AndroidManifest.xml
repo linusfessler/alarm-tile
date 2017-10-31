@@ -37,7 +37,7 @@
             android:theme="@style/AlarmTheme" />
 
         <service
-            android:name=".service.AlarmTileService"
+            android:name=".service.AlarmSchedulerService"
             android:icon="@drawable/ic_action_alarm"
             android:label="@string/tile_label"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
