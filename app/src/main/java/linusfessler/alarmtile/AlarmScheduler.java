@@ -8,12 +8,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import linusfessler.alarmtile.activity.AlarmActivity;
-import linusfessler.alarmtile.activity.PreferenceActivity;
+import linusfessler.alarmtile.activities.AlarmActivity;
+import linusfessler.alarmtile.activities.PreferenceActivity;
+import linusfessler.alarmtile.constants.PreferenceKeys;
+import linusfessler.alarmtile.utility.Permissions;
 
 public class AlarmScheduler {
-
-    public static boolean snoozing = false;
 
     private static final int REQUEST_CODE = 0;
 
@@ -36,6 +36,8 @@ public class AlarmScheduler {
     }
 
     public void schedule(int delay) {
+        cancelPendingIntent();
+
         setDnd(true);
 
         if (alarmManager != null) {
@@ -52,14 +54,7 @@ public class AlarmScheduler {
         }
     }
 
-    public void reschedule(int delay, boolean snoozing) {
-        AlarmScheduler.snoozing = snoozing;
-        cancelPendingIntent();
-        schedule(delay);
-    }
-
     public void dismiss() {
-        AlarmScheduler.snoozing = false;
         setDnd(false);
         cancelPendingIntent();
     }
@@ -75,25 +70,25 @@ public class AlarmScheduler {
     }
 
     private void setDnd(boolean enable) {
-        boolean dndEnter = preferences.getBoolean("dnd_enter", false);
+        boolean dndEnter = preferences.getBoolean(PreferenceKeys.DND_ENTER, false);
         if (!dndEnter) {
             return;
         }
 
-        if (!PermissionUtility.isNotificationPolicyAccessGranted(context)) {
+        if (!Permissions.isNotificationPolicyAccessGranted(context)) {
             return;
         }
 
         if (notificationManager != null) {
             if (enable) {
-                boolean dndPriority = preferences.getBoolean("dnd_priority", false);
+                boolean dndPriority = preferences.getBoolean(PreferenceKeys.DND_PRIORITY, false);
                 if (dndPriority) {
                     notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_PRIORITY);
                 } else {
                     notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALARMS);
                 }
             } else {
-                boolean dndExit = preferences.getBoolean("dnd_exit", false);
+                boolean dndExit = preferences.getBoolean(PreferenceKeys.DND_EXIT, false);
                 if (dndExit) {
                     notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL);
                 }

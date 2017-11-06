@@ -1,4 +1,4 @@
-package linusfessler.alarmtile;
+package linusfessler.alarmtile.utility;
 
 import java.util.Locale;
 

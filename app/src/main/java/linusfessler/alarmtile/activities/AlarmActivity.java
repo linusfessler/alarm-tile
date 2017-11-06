@@ -1,4 +1,4 @@
-package linusfessler.alarmtile.activity;
+package linusfessler.alarmtile.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,10 +12,10 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 
-import linusfessler.alarmtile.service.AlarmService;
-import linusfessler.alarmtile.BroadcastActions;
+import linusfessler.alarmtile.services.AlarmService;
+import linusfessler.alarmtile.constants.BroadcastActions;
 import linusfessler.alarmtile.R;
-import linusfessler.alarmtile.TimeFormatter;
+import linusfessler.alarmtile.utility.TimeFormatter;
 
 public class AlarmActivity extends Activity {
 
@@ -34,18 +34,18 @@ public class AlarmActivity extends Activity {
         TextView time = findViewById(R.id.time);
         time.setText(TimeFormatter.format(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
 
-        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BroadcastActions.STARTED));
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BroadcastActions.ALARM_STARTED));
         startService(new Intent(this, AlarmService.class));
     }
 
     private void snooze() {
-        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BroadcastActions.SNOOZED));
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BroadcastActions.ALARM_SNOOZED));
         stopService(new Intent(this, AlarmService.class));
         finishAndRemoveTask();
     }
 
     private void dismiss() {
-        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BroadcastActions.DISMISSED));
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BroadcastActions.ALARM_DISMISSED));
         stopService(new Intent(this, AlarmService.class));
         finishAndRemoveTask();
     }

@@ -1,14 +1,32 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <PreferenceCategory android:title="@string/pref_category_control">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="alarm_set"
+            android:title="@string/pref_title_alarm_set"
+            android:summary="@string/pref_summary_alarm_set" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="snooze_set"
+            android:title="@string/pref_title_snooze_set"
+            android:summary="@string/pref_summary_snooze_set" />
+
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/pref_category_alarm">
 
-        <linusfessler.alarmtile.TimePreference
+        <linusfessler.alarmtile.preferences.TimePreference
+            android:defaultValue="28800000"
             android:key="alarm_delay"
-            android:title="@string/pref_title_alarm_delay"/>
+            android:title="@string/pref_title_alarm_delay" />
 
-        <linusfessler.alarmtile.TimePreference
+        <linusfessler.alarmtile.preferences.TimePreference
+            android:defaultValue="900000"
             android:key="snooze_delay"
-            android:title="@string/pref_title_snooze_delay"/>
+            android:title="@string/pref_title_snooze_delay" />
 
         <RingtonePreference
             android:defaultValue="content://settings/system/alarm_sound"
@@ -16,6 +34,10 @@
             android:ringtoneType="alarm"
             android:title="@string/pref_title_alarm_sound"
             android:showSilent="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_category_vibrate">
 
         <SwitchPreference
             android:defaultValue="true"
@@ -29,14 +51,14 @@
         android:title="@string/pref_category_vibration_pattern"
         android:dependency="vibrate">
 
-        <linusfessler.alarmtile.MilliSecondsPreference
+        <linusfessler.alarmtile.preferences.MilliSecondsPreference
             android:defaultValue="500"
             android:key="vibration_duration"
             android:title="@string/pref_title_vibration_duration"
             android:numeric="integer"
             android:maxLength="10" />
 
-        <linusfessler.alarmtile.MilliSecondsPreference
+        <linusfessler.alarmtile.preferences.MilliSecondsPreference
             android:defaultValue="500"
             android:key="pause_duration"
             android:title="@string/pref_title_vibration_pause"

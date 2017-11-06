@@ -1,11 +1,17 @@
-package linusfessler.alarmtile;
+package linusfessler.alarmtile.preferences;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.os.Build;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TimePicker;
+
+import linusfessler.alarmtile.R;
+import linusfessler.alarmtile.utility.TimeFormatter;
 
 public class TimePreference extends DialogPreference {
 
@@ -27,13 +33,30 @@ public class TimePreference extends DialogPreference {
     @Override
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
-        timePicker.setHour(hours);
-        timePicker.setMinute(minutes);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            timePicker.setHour(hours);
+            timePicker.setMinute(minutes);
+        } else {
+            timePicker.setCurrentHour(hours);
+            timePicker.setCurrentMinute(minutes);
+        }
+    }
+
+    @Override
+    protected Object onGetDefaultValue(TypedArray a, int index) {
+        return a.getInteger(index, 0);
     }
 
     @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-        int timeInMinutes = getPersistedInt(0) / 60000;
+        int timeInMillis;
+        if (restoreValue) {
+            timeInMillis = getPersistedInt(0);
+        } else {
+            timeInMillis = (Integer) defaultValue;
+        }
+        persistInt(timeInMillis);
+        int timeInMinutes = timeInMillis / 60000;
         hours = timeInMinutes / 60;
         minutes = timeInMinutes % 60;
         setSummary(getSummary());
@@ -43,8 +66,13 @@ public class TimePreference extends DialogPreference {
     protected void onDialogClosed(boolean positiveResult) {
         super.onDialogClosed(positiveResult);
         if (positiveResult) {
-            hours = timePicker.getHour();
-            minutes = timePicker.getMinute();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                hours = timePicker.getHour();
+                minutes = timePicker.getMinute();
+            } else {
+                hours = timePicker.getCurrentHour();
+                minutes = timePicker.getCurrentMinute();
+            }
             int timeInMinutes = 60 * hours + minutes;
             int timeInMillis = 60000 * timeInMinutes;
             if (callChangeListener(timeInMillis)) {

@@ -1,4 +1,4 @@
-package linusfessler.alarmtile.service;
+package linusfessler.alarmtile.services;
 
 import android.app.Service;
 import android.content.Context;
@@ -15,6 +15,8 @@ import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 
+import linusfessler.alarmtile.constants.PreferenceKeys;
+
 public class AlarmService extends Service {
 
     private static final long[] DEFAULT_VIBRATION_PATTERN = { 500, 500 };
@@ -28,7 +30,7 @@ public class AlarmService extends Service {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        String uriPath = preferences.getString("alarm_sound", "");
+        String uriPath = preferences.getString(PreferenceKeys.ALARM_SOUND, "");
         if (!uriPath.equals("")) {
             Uri uri = Uri.parse(uriPath);
             alarmTone = RingtoneManager.getRingtone(this, uri);
@@ -36,12 +38,12 @@ public class AlarmService extends Service {
             alarmTone.play();
         }
 
-        boolean vibrate = preferences.getBoolean("vibrate", true);
+        boolean vibrate = preferences.getBoolean(PreferenceKeys.VIBRATE, true);
         if (vibrate) {
             vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             if (vibrator != null) {
-                long vibrationPause = Long.parseLong(preferences.getString("pause_duration", String.valueOf(DEFAULT_VIBRATION_PATTERN[0])));
-                long vibrationDuration = Long.parseLong(preferences.getString("vibration_duration", String.valueOf(DEFAULT_VIBRATION_PATTERN[1])));
+                long vibrationPause = Long.parseLong(preferences.getString(PreferenceKeys.PAUSE_DURATION, String.valueOf(DEFAULT_VIBRATION_PATTERN[0])));
+                long vibrationDuration = Long.parseLong(preferences.getString(PreferenceKeys.VIBRATION_DURATION, String.valueOf(DEFAULT_VIBRATION_PATTERN[1])));
                 long[] vibrationPattern = new long[]{ vibrationPause, vibrationDuration };
                 if (Build.VERSION.SDK_INT >= 26) {
                     vibrator.vibrate(VibrationEffect.createWaveform(vibrationPattern, 0));

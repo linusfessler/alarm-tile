@@ -1,8 +1,10 @@
-package linusfessler.alarmtile;
+package linusfessler.alarmtile.preferences;
 
 import android.content.Context;
 import android.preference.EditTextPreference;
 import android.util.AttributeSet;
+
+import linusfessler.alarmtile.utility.TimeFormatter;
 
 public class MilliSecondsPreference extends EditTextPreference {
 
