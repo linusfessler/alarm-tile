@@ -34,18 +34,18 @@ public class AlarmActivity extends Activity {
         TextView time = findViewById(R.id.time);
         time.setText(TimeFormatter.format(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
 
-        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BroadcastActions.ALARM_STARTED));
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BroadcastActions.ALARM_START));
         startService(new Intent(this, AlarmService.class));
     }
 
     private void snooze() {
-        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BroadcastActions.ALARM_SNOOZED));
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BroadcastActions.ALARM_SNOOZE));
         stopService(new Intent(this, AlarmService.class));
         finishAndRemoveTask();
     }
 
     private void dismiss() {
-        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BroadcastActions.ALARM_DISMISSED));
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BroadcastActions.ALARM_DISMISS));
         stopService(new Intent(this, AlarmService.class));
         finishAndRemoveTask();
     }

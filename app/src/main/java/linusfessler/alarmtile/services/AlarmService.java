@@ -45,7 +45,7 @@ public class AlarmService extends Service {
                 long vibrationPause = Long.parseLong(preferences.getString(PreferenceKeys.PAUSE_DURATION, String.valueOf(DEFAULT_VIBRATION_PATTERN[0])));
                 long vibrationDuration = Long.parseLong(preferences.getString(PreferenceKeys.VIBRATION_DURATION, String.valueOf(DEFAULT_VIBRATION_PATTERN[1])));
                 long[] vibrationPattern = new long[]{ vibrationPause, vibrationDuration };
-                if (Build.VERSION.SDK_INT >= 26) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     vibrator.vibrate(VibrationEffect.createWaveform(vibrationPattern, 0));
                 } else {
                     vibrator.vibrate(vibrationPattern, 0);

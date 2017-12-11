@@ -1,20 +1,6 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <PreferenceCategory android:title="@string/pref_category_control">
-
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="alarm_set"
-            android:title="@string/pref_title_alarm_set"
-            android:summary="@string/pref_summary_alarm_set" />
-
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="snooze_set"
-            android:title="@string/pref_title_snooze_set"
-            android:summary="@string/pref_summary_snooze_set" />
-
-    </PreferenceCategory>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="screen_main">
 
     <PreferenceCategory android:title="@string/pref_category_alarm">
 
@@ -91,7 +77,9 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/pref_category_launcher">
+    <PreferenceCategory
+        android:key="category_launcher"
+        android:title="@string/pref_category_launcher">
 
         <SwitchPreference
             android:defaultValue="false"

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="linusfessler.alarmtile.activities.AlarmActivity">
+    tools:context=".activities.AlarmActivity">
 
     <Button
         android:layout_width="0dp"

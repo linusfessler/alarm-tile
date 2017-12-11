@@ -1,23 +1,22 @@
 package linusfessler.alarmtile.activities;
 
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.preference.SwitchPreference;
+import android.preference.PreferenceScreen;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import linusfessler.alarmtile.constants.BroadcastActions;
@@ -27,39 +26,24 @@ import linusfessler.alarmtile.R;
 
 public class PreferenceActivity extends AppCompatActivity {
 
+    private SharedPreferences preferences;
+    private Menu menu;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getFragmentManager().beginTransaction().replace(android.R.id.content, new MainFragment()).commit();
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     public static class MainFragment extends PreferenceFragment {
 
-        private SwitchPreference alarmSwitch;
-        private SwitchPreference snoozeSwitch;
-
         private SharedPreferences preferences;
-
-        private Preference.OnPreferenceChangeListener setAlarmListener = new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object o) {
-                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(new Intent(BroadcastActions.ALARM_SET));
-                return true;
-            }
-        };
 
         private Preference.OnPreferenceChangeListener alarmDelayListener = new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
                 LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(new Intent(BroadcastActions.ALARM_DELAY_CHANGED));
-                return true;
-            }
-        };
-
-        private Preference.OnPreferenceChangeListener setSnoozeListener = new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object o) {
-                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(new Intent(BroadcastActions.SNOOZE_SET));
                 return true;
             }
         };
@@ -124,52 +108,77 @@ public class PreferenceActivity extends AppCompatActivity {
             }
         };
 
-        private BroadcastReceiver updateSwitchesReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                alarmSwitch.setChecked(intent.getBooleanExtra(PreferenceKeys.ALARM_SET, false));
-                snoozeSwitch.setChecked(intent.getBooleanExtra(PreferenceKeys.SNOOZE_SET, false));
-            }
-        };
-
         @Override
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences);
             PreferenceManager.setDefaultValues(getActivity(), R.xml.preferences, false);
 
-            alarmSwitch = (SwitchPreference) findPreference(PreferenceKeys.ALARM_SET);
-            snoozeSwitch = (SwitchPreference) findPreference(PreferenceKeys.SNOOZE_SET);
-
             preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-            findPreference(PreferenceKeys.ALARM_SET).setOnPreferenceChangeListener(setAlarmListener);
             findPreference(PreferenceKeys.ALARM_DELAY).setOnPreferenceChangeListener(alarmDelayListener);
-            findPreference(PreferenceKeys.SNOOZE_SET).setOnPreferenceChangeListener(setSnoozeListener);
             findPreference(PreferenceKeys.SNOOZE_DELAY).setOnPreferenceChangeListener(snoozeDelayListener);
             findPreference(PreferenceKeys.DND_ENTER).setOnPreferenceChangeListener(dndEnterListener);
             findPreference(PreferenceKeys.VIBRATION_DURATION).setOnPreferenceChangeListener(vibrationDurationListener);
-            findPreference(PreferenceKeys.HIDE_LAUNCHER_ICON).setOnPreferenceChangeListener(hideLauncherIconListener);
 
-            LocalBroadcastManager.getInstance(getActivity()).registerReceiver(updateSwitchesReceiver, new IntentFilter(BroadcastActions.UPDATE_SWITCHES));
+            // only give option to hide launcher icon for devices running Android versions < N
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference(PreferenceKeys.SCREEN_MAIN);
+                PreferenceCategory launcherCategory = (PreferenceCategory) findPreference(PreferenceKeys.CATEGORY_LAUNCHER);
+                preferenceScreen.removePreference(launcherCategory);
+            } else {
+                findPreference(PreferenceKeys.HIDE_LAUNCHER_ICON).setOnPreferenceChangeListener(hideLauncherIconListener);
+            }
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.menu_preference, menu);
+        this.menu = menu;
+        boolean alarmSet = preferences.getBoolean("alarm_set", false);
+        boolean snoozeSet = preferences.getBoolean("snooze_set", false);
+        setMenuItemsVisible(alarmSet || snoozeSet);
         return true;
     }
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            boolean alarmSet = preferences.getBoolean("alarm_set", false);
+            boolean snoozeSet = preferences.getBoolean("snooze_set", false);
+            setMenuItemsVisible(alarmSet || snoozeSet);
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        setMenuItemsVisible(item.getGroupId() == R.id.group_alarm);
+
         switch (item.getItemId()) {
-            case R.id.about:
+            case R.id.menu_alarm:
+                preferences.edit().putBoolean(PreferenceKeys.ALARM_SET, true).apply();
+                LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BroadcastActions.ALARM_SET));
+                return true;
+            case R.id.menu_snooze:
+                preferences.edit().putBoolean(PreferenceKeys.SNOOZE_SET, true).apply();
+                LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BroadcastActions.SNOOZE_SET));
+                return true;
+            case R.id.menu_dismiss:
+                LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BroadcastActions.ALARM_DISMISS));
+                return true;
+            case R.id.menu_about:
                 startActivity(new Intent(this, AboutActivity.class));
                 return true;
             default:
+                Log.d(getClass().getSimpleName(), "default...");
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void setMenuItemsVisible(boolean visible) {
+        menu.setGroupVisible(R.id.group_alarm, !visible);
+        menu.findItem(R.id.menu_dismiss).setVisible(visible);
     }
 }

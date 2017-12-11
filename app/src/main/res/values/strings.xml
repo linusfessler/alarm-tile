@@ -21,15 +21,15 @@
     <string name="dialog_dnd_message">This option requires permission to change the Do Not Disturb mode. Please enable the permission on the following screen and then press the back button.</string>
 
     <string name="pref_category_control">Control</string>
-    <string name="pref_title_alarm_set">Turn Alarm On</string>
+    <string name="pref_title_alarm_set">Turn alarm on</string>
     <string name="pref_summary_alarm_set">Same as clicking the tile</string>
-    <string name="pref_title_snooze_set">Turn Snooze On</string>
+    <string name="pref_title_snooze_set">Turn snooze on</string>
     <string name="pref_summary_snooze_set">Skip the alarm and immediately snooze</string>
 
     <string name="pref_category_alarm">Alarm</string>
-    <string name="pref_title_alarm_delay">Alarm Time</string>
-    <string name="pref_title_alarm_sound">Alarm Sound</string>
-    <string name="pref_title_snooze_delay">Snooze Delay</string>
+    <string name="pref_title_alarm_delay">Alarm time</string>
+    <string name="pref_title_alarm_sound">Alarm sound</string>
+    <string name="pref_title_snooze_delay">Snooze delay</string>
 
     <string name="pref_category_vibrate">Vibrate</string>
     <string name="pref_title_vibrate">Vibrate</string>
@@ -44,10 +44,10 @@
     <string name="pref_summary_dnd_enter">When alarm is set</string>
     <string name="pref_title_dnd_exit">Exit Do Not Disturb mode</string>
     <string name="pref_summary_dnd_exit">When alarm is dismissed</string>
-    <string name="pref_title_dnd_priority">Priority Notifications</string>
+    <string name="pref_title_dnd_priority">Priority notifications</string>
     <string name="pref_summary_dnd_priority">Don\'t suppress priority notifications</string>
 
     <string name="pref_category_launcher">Launcher</string>
-    <string name="pref_title_launcher_hide_icon">Hide Launcher Icon</string>
-    <string name="pref_summary_launcher_hide_icon">Note: You will only be able to open the settings by long pressing the tile.</string>
+    <string name="pref_title_launcher_hide_icon">Hide launcher icon</string>
+    <string name="pref_summary_launcher_hide_icon">Note: you will only be able to open the settings by long pressing the tile.</string>
 </resources>
