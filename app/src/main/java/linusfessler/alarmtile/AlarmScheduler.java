@@ -11,11 +11,20 @@ import android.preference.PreferenceManager;
 import linusfessler.alarmtile.activities.AlarmActivity;
 import linusfessler.alarmtile.activities.PreferenceActivity;
 import linusfessler.alarmtile.constants.PreferenceKeys;
+import linusfessler.alarmtile.receivers.AlarmResumingActionsReceiver;
 import linusfessler.alarmtile.utility.Permissions;
 
 public class AlarmScheduler {
 
     private static final int REQUEST_CODE = 0;
+
+    private static AlarmScheduler instance;
+    public static AlarmScheduler getInstance(Context context) {
+        if (instance == null) {
+            instance = new AlarmScheduler(context);
+        }
+        return instance;
+    }
 
     private Context context;
     private AlarmManager alarmManager;
@@ -28,7 +37,7 @@ public class AlarmScheduler {
         return PendingIntent.getActivity(context, REQUEST_CODE, intent, flags);
     }
 
-    public AlarmScheduler(Context context) {
+    private AlarmScheduler(Context context) {
         this.context = context;
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -36,8 +45,9 @@ public class AlarmScheduler {
     }
 
     public void schedule(int delay) {
-        cancelPendingIntent();
+        AlarmResumingActionsReceiver.enable(context);
 
+        cancelPendingIntent();
         setDnd(true);
 
         if (alarmManager != null) {
@@ -55,8 +65,15 @@ public class AlarmScheduler {
     }
 
     public void dismiss() {
-        setDnd(false);
+        preferences.edit()
+                .putBoolean(PreferenceKeys.ALARM_SET, false)
+                .putBoolean(PreferenceKeys.SNOOZE_SET, false)
+                .apply();
+
+        AlarmResumingActionsReceiver.disable(context);
+
         cancelPendingIntent();
+        setDnd(false);
     }
 
     private void cancelPendingIntent() {

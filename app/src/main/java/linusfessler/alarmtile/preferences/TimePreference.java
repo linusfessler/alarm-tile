@@ -33,13 +33,8 @@ public class TimePreference extends DialogPreference {
     @Override
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            timePicker.setHour(hours);
-            timePicker.setMinute(minutes);
-        } else {
-            timePicker.setCurrentHour(hours);
-            timePicker.setCurrentMinute(minutes);
-        }
+        timePicker.setHour(hours);
+        timePicker.setMinute(minutes);
     }
 
     @Override
@@ -66,13 +61,8 @@ public class TimePreference extends DialogPreference {
     protected void onDialogClosed(boolean positiveResult) {
         super.onDialogClosed(positiveResult);
         if (positiveResult) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                hours = timePicker.getHour();
-                minutes = timePicker.getMinute();
-            } else {
-                hours = timePicker.getCurrentHour();
-                minutes = timePicker.getCurrentMinute();
-            }
+            hours = timePicker.getHour();
+            minutes = timePicker.getMinute();
             int timeInMinutes = 60 * hours + minutes;
             int timeInMillis = 60000 * timeInMinutes;
             if (callChangeListener(timeInMillis)) {

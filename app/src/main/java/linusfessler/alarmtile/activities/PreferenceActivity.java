@@ -15,11 +15,11 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import linusfessler.alarmtile.constants.BroadcastActions;
+import linusfessler.alarmtile.services.AlarmSchedulerService;
 import linusfessler.alarmtile.utility.Permissions;
 import linusfessler.alarmtile.constants.PreferenceKeys;
 import linusfessler.alarmtile.R;
@@ -32,6 +32,7 @@ public class PreferenceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        startService(new Intent(this, AlarmSchedulerService.class));
         getFragmentManager().beginTransaction().replace(android.R.id.content, new MainFragment()).commit();
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
     }
@@ -116,12 +117,19 @@ public class PreferenceActivity extends AppCompatActivity {
 
             preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-            findPreference(PreferenceKeys.ALARM_DELAY).setOnPreferenceChangeListener(alarmDelayListener);
-            findPreference(PreferenceKeys.SNOOZE_DELAY).setOnPreferenceChangeListener(snoozeDelayListener);
+            findPreference(PreferenceKeys.SLEEP_LENGTH).setOnPreferenceChangeListener(alarmDelayListener);
+            findPreference(PreferenceKeys.SNOOZE_LENGTH).setOnPreferenceChangeListener(snoozeDelayListener);
             findPreference(PreferenceKeys.DND_ENTER).setOnPreferenceChangeListener(dndEnterListener);
             findPreference(PreferenceKeys.VIBRATION_DURATION).setOnPreferenceChangeListener(vibrationDurationListener);
 
-            // only give option to hide launcher icon for devices running Android versions < N
+            // remove flashlight if camera flash not available
+            if (!getActivity().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
+                PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference(PreferenceKeys.SCREEN_MAIN);
+                PreferenceCategory torchCategory = (PreferenceCategory) findPreference(PreferenceKeys.CATEGORY_TORCH);
+                preferenceScreen.removePreference(torchCategory);
+            }
+
+            // only give option to hide launcher icon for devices running Android versions >= N
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                 PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference(PreferenceKeys.SCREEN_MAIN);
                 PreferenceCategory launcherCategory = (PreferenceCategory) findPreference(PreferenceKeys.CATEGORY_LAUNCHER);
@@ -136,8 +144,8 @@ public class PreferenceActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_preference, menu);
         this.menu = menu;
-        boolean alarmSet = preferences.getBoolean("alarm_set", false);
-        boolean snoozeSet = preferences.getBoolean("snooze_set", false);
+        boolean alarmSet = preferences.getBoolean(PreferenceKeys.ALARM_SET, false);
+        boolean snoozeSet = preferences.getBoolean(PreferenceKeys.SNOOZE_SET, false);
         setMenuItemsVisible(alarmSet || snoozeSet);
         return true;
     }
@@ -146,8 +154,8 @@ public class PreferenceActivity extends AppCompatActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
-            boolean alarmSet = preferences.getBoolean("alarm_set", false);
-            boolean snoozeSet = preferences.getBoolean("snooze_set", false);
+            boolean alarmSet = preferences.getBoolean(PreferenceKeys.ALARM_SET, false);
+            boolean snoozeSet = preferences.getBoolean(PreferenceKeys.SNOOZE_SET, false);
             setMenuItemsVisible(alarmSet || snoozeSet);
         }
     }
@@ -172,7 +180,6 @@ public class PreferenceActivity extends AppCompatActivity {
                 startActivity(new Intent(this, AboutActivity.class));
                 return true;
             default:
-                Log.d(getClass().getSimpleName(), "default...");
                 return super.onOptionsItemSelected(item);
         }
     }

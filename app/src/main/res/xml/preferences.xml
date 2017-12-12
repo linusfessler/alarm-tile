@@ -6,13 +6,13 @@
 
         <linusfessler.alarmtile.preferences.TimePreference
             android:defaultValue="28800000"
-            android:key="alarm_delay"
-            android:title="@string/pref_title_alarm_delay" />
+            android:key="sleep_length"
+            android:title="@string/pref_title_sleep_length" />
 
         <linusfessler.alarmtile.preferences.TimePreference
             android:defaultValue="900000"
-            android:key="snooze_delay"
-            android:title="@string/pref_title_snooze_delay" />
+            android:key="snooze_length"
+            android:title="@string/pref_title_snooze_length" />
 
         <RingtonePreference
             android:defaultValue="content://settings/system/alarm_sound"
@@ -74,6 +74,28 @@
             android:dependency="dnd_enter"
             android:title="@string/pref_title_dnd_priority"
             android:summary="@string/pref_summary_dnd_priority" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_category_volume_buttons">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="volume_buttons"
+            android:title="@string/pref_title_volume_buttons"
+            android:summary="@string/pref_summary_volume_buttons" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="category_torch"
+        android:title="@string/pref_category_flashlight">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="flashlight"
+            android:title="@string/pref_title_flashlight"
+            android:summary="@string/pref_summary_flashlight" />
 
     </PreferenceCategory>
 

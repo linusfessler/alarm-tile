@@ -19,7 +19,7 @@ import linusfessler.alarmtile.constants.PreferenceKeys;
 
 public class AlarmService extends Service {
 
-    private static final long[] DEFAULT_VIBRATION_PATTERN = { 500, 500 };
+    public static final long[] DEFAULT_VIBRATION_PATTERN = { 500, 500 };
 
     private Ringtone alarmTone;
     private Vibrator vibrator;
