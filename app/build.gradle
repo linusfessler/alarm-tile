@@ -6,9 +6,9 @@ android {
         applicationId "linusfessler.alarmtile"
         minSdkVersion 23
         targetSdkVersion 27
-        versionName '1.2'
+        versionName '1.2.1'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        versionCode 5
+        versionCode 6
     }
     buildTypes {
         release {
