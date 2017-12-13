@@ -4,59 +4,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".activities.AboutActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingTop="8dp"
         android:text="@string/activity_about_title_contact"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
         android:autoLink="email"
         android:text="@string/activity_about_content_contact" />
 
-    <TextView
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingTop="8dp"
-        android:text="@string/activity_about_title_donate"
-        android:textSize="18sp" />
+        android:layout_height="16dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
+        android:text="@string/activity_about_title_donate"
+        android:textSize="18sp"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:autoLink="web"
         android:text="@string/activity_about_content_donate" />
 
-    <TextView
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingTop="8dp"
-        android:text="@string/activity_about_title_credits"
-        android:textSize="18sp" />
+        android:layout_height="16dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
+        android:text="@string/activity_about_title_credits"
+        android:textSize="18sp"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/activity_about_content_credits" />
 
 </LinearLayout>

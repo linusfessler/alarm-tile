@@ -13,6 +13,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.content.LocalBroadcastManager;
 
 import linusfessler.alarmtile.AlarmScheduler;
+import linusfessler.alarmtile.DoNotDisturb;
 import linusfessler.alarmtile.constants.BroadcastActions;
 import linusfessler.alarmtile.constants.PreferenceKeys;
 
@@ -32,7 +33,8 @@ public class AlarmSchedulerService extends Service {
     private BroadcastReceiver alarmDelayChangedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (preferences.getBoolean(PreferenceKeys.ALARM_SET, false)) {
+            boolean alarmSet = preferences.getBoolean(PreferenceKeys.ALARM_SET, false);
+            if (alarmSet) {
                 int alarmDelay = preferences.getInt(PreferenceKeys.SLEEP_LENGTH, 0);
                 scheduleAlarm(alarmDelay);
             }
@@ -50,7 +52,8 @@ public class AlarmSchedulerService extends Service {
     private BroadcastReceiver snoozeDelayChangedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (preferences.getBoolean(PreferenceKeys.SNOOZE_SET, false)) {
+            boolean snoozeSet = preferences.getBoolean(PreferenceKeys.SNOOZE_SET, false);
+            if (snoozeSet) {
                 int snoozeDelay = preferences.getInt(PreferenceKeys.SNOOZE_LENGTH, 0);
                 scheduleSnooze(snoozeDelay);
             }
@@ -72,6 +75,37 @@ public class AlarmSchedulerService extends Service {
         }
     };
 
+    private BroadcastReceiver dndEnterReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (AlarmScheduler.alarmIsScheduled()) {
+                boolean dndEnter = preferences.getBoolean(PreferenceKeys.DND_ENTER, false);
+                if (dndEnter) {
+                    boolean dndPriority = preferences.getBoolean(PreferenceKeys.DND_PRIORITY, false);
+                    DoNotDisturb.turnOn(context, dndPriority);
+                } else {
+                    boolean dndExit = preferences.getBoolean(PreferenceKeys.DND_EXIT, false);
+                    if (dndExit) {
+                        DoNotDisturb.turnOff(context);
+                    }
+                }
+            }
+        }
+    };
+
+    private BroadcastReceiver dndPriorityReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (AlarmScheduler.alarmIsScheduled()) {
+                boolean dndEnter = preferences.getBoolean(PreferenceKeys.DND_ENTER, false);
+                if (dndEnter) {
+                    boolean dndPriority = preferences.getBoolean(PreferenceKeys.DND_PRIORITY, false);
+                    DoNotDisturb.turnOn(context, dndPriority);
+                }
+            }
+        }
+    };
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -84,6 +118,8 @@ public class AlarmSchedulerService extends Service {
         LocalBroadcastManager.getInstance(this).registerReceiver(snoozeDelayChangedReceiver, new IntentFilter(BroadcastActions.SNOOZE_DELAY_CHANGED));
         LocalBroadcastManager.getInstance(this).registerReceiver(alarmSnoozeReceiver, new IntentFilter(BroadcastActions.ALARM_SNOOZE));
         LocalBroadcastManager.getInstance(this).registerReceiver(alarmDismissReceiver, new IntentFilter(BroadcastActions.ALARM_DISMISS));
+        LocalBroadcastManager.getInstance(this).registerReceiver(dndEnterReceiver, new IntentFilter(BroadcastActions.DND_ENTER_CHANGED));
+        LocalBroadcastManager.getInstance(this).registerReceiver(dndPriorityReceiver, new IntentFilter(BroadcastActions.DND_PRIORITY_CHANGED));
 
         resume();
     }
@@ -95,10 +131,8 @@ public class AlarmSchedulerService extends Service {
     }
 
     public void resume() {
-        boolean alarmSet = preferences.getBoolean(PreferenceKeys.ALARM_SET, false);
-        boolean snoozeSet = preferences.getBoolean(PreferenceKeys.SNOOZE_SET, false);
-
-        if (alarmSet || snoozeSet) {
+        if (AlarmScheduler.alarmIsScheduled()) {
+            boolean alarmSet = preferences.getBoolean(PreferenceKeys.ALARM_SET, false);
             int delayLeft = updateDelayLeftAndTimestamp();
             if (alarmSet) {
                 scheduleAlarm(delayLeft);
@@ -111,10 +145,7 @@ public class AlarmSchedulerService extends Service {
     }
 
     public void save() {
-        boolean alarmSet = preferences.getBoolean(PreferenceKeys.ALARM_SET, false);
-        boolean snoozeSet = preferences.getBoolean(PreferenceKeys.SNOOZE_SET, false);
-
-        if (alarmSet || snoozeSet) {
+        if (AlarmScheduler.alarmIsScheduled()) {
             updateDelayLeftAndTimestamp();
         }
     }
@@ -139,7 +170,7 @@ public class AlarmSchedulerService extends Service {
                 .putLong(PreferenceKeys.TIMESTAMP, System.currentTimeMillis())
                 .apply();
 
-        AlarmScheduler.getInstance(this).schedule(delay);
+        AlarmScheduler.schedule(this, delay);
     }
 
     private void scheduleSnooze(int delay) {
@@ -150,11 +181,11 @@ public class AlarmSchedulerService extends Service {
                 .putLong(PreferenceKeys.TIMESTAMP, System.currentTimeMillis())
                 .apply();
 
-        AlarmScheduler.getInstance(this).schedule(delay);
+        AlarmScheduler.schedule(this, delay);
     }
 
     private void dismiss() {
-        AlarmScheduler.getInstance(this).dismiss();
+        AlarmScheduler.dismiss(this);
     }
 
     @Nullable

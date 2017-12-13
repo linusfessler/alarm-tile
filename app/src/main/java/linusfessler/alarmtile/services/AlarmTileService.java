@@ -77,10 +77,7 @@ public class AlarmTileService extends TileService {
 
     @Override
     public void onStartListening() {
-        boolean alarmSet = preferences.getBoolean(PreferenceKeys.ALARM_SET, false);
-        boolean snoozeSet = preferences.getBoolean(PreferenceKeys.SNOOZE_SET, false);
-
-        if (alarmSet || snoozeSet) {
+        if (AlarmScheduler.alarmIsScheduled()) {
             setTileActive();
         } else {
             setTileInactive();
@@ -100,10 +97,10 @@ public class AlarmTileService extends TileService {
                 setTileActive();
                 preferences.edit().putBoolean(PreferenceKeys.ALARM_SET, true).apply();
                 int sleepLength = preferences.getInt(PreferenceKeys.SLEEP_LENGTH, 0);
-                AlarmScheduler.getInstance(this).schedule(sleepLength);
+                AlarmScheduler.schedule(this, sleepLength);
             } else {
                 setTileInactive();
-                AlarmScheduler.getInstance(this).dismiss();
+                AlarmScheduler.dismiss(this);
             }
         }
     }

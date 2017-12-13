@@ -24,7 +24,7 @@ import linusfessler.alarmtile.utility.Permissions;
 import linusfessler.alarmtile.constants.PreferenceKeys;
 import linusfessler.alarmtile.R;
 
-public class PreferenceActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences preferences;
     private Menu menu;
@@ -63,22 +63,26 @@ public class PreferenceActivity extends AppCompatActivity {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
                 boolean value = (boolean) o;
+                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(new Intent(BroadcastActions.DND_ENTER_CHANGED));
                 if (value) {
-                    if (!Permissions.isNotificationPolicyAccessGranted(getActivity())) {
-                        new AlertDialog.Builder(getActivity())
-                                .setTitle(getString(R.string.dialog_dnd_title))
-                                .setMessage(getString(R.string.dialog_dnd_message))
-                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
-                                        getActivity().startActivity(intent);
-                                    }
-                                })
-                                .create()
-                                .show();
+                    if (!checkNotificationPolicyAccess()) {
                         return false;
                     }
+                }
+                return true;
+            }
+        };
+
+        private Preference.OnPreferenceChangeListener dndPriorityListener = new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object o) {
+                boolean value = (boolean) o;
+                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(new Intent(BroadcastActions.DND_PRIORITY_CHANGED));
+                if (value) {
+                    if (!checkNotificationPolicyAccess()) {
+                        return false;
+                    }
+
                 }
                 return true;
             }
@@ -102,9 +106,6 @@ public class PreferenceActivity extends AppCompatActivity {
                         enabled ? PackageManager.COMPONENT_ENABLED_STATE_DISABLED : PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                         PackageManager.DONT_KILL_APP
                 );
-                if (enabled) {
-                    startActivity(new Intent(getActivity(), PreferenceActivity.class));
-                }
                 return true;
             }
         };
@@ -120,13 +121,14 @@ public class PreferenceActivity extends AppCompatActivity {
             findPreference(PreferenceKeys.SLEEP_LENGTH).setOnPreferenceChangeListener(alarmDelayListener);
             findPreference(PreferenceKeys.SNOOZE_LENGTH).setOnPreferenceChangeListener(snoozeDelayListener);
             findPreference(PreferenceKeys.DND_ENTER).setOnPreferenceChangeListener(dndEnterListener);
+            findPreference(PreferenceKeys.DND_PRIORITY).setOnPreferenceChangeListener(dndPriorityListener);
             findPreference(PreferenceKeys.VIBRATION_DURATION).setOnPreferenceChangeListener(vibrationDurationListener);
 
             // remove flashlight if camera flash not available
             if (!getActivity().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
                 PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference(PreferenceKeys.SCREEN_MAIN);
-                PreferenceCategory torchCategory = (PreferenceCategory) findPreference(PreferenceKeys.CATEGORY_TORCH);
-                preferenceScreen.removePreference(torchCategory);
+                PreferenceCategory flashlightCategory = (PreferenceCategory) findPreference(PreferenceKeys.CATEGORY_FLASHLIGHT);
+                preferenceScreen.removePreference(flashlightCategory);
             }
 
             // only give option to hide launcher icon for devices running Android versions >= N
@@ -138,11 +140,30 @@ public class PreferenceActivity extends AppCompatActivity {
                 findPreference(PreferenceKeys.HIDE_LAUNCHER_ICON).setOnPreferenceChangeListener(hideLauncherIconListener);
             }
         }
+
+        private boolean checkNotificationPolicyAccess() {
+            if (!Permissions.isNotificationPolicyAccessGranted(getActivity())) {
+                new AlertDialog.Builder(getActivity())
+                        .setTitle(getString(R.string.dialog_dnd_title))
+                        .setMessage(getString(R.string.dialog_dnd_message))
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                                getActivity().startActivity(intent);
+                            }
+                        })
+                        .create()
+                        .show();
+                return false;
+            }
+            return true;
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_preference, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         this.menu = menu;
         boolean alarmSet = preferences.getBoolean(PreferenceKeys.ALARM_SET, false);
         boolean snoozeSet = preferences.getBoolean(PreferenceKeys.SNOOZE_SET, false);

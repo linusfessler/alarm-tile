@@ -48,7 +48,7 @@
     <string name="pref_summary_dnd_priority">Don\'t suppress priority notifications</string>
 
     <string name="pref_category_volume_buttons">Volume buttons</string>
-    <string name="pref_title_volume_buttons">Use volume buttons to snooze/dismiss</string>
+    <string name="pref_title_volume_buttons">Volume buttons to snooze/dismiss</string>
     <string name="pref_summary_volume_buttons">Volume up to snooze, volume down to dismiss</string>
 
     <string name="pref_category_flashlight">Flashlight</string>

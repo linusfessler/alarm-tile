@@ -14,7 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".activities.LauncherActivity">
+        <activity android:name=".activities.LauncherActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoDisplay"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.PreferenceActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleInstance">
             <intent-filter>

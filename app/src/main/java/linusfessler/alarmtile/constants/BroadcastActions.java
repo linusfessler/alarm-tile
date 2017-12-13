@@ -9,6 +9,8 @@ public class BroadcastActions {
     public static final String ALARM_START = "alarm_start";
     public static final String ALARM_SNOOZE = "alarm_snooze";
     public static final String ALARM_DISMISS = "alarm_dismiss";
+    public static final String DND_ENTER_CHANGED = "dnd_enter_changed";
+    public static final String DND_PRIORITY_CHANGED = "dnd_priority_changed";
 
     private BroadcastActions() {}
 }

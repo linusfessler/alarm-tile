@@ -4,7 +4,7 @@ public class PreferenceKeys {
 
     public static final String SCREEN_MAIN = "screen_main";
 
-    public static final String CATEGORY_TORCH = "category_torch";
+    public static final String CATEGORY_FLASHLIGHT = "category_flashlight";
     public static final String CATEGORY_LAUNCHER = "category_launcher";
 
     public static final String ALARM_SET = "alarm_set";
