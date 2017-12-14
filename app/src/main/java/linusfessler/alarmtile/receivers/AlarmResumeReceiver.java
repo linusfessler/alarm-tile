@@ -6,20 +6,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
-import linusfessler.alarmtile.services.AlarmSchedulerService;
+import linusfessler.alarmtile.AlarmScheduler;
 
-public class AlarmResumingActionsReceiver extends BroadcastReceiver {
+public class AlarmResumeReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
         if (Intent.ACTION_BOOT_COMPLETED.equalsIgnoreCase(intent.getAction())
                 || Intent.ACTION_MY_PACKAGE_REPLACED.equalsIgnoreCase(intent.getAction())) {
-            context.startService(new Intent(context, AlarmSchedulerService.class));
+            AlarmScheduler.resume(context);
         }
     }
 
     public static void enable(Context context) {
-        ComponentName receiver = new ComponentName(context, AlarmResumingActionsReceiver.class);
+        ComponentName receiver = new ComponentName(context, AlarmResumeReceiver.class);
         PackageManager packageManager = context.getPackageManager();
 
         packageManager.setComponentEnabledSetting(receiver,
@@ -28,7 +28,7 @@ public class AlarmResumingActionsReceiver extends BroadcastReceiver {
     }
 
     public static void disable(Context context) {
-        ComponentName receiver = new ComponentName(context, AlarmResumingActionsReceiver.class);
+        ComponentName receiver = new ComponentName(context, AlarmResumeReceiver.class);
         PackageManager packageManager = context.getPackageManager();
 
         packageManager.setComponentEnabledSetting(receiver,

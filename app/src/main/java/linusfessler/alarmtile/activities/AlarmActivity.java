@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -18,8 +19,8 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.concurrent.Executors;
 
+import linusfessler.alarmtile.AlarmScheduler;
 import linusfessler.alarmtile.Flashlight;
-import linusfessler.alarmtile.constants.PreferenceKeys;
 import linusfessler.alarmtile.services.AlarmService;
 import linusfessler.alarmtile.constants.BroadcastActions;
 import linusfessler.alarmtile.R;
@@ -36,9 +37,10 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
     private boolean useFlashlight;
     private Flashlight flashlight;
 
+    private boolean finished = false;
+
     private boolean firstTouch = true;
     private boolean isTrackingTouch;
-    private boolean finished = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,20 +67,20 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
 
         rippleDrawable = (findViewById(R.id.ripple)).getBackground();
 
-        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BroadcastActions.ALARM_START));
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BroadcastActions.ALARM_STARTED));
         startService(new Intent(this, AlarmService.class));
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        volumeButtons = preferences.getBoolean(PreferenceKeys.VOLUME_BUTTONS, false);
-        useFlashlight = preferences.getBoolean(PreferenceKeys.FLASHLIGHT, false);
+        volumeButtons = preferences.getBoolean(getString(R.string.key_volume_buttons), false);
+        useFlashlight = preferences.getBoolean(getString(R.string.key_flashlight), false);
         if (useFlashlight) {
             flashlight = new Flashlight(this);
             flashlight.turnOn();
         }
 
-        final long vibrationPause = Long.parseLong(preferences.getString(PreferenceKeys.PAUSE_DURATION, String.valueOf(AlarmService.DEFAULT_VIBRATION_PATTERN[0])));
-        final long vibrationDuration = Long.parseLong(preferences.getString(PreferenceKeys.VIBRATION_DURATION, String.valueOf(AlarmService.DEFAULT_VIBRATION_PATTERN[1])));
+        final long vibrationPause = Long.parseLong(preferences.getString(getString(R.string.key_pause_duration), String.valueOf(AlarmService.DEFAULT_VIBRATION_PATTERN[0])));
+        final long vibrationDuration = Long.parseLong(preferences.getString(getString(R.string.key_vibration_duration), String.valueOf(AlarmService.DEFAULT_VIBRATION_PATTERN[1])));
 
         Executors.newFixedThreadPool(1).submit(new Runnable() {
             @Override
@@ -89,16 +91,23 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                    if (finished) {
+                        return;
+                    }
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             rippleDrawable.setState(new int[] { android.R.attr.state_pressed, android.R.attr.state_enabled });
                         }
                     });
+
                     try {
                         Thread.sleep(vibrationDuration);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
+                    }
+                    if (finished) {
+                        return;
                     }
                     runOnUiThread(new Runnable() {
                         @Override
@@ -116,7 +125,7 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
             flashlight.turnOff();
         }
         finished = true;
-        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BroadcastActions.ALARM_SNOOZE));
+        AlarmScheduler.scheduleSnooze(this);
         stopService(new Intent(this, AlarmService.class));
         finishAndRemoveTask();
     }
@@ -126,7 +135,7 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
             flashlight.turnOff();
         }
         finished = true;
-        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BroadcastActions.ALARM_DISMISS));
+        AlarmScheduler.dismiss(this);
         stopService(new Intent(this, AlarmService.class));
         finishAndRemoveTask();
     }
@@ -137,6 +146,25 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (!volumeButtons || event.getAction() != KeyEvent.ACTION_DOWN) {
+            return super.dispatchKeyEvent(event);
+        }
+
+        int keyCode = event.getKeyCode();
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_VOLUME_UP:
+                snooze();
+                return true;
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                dismiss();
+                return true;
+            default:
+                return super.dispatchKeyEvent(event);
+        }
     }
 
     @Override
@@ -213,25 +241,6 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
             snooze();
         } else {
             seekBar.setProgress(50);
-        }
-    }
-
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        if (!volumeButtons) {
-            return super.dispatchKeyEvent(event);
-        }
-
-        int keyCode = event.getKeyCode();
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_VOLUME_UP:
-                snooze();
-                return true;
-            case KeyEvent.KEYCODE_VOLUME_DOWN:
-                dismiss();
-                return true;
-            default:
-                return super.dispatchKeyEvent(event);
         }
     }
 }

@@ -7,19 +7,19 @@
         <linusfessler.alarmtile.preferences.TimePreference
             android:icon="@drawable/ic_preference_sleep_length"
             android:defaultValue="28800000"
-            android:key="sleep_length"
+            android:key="@string/key_timer_duration"
             android:title="@string/pref_title_sleep_length" />
 
         <linusfessler.alarmtile.preferences.TimePreference
             android:icon="@drawable/ic_preference_snooze_length"
             android:defaultValue="900000"
-            android:key="snooze_length"
+            android:key="@string/key_snooze_duration"
             android:title="@string/pref_title_snooze_length" />
 
         <RingtonePreference
             android:icon="@drawable/ic_preference_alarm_sound"
             android:defaultValue="content://settings/system/alarm_sound"
-            android:key="alarm_sound"
+            android:key="@string/key_alarm_sound"
             android:ringtoneType="alarm"
             android:title="@string/pref_title_alarm_sound"
             android:showSilent="true" />
@@ -31,7 +31,7 @@
         <SwitchPreference
             android:icon="@drawable/ic_preference_vibrate"
             android:defaultValue="true"
-            android:key="vibrate"
+            android:key="@string/key_vibrate"
             android:title="@string/pref_title_vibrate"
             android:summary="@string/pref_summary_vibrate" />
 
@@ -44,7 +44,7 @@
         <linusfessler.alarmtile.preferences.MilliSecondsPreference
             android:icon="@drawable/ic_preference_vibration_duration"
             android:defaultValue="500"
-            android:key="vibration_duration"
+            android:key="@string/key_vibration_duration"
             android:title="@string/pref_title_vibration_duration"
             android:numeric="integer"
             android:maxLength="10" />
@@ -52,7 +52,7 @@
         <linusfessler.alarmtile.preferences.MilliSecondsPreference
             android:icon="@drawable/ic_preference_pause_duration"
             android:defaultValue="500"
-            android:key="pause_duration"
+            android:key="@string/key_pause_duration"
             android:title="@string/pref_title_vibration_pause"
             android:numeric="integer"
             android:maxLength="10" />
@@ -64,14 +64,14 @@
         <SwitchPreference
             android:icon="@drawable/ic_preference_dnd_on"
             android:defaultValue="false"
-            android:key="dnd_enter"
+            android:key="@string/key_dnd_enter"
             android:title="@string/pref_title_dnd_enter"
             android:summary="@string/pref_summary_dnd_enter" />
 
         <SwitchPreference
             android:icon="@drawable/ic_preference_dnd_off"
             android:defaultValue="true"
-            android:key="dnd_exit"
+            android:key="@string/key_dnd_exit"
             android:dependency="dnd_enter"
             android:title="@string/pref_title_dnd_exit"
             android:summary="@string/pref_summary_dnd_exit" />
@@ -79,7 +79,7 @@
         <SwitchPreference
             android:icon="@drawable/ic_preference_dnd_priority"
             android:defaultValue="false"
-            android:key="dnd_priority"
+            android:key="@string/key_dnd_priority"
             android:dependency="dnd_enter"
             android:title="@string/pref_title_dnd_priority"
             android:summary="@string/pref_summary_dnd_priority" />
@@ -91,33 +91,33 @@
         <SwitchPreference
             android:icon="@drawable/ic_preference_volume_buttons"
             android:defaultValue="false"
-            android:key="volume_buttons"
+            android:key="@string/key_volume_buttons"
             android:title="@string/pref_title_volume_buttons"
             android:summary="@string/pref_summary_volume_buttons" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="category_flashlight"
+        android:key="@string/key_category_flashlight"
         android:title="@string/pref_category_flashlight">
 
         <SwitchPreference
             android:icon="@drawable/ic_preference_flashlight"
             android:defaultValue="false"
-            android:key="flashlight"
+            android:key="@string/key_flashlight"
             android:title="@string/pref_title_flashlight"
             android:summary="@string/pref_summary_flashlight" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="category_launcher"
+        android:key="@string/key_category_launcher"
         android:title="@string/pref_category_launcher">
 
         <SwitchPreference
             android:icon="@drawable/ic_preference_hide_launcher_icon"
             android:defaultValue="false"
-            android:key="hide_launcher_icon"
+            android:key="@string/key_hide_launcher_icon"
             android:title="@string/pref_title_launcher_hide_icon"
             android:summary="@string/pref_summary_launcher_hide_icon" />
 

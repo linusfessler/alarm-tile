@@ -58,4 +58,27 @@
     <string name="pref_category_launcher">Launcher</string>
     <string name="pref_title_launcher_hide_icon">Hide launcher icon</string>
     <string name="pref_summary_launcher_hide_icon">Note: you will only be able to open the settings by long pressing the tile</string>
+
+    <string name="key_screen_main">screen_main</string>
+
+    <string name="key_category_flashlight">category_flashlight</string>
+    <string name="key_category_launcher">category_launcher</string>
+
+    <string name="key_timer_set">timer_set</string>
+    <string name="key_timer_duration">timer_duration</string>
+    <string name="key_snooze_set">snooze_set</string>
+    <string name="key_snooze_duration">snooze_duration</string>
+    <string name="key_alarm_sound">alarm_sound</string>
+    <string name="key_vibrate">vibrate</string>
+    <string name="key_vibration_duration">vibration_duration</string>
+    <string name="key_pause_duration">pause_duration</string>
+    <string name="key_dnd_enter">dnd_enter</string>
+    <string name="key_dnd_exit">dnd_exit</string>
+    <string name="key_dnd_priority">dnd_priority</string>
+    <string name="key_volume_buttons">volume_buttons</string>
+    <string name="key_flashlight">flashlight</string>
+    <string name="key_hide_launcher_icon">hide_launcher_icon</string>
+
+    <string name="key_duration_left">duration_left</string>
+    <string name="key_timestamp">timestamp</string>
 </resources>

@@ -15,7 +15,7 @@ import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 
-import linusfessler.alarmtile.constants.PreferenceKeys;
+import linusfessler.alarmtile.R;
 
 public class AlarmService extends Service {
 
@@ -30,7 +30,7 @@ public class AlarmService extends Service {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        String uriPath = preferences.getString(PreferenceKeys.ALARM_SOUND, "");
+        String uriPath = preferences.getString(getString(R.string.key_alarm_sound), "");
         if (!uriPath.equals("")) {
             Uri uri = Uri.parse(uriPath);
             alarmTone = RingtoneManager.getRingtone(this, uri);
@@ -38,12 +38,12 @@ public class AlarmService extends Service {
             alarmTone.play();
         }
 
-        boolean vibrate = preferences.getBoolean(PreferenceKeys.VIBRATE, true);
+        boolean vibrate = preferences.getBoolean(getString(R.string.key_vibrate), true);
         if (vibrate) {
             vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             if (vibrator != null) {
-                long vibrationPause = Long.parseLong(preferences.getString(PreferenceKeys.PAUSE_DURATION, String.valueOf(DEFAULT_VIBRATION_PATTERN[0])));
-                long vibrationDuration = Long.parseLong(preferences.getString(PreferenceKeys.VIBRATION_DURATION, String.valueOf(DEFAULT_VIBRATION_PATTERN[1])));
+                long vibrationPause = Long.parseLong(preferences.getString(getString(R.string.key_pause_duration), String.valueOf(DEFAULT_VIBRATION_PATTERN[0])));
+                long vibrationDuration = Long.parseLong(preferences.getString(getString(R.string.key_vibration_duration), String.valueOf(DEFAULT_VIBRATION_PATTERN[1])));
                 long[] vibrationPattern = new long[]{ vibrationPause, vibrationDuration };
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     vibrator.vibrate(VibrationEffect.createWaveform(vibrationPattern, 0));

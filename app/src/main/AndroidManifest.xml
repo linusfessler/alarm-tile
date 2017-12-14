@@ -36,6 +36,7 @@
         <activity
             android:name=".activities.AlarmActivity"
             android:label="@string/title_activity_alarm"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:showOnLockScreen="true"
             android:theme="@style/AlarmTheme" />
@@ -49,10 +50,9 @@
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
         </service>
-        <service android:name=".services.AlarmSchedulerService" />
         <service android:name=".services.AlarmService" />
 
-        <receiver android:name=".receivers.AlarmResumingActionsReceiver"
+        <receiver android:name=".receivers.AlarmResumeReceiver"
             android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
