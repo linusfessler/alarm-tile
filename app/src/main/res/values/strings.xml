@@ -1,10 +1,12 @@
 <resources>
-    <string name="app_name">Alarm Tile</string>
-    <string name="tile_label">Alarm</string>
-    <string name="title_activity_alarm">Alarm</string>
+    <string name="app_name">Alarm Tiles</string>
+    <string name="alarm">Alarm</string>
+    <string name="timer">Timer</string>
+    <string name="snooze">Snooze</string>
 
-    <string name="menu_title_about">About</string>
-
+    <string name="activity_main_title">Alarm Tiles</string>
+    <string name="activity_settings_title">Settings</string>
+    <string name="activity_alarm_title">Alarm</string>
     <string name="activity_about_title">About</string>
     <string name="activity_about_title_contact">Contact</string>
     <string name="activity_about_content_contact">Please send me any feedback, ideas, feature requests and bugs via email (linusfessler@gmail.com) or write a review on the Google Play Store.</string>
@@ -13,72 +15,93 @@
     <string name="activity_about_title_credits">Credits</string>
     <string name="activity_about_content_credits">Material Icons: Copyright 2017 Google Inc.</string>
 
-    <string name="alarm">Alarm</string>
-    <string name="snooze">Snooze</string>
-    <string name="dismiss">Dismiss</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_about">About</string>
 
     <string name="dialog_dnd_title">Permission needed</string>
-    <string name="dialog_dnd_message">This option requires permission to change the Do Not Disturb mode. Please enable the permission on the following screen and then press the back button.</string>
+    <string name="dialog_dnd_message">This option requires permission to change the do not disturb mode. Please enable the permission on the following screen and then press the back button.</string>
 
-    <string name="pref_category_control">Control</string>
-    <string name="pref_title_alarm_set">Turn alarm on</string>
-    <string name="pref_summary_alarm_set">Same as clicking the tile</string>
-    <string name="pref_title_snooze_set">Turn snooze on</string>
-    <string name="pref_summary_snooze_set">Skip the alarm and immediately snooze</string>
+    <string name="notification_missed_alarm_title">Missed Alarm</string>
+    <string name="notification_turn_music_off_title">Turning off music</string>
+    <string name="notification_turn_music_off_content">Tap to cancel</string>
 
-    <string name="pref_category_alarm">Alarm</string>
-    <string name="pref_title_sleep_length">Sleep length</string>
-    <string name="pref_title_alarm_sound">Alarm sound</string>
-    <string name="pref_title_snooze_length">Snooze length</string>
+    <string name="pref_key_alarm_scheduled">alarm_scheduled</string>
+    <string name="pref_key_timer_scheduled">timer_scheduled</string>
+    <string name="pref_key_snooze_scheduled">snooze_scheduled</string>
 
-    <string name="pref_category_vibrate">Vibrate</string>
-    <string name="pref_title_vibrate">Vibrate</string>
-    <string name="pref_summary_vibrate">When alarm goes off</string>
+    <string name="pref_alarm_time_key">alarm_time</string>
+    <string name="pref_timer_duration_key">timer_duration</string>
+    <string name="pref_snooze_duration_key">snooze_duration</string>
 
-    <string name="pref_category_vibration_pattern">Vibration pattern</string>
-    <string name="pref_title_vibration_duration">Vibration duration</string>
-    <string name="pref_title_vibration_pause">Pause duration</string>
+    <string name="pref_screen_settings_key">screen_settings</string>
+    <string name="pref_screen_settings_title">Settings</string>
 
-    <string name="pref_category_dnd">Do not disturb</string>
-    <string name="pref_title_dnd_enter">Enter do not disturb mode</string>
-    <string name="pref_summary_dnd_enter">When alarm is set</string>
-    <string name="pref_title_dnd_exit">Exit do not disturb mode</string>
-    <string name="pref_summary_dnd_exit">When alarm is dismissed</string>
-    <string name="pref_title_dnd_priority">Priority notifications</string>
-    <string name="pref_summary_dnd_priority">Don\'t suppress priority notifications</string>
+    <string name="pref_category_alarm_sound_key">category_alarm_sound</string>
+    <string name="pref_category_alarm_sound_title">Alarm sound</string>
+    <string name="pref_alarm_sound_key">alarm_sound</string>
+    <string name="pref_alarm_sound_title">Alarm sound</string>
 
-    <string name="pref_category_volume_buttons">Volume buttons</string>
-    <string name="pref_title_volume_buttons">Volume buttons to snooze/dismiss</string>
-    <string name="pref_summary_volume_buttons">Volume up to snooze, volume down to dismiss</string>
+    <string name="pref_category_format_key">format</string>
+    <string name="pref_category_format_title">Format</string>
+    <string name="pref_use_24h_format_key">use_24h_format</string>
+    <string name="pref_use_24h_format_title">Use 24h format</string>
 
-    <string name="pref_category_flashlight">Flashlight</string>
-    <string name="pref_title_flashlight">Turn on flashlight</string>
-    <string name="pref_summary_flashlight">When alarm goes off</string>
+    <string name="pref_category_vibrate_key">category_vibrate</string>
+    <string name="pref_category_vibrate_title">Vibrate</string>
+    <string name="pref_vibrate_key">vibrate</string>
+    <string name="pref_vibrate_title">Vibrate</string>
+    <string name="pref_vibrate_summary">When alarm goes off</string>
 
-    <string name="pref_category_launcher">Launcher</string>
-    <string name="pref_title_launcher_hide_icon">Hide launcher icon</string>
-    <string name="pref_summary_launcher_hide_icon">Note: you will only be able to open the settings by long pressing the tile</string>
+    <string name="pref_category_vibration_pattern_title">Vibration pattern</string>
+    <string name="pref_vibration_duration_key">vibration_duration</string>
+    <string name="pref_vibration_duration_title">Vibration duration</string>
+    <string name="pref_pause_duration_key">pause_duration</string>
+    <string name="pref_pause_duration_title">Pause duration</string>
 
-    <string name="key_screen_main">screen_main</string>
+    <string name="pref_category_dnd_key">category_dnd</string>
+    <string name="pref_category_dnd_title">Do not disturb</string>
+    <string name="pref_dnd_enter_key">dnd_enter</string>
+    <string name="pref_dnd_enter_title">Enter do not disturb mode</string>
+    <string name="pref_dnd_enter_summary">When alarm is set</string>
+    <string name="pref_dnd_exit_key">dnd_exit</string>
+    <string name="pref_dnd_exit_title">Exit do not disturb mode</string>
+    <string name="pref_dnd_exit_summary">When alarm is dismissed</string>
+    <string name="pref_dnd_priority_key">dnd_priority</string>
+    <string name="pref_dnd_priority_title">Priority notifications</string>
+    <string name="pref_dnd_priority_summary">Don\'t suppress priority notifications</string>
 
-    <string name="key_category_flashlight">category_flashlight</string>
-    <string name="key_category_launcher">category_launcher</string>
+    <string name="pref_category_music_key">category_music</string>
+    <string name="pref_category_music_title">Music</string>
+    <string name="pref_turn_music_off_key">turn_music_off</string>
+    <string name="pref_turn_music_off_title">Turn music off</string>
+    <string name="pref_turn_music_off_summary">When alarm is set</string>
+    <string name="pref_turn_music_off_delay_key">turn_music_off_delay</string>
+    <string name="pref_turn_music_off_delay_title">Delay</string>
+    <string name="pref_show_music_notification_key">show_music_notification</string>
+    <string name="pref_show_music_notification_title">Enable notification</string>
+    <string name="pref_show_music_notification_summary">That shows when music is going to stop</string>
+    <string name="pref_fade_music_out_key">fade_music_out</string>
+    <string name="pref_fade_music_out_title">Fade music out</string>
+    <string name="pref_fade_music_out_summary">Gradually decrease volume</string>
+    <string name="pref_restore_volume_key">restore_volume</string>
+    <string name="pref_restore_volume_title">Restore volume</string>
+    <string name="pref_restore_volume_summary">After playback has stopped</string>
 
-    <string name="key_timer_set">timer_set</string>
-    <string name="key_timer_duration">timer_duration</string>
-    <string name="key_snooze_set">snooze_set</string>
-    <string name="key_snooze_duration">snooze_duration</string>
-    <string name="key_alarm_sound">alarm_sound</string>
-    <string name="key_vibrate">vibrate</string>
-    <string name="key_vibration_duration">vibration_duration</string>
-    <string name="key_pause_duration">pause_duration</string>
-    <string name="key_dnd_enter">dnd_enter</string>
-    <string name="key_dnd_exit">dnd_exit</string>
-    <string name="key_dnd_priority">dnd_priority</string>
-    <string name="key_volume_buttons">volume_buttons</string>
-    <string name="key_flashlight">flashlight</string>
-    <string name="key_hide_launcher_icon">hide_launcher_icon</string>
+    <string name="pref_category_volume_buttons_key">category_volume_buttons</string>
+    <string name="pref_category_volume_buttons_title">Volume buttons</string>
+    <string name="pref_volume_buttons_key">volume_buttons</string>
+    <string name="pref_volume_buttons_title">Volume buttons to snooze/dismiss</string>
+    <string name="pref_volume_buttons_summary">Volume up to snooze, volume down to dismiss</string>
 
-    <string name="key_duration_left">duration_left</string>
-    <string name="key_timestamp">timestamp</string>
+    <string name="pref_category_flashlight_key">category_flashlight</string>
+    <string name="pref_category_flashlight_title">Flashlight</string>
+    <string name="pref_flashlight_key">flashlight</string>
+    <string name="pref_flashlight_title">Turn on flashlight</string>
+    <string name="pref_flashlight_summary">When alarm goes off</string>
+
+    <string name="pref_category_launcher_key">category_launcher</string>
+    <string name="pref_category_launcher_title">Launcher</string>
+    <string name="pref_hide_launcher_icon_key">hide_launcher_icon</string>
+    <string name="pref_hide_launcher_icon_title">Hide launcher icon</string>
+    <string name="pref_hide_launcher_icon_summary">Note: you will only be able to open this app by long pressing a tile</string>
 </resources>

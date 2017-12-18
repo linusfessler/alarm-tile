@@ -12,45 +12,48 @@
         android:layout_height="wrap_content"
         android:text="@string/activity_about_title_contact"
         android:textSize="18sp"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autoLink="email"
-        android:text="@string/activity_about_content_contact" />
+        android:text="@string/activity_about_content_contact"
+        android:textSize="16sp"/>
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="16dp" />
+        android:layout_height="16dp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/activity_about_title_donate"
         android:textSize="18sp"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autoLink="web"
-        android:text="@string/activity_about_content_donate" />
+        android:text="@string/activity_about_content_donate"
+        android:textSize="16sp"/>
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="16dp" />
+        android:layout_height="16dp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/activity_about_title_credits"
         android:textSize="18sp"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/activity_about_content_credits" />
+        android:text="@string/activity_about_content_credits"
+        android:textSize="16sp"/>
 
 </LinearLayout>

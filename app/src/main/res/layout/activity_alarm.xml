@@ -22,7 +22,7 @@
         android:id="@+id/alarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/alarm"
+        android:text="@string/activity_alarm_title"
         android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -59,8 +59,8 @@
             android:layout_above="@id/image_alarm"
             android:layout_marginBottom="50dp"
             android:layout_centerHorizontal="true"
-            android:contentDescription="@string/snooze"
             android:src="@drawable/ic_snooze"
+            android:scaleType="center"
             android:background="@drawable/circle"
             android:backgroundTint="@color/colorAccent" />
 
@@ -69,8 +69,8 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_centerInParent="true"
-            android:contentDescription="@string/alarm"
             android:src="@drawable/ic_alarm"
+            android:scaleType="center"
             android:background="@drawable/circle"
             android:backgroundTint="@color/colorAccent" />
 
@@ -88,8 +88,8 @@
             android:layout_below="@id/image_alarm"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:contentDescription="@string/dismiss"
             android:src="@drawable/ic_dismiss"
+            android:scaleType="center"
             android:background="@drawable/circle"
             android:backgroundTint="@color/colorAccent" />
 
