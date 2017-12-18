@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.schedulers.AlarmSchedulers;
@@ -26,17 +27,18 @@ public class MusicSchedulerService extends JobService implements AudioManager.On
     private static final int CANCEL_REQUEST_CODE = 1003;
     private static final String CANCEL_INTENT_EXTRA_KEY = "cancel";
 
-    private static int originalVolume = 0;
+    private static int originalVolume = -1;
 
     public static void scheduleTurnMusicOff(Context context) {
         JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        Log.d("asdf", "0");
         if (jobScheduler == null) {
             return;
         }
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
-        boolean showNotification = preferences.getBoolean(context.getString(R.string.pref_show_music_notification_key), true);
+        boolean showNotification = preferences.getBoolean(context.getString(R.string.pref_show_music_notification_key), false);
         if (showNotification) {
             showNotification(context);
         }
@@ -48,9 +50,11 @@ public class MusicSchedulerService extends JobService implements AudioManager.On
                 .build();
         jobScheduler.schedule(jobInfo);
 
+        Log.d("asdf", "1");
         AudioManager audioManager = (AudioManager) context.getSystemService(AUDIO_SERVICE);
         if (audioManager != null) {
             originalVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+            Log.d("asdf", "2");
         }
     }
 
@@ -115,10 +119,11 @@ public class MusicSchedulerService extends JobService implements AudioManager.On
         }
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        if (preferences.getBoolean(context.getString(R.string.pref_restore_volume_key), true)) {
+        if (preferences.getBoolean(context.getString(R.string.pref_restore_volume_key), false)) {
             AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-            if (audioManager != null) {
+            if (audioManager != null && originalVolume != -1) {
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, originalVolume, 0);
+                originalVolume = -1;
             }
         }
     }

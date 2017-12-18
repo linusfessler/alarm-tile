@@ -48,7 +48,7 @@ public abstract class SchedulerFragment extends Fragment {
     protected void onFabClick() {
         boolean isEnabled = preferences.getBoolean(context.getString(getPreferenceKeyId()), false);
         isEnabled = !isEnabled;
-        preferences.edit().putBoolean(context.getString(getPreferenceKeyId()), isEnabled).apply();
+        preferences.edit().putBoolean(context.getString(getPreferenceKeyId()), isEnabled).commit();
         updateFab(isEnabled);
         if (isEnabled) {
             getScheduler().schedule(context);

@@ -36,7 +36,7 @@ public abstract class AnalogTimePicker extends TimePicker implements
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         if (isClock()) {
-            boolean use24hFormat = preferences.getBoolean(context.getString(R.string.pref_use_24h_format_key), true);
+            boolean use24hFormat = preferences.getBoolean(context.getString(R.string.pref_use_24h_format_key), false);
             setIs24HourView(use24hFormat);
         } else {
             setIs24HourView(true);
@@ -46,7 +46,6 @@ public abstract class AnalogTimePicker extends TimePicker implements
         int minutes = milliseconds / 60000;
         setHour(minutes / 60);
         setMinute(minutes % 60);
-        Log.d(getClass().getSimpleName(), "asldkfjaöslkefjöalskdjf");
     }
 
     @Override
@@ -57,7 +56,7 @@ public abstract class AnalogTimePicker extends TimePicker implements
         }
 
         if (isClock()) {
-            boolean use24hFormat = preferences.getBoolean(getContext().getString(R.string.pref_use_24h_format_key), true);
+            boolean use24hFormat = preferences.getBoolean(getContext().getString(R.string.pref_use_24h_format_key), false);
             if (!use24hFormat) {
                 hours = hours % 12;
             }

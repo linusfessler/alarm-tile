@@ -171,7 +171,7 @@ public abstract class Scheduler {
         preferences.edit()
                 .putInt(getDurationLeftKey(), durationLeft)
                 .putLong(getTimestampKey(), now)
-                .apply();
+                .commit();
     }
 
     public int getDurationLeft(Context context) {

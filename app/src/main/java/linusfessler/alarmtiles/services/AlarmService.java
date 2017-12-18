@@ -38,7 +38,7 @@ public class AlarmService extends Service {
             alarmTone.play();
         }
 
-        boolean vibrate = preferences.getBoolean(getString(R.string.pref_vibrate_key), true);
+        boolean vibrate = preferences.getBoolean(getString(R.string.pref_vibrate_key), false);
         if (vibrate) {
             vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             if (vibrator != null) {
