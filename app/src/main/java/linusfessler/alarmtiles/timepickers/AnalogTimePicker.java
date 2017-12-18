@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -43,8 +44,9 @@ public abstract class AnalogTimePicker extends TimePicker implements
 
         int milliseconds = preferences.getInt(context.getString(getPreferenceKeyId()), 0);
         int minutes = milliseconds / 60000;
-        setHour(milliseconds / 60);
+        setHour(minutes / 60);
         setMinute(minutes % 60);
+        Log.d(getClass().getSimpleName(), "asldkfjaöslkefjöalskdjf");
     }
 
     @Override

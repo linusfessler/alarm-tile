@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout) {
             @Override
             public void onPageScrollStateChanged(int state) {
+                super.onPageScrollStateChanged(state);
                 switch (state){
                     case ViewPager.SCROLL_STATE_DRAGGING:
                         fab.hide();
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
             @Override
             public void onPageSelected(int position) {
+                super.onPageSelected(position);
                 SchedulerFragment fragment = pagerAdapter.getFragment(position);
                 if (fragment != null) {
                     fragment.updateFab(getApplicationContext(), fab);
