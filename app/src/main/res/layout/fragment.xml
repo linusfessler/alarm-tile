@@ -9,38 +9,53 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/left_guideline"
-        app:layout_constraintGuide_percent="0.175"
+        app:layout_constraintGuide_percent="0.05"
         android:orientation="vertical"/>
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/right_guideline"
-        app:layout_constraintGuide_percent="0.825"
+        app:layout_constraintGuide_percent="0.95"
         android:orientation="vertical"/>
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/top_guideline"
-        app:layout_constraintGuide_percent="0.05"
+        app:layout_constraintGuide_begin="0dp"
         android:orientation="horizontal"/>
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/bottom_guideline"
-        app:layout_constraintGuide_percent="0.775"
+        app:layout_constraintGuide_end="80dp"
         android:orientation="horizontal"/>
 
-    <linusfessler.alarmtiles.timepickers.TimerTimePicker
+    <RelativeLayout
+        android:id="@+id/button"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:headerBackground="@android:color/transparent"
-        android:numbersBackgroundColor="@color/colorPrimary"
+        android:focusable="true"
+        android:clickable="true"
         app:layout_constraintLeft_toLeftOf="@+id/left_guideline"
         app:layout_constraintRight_toRightOf="@+id/right_guideline"
         app:layout_constraintTop_toTopOf="@+id/top_guideline"
-        app:layout_constraintBottom_toBottomOf="@+id/bottom_guideline" />
+        app:layout_constraintBottom_toBottomOf="@+id/bottom_guideline">
+
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@android:color/white"
+            android:text="00:00"
+            android:textSize="84sp"
+            android:textAlignment="center"
+            android:background="?selectableItemBackgroundBorderless"/>
+
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

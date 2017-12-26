@@ -25,13 +25,16 @@
     <string name="notification_turn_music_off_title">Turning off music</string>
     <string name="notification_turn_music_off_content">Tap to cancel</string>
 
-    <string name="pref_key_alarm_scheduled">alarm_scheduled</string>
-    <string name="pref_key_timer_scheduled">timer_scheduled</string>
-    <string name="pref_key_snooze_scheduled">snooze_scheduled</string>
+    <string name="pref_alarm_scheduled_key">alarm_scheduled</string>
+    <string name="pref_timer_scheduled_key">timer_scheduled</string>
+    <string name="pref_snooze_scheduled_key">snooze_scheduled</string>
 
     <string name="pref_alarm_time_key">alarm_time</string>
+    <string name="pref_alarm_time_title">Alarm time</string>
     <string name="pref_timer_duration_key">timer_duration</string>
+    <string name="pref_timer_duration_title">Timer duration</string>
     <string name="pref_snooze_duration_key">snooze_duration</string>
+    <string name="pref_snooze_duration_title">Snooze duration</string>
 
     <string name="pref_screen_settings_key">screen_settings</string>
     <string name="pref_screen_settings_title">Settings</string>
@@ -41,10 +44,12 @@
     <string name="pref_alarm_sound_key">alarm_sound</string>
     <string name="pref_alarm_sound_title">Alarm sound</string>
 
-    <string name="pref_category_format_key">format</string>
-    <string name="pref_category_format_title">Format</string>
+    <string name="pref_category_input_key">input</string>
+    <string name="pref_category_input_title">Input</string>
     <string name="pref_use_24h_format_key">use_24h_format</string>
     <string name="pref_use_24h_format_title">Use 24h format</string>
+    <string name="pref_use_analog_clocks_key">use_analog_clocks</string>
+    <string name="pref_use_analog_clocks_title">Use analog clocks</string>
 
     <string name="pref_category_vibrate_key">category_vibrate</string>
     <string name="pref_category_vibrate_title">Vibrate</string>
@@ -90,7 +95,7 @@
     <string name="pref_category_volume_buttons_key">category_volume_buttons</string>
     <string name="pref_category_volume_buttons_title">Volume buttons</string>
     <string name="pref_volume_buttons_key">volume_buttons</string>
-    <string name="pref_volume_buttons_title">Volume buttons to snooze/dismiss</string>
+    <string name="pref_volume_buttons_title">Use volume buttons</string>
     <string name="pref_volume_buttons_summary">Volume up to snooze, volume down to dismiss</string>
 
     <string name="pref_category_flashlight_key">category_flashlight</string>

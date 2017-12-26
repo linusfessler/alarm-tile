@@ -11,21 +11,16 @@ public abstract class SchedulerTileService extends TileService {
 
     @Override
     protected boolean isActive() {
-        return getScheduler().isScheduled(this);
-    }
-
-    @Override
-    protected boolean isUnavailable() {
-        return getScheduler().alarmIsActive();
+        return getScheduler().isScheduled();
     }
 
     @Override
     protected void onEnable() {
-        getScheduler().schedule(this);
+        getScheduler().schedule();
     }
 
     @Override
     protected void onDisable() {
-        getScheduler().dismiss(this);
+        getScheduler().dismiss();
     }
 }

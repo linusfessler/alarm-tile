@@ -8,7 +8,7 @@ public class AlarmTileService extends SchedulerTileService {
 
     @Override
     protected Scheduler getScheduler() {
-        return AlarmScheduler.getInstance();
+        return AlarmScheduler.getInstance(this);
     }
 
     @Override

@@ -15,14 +15,13 @@ import android.view.MenuItem;
 import linusfessler.alarmtiles.PagerAdapter;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.fragments.SchedulerFragment;
-import linusfessler.alarmtiles.schedulers.AlarmSchedulers;
+import linusfessler.alarmtiles.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class MainActivity extends AppCompatActivity {
 
     private FloatingActionButton fab;
     private ViewPager viewPager;
     private PagerAdapter pagerAdapter;
-    private boolean recreate = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +30,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
-        AlarmSchedulers.resume(this);
+        Schedulers.getInstance(this).resume();
 
         fab = findViewById(R.id.fab);
 
@@ -41,7 +40,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         viewPager = findViewById(R.id.pager);
-        pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        pagerAdapter = new PagerAdapter(getFragmentManager(), tabLayout.getTabCount());
+        viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout) {
             @Override
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 super.onPageSelected(position);
                 SchedulerFragment fragment = pagerAdapter.getFragment(position);
                 if (fragment != null) {
-                    fragment.updateFab(getApplicationContext(), fab);
+                    fragment.onPageSelected(fab);
                 }
             }
         });
@@ -83,20 +83,13 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-
-        if (recreate) {
-            recreate = false;
-            recreate();
-        }
-    }
-
-    @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
-            pagerAdapter.getFragment(viewPager.getCurrentItem()).updateFab(this, fab);
+            SchedulerFragment fragment = pagerAdapter.getFragment(viewPager.getCurrentItem());
+            if (fragment != null) {
+                fragment.onPageSelected(fab);
+            }
         }
     }
 
@@ -117,12 +110,5 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 break;
         }
         return true;
-    }
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences preferences, String key) {
-        if (key.equals(getString(R.string.pref_use_24h_format_key))) {
-            recreate = true;
-        }
     }
 }

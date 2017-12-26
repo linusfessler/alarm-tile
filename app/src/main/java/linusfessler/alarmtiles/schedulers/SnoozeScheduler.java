@@ -9,11 +9,15 @@ import linusfessler.alarmtiles.R;
 public class SnoozeScheduler extends Scheduler {
 
     private static SnoozeScheduler instance;
-    public static SnoozeScheduler getInstance() {
+    public static SnoozeScheduler getInstance(Context context) {
         if (instance == null) {
-            instance = new SnoozeScheduler();
+            instance = new SnoozeScheduler(context);
         }
         return instance;
+    }
+
+    private SnoozeScheduler(Context context) {
+        super(context);
     }
 
     @Override
@@ -28,7 +32,7 @@ public class SnoozeScheduler extends Scheduler {
 
     @Override
     protected int getIsScheduledKey() {
-        return R.string.pref_key_snooze_scheduled;
+        return R.string.pref_snooze_scheduled_key;
     }
 
     @Override
@@ -41,7 +45,7 @@ public class SnoozeScheduler extends Scheduler {
         return "snooze_timestamp";
     }
 
-    public void schedule(Context context) {
+    public void schedule() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         int snoozeDuration = preferences.getInt(context.getString(R.string.pref_snooze_duration_key), 0);
         schedule(context, snoozeDuration);

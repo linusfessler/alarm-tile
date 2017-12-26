@@ -9,10 +9,11 @@
 
         <RingtonePreference
             android:icon="@drawable/ic_music_note"
-            android:defaultValue="content://settings/system/alarm_sound"
+            android:defaultValue="content://settings/system/alarm_alert"
             android:key="@string/pref_alarm_sound_key"
-            android:ringtoneType="alarm"
             android:title="@string/pref_alarm_sound_title"
+            android:ringtoneType="alarm"
+            android:showDefault="true"
             android:showSilent="true"/>
 
     </PreferenceCategory>
@@ -83,6 +84,24 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:key="@string/pref_category_input_key"
+        android:title="@string/pref_category_input_title">
+
+        <SwitchPreference
+            android:icon="@drawable/ic_use_24h_format"
+            android:defaultValue="true"
+            android:key="@string/pref_use_24h_format_key"
+            android:title="@string/pref_use_24h_format_title"/>
+
+        <SwitchPreference
+            android:icon="@drawable/ic_use_analog_clocks"
+            android:defaultValue="true"
+            android:key="@string/pref_use_analog_clocks_key"
+            android:title="@string/pref_use_analog_clocks_title"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:key="@string/pref_category_music_key"
         android:title="@string/pref_category_music_title">
 
@@ -93,7 +112,7 @@
             android:title="@string/pref_turn_music_off_title"
             android:summary="@string/pref_turn_music_off_summary"/>
 
-        <linusfessler.alarmtiles.preferences.DigitalTimePreference
+        <linusfessler.alarmtiles.preferences.DurationPreference
             android:icon="@drawable/ic_turn_music_off_delay"
             android:defaultValue="1800000"
             android:key="@string/pref_turn_music_off_delay_key"
@@ -123,18 +142,6 @@
             android:dependency="@string/pref_fade_music_out_key"
             android:title="@string/pref_restore_volume_title"
             android:summary="@string/pref_restore_volume_summary"/>
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:key="@string/pref_category_format_key"
-        android:title="@string/pref_category_format_title">
-
-        <SwitchPreference
-            android:icon="@drawable/ic_use_24h_format"
-            android:defaultValue="true"
-            android:key="@string/pref_use_24h_format_key"
-            android:title="@string/pref_use_24h_format_title"/>
 
     </PreferenceCategory>
 

@@ -1,7 +1,10 @@
 package linusfessler.alarmtiles.preferences;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TimePicker;
@@ -9,17 +12,16 @@ import android.widget.TimePicker;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.utility.TimeFormatter;
 
-public class DigitalTimePreference extends TimePreference {
+public class DurationPreference extends TimePreference {
 
-    public DigitalTimePreference(Context context, AttributeSet attributes) {
+    public DurationPreference(Context context, AttributeSet attributes) {
         super(context, attributes);
     }
 
     @Override
-    protected View onCreateDialogView() {
-        timePicker = (TimePicker) LayoutInflater.from(getContext()).inflate(R.layout.time_dialog, null);
+    protected void onBindDialogView(View view) {
+        super.onBindDialogView(view);
         timePicker.setIs24HourView(true);
-        return timePicker;
     }
 
     @Override

@@ -1,27 +1,23 @@
 package linusfessler.alarmtiles.activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.ListView;
 
-import linusfessler.alarmtiles.schedulers.AlarmSchedulers;
-import linusfessler.alarmtiles.schedulers.AlarmScheduler;
+import linusfessler.alarmtiles.schedulers.Schedulers;
 import linusfessler.alarmtiles.DoNotDisturb;
-import linusfessler.alarmtiles.schedulers.SnoozeScheduler;
-import linusfessler.alarmtiles.schedulers.TimerScheduler;
 import linusfessler.alarmtiles.utility.Components;
 import linusfessler.alarmtiles.utility.Permissions;
 import linusfessler.alarmtiles.R;
@@ -32,7 +28,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getFragmentManager().beginTransaction().replace(android.R.id.content, new SettingsFragment()).commit();
-        AlarmSchedulers.resume(this);
+        Schedulers.getInstance(this).resume();
     }
 
     public static class SettingsFragment extends PreferenceFragment {
@@ -55,14 +51,14 @@ public class SettingsActivity extends AppCompatActivity {
                     return false;
                 }
 
-                if (AlarmSchedulers.isAnyScheduled(getContext())) {
+                if (Schedulers.getInstance(getContext()).isScheduled()) {
                     if (dndEnter) {
                         boolean dndPriority = preferences.getBoolean(getContext().getString(R.string.pref_dnd_priority_key), false);
-                        DoNotDisturb.turnOn(getContext(), dndPriority);
+                        DoNotDisturb.getInstance(getContext()).turnOn(dndPriority);
                     } else {
                         boolean dndExit = preferences.getBoolean(getContext().getString(R.string.pref_dnd_exit_key), false);
                         if (dndExit) {
-                            DoNotDisturb.turnOff(getContext());
+                            DoNotDisturb.getInstance(getContext()).turnOff();
                         }
                     }
                 }
@@ -78,10 +74,10 @@ public class SettingsActivity extends AppCompatActivity {
                     return false;
                 }
 
-                if (AlarmSchedulers.isAnyScheduled(getContext())) {
+                if (Schedulers.getInstance(getContext()).isScheduled()) {
                     boolean dndEnter = preferences.getBoolean(getContext().getString(R.string.pref_dnd_enter_key), false);
                     if (dndEnter) {
-                        DoNotDisturb.turnOn(getContext(), dndPriority);
+                        DoNotDisturb.getInstance(getContext()).turnOn(dndPriority);
                     }
                 }
                 return true;
@@ -105,7 +101,6 @@ public class SettingsActivity extends AppCompatActivity {
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences);
-            PreferenceManager.setDefaultValues(getContext(), R.xml.preferences, false);
 
             preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
@@ -131,15 +126,6 @@ public class SettingsActivity extends AppCompatActivity {
             }
         }
 
-        public void onActivityCreated(Bundle savedInstanceState) {
-            super.onActivityCreated(savedInstanceState);
-            View root = getView();
-            if (root != null) {
-                ListView list = root.findViewById(android.R.id.list);
-                list.setDivider(null);
-            }
-        }
-
         private boolean checkNotificationPolicyAccess() {
             if (Permissions.isNotificationPolicyAccessGranted(getContext())) {
                 return true;
@@ -152,7 +138,7 @@ public class SettingsActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
-                            getContext().startActivity(intent);
+                            getActivity().startActivity(intent);
                         }
                     })
                     .create()

@@ -8,7 +8,7 @@ public class SnoozeTileService extends SchedulerTileService {
 
     @Override
     protected Scheduler getScheduler() {
-        return SnoozeScheduler.getInstance();
+        return SnoozeScheduler.getInstance(this);
     }
 
     @Override

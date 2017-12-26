@@ -5,17 +5,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Icon;
+import android.preference.PreferenceManager;
 import android.service.quicksettings.Tile;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.LocalBroadcastManager;
 
+import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.constants.BroadcastActions;
+import linusfessler.alarmtiles.schedulers.Scheduler;
+import linusfessler.alarmtiles.schedulers.Schedulers;
 
 @RequiresApi(24)
 public abstract class TileService extends android.service.quicksettings.TileService {
 
     protected abstract boolean isActive();
-    protected abstract boolean isUnavailable();
     protected abstract void onEnable();
     protected abstract void onDisable();
     protected abstract int getEnabledIcon();
@@ -30,6 +33,7 @@ public abstract class TileService extends android.service.quicksettings.TileServ
 
     @Override
     public void onCreate() {
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         LocalBroadcastManager.getInstance(this).registerReceiver(tileUpdateReceiver, new IntentFilter(BroadcastActions.UPDATE_TILE));
     }
 
@@ -52,6 +56,10 @@ public abstract class TileService extends android.service.quicksettings.TileServ
             setTileActive();
             onDisable();
         }
+    }
+
+    protected boolean isUnavailable() {
+        return Schedulers.getInstance(this).alarmIsActive();
     }
 
     private void updateTile() {

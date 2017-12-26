@@ -8,7 +8,7 @@ public class TimerFragment extends SchedulerFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_timer;
+        return R.layout.fragment;
     }
 
     @Override
@@ -22,12 +22,17 @@ public class TimerFragment extends SchedulerFragment {
     }
 
     @Override
-    protected int getPreferenceKeyId() {
-        return R.string.pref_key_timer_scheduled;
+    protected int getTimeKeyId() {
+        return R.string.pref_timer_duration_key;
+    }
+
+    @Override
+    protected int getScheduledKeyId() {
+        return R.string.pref_timer_scheduled_key;
     }
 
     @Override
     protected Scheduler getScheduler() {
-        return TimerScheduler.getInstance();
+        return TimerScheduler.getInstance(getContext());
     }
 }

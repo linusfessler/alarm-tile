@@ -9,11 +9,15 @@ import linusfessler.alarmtiles.R;
 public class TimerScheduler extends Scheduler {
 
     private static TimerScheduler instance;
-    public static TimerScheduler getInstance() {
+    public static TimerScheduler getInstance(Context context) {
         if (instance == null) {
-            instance = new TimerScheduler();
+            instance = new TimerScheduler(context);
         }
         return instance;
+    }
+
+    private TimerScheduler(Context context) {
+        super(context);
     }
 
     @Override
@@ -28,7 +32,7 @@ public class TimerScheduler extends Scheduler {
 
     @Override
     protected int getIsScheduledKey() {
-        return R.string.pref_key_timer_scheduled;
+        return R.string.pref_timer_scheduled_key;
     }
 
     @Override
@@ -41,7 +45,7 @@ public class TimerScheduler extends Scheduler {
         return "timer_timestamp";
     }
 
-    public void schedule(Context context) {
+    public void schedule() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         int timerDuration = preferences.getInt(context.getString(R.string.pref_timer_duration_key), 0);
         schedule(context, timerDuration);

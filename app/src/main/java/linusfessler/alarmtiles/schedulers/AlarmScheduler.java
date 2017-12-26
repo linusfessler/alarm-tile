@@ -12,11 +12,15 @@ import linusfessler.alarmtiles.R;
 public class AlarmScheduler extends Scheduler {
 
     private static AlarmScheduler instance;
-    public static AlarmScheduler getInstance() {
+    public static AlarmScheduler getInstance(Context context) {
         if (instance == null) {
-            instance = new AlarmScheduler();
+            instance = new AlarmScheduler(context);
         }
         return instance;
+    }
+
+    private AlarmScheduler(Context context) {
+        super(context);
     }
 
     @Override
@@ -31,7 +35,7 @@ public class AlarmScheduler extends Scheduler {
 
     @Override
     protected int getIsScheduledKey() {
-        return R.string.pref_key_alarm_scheduled;
+        return R.string.pref_alarm_scheduled_key;
     }
 
     @Override
@@ -45,7 +49,7 @@ public class AlarmScheduler extends Scheduler {
     }
 
     @Override
-    public void schedule(Context context) {
+    public void schedule() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         int milliseconds = preferences.getInt(context.getString(R.string.pref_alarm_time_key), 0);
         int minutes = milliseconds / 60000;

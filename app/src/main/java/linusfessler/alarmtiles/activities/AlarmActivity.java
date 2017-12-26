@@ -17,7 +17,7 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.concurrent.Executors;
 
-import linusfessler.alarmtiles.schedulers.AlarmSchedulers;
+import linusfessler.alarmtiles.schedulers.Schedulers;
 import linusfessler.alarmtiles.Flashlight;
 import linusfessler.alarmtiles.schedulers.SnoozeScheduler;
 import linusfessler.alarmtiles.services.AlarmService;
@@ -65,7 +65,7 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
 
         rippleDrawable = (findViewById(R.id.ripple)).getBackground();
 
-        AlarmSchedulers.getNextScheduler(this).notifyAlarmIsActive(this);
+        Schedulers.getInstance(this).getCurrentScheduler().notifyAlarmIsActive();
 
         startService(new Intent(this, AlarmService.class));
 
@@ -121,7 +121,7 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
 
     private void snooze() {
         dismiss();
-        SnoozeScheduler.getInstance().schedule(this);
+        SnoozeScheduler.getInstance(this).schedule();
     }
 
     private void dismiss() {
@@ -129,7 +129,7 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
             flashlight.turnOff();
         }
         finished = true;
-        AlarmSchedulers.getNextScheduler(this).dismiss(this);
+        Schedulers.getInstance(this).getCurrentScheduler().dismiss();
         stopService(new Intent(this, AlarmService.class));
         finishAndRemoveTask();
     }

@@ -17,7 +17,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import linusfessler.alarmtiles.R;
-import linusfessler.alarmtiles.schedulers.AlarmSchedulers;
+import linusfessler.alarmtiles.schedulers.Schedulers;
 
 public class MusicSchedulerService extends JobService implements AudioManager.OnAudioFocusChangeListener {
 
@@ -50,11 +50,9 @@ public class MusicSchedulerService extends JobService implements AudioManager.On
                 .build();
         jobScheduler.schedule(jobInfo);
 
-        Log.d("asdf", "1");
         AudioManager audioManager = (AudioManager) context.getSystemService(AUDIO_SERVICE);
         if (audioManager != null) {
             originalVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-            Log.d("asdf", "2");
         }
     }
 
@@ -143,7 +141,7 @@ public class MusicSchedulerService extends JobService implements AudioManager.On
             return true;
         }
 
-        if (!AlarmSchedulers.isAnyScheduled(this)) {
+        if (!Schedulers.getInstance(this).isScheduled()) {
             jobScheduler.cancelAll();
             return true;
         }

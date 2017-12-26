@@ -8,7 +8,7 @@ public class TimerTileService extends SchedulerTileService {
 
     @Override
     protected Scheduler getScheduler() {
-        return TimerScheduler.getInstance();
+        return TimerScheduler.getInstance(this);
     }
 
     @Override

@@ -14,6 +14,6 @@ public class MilliSecondsPreference extends EditTextPreference {
 
     @Override
     public CharSequence getSummary() {
-        return TimeFormatter.formatMillis(getText());
+        return TimeFormatter.formatMilliSeconds(getText());
     }
 }

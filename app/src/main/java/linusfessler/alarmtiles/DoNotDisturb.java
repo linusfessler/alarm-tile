@@ -3,13 +3,30 @@ package linusfessler.alarmtiles;
 import android.app.NotificationManager;
 import android.content.Context;
 
+import linusfessler.alarmtiles.schedulers.AlarmScheduler;
+import linusfessler.alarmtiles.schedulers.Scheduler;
+import linusfessler.alarmtiles.schedulers.Schedulers;
+import linusfessler.alarmtiles.schedulers.SnoozeScheduler;
+import linusfessler.alarmtiles.schedulers.TimerScheduler;
 import linusfessler.alarmtiles.utility.Permissions;
 
 public class DoNotDisturb {
 
-    private DoNotDisturb() {}
+    private static DoNotDisturb instance;
+    public static DoNotDisturb getInstance(Context context) {
+        if (instance == null) {
+            instance = new DoNotDisturb(context);
+        }
+        return instance;
+    }
 
-    public static void turnOn(Context context, boolean priority) {
+    private Context context;
+
+    private DoNotDisturb(Context context) {
+        this.context = context.getApplicationContext();
+    }
+
+    public void turnOn(boolean priority) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (!Permissions.isNotificationPolicyAccessGranted(context) || notificationManager == null) {
             return;
@@ -22,7 +39,7 @@ public class DoNotDisturb {
         }
     }
 
-    public static void turnOff(Context context) {
+    public void turnOff() {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (!Permissions.isNotificationPolicyAccessGranted(context) || notificationManager == null) {
             return;
