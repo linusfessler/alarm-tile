@@ -11,6 +11,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioFocusRequest;
 import android.media.AudioManager;
 import android.os.Build;
 import android.preference.PreferenceManager;
@@ -27,11 +28,12 @@ public class MusicSchedulerService extends JobService implements AudioManager.On
     private static final int CANCEL_REQUEST_CODE = 1003;
     private static final String CANCEL_INTENT_EXTRA_KEY = "cancel";
 
+    private static AudioManager.OnAudioFocusChangeListener listener;
     private static int originalVolume = -1;
+    private static long endTime = 0;
 
     public static void scheduleTurnMusicOff(Context context) {
         JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
-        Log.d("asdf", "0");
         if (jobScheduler == null) {
             return;
         }
@@ -43,7 +45,7 @@ public class MusicSchedulerService extends JobService implements AudioManager.On
             showNotification(context);
         }
 
-        int delay = preferences.getInt(context.getString(R.string.pref_turn_music_off_delay_key), 0);
+        int delay = 60000 * preferences.getInt(context.getString(R.string.pref_turn_music_off_delay_key), 0);
         JobInfo jobInfo = new JobInfo.Builder(TURN_MUSIC_OFF_JOB_ID, new ComponentName(context, MusicSchedulerService.class))
                 .setMinimumLatency(delay)
                 .setOverrideDeadline(delay)
@@ -57,14 +59,19 @@ public class MusicSchedulerService extends JobService implements AudioManager.On
     }
 
     public static void scheduleFadeMusicOut(Context context) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
         if (jobScheduler != null) {
-            int delay = preferences.getInt(context.getString(R.string.pref_turn_music_off_delay_key), 0);
+            if (endTime == 0) {
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+                int delay = 60000 * preferences.getInt(context.getString(R.string.pref_turn_music_off_delay_key), 0);
+                endTime = System.currentTimeMillis() + delay;
+            }
+
             AudioManager audioManager = (AudioManager) context.getSystemService(AUDIO_SERVICE);
             if (audioManager != null) {
                 int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-                int timeStep = delay / (currentVolume + 2);
+                long timeLeft = endTime - System.currentTimeMillis();
+                long timeStep = timeLeft / Math.max(currentVolume, 1);
                 JobInfo jobInfo = new JobInfo.Builder(FADE_MUSIC_OUT_JOB_ID, new ComponentName(context, MusicSchedulerService.class))
                         .setMinimumLatency(timeStep)
                         .setOverrideDeadline(timeStep)
@@ -96,7 +103,7 @@ public class MusicSchedulerService extends JobService implements AudioManager.On
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-            int delay = preferences.getInt(context.getString(R.string.pref_turn_music_off_delay_key), 0);
+            int delay = 60000 * preferences.getInt(context.getString(R.string.pref_turn_music_off_delay_key), 0);
             builder.setWhen(System.currentTimeMillis() + delay)
                     .setUsesChronometer(true)
                     .setChronometerCountDown(true);
@@ -116,13 +123,14 @@ public class MusicSchedulerService extends JobService implements AudioManager.On
             notificationManager.cancel(NOTIFICATION_ID);
         }
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        if (preferences.getBoolean(context.getString(R.string.pref_restore_volume_key), false)) {
-            AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-            if (audioManager != null && originalVolume != -1) {
-                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, originalVolume, 0);
-                originalVolume = -1;
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        if (audioManager != null && originalVolume != -1) {
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, originalVolume, 0);
+            if (listener != null) {
+                audioManager.abandonAudioFocus(listener);
             }
+            originalVolume = -1;
+            endTime = 0;
         }
     }
 
@@ -152,6 +160,7 @@ public class MusicSchedulerService extends JobService implements AudioManager.On
         }
 
         if (jobParameters.getJobId() == TURN_MUSIC_OFF_JOB_ID) {
+            listener = this;
             audioManager.requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
             cancel(this);
         } else if (jobParameters.getJobId() == FADE_MUSIC_OUT_JOB_ID) {

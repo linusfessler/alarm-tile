@@ -106,7 +106,7 @@ public abstract class Scheduler {
         notifyTileService();
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        preferences.edit().putBoolean(context.getString(getIsScheduledKey()), false).commit();
+        preferences.edit().putBoolean(context.getString(getIsScheduledKey()), false).apply();
 
         cancelPendingIntent();
         disableResume();
@@ -180,7 +180,7 @@ public abstract class Scheduler {
         preferences.edit()
                 .putInt(getDurationLeftKey(), durationLeft)
                 .putLong(getTimestampKey(), now)
-                .commit();
+                .apply();
     }
 
     public int getDurationLeft() {

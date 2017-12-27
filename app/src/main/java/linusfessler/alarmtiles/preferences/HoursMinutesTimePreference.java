@@ -1,20 +1,15 @@
 package linusfessler.alarmtiles.preferences;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TimePicker;
 
-import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.utility.TimeFormatter;
 
-public class DurationPreference extends TimePreference {
+public class HoursMinutesTimePreference extends TimePreference {
 
-    public DurationPreference(Context context, AttributeSet attributes) {
+    public HoursMinutesTimePreference(Context context, AttributeSet attributes) {
         super(context, attributes);
     }
 
@@ -26,6 +21,6 @@ public class DurationPreference extends TimePreference {
 
     @Override
     public CharSequence getSummary() {
-        return TimeFormatter.formatHoursMinutes(hours, minutes);
+        return TimeFormatter.formatHoursMinutes(t1, t2);
     }
 }

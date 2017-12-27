@@ -23,6 +23,7 @@ public abstract class SchedulerFragment extends Fragment {
     private FloatingActionButton fab;
     private Icon positiveIcon;
     private Icon negativeIcon;
+    private TimePickerDialog timePickerDialog;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,7 +52,7 @@ public abstract class SchedulerFragment extends Fragment {
         boolean isEnabled = preferences.getBoolean(fab.getContext().getString(getScheduledKeyId()), false);
         isEnabled = !isEnabled;
         updateFab(isEnabled);
-        preferences.edit().putBoolean(fab.getContext().getString(getScheduledKeyId()), isEnabled).commit();
+        preferences.edit().putBoolean(fab.getContext().getString(getScheduledKeyId()), isEnabled).apply();
         if (isEnabled) {
             getScheduler().schedule();
         } else {
@@ -77,15 +78,15 @@ public abstract class SchedulerFragment extends Fragment {
 
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-        boolean useAnalogClocks = preferences.getBoolean(getString(R.string.pref_use_analog_clocks_key), true);
-        boolean use24hFormat = preferences.getBoolean(getString(R.string.pref_use_24h_format_key), true);
+        final boolean useAnalogClocks = preferences.getBoolean(getString(R.string.pref_use_analog_clocks_key), false);
+        final boolean use24hFormat = preferences.getBoolean(getString(R.string.pref_use_24h_format_key), false);
 
         int milliseconds = preferences.getInt(getString(getTimeKeyId()), 0);
         int minutes = milliseconds / 60000;
         int hours = minutes / 60;
         minutes = minutes % 60;
 
-        final TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), useAnalogClocks, use24hFormat, hours, minutes);
+        timePickerDialog = new TimePickerDialog(getContext(), useAnalogClocks, use24hFormat, hours, minutes);
         timePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -98,6 +99,9 @@ public abstract class SchedulerFragment extends Fragment {
                 if (isEnabled) {
                     getScheduler().schedule();
                 }
+
+                timePickerDialog = new TimePickerDialog(getContext(), useAnalogClocks, use24hFormat, hours, minutes);
+                timePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", this);
             }
         });
 
@@ -108,7 +112,6 @@ public abstract class SchedulerFragment extends Fragment {
             }
         });
 
-        timePickerDialog.update(useAnalogClocks, use24hFormat, hours, minutes);
         time.setText(TimeFormatter.format(hours, minutes));
     }
 

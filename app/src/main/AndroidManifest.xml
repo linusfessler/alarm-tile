@@ -88,6 +88,7 @@
                 <action android:name="android.intent.action.ACTION_MY_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>

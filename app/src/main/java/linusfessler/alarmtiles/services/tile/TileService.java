@@ -33,7 +33,6 @@ public abstract class TileService extends android.service.quicksettings.TileServ
 
     @Override
     public void onCreate() {
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         LocalBroadcastManager.getInstance(this).registerReceiver(tileUpdateReceiver, new IntentFilter(BroadcastActions.UPDATE_TILE));
     }
 

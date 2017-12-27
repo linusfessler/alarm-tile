@@ -16,6 +16,19 @@
             android:showDefault="true"
             android:showSilent="true"/>
 
+        <SwitchPreference
+            android:icon="@drawable/ic_volume_up"
+            android:defaultValue="false"
+            android:key="@string/pref_increase_volume_key"
+            android:title="@string/pref_increase_volume_title"/>
+
+        <linusfessler.alarmtiles.preferences.MinutesSecondsTimePreference
+            android:icon="@drawable/ic_delay"
+            android:defaultValue="60"
+            android:dependency="@string/pref_increase_volume_key"
+            android:key="@string/pref_increase_volume_duration_key"
+            android:title="@string/pref_increase_volume_duration_title"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -32,12 +45,12 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:dependency="@string/pref_vibrate_key"
         android:key="@string/pref_category_vibrate_key"
-        android:title="@string/pref_category_vibration_pattern_title"
-        android:dependency="@string/pref_vibrate_key">
+        android:title="@string/pref_category_vibration_pattern_title">
 
         <linusfessler.alarmtiles.preferences.MilliSecondsPreference
-            android:icon="@drawable/ic_vibration_duration"
+            android:icon="@drawable/ic_play"
             android:defaultValue="500"
             android:key="@string/pref_vibration_duration_key"
             android:title="@string/pref_vibration_duration_title"
@@ -45,7 +58,7 @@
             android:maxLength="10"/>
 
         <linusfessler.alarmtiles.preferences.MilliSecondsPreference
-            android:icon="@drawable/ic_pause_duration"
+            android:icon="@drawable/ic_pause"
             android:defaultValue="500"
             android:key="@string/pref_pause_duration_key"
             android:title="@string/pref_pause_duration_title"
@@ -106,42 +119,34 @@
         android:title="@string/pref_category_music_title">
 
         <SwitchPreference
-            android:icon="@drawable/ic_turn_music_off"
+            android:icon="@drawable/ic_pause"
             android:defaultValue="false"
             android:key="@string/pref_turn_music_off_key"
             android:title="@string/pref_turn_music_off_title"
             android:summary="@string/pref_turn_music_off_summary"/>
 
-        <linusfessler.alarmtiles.preferences.DurationPreference
-            android:icon="@drawable/ic_turn_music_off_delay"
-            android:defaultValue="1800000"
-            android:key="@string/pref_turn_music_off_delay_key"
+        <SwitchPreference
+            android:icon="@drawable/ic_volume_down"
+            android:defaultValue="true"
             android:dependency="@string/pref_turn_music_off_key"
+            android:key="@string/pref_fade_music_out_key"
+            android:title="@string/pref_fade_music_out_title"
+            android:summary="@string/pref_fade_music_out_summary"/>
+
+        <linusfessler.alarmtiles.preferences.HoursMinutesTimePreference
+            android:icon="@drawable/ic_delay"
+            android:defaultValue="30"
+            android:dependency="@string/pref_turn_music_off_key"
+            android:key="@string/pref_turn_music_off_delay_key"
             android:title="@string/pref_turn_music_off_delay_title"/>
 
         <SwitchPreference
             android:icon="@drawable/ic_show_notification"
             android:defaultValue="true"
-            android:key="@string/pref_show_music_notification_key"
             android:dependency="@string/pref_turn_music_off_key"
+            android:key="@string/pref_show_music_notification_key"
             android:title="@string/pref_show_music_notification_title"
             android:summary="@string/pref_show_music_notification_summary"/>
-
-        <SwitchPreference
-            android:icon="@drawable/ic_fade_music_out"
-            android:defaultValue="true"
-            android:key="@string/pref_fade_music_out_key"
-            android:dependency="@string/pref_turn_music_off_key"
-            android:title="@string/pref_fade_music_out_title"
-            android:summary="@string/pref_fade_music_out_summary"/>
-
-        <SwitchPreference
-            android:icon="@drawable/ic_restore_volume"
-            android:defaultValue="true"
-            android:key="@string/pref_restore_volume_key"
-            android:dependency="@string/pref_fade_music_out_key"
-            android:title="@string/pref_restore_volume_title"
-            android:summary="@string/pref_restore_volume_summary"/>
 
     </PreferenceCategory>
 
@@ -150,7 +155,7 @@
         android:title="@string/pref_category_volume_buttons_title">
 
         <SwitchPreference
-            android:icon="@drawable/ic_volume_buttons"
+            android:icon="@drawable/ic_volume_up"
             android:defaultValue="false"
             android:key="@string/pref_volume_buttons_key"
             android:title="@string/pref_volume_buttons_title"

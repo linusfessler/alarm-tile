@@ -43,13 +43,10 @@
     <string name="pref_category_alarm_sound_title">Alarm sound</string>
     <string name="pref_alarm_sound_key">alarm_sound</string>
     <string name="pref_alarm_sound_title">Alarm sound</string>
-
-    <string name="pref_category_input_key">input</string>
-    <string name="pref_category_input_title">Input</string>
-    <string name="pref_use_24h_format_key">use_24h_format</string>
-    <string name="pref_use_24h_format_title">Use 24h format</string>
-    <string name="pref_use_analog_clocks_key">use_analog_clocks</string>
-    <string name="pref_use_analog_clocks_title">Use analog clocks</string>
+    <string name="pref_increase_volume_key">increase_volume</string>
+    <string name="pref_increase_volume_title">Gradually increase alarm volume</string>
+    <string name="pref_increase_volume_duration_key">increase_volume_duration</string>
+    <string name="pref_increase_volume_duration_title">Duration</string>
 
     <string name="pref_category_vibrate_key">category_vibrate</string>
     <string name="pref_category_vibrate_title">Vibrate</string>
@@ -75,6 +72,13 @@
     <string name="pref_dnd_priority_title">Priority notifications</string>
     <string name="pref_dnd_priority_summary">Don\'t suppress priority notifications</string>
 
+    <string name="pref_category_input_key">input</string>
+    <string name="pref_category_input_title">Input</string>
+    <string name="pref_use_24h_format_key">use_24h_format</string>
+    <string name="pref_use_24h_format_title">Use 24h format</string>
+    <string name="pref_use_analog_clocks_key">use_analog_clocks</string>
+    <string name="pref_use_analog_clocks_title">Use analog clocks</string>
+
     <string name="pref_category_music_key">category_music</string>
     <string name="pref_category_music_title">Music</string>
     <string name="pref_turn_music_off_key">turn_music_off</string>
@@ -88,9 +92,6 @@
     <string name="pref_fade_music_out_key">fade_music_out</string>
     <string name="pref_fade_music_out_title">Fade music out</string>
     <string name="pref_fade_music_out_summary">Gradually decrease volume</string>
-    <string name="pref_restore_volume_key">restore_volume</string>
-    <string name="pref_restore_volume_title">Restore volume</string>
-    <string name="pref_restore_volume_summary">After playback has stopped</string>
 
     <string name="pref_category_volume_buttons_key">category_volume_buttons</string>
     <string name="pref_category_volume_buttons_title">Volume buttons</string>

@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.concurrent.Executors;
+
 import linusfessler.alarmtiles.PagerAdapter;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.fragments.SchedulerFragment;
@@ -29,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
         Schedulers.getInstance(this).resume();
 

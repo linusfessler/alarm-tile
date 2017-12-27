@@ -10,11 +10,15 @@ public class TimeFormatter {
         return String.format(Locale.getDefault(), "%02d:%02d", hours, minutes);
     }
 
-    public static String formatMilliSeconds(String millis) {
-        return String.format(Locale.getDefault(), "%sms", millis);
+    public static String formatMilliSeconds(String milliseconds) {
+        return String.format(Locale.getDefault(), "%sms", milliseconds);
     }
 
     public static String formatHoursMinutes(int hours, int minutes) {
         return String.format(Locale.getDefault(), "%02dh %02dmin", hours, minutes);
+    }
+
+    public static String formatMinutesSeconds(int minutes, int seconds) {
+        return String.format(Locale.getDefault(), "%02dmin %02ds", minutes, seconds);
     }
 }
