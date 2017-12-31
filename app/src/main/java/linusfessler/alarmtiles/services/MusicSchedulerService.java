@@ -123,14 +123,17 @@ public class MusicSchedulerService extends JobService implements AudioManager.On
             notificationManager.cancel(NOTIFICATION_ID);
         }
 
-        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        if (audioManager != null && originalVolume != -1) {
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, originalVolume, 0);
-            if (listener != null) {
-                audioManager.abandonAudioFocus(listener);
+        if (originalVolume != -1) {
+            AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+            if (audioManager != null) {
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, originalVolume, 0);
+                originalVolume = -1;
+                if (listener != null) {
+                    audioManager.abandonAudioFocus(listener);
+                    listener = null;
+                }
+                endTime = 0;
             }
-            originalVolume = -1;
-            endTime = 0;
         }
     }
 
