@@ -31,6 +31,10 @@ public abstract class SchedulerFragment extends Fragment {
     }
 
     public void onPageSelected(FloatingActionButton fab) {
+        if (fab == null) {
+            return;
+        }
+
         this.fab = fab;
         positiveIcon = Icon.createWithResource(fab.getContext(), getPositiveIconId());
         negativeIcon = Icon.createWithResource(fab.getContext(), getNegativeIconId());

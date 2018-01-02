@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
+        if (hasFocus && pagerAdapter != null && viewPager != null) {
             SchedulerFragment fragment = pagerAdapter.getFragment(viewPager.getCurrentItem());
             if (fragment != null) {
                 fragment.onPageSelected(fab);
