@@ -29,6 +29,7 @@
             android:name=".activities.MainActivity"
             android:label="@string/activity_main_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/MainTheme">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />

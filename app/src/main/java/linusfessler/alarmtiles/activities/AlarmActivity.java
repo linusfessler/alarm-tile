@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.View;
@@ -91,7 +92,7 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
                         e.printStackTrace();
                     }
                     if (finished) {
-                        return;
+                        break;
                     }
                     runOnUiThread(new Runnable() {
                         @Override
@@ -106,7 +107,7 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
                         e.printStackTrace();
                     }
                     if (finished) {
-                        return;
+                        break;
                     }
                     runOnUiThread(new Runnable() {
                         @Override

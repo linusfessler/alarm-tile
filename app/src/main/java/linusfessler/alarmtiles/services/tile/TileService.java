@@ -12,7 +12,6 @@ import android.support.v4.content.LocalBroadcastManager;
 
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.constants.BroadcastActions;
-import linusfessler.alarmtiles.schedulers.Scheduler;
 import linusfessler.alarmtiles.schedulers.Schedulers;
 
 @RequiresApi(24)
@@ -33,6 +32,7 @@ public abstract class TileService extends android.service.quicksettings.TileServ
 
     @Override
     public void onCreate() {
+        PreferenceManager.setDefaultValues(getApplicationContext(), R.xml.preferences, false);
         LocalBroadcastManager.getInstance(this).registerReceiver(tileUpdateReceiver, new IntentFilter(BroadcastActions.UPDATE_TILE));
     }
 

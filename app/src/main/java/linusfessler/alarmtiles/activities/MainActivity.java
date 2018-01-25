@@ -32,6 +32,13 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Executors.newFixedThreadPool(1).execute(new Runnable() {
+            @Override
+            public void run() {
+                PreferenceManager.setDefaultValues(getApplicationContext(), R.xml.preferences, false);
+            }
+        });
+
         Schedulers.getInstance(this).resume();
 
         fab = findViewById(R.id.fab);

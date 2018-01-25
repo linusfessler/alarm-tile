@@ -23,7 +23,13 @@ public abstract class SchedulerFragment extends Fragment {
     private FloatingActionButton fab;
     private Icon positiveIcon;
     private Icon negativeIcon;
+    private boolean useAnalogClocks;
+    private boolean use24hFormat;
+    private int hours;
+    private int minutes;
     private TimePickerDialog timePickerDialog;
+    private DialogInterface.OnClickListener positiveOnClickListener;
+    private DialogInterface.OnDismissListener onDismissListener;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -77,38 +83,17 @@ public abstract class SchedulerFragment extends Fragment {
             return;
         }
 
-        View button = root.findViewById(R.id.button);
-        final TextView time = button.findViewById(R.id.time);
-
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-        final boolean useAnalogClocks = preferences.getBoolean(getString(R.string.pref_use_analog_clocks_key), false);
-        final boolean use24hFormat = preferences.getBoolean(getString(R.string.pref_use_24h_format_key), false);
+        useAnalogClocks = preferences.getBoolean(getString(R.string.pref_use_analog_clocks_key), false);
+        use24hFormat = preferences.getBoolean(getString(R.string.pref_use_24h_format_key), false);
 
         int milliseconds = preferences.getInt(getString(getTimeKeyId()), 0);
-        int minutes = milliseconds / 60000;
-        int hours = minutes / 60;
+        minutes = milliseconds / 60000;
+        hours = minutes / 60;
         minutes = minutes % 60;
 
-        timePickerDialog = new TimePickerDialog(getContext(), useAnalogClocks, use24hFormat, hours, minutes);
-        timePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                int hours = timePickerDialog.getHour();
-                int minutes = timePickerDialog.getMinute();
-                time.setText(TimeFormatter.format(hours, minutes));
-                int milliseconds = 60000 * (60 * hours + minutes);
-                preferences.edit().putInt(getContext().getString(getTimeKeyId()), milliseconds).apply();
-                boolean isEnabled = preferences.getBoolean(getContext().getString(getScheduledKeyId()), false);
-                if (isEnabled) {
-                    getScheduler().schedule();
-                }
-
-                timePickerDialog = new TimePickerDialog(getContext(), useAnalogClocks, use24hFormat, hours, minutes);
-                timePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", this);
-            }
-        });
-
+        View button = root.findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,7 +101,49 @@ public abstract class SchedulerFragment extends Fragment {
             }
         });
 
+        final TextView time = button.findViewById(R.id.time);
         time.setText(TimeFormatter.format(hours, minutes));
+
+        positiveOnClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                hours = timePickerDialog.getHour();
+                minutes = timePickerDialog.getMinute();
+
+                time.setText(TimeFormatter.format(hours, minutes));
+                int milliseconds = 60000 * (60 * hours + minutes);
+                preferences.edit().putInt(getContext().getString(getTimeKeyId()), milliseconds).apply();
+                boolean isEnabled = preferences.getBoolean(getContext().getString(getScheduledKeyId()), false);
+                if (isEnabled) {
+                    getScheduler().schedule();
+                }
+            }
+        };
+        onDismissListener = new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                resetTimePickerDialog();
+            }
+        };
+
+        resetTimePickerDialog();
+    }
+
+    private void resetTimePickerDialog() {
+        if (timePickerDialog != null && !useAnalogClocks) {
+            // no need to reset timePickerAnalog for digital clocks
+            return;
+        }
+        timePickerDialog = new TimePickerDialog(getContext(), useAnalogClocks, use24hFormat, hours, minutes);
+        // work-around for positive button not working, probably a bug
+        // neutral -> negative
+        timePickerDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "CANCEL", (DialogInterface.OnClickListener) null);
+        // negative -> positive
+        timePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "OK", positiveOnClickListener);
+        // positive -> hide
+        timePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE, "", (DialogInterface.OnClickListener) null);
+
+        timePickerDialog.setOnDismissListener(onDismissListener);
     }
 
     protected abstract int getLayoutId();
