@@ -1,13 +1,14 @@
 package linusfessler.alarmtiles;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.support.annotation.NonNull;
-import android.support.v13.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
-import java.util.HashMap;
-import java.util.Map;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import linusfessler.alarmtiles.fragments.AlarmFragment;
 import linusfessler.alarmtiles.fragments.SchedulerFragment;
@@ -17,10 +18,10 @@ import linusfessler.alarmtiles.fragments.TimerFragment;
 public class PagerAdapter extends FragmentPagerAdapter {
 
     private int numberOfTabs;
-    private Map<Integer, SchedulerFragment> fragments = new HashMap<>();
+    private List<SchedulerFragment> fragments = new ArrayList<>(3);
 
     public PagerAdapter(FragmentManager fragmentManager, int numberOfTabs) {
-        super(fragmentManager);
+        super(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.numberOfTabs = numberOfTabs;
     }
 
@@ -48,7 +49,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        fragments.put(position, (SchedulerFragment) getItem(position));
+        fragments.add(position, (SchedulerFragment) getItem(position));
         return super.instantiateItem(container, position);
     }
 

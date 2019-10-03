@@ -7,8 +7,8 @@ import android.content.IntentFilter;
 import android.graphics.drawable.Icon;
 import android.preference.PreferenceManager;
 import android.service.quicksettings.Tile;
-import android.support.annotation.RequiresApi;
-import android.support.v4.content.LocalBroadcastManager;
+import androidx.annotation.RequiresApi;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.constants.BroadcastActions;

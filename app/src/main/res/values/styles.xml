@@ -1,13 +1,13 @@
 <resources>
 
-    <style name="MainTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="MainTheme" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorBackground">@color/windowBackground</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat">
+    <style name="AppTheme" parent="Theme.MaterialComponents">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -15,7 +15,7 @@
         <!--item name="android:listDivider">@null</item-->
     </style>
 
-    <style name="AlarmTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="AlarmTheme" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@android:color/black</item>
     </style>

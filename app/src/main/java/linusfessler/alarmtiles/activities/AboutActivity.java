@@ -1,11 +1,11 @@
 package linusfessler.alarmtiles.activities;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import linusfessler.alarmtiles.R;
 
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

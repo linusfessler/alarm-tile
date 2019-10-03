@@ -1,17 +1,19 @@
 package linusfessler.alarmtiles.fragments;
 
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.TimePickerDialog;
@@ -147,9 +149,14 @@ public abstract class SchedulerFragment extends Fragment {
     }
 
     protected abstract int getLayoutId();
+
     protected abstract int getPositiveIconId();
+
     protected abstract int getNegativeIconId();
+
     protected abstract int getTimeKeyId();
+
     protected abstract int getScheduledKeyId();
+
     protected abstract Scheduler getScheduler();
 }

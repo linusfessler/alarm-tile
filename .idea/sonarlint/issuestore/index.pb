@@ -1,0 +1,19 @@
+
+|
+Lapp/src/main/java/linusfessler/alarmtiles/receivers/AlarmResumeReceiver.java,d\1\d10559ba0e68d81e40c47f0623e0bdf143ec6ce0
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
+}
+Mapp/src/main/java/linusfessler/alarmtiles/services/MusicSchedulerService.java,8\9\8928188df0e483b0ffff81caa092a914c99e5ed1
+x
+Happ/src/main/java/linusfessler/alarmtiles/services/tile/TileService.java,8\b\8b9719cf61911cb1cfb3138491ec9725b0bf8514
+t
+Dapp/src/main/java/linusfessler/alarmtiles/services/AlarmService.java,7\a\7aaf896aded5d9d61a9f448edf0f9c9c31ea3cd3
+z
+Japp/src/main/java/linusfessler/alarmtiles/activities/SettingsActivity.java,9\6\960c22ade6959449f7899e9a52b45ac9c87f8f61
+@
+app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
+k
+;app/src/main/java/linusfessler/alarmtiles/PagerAdapter.java,9\e\9e0650771449182f4b2da3d292bc23ea5d4e8c98
+v
+Fapp/src/main/java/linusfessler/alarmtiles/activities/MainActivity.java,0\8\085db37aad2dc80f0b9d37e784ff97c32c4bea84

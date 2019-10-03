@@ -1,6 +1,6 @@
 package linusfessler.alarmtiles.services.tile;
 
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 
 import linusfessler.alarmtiles.schedulers.Scheduler;
 

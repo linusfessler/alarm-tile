@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
-    <android.support.v7.widget.Toolbar
+    <android.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,10 +13,10 @@
         android:background="?attr/colorPrimary"
         android:elevation="6dp"
         android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"/>
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+        android:popupTheme="@style/ThemeOverlay.MaterialComponents.Dark" />
 
-    <android.support.design.widget.TabLayout
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,35 +24,35 @@
         android:background="?attr/colorPrimary"
         android:elevation="6dp"
         android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
 
-            <android.support.design.widget.TabItem
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:icon="@drawable/ic_alarm_on"
-                android:text="@string/alarm"/>
+        <com.google.android.material.tabs.TabItem
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:icon="@drawable/ic_alarm_on"
+            android:text="@string/alarm" />
 
-            <android.support.design.widget.TabItem
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:icon="@drawable/ic_timer_on"
-                android:text="@string/timer"/>
+        <com.google.android.material.tabs.TabItem
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:icon="@drawable/ic_timer_on"
+            android:text="@string/timer" />
 
-            <android.support.design.widget.TabItem
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:icon="@drawable/ic_snooze_on"
-                android:text="@string/snooze"/>
+        <com.google.android.material.tabs.TabItem
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:icon="@drawable/ic_snooze_on"
+            android:text="@string/snooze" />
 
-        </android.support.design.widget.TabLayout>
+    </com.google.android.material.tabs.TabLayout>
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/tab_layout"/>
+        android:layout_below="@id/tab_layout" />
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="56dp"
         android:layout_height="56dp"
@@ -62,6 +61,6 @@
         android:layout_alignParentBottom="true"
         android:focusable="true"
         android:clickable="true"
-        android:src="@drawable/ic_alarm_on"/>
+        android:src="@drawable/ic_alarm_on" />
 
 </RelativeLayout>

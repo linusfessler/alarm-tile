@@ -1,5 +1,6 @@
 package linusfessler.alarmtiles.activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,15 +12,14 @@ import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 
-import linusfessler.alarmtiles.schedulers.Schedulers;
 import linusfessler.alarmtiles.DoNotDisturb;
+import linusfessler.alarmtiles.R;
+import linusfessler.alarmtiles.schedulers.Schedulers;
 import linusfessler.alarmtiles.utility.Components;
 import linusfessler.alarmtiles.utility.Permissions;
-import linusfessler.alarmtiles.R;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends Activity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {

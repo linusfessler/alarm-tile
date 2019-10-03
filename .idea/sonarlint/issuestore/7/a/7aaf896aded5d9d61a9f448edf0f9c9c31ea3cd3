@@ -1,0 +1,6 @@
+
+isquid:S3776 "RRefactor this method to reduce its Cognitive Complexity from 22 to the 15 allowed.(Î¢ŽÈ
+?squid:S1148P"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+4squid:S2386"Make this member "protected".(ëüïÖ
+Wsquid:CallToDeprecatedMethod8"/Remove this use of "vibrate"; it is deprecated.(˜¤«º
+]squid:S2142O"FEither re-interrupt this method or rethrow the "InterruptedException".(ä ¹€
