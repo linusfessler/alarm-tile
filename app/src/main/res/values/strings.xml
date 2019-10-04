@@ -14,7 +14,7 @@
     <string name="activity_about_title_donate">Donate</string>
     <string name="activity_about_content_donate">If you feel generous and want to support me, donations are greatly appreciated. http://PayPal.Me/LinusFessler</string>
     <string name="activity_about_title_credits">Credits</string>
-    <string name="activity_about_content_credits">Material Icons: Copyright 2017 Google Inc.</string>
+    <string name="activity_about_content_credits">Material Icons: Copyright 2019 Google Inc.</string>
 
     <string name="menu_settings">Settings</string>
     <string name="menu_about">About</string>
