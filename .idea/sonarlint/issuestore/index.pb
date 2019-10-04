@@ -21,3 +21,17 @@ w
 Gapp/src/main/java/linusfessler/alarmtiles/activities/AboutActivity.java,e\5\e5f754ac888da7694d76e4e80da13bd4fcddf82a
 z
 Japp/src/main/java/linusfessler/alarmtiles/fragments/SchedulerFragment.java,b\7\b713873ef926ecbf9d0763538c821d31b90cf46b
+}
+Mapp/src/main/java/linusfessler/alarmtiles/services/tile/TimerTileService.java,9\0\9039eac7f643ebeb9e55859d092ca0274a494186
+v
+Fapp/src/main/java/linusfessler/alarmtiles/fragments/AlarmFragment.java,1\3\13fc7b5c020502d0c7ce5ca1e0b605ff440ca43e
+w
+Gapp/src/main/java/linusfessler/alarmtiles/fragments/SnoozeFragment.java,d\e\de30e3886d963fd9db28ad51dab498a8ad987edd
+v
+Fapp/src/main/java/linusfessler/alarmtiles/fragments/TimerFragment.java,9\a\9a3b3629f766e451a30d7fa30f0d16a7a076ee12
+~
+Napp/src/main/java/linusfessler/alarmtiles/services/tile/SnoozeTileService.java,a\9\a9ba3f2b7ed68af8b56860e0210eb7c715bfbab3
+}
+Mapp/src/main/java/linusfessler/alarmtiles/services/tile/AlarmTileService.java,f\f\ff37ae1511aad5377b061da0ef9d269c602a8f0b
+s
+Capp/src/main/java/linusfessler/alarmtiles/schedulers/Scheduler.java,a\d\ad47f66d2baf70c36a34fc18c0b09e27b24efe80

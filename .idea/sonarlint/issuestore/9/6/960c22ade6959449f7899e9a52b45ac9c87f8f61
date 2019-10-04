@@ -1,51 +1,75 @@
 
+isquid:CallToDeprecatedMethody":Remove this use of "PreferenceCategory"; it is deprecated.(Í¿²8î±Ö—Ù-
+asquid:CallToDeprecatedMethod#"2Remove this use of "Preference"; it is deprecated.(ñª¢ì8î±Ö—Ù-
+~squid:CallToDeprecatedMethodb"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(™¶æ„øÿÿÿÿ8î±Ö—Ù-
 fsquid:CallToDeprecatedMethod5"2Remove this use of "getContext"; it is deprecated.(¦ª‹¥ûÿÿÿÿ8î±Ö—Ù-
-isquid:CallToDeprecatedMethod":Remove this use of "getFragmentManager"; it is deprecated.(§õ†8î±Ö—Ù-
-asquid:CallToDeprecatedMethodT"2Remove this use of "Preference"; it is deprecated.(Œ‚ô¯8î±Ö—Ù-
-lsquid:CallToDeprecatedMethodz"8Remove this use of "removePreference"; it is deprecated.(—ˆïĞûÿÿÿÿ8î±Ö—Ù-
-fsquid:CallToDeprecatedMethodY"2Remove this use of "getContext"; it is deprecated.(ÙîÜ¼şÿÿÿÿ8î±Ö—Ù-
-isquid:CallToDeprecatedMethody":Remove this use of "PreferenceCategory"; it is deprecated.(Í¿²8î±Ö—Ù-
-fsquid:CallToDeprecatedMethodB"2Remove this use of "Preference"; it is deprecated.(ıÄÕÉüÿÿÿÿ8î±Ö—Ù-
-qsquid:CallToDeprecatedMethodT"BRemove this use of "OnPreferenceChangeListener"; it is deprecated.(Œ‚ô¯8î±Ö—Ù-
-nsquid:CallToDeprecatedMethodo":Remove this use of "PreferenceCategory"; it is deprecated.(ı¥³Êüÿÿÿÿ8î±Ö—Ù-
-asquid:CallToDeprecatedMethod8"2Remove this use of "getContext"; it is deprecated.(æÃß©8î±Ö—Ù-
-isquid:CallToDeprecatedMethody":Remove this use of "PreferenceCategory"; it is deprecated.(Í¿²8î±Ö—Ù-
-asquid:CallToDeprecatedMethodJ"2Remove this use of "getContext"; it is deprecated.(¿ÿÕî8î±Ö—Ù-
-^squid:CallToDeprecatedMethod"/Remove this use of "replace"; it is deprecated.(§õ†8î±Ö—Ù-
-asquid:CallToDeprecatedMethodT"2Remove this use of "Preference"; it is deprecated.(Œ‚ô¯8î±Ö—Ù-
-vsquid:CallToDeprecatedMethod+"BRemove this use of "OnPreferenceChangeListener"; it is deprecated.( áÓ§úÿÿÿÿ8î±Ö—Ù-
-asquid:CallToDeprecatedMethod-"2Remove this use of "Preference"; it is deprecated.(‚óİ›8î±Ö—Ù-
 fsquid:CallToDeprecatedMethod+"2Remove this use of "Preference"; it is deprecated.( áÓ§úÿÿÿÿ8î±Ö—Ù-
-asquid:CallToDeprecatedMethodV"2Remove this use of "Preference"; it is deprecated.(‚óİ›8î±Ö—Ù-
-csquid:CallToDeprecatedMethodŠ"3Remove this use of "getActivity"; it is deprecated.(‡ç×Œ8î±Ö—Ù-
-nsquid:CallToDeprecatedMethodv":Remove this use of "PreferenceCategory"; it is deprecated.(¿ÓÉ‡øÿÿÿÿ8î±Ö—Ù-
-osquid:CallToDeprecatedMethodp";Remove this use of "getPreferenceScreen"; it is deprecated.(Íí×şÿÿÿÿ8î±Ö—Ù-
-gsquid:CallToDeprecatedMethodƒ"2Remove this use of "getContext"; it is deprecated.(õüØËúÿÿÿÿ8î±Ö—Ù-
 fsquid:CallToDeprecatedMethodB"2Remove this use of "Preference"; it is deprecated.(ıÄÕÉüÿÿÿÿ8î±Ö—Ù-
+lsquid:CallToDeprecatedMethodp"8Remove this use of "removePreference"; it is deprecated.(Íí×şÿÿÿÿ8î±Ö—Ù-
+nsquid:CallToDeprecatedMethodo":Remove this use of "PreferenceCategory"; it is deprecated.(ı¥³Êüÿÿÿÿ8î±Ö—Ù-
+isquid:CallToDeprecatedMethody":Remove this use of "PreferenceCategory"; it is deprecated.(Í¿²8î±Ö—Ù-
+vsquid:CallToDeprecatedMethod+"BRemove this use of "OnPreferenceChangeListener"; it is deprecated.( áÓ§úÿÿÿÿ8î±Ö—Ù-
+asquid:CallToDeprecatedMethod#"2Remove this use of "Preference"; it is deprecated.(ñª¢ì8î±Ö—Ù-
+asquid:CallToDeprecatedMethod3"2Remove this use of "getContext"; it is deprecated.(¿ÿÕî8î±Ö—Ù-
+fsquid:CallToDeprecatedMethodY"2Remove this use of "getContext"; it is deprecated.(ÙîÜ¼şÿÿÿÿ8î±Ö—Ù-
+asquid:CallToDeprecatedMethodT"2Remove this use of "Preference"; it is deprecated.(Œ‚ô¯8î±Ö—Ù-
+asquid:CallToDeprecatedMethodJ"2Remove this use of "getContext"; it is deprecated.(¿ÿÕî8î±Ö—Ù-
+osquid:CallToDeprecatedMethodp";Remove this use of "getPreferenceScreen"; it is deprecated.(Íí×şÿÿÿÿ8î±Ö—Ù-
+nsquid:CallToDeprecatedMethodv":Remove this use of "PreferenceCategory"; it is deprecated.(¿ÓÉ‡øÿÿÿÿ8î±Ö—Ù-
+asquid:CallToDeprecatedMethodn"2Remove this use of "getContext"; it is deprecated.(¥Ñ’8î±Ö—Ù-
 asquid:CallToDeprecatedMethodD"2Remove this use of "Preference"; it is deprecated.(‚óİ›8î±Ö—Ù-
 fsquid:CallToDeprecatedMethodM"2Remove this use of "getContext"; it is deprecated.(åÃ€Îıÿÿÿÿ8î±Ö—Ù-
-asquid:CallToDeprecatedMethodn"2Remove this use of "getContext"; it is deprecated.(¥Ñ’8î±Ö—Ù-
-nsquid:CallToDeprecatedMethodv":Remove this use of "PreferenceCategory"; it is deprecated.(¿ÓÉ‡øÿÿÿÿ8î±Ö—Ù-
-]squid:CallToDeprecatedMethod".Remove this use of "commit"; it is deprecated.(§õ†8î±Ö—Ù-
-lsquid:CallToDeprecatedMethodp"8Remove this use of "removePreference"; it is deprecated.(Íí×şÿÿÿÿ8î±Ö—Ù-
-bsquid:CallToDeprecatedMethod":Remove this use of "PreferenceFragment"; it is deprecated.(Ó‘á±
-gsquid:CallToDeprecatedMethod"8Remove this use of "beginTransaction"; it is deprecated.(§õ†8î±Ö—Ù-
 fsquid:CallToDeprecatedMethod:"2Remove this use of "getContext"; it is deprecated.(÷äóöşÿÿÿÿ8î±Ö—Ù-
-asquid:CallToDeprecatedMethodK"2Remove this use of "getContext"; it is deprecated.(´¼Ñá8î±Ö—Ù-
-asquid:CallToDeprecatedMethod3"2Remove this use of "getContext"; it is deprecated.(¿ÿÕî8î±Ö—Ù-
-vsquid:CallToDeprecatedMethodB"BRemove this use of "OnPreferenceChangeListener"; it is deprecated.(ıÄÕÉüÿÿÿÿ8î±Ö—Ù-
-wsquid:CallToDeprecatedMethodf"CRemove this use of "getDefaultSharedPreferences"; it is deprecated.(º“ ÿÿÿÿÿ8î±Ö—Ù-
+fsquid:CallToDeprecatedMethod+"2Remove this use of "Preference"; it is deprecated.( áÓ§úÿÿÿÿ8î±Ö—Ù-
+asquid:CallToDeprecatedMethod-"2Remove this use of "Preference"; it is deprecated.(‚óİ›8î±Ö—Ù-
+fsquid:CallToDeprecatedMethod6"2Remove this use of "getContext"; it is deprecated.(åÃ€Îıÿÿÿÿ8î±Ö—Ù-
+qsquid:CallToDeprecatedMethod#"BRemove this use of "OnPreferenceChangeListener"; it is deprecated.(ñª¢ì8î±Ö—Ù-
+]squid:CallToDeprecatedMethod".Remove this use of "commit"; it is deprecated.(§õ†8î±Ö—Ù-
+fsquid:CallToDeprecatedMethodB"2Remove this use of "Preference"; it is deprecated.(ıÄÕÉüÿÿÿÿ8î±Ö—Ù-
+asquid:CallToDeprecatedMethodV"2Remove this use of "Preference"; it is deprecated.(‚óİ›8î±Ö—Ù-
 `squid:CallToDeprecatedMethod["2Remove this use of "getContext"; it is deprecated.(äÖ½x8î±Ö—Ù-
+asquid:CallToDeprecatedMethodT"2Remove this use of "Preference"; it is deprecated.(Œ‚ô¯8î±Ö—Ù-
+csquid:CallToDeprecatedMethodŠ"3Remove this use of "getActivity"; it is deprecated.(‡ç×Œ8î±Ö—Ù-
 asquid:CallToDeprecatedMethod%"2Remove this use of "Preference"; it is deprecated.(‚óİ›8î±Ö—Ù-
-~squid:CallToDeprecatedMethodb"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(™¶æ„øÿÿÿÿ8î±Ö—Ù-
-dsquid:CallToDeprecatedMethodc"0Remove this use of "onCreate"; it is deprecated.(î±¨Ôøÿÿÿÿ8î±Ö—Ù-
+gsquid:CallToDeprecatedMethodƒ"2Remove this use of "getContext"; it is deprecated.(õüØËúÿÿÿÿ8î±Ö—Ù-
+asquid:CallToDeprecatedMethodK"2Remove this use of "getContext"; it is deprecated.(´¼Ñá8î±Ö—Ù-
+vsquid:CallToDeprecatedMethodB"BRemove this use of "OnPreferenceChangeListener"; it is deprecated.(ıÄÕÉüÿÿÿÿ8î±Ö—Ù-
+qsquid:CallToDeprecatedMethodT"BRemove this use of "OnPreferenceChangeListener"; it is deprecated.(Œ‚ô¯8î±Ö—Ù-
+^squid:CallToDeprecatedMethod"/Remove this use of "replace"; it is deprecated.(§õ†8î±Ö—Ù-
+wsquid:CallToDeprecatedMethodf"CRemove this use of "getDefaultSharedPreferences"; it is deprecated.(º“ ÿÿÿÿÿ8î±Ö—Ù-
+isquid:CallToDeprecatedMethod":Remove this use of "getFragmentManager"; it is deprecated.(§õ†8î±Ö—Ù-
+nsquid:CallToDeprecatedMethodv":Remove this use of "PreferenceCategory"; it is deprecated.(¿ÓÉ‡øÿÿÿÿ8î±Ö—Ù-
 fsquid:CallToDeprecatedMethodf"2Remove this use of "getContext"; it is deprecated.(º“ ÿÿÿÿÿ8î±Ö—Ù-
-nsquid:CallToDeprecatedMethodo":Remove this use of "PreferenceCategory"; it is deprecated.(ı¥³Êüÿÿÿÿ8î±Ö—Ù-
 osquid:CallToDeprecatedMethodz";Remove this use of "getPreferenceScreen"; it is deprecated.(—ˆïĞûÿÿÿÿ8î±Ö—Ù-
 msquid:CallToDeprecatedMethodf"9Remove this use of "PreferenceManager"; it is deprecated.(º“ ÿÿÿÿÿ8î±Ö—Ù-
+nsquid:CallToDeprecatedMethodo":Remove this use of "PreferenceCategory"; it is deprecated.(ı¥³Êüÿÿÿÿ8î±Ö—Ù-
+lsquid:CallToDeprecatedMethodz"8Remove this use of "removePreference"; it is deprecated.(—ˆïĞûÿÿÿÿ8î±Ö—Ù-
 `squid:CallToDeprecatedMethod"2Remove this use of "getContext"; it is deprecated.(¥É÷8î±Ö—Ù-
-qsquid:CallToDeprecatedMethod#"BRemove this use of "OnPreferenceChangeListener"; it is deprecated.(ñª¢ì8î±Ö—Ù-
-asquid:CallToDeprecatedMethod#"2Remove this use of "Preference"; it is deprecated.(ñª¢ì8î±Ö—Ù-
-fsquid:CallToDeprecatedMethod+"2Remove this use of "Preference"; it is deprecated.( áÓ§úÿÿÿÿ8î±Ö—Ù-
-fsquid:CallToDeprecatedMethod6"2Remove this use of "getContext"; it is deprecated.(åÃ€Îıÿÿÿÿ8î±Ö—Ù-
-asquid:CallToDeprecatedMethod#"2Remove this use of "Preference"; it is deprecated.(ñª¢ì8î±Ö—Ù-
+gsquid:CallToDeprecatedMethod"8Remove this use of "beginTransaction"; it is deprecated.(§õ†8î±Ö—Ù-
+bsquid:CallToDeprecatedMethod":Remove this use of "PreferenceFragment"; it is deprecated.(Ó‘á±
+asquid:CallToDeprecatedMethod8"2Remove this use of "getContext"; it is deprecated.(æÃß©8î±Ö—Ù-
+dsquid:CallToDeprecatedMethodc"0Remove this use of "onCreate"; it is deprecated.(î±¨Ôøÿÿÿÿ8î±Ö—Ù-
+vsquid:CallToDeprecatedMethodd"BRemove this use of "addPreferencesFromResource"; it is deprecated.(Š ¼Çÿÿÿÿÿ8‰à»®Ù-
+dsquid:CallToDeprecatedMethodh"6Remove this use of "findPreference"; it is deprecated.(ÔÏˆ8‰à»®Ù-
+_squid:CallToDeprecatedMethodh"1Remove this use of "getString"; it is deprecated.(ÔÏˆ8‰à»®Ù-
+ssquid:CallToDeprecatedMethodh"ERemove this use of "setOnPreferenceChangeListener"; it is deprecated.(ÔÏˆ8‰à»®Ù-
+dsquid:CallToDeprecatedMethodi"6Remove this use of "findPreference"; it is deprecated.(ßøÍL8‰à»®Ù-
+_squid:CallToDeprecatedMethodi"1Remove this use of "getString"; it is deprecated.(ßøÍL8‰à»®Ù-
+ssquid:CallToDeprecatedMethodi"ERemove this use of "setOnPreferenceChangeListener"; it is deprecated.(ßøÍL8‰à»®Ù-
+esquid:CallToDeprecatedMethodj"6Remove this use of "findPreference"; it is deprecated.(ñÍÄ8‰à»®Ù-
+`squid:CallToDeprecatedMethodj"1Remove this use of "getString"; it is deprecated.(ñÍÄ8‰à»®Ù-
+tsquid:CallToDeprecatedMethodj"ERemove this use of "setOnPreferenceChangeListener"; it is deprecated.(ñÍÄ8‰à»®Ù-
+jsquid:CallToDeprecatedMethodk"6Remove this use of "findPreference"; it is deprecated.(Ç¦õ¾ÿÿÿÿÿ8‰à»®Ù-
+esquid:CallToDeprecatedMethodk"1Remove this use of "getString"; it is deprecated.(Ç¦õ¾ÿÿÿÿÿ8‰à»®Ù-
+ysquid:CallToDeprecatedMethodk"ERemove this use of "setOnPreferenceChangeListener"; it is deprecated.(Ç¦õ¾ÿÿÿÿÿ8‰à»®Ù-
+jsquid:CallToDeprecatedMethodo"6Remove this use of "findPreference"; it is deprecated.(ı¥³Êüÿÿÿÿ8‰à»®Ù-
+esquid:CallToDeprecatedMethodo"1Remove this use of "getString"; it is deprecated.(ı¥³Êüÿÿÿÿ8‰à»®Ù-
+jsquid:CallToDeprecatedMethodv"6Remove this use of "findPreference"; it is deprecated.(¿ÓÉ‡øÿÿÿÿ8‰à»®Ù-
+esquid:CallToDeprecatedMethodv"1Remove this use of "getString"; it is deprecated.(¿ÓÉ‡øÿÿÿÿ8‰à»®Ù-
+gsquid:CallToDeprecatedMethodw"8Remove this use of "removePreference"; it is deprecated.(åÄƒÁ8‰à»®Ù-
+esquid:CallToDeprecatedMethodw"6Remove this use of "findPreference"; it is deprecated.(åÄƒÁ8‰à»®Ù-
+`squid:CallToDeprecatedMethodw"1Remove this use of "getString"; it is deprecated.(åÄƒÁ8‰à»®Ù-
+esquid:CallToDeprecatedMethody"6Remove this use of "findPreference"; it is deprecated.(Í¿²8‰à»®Ù-
+`squid:CallToDeprecatedMethody"1Remove this use of "getString"; it is deprecated.(Í¿²8‰à»®Ù-
+asquid:CallToDeprecatedMethod„"1Remove this use of "getString"; it is deprecated.(„ç¬œ8‰à»®Ù-
+fsquid:CallToDeprecatedMethod…"1Remove this use of "getString"; it is deprecated.(Ã€Ø£øÿÿÿÿ8‰à»®Ù-
