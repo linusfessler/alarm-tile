@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.text.DateFormatSymbols;
@@ -34,9 +35,13 @@ public abstract class Scheduler {
     }
 
     protected abstract int getActivityRequestCode();
+
     protected abstract int getShowRequestCode();
+
     protected abstract int getIsScheduledKey();
+
     protected abstract String getDurationLeftKey();
+
     protected abstract String getTimestampKey();
 
     public abstract void schedule();
@@ -142,7 +147,7 @@ public abstract class Scheduler {
                 PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
                 Notification notification = new Notification.Builder(context)
-                        .setSmallIcon(R.drawable.ic_alarm_on)
+                        .setSmallIcon(R.drawable.ic_alarm_24px)
                         .setColor(context.getColor(R.color.colorAccent))
                         .setAutoCancel(true)
                         .setContentIntent(pendingIntent)

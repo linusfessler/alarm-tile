@@ -13,12 +13,12 @@ public class AlarmTileService extends SchedulerTileService {
 
     @Override
     protected int getEnabledIcon() {
-        return R.drawable.ic_alarm_on;
+        return R.drawable.ic_alarm_24px;
     }
 
     @Override
     protected int getDisabledIcon() {
-        return R.drawable.ic_alarm_off;
+        return R.drawable.ic_alarm_off_24px;
     }
 }
 

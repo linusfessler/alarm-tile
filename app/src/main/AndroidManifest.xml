@@ -21,6 +21,7 @@
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -37,8 +38,7 @@
         </activity>
         <activity
             android:name=".activities.SettingsActivity"
-            android:label="@string/activity_settings_title">
-        </activity>
+            android:label="@string/activity_settings_title" />
         <activity android:name=".activities.AboutActivity" />
         <activity
             android:name=".activities.AlarmActivity"
@@ -50,7 +50,7 @@
 
         <service
             android:name=".services.tile.AlarmTileService"
-            android:icon="@drawable/ic_tile_alarm"
+            android:icon="@drawable/ic_alarm_24px"
             android:label="@string/alarm"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
@@ -59,7 +59,7 @@
         </service>
         <service
             android:name=".services.tile.TimerTileService"
-            android:icon="@drawable/ic_tile_timer"
+            android:icon="@drawable/ic_timer_24px"
             android:label="@string/timer"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
@@ -68,7 +68,7 @@
         </service>
         <service
             android:name=".services.tile.SnoozeTileService"
-            android:icon="@drawable/ic_tile_snooze"
+            android:icon="@drawable/ic_snooze_24px"
             android:label="@string/snooze"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>

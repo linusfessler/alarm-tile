@@ -13,12 +13,12 @@ public class AlarmFragment extends SchedulerFragment {
 
     @Override
     protected int getPositiveIconId() {
-        return R.drawable.ic_alarm_on;
+        return R.drawable.ic_alarm_24px;
     }
 
     @Override
     protected int getNegativeIconId() {
-        return R.drawable.ic_alarm_off;
+        return R.drawable.ic_alarm_off_24px;
     }
 
     @Override

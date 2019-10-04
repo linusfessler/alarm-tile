@@ -13,12 +13,12 @@ public class SnoozeFragment extends SchedulerFragment {
 
     @Override
     protected int getPositiveIconId() {
-        return R.drawable.ic_snooze_on;
+        return R.drawable.ic_snooze_24px;
     }
 
     @Override
     protected int getNegativeIconId() {
-        return R.drawable.ic_alarm_off;
+        return R.drawable.ic_alarm_off_24px;
     }
 
     @Override

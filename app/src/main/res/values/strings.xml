@@ -3,6 +3,7 @@
     <string name="alarm">Alarm</string>
     <string name="timer">Timer</string>
     <string name="snooze">Snooze</string>
+    <string name="dismiss">Dismiss</string>
 
     <string name="activity_main_title">Alarm Tiles</string>
     <string name="activity_settings_title">Settings</string>

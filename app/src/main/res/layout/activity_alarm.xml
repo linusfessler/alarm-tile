@@ -16,7 +16,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.110000014"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="08:00" />
 
     <TextView
         android:id="@+id/alarm"
@@ -59,20 +60,26 @@
             android:layout_above="@id/image_alarm"
             android:layout_marginBottom="50dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_snooze"
-            android:scaleType="center"
+            android:padding="12dp"
+            android:src="@drawable/ic_snooze_24px"
+            android:tint="@color/white"
+            android:scaleType="fitCenter"
             android:background="@drawable/circle"
-            android:backgroundTint="@color/colorAccent" />
+            android:backgroundTint="@color/colorAccent"
+            android:contentDescription="@string/snooze" />
 
         <ImageView
             android:id="@+id/image_alarm"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/ic_alarm"
-            android:scaleType="center"
+            android:padding="12dp"
+            android:src="@drawable/ic_alarm_24px"
+            android:tint="@color/white"
+            android:scaleType="fitCenter"
             android:background="@drawable/circle"
-            android:backgroundTint="@color/colorAccent" />
+            android:backgroundTint="@color/colorAccent"
+            android:contentDescription="@string/alarm" />
 
         <View
             android:id="@+id/ripple"
@@ -88,10 +95,13 @@
             android:layout_below="@id/image_alarm"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_dismiss"
-            android:scaleType="center"
+            android:padding="12dp"
+            android:src="@drawable/ic_alarm_off_24px"
+            android:tint="@color/white"
+            android:scaleType="fitCenter"
             android:background="@drawable/circle"
-            android:backgroundTint="@color/colorAccent" />
+            android:backgroundTint="@color/colorAccent"
+            android:contentDescription="@string/dismiss" />
 
     </RelativeLayout>
 

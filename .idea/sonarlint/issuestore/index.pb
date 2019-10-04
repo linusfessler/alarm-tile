@@ -17,3 +17,7 @@ k
 ;app/src/main/java/linusfessler/alarmtiles/PagerAdapter.java,9\e\9e0650771449182f4b2da3d292bc23ea5d4e8c98
 v
 Fapp/src/main/java/linusfessler/alarmtiles/activities/MainActivity.java,0\8\085db37aad2dc80f0b9d37e784ff97c32c4bea84
+w
+Gapp/src/main/java/linusfessler/alarmtiles/activities/AboutActivity.java,e\5\e5f754ac888da7694d76e4e80da13bd4fcddf82a
+z
+Japp/src/main/java/linusfessler/alarmtiles/fragments/SchedulerFragment.java,b\7\b713873ef926ecbf9d0763538c821d31b90cf46b

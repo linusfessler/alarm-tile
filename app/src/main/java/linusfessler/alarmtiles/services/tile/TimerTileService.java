@@ -13,11 +13,11 @@ public class TimerTileService extends SchedulerTileService {
 
     @Override
     protected int getEnabledIcon() {
-        return R.drawable.ic_timer_on;
+        return R.drawable.ic_timer_24px;
     }
 
     @Override
     protected int getDisabledIcon() {
-        return R.drawable.ic_timer_off;
+        return R.drawable.ic_timer_off_24px;
     }
 }

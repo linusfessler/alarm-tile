@@ -1,6 +1,2 @@
 
-ksquid:CallToDeprecatedMethod"7Remove this use of "FragmentManager"; it is deprecated.(†Š´Àøÿÿÿÿ8€“®•Ù-
-U"squid:SwitchLastCaseIsDefaultCheck$""Add a default case to this switch.(¼œóÛüÿÿÿÿ
-^squid:UselessImportCheck".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿ8Â—Ù-
-]squid:CallToDeprecatedMethod""0Remove this use of "Fragment"; it is deprecated.(üò¥ÿÿÿÿÿ
-Zsquid:UselessImportCheck"*Remove this unused import 'java.util.Map'.(¼è½Òşÿÿÿÿ8ª®Â—Ù-
+U"squid:SwitchLastCaseIsDefaultCheck#""Add a default case to this switch.(¼œóÛüÿÿÿÿ

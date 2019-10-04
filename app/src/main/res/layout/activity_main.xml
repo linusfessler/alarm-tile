@@ -29,19 +29,19 @@
         <com.google.android.material.tabs.TabItem
             android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:icon="@drawable/ic_alarm_on"
+            android:icon="@drawable/ic_alarm_24px"
             android:text="@string/alarm" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:icon="@drawable/ic_timer_on"
+            android:icon="@drawable/ic_timer_24px"
             android:text="@string/timer" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:icon="@drawable/ic_snooze_on"
+            android:icon="@drawable/ic_snooze_24px"
             android:text="@string/snooze" />
 
     </com.google.android.material.tabs.TabLayout>
@@ -54,13 +54,12 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:focusable="true"
-        android:clickable="true"
-        android:src="@drawable/ic_alarm_on" />
+        android:src="@drawable/ic_alarm_24px"
+        android:tint="@color/white" />
 
 </RelativeLayout>

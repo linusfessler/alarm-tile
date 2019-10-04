@@ -13,12 +13,12 @@ public class TimerFragment extends SchedulerFragment {
 
     @Override
     protected int getPositiveIconId() {
-        return R.drawable.ic_timer_on;
+        return R.drawable.ic_timer_24px;
     }
 
     @Override
     protected int getNegativeIconId() {
-        return R.drawable.ic_timer_off;
+        return R.drawable.ic_timer_off_24px;
     }
 
     @Override
