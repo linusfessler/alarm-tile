@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#101010</color>
-    <color name="colorPrimaryDark">#080808</color>
-    <color name="colorAccent">#1A73E9</color>
-    <color name="windowBackground">#181818</color>
-    <color name="white">#FFFFFF</color>
+    <color name="blue">#1a73e9</color>
+    <color name="red">#cf6679</color>
+    <color name="white">#ffffff</color>
+    <color name="grey">#1F1F1F</color>
+    <color name="darkGrey">#121212</color>
+    <color name="black">#000000</color>
+    <color name="evening">#072379</color>
+    <color name="morning">#b67800</color>
 </resources>

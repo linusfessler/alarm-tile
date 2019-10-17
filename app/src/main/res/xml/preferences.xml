@@ -1,5 +1,4 @@
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="@string/pref_screen_settings_key"
     android:title="@string/pref_screen_settings_title">
 
@@ -14,20 +13,20 @@
             android:title="@string/pref_alarm_sound_title"
             android:ringtoneType="alarm"
             android:showDefault="true"
-            android:showSilent="true"/>
+            android:showSilent="true" />
 
         <SwitchPreference
             android:icon="@drawable/ic_volume_up"
             android:defaultValue="false"
             android:key="@string/pref_increase_volume_key"
-            android:title="@string/pref_increase_volume_title"/>
+            android:title="@string/pref_increase_volume_title" />
 
         <linusfessler.alarmtiles.preferences.MinutesSecondsTimePreference
             android:icon="@drawable/ic_delay"
             android:defaultValue="60"
             android:dependency="@string/pref_increase_volume_key"
             android:key="@string/pref_increase_volume_duration_key"
-            android:title="@string/pref_increase_volume_duration_title"/>
+            android:title="@string/pref_increase_volume_duration_title" />
 
     </PreferenceCategory>
 
@@ -40,7 +39,7 @@
             android:defaultValue="true"
             android:key="@string/pref_vibrate_key"
             android:title="@string/pref_vibrate_title"
-            android:summary="@string/pref_vibrate_summary"/>
+            android:summary="@string/pref_vibrate_summary" />
 
     </PreferenceCategory>
 
@@ -55,7 +54,7 @@
             android:key="@string/pref_vibration_duration_key"
             android:title="@string/pref_vibration_duration_title"
             android:numeric="integer"
-            android:maxLength="10"/>
+            android:maxLength="10" />
 
         <linusfessler.alarmtiles.preferences.MilliSecondsPreference
             android:icon="@drawable/ic_pause"
@@ -63,7 +62,7 @@
             android:key="@string/pref_pause_duration_key"
             android:title="@string/pref_pause_duration_title"
             android:numeric="integer"
-            android:maxLength="10"/>
+            android:maxLength="10" />
 
     </PreferenceCategory>
 
@@ -76,7 +75,7 @@
             android:defaultValue="false"
             android:key="@string/pref_dnd_enter_key"
             android:title="@string/pref_dnd_enter_title"
-            android:summary="@string/pref_dnd_enter_summary"/>
+            android:summary="@string/pref_dnd_enter_summary" />
 
         <SwitchPreference
             android:icon="@drawable/ic_dnd_off"
@@ -84,7 +83,7 @@
             android:key="@string/pref_dnd_exit_key"
             android:dependency="@string/pref_dnd_enter_key"
             android:title="@string/pref_dnd_exit_title"
-            android:summary="@string/pref_dnd_exit_summary"/>
+            android:summary="@string/pref_dnd_exit_summary" />
 
         <SwitchPreference
             android:icon="@drawable/ic_dnd_priority"
@@ -92,7 +91,7 @@
             android:key="@string/pref_dnd_priority_key"
             android:dependency="@string/pref_dnd_enter_key"
             android:title="@string/pref_dnd_priority_title"
-            android:summary="@string/pref_dnd_priority_summary"/>
+            android:summary="@string/pref_dnd_priority_summary" />
 
     </PreferenceCategory>
 
@@ -104,13 +103,13 @@
             android:icon="@drawable/ic_use_24h_format"
             android:defaultValue="true"
             android:key="@string/pref_use_24h_format_key"
-            android:title="@string/pref_use_24h_format_title"/>
+            android:title="@string/pref_use_24h_format_title" />
 
         <SwitchPreference
             android:icon="@drawable/ic_use_analog_clocks"
             android:defaultValue="true"
             android:key="@string/pref_use_analog_clocks_key"
-            android:title="@string/pref_use_analog_clocks_title"/>
+            android:title="@string/pref_use_analog_clocks_title" />
 
     </PreferenceCategory>
 
@@ -123,7 +122,7 @@
             android:defaultValue="false"
             android:key="@string/pref_turn_music_off_key"
             android:title="@string/pref_turn_music_off_title"
-            android:summary="@string/pref_turn_music_off_summary"/>
+            android:summary="@string/pref_turn_music_off_summary" />
 
         <SwitchPreference
             android:icon="@drawable/ic_volume_down"
@@ -131,14 +130,14 @@
             android:dependency="@string/pref_turn_music_off_key"
             android:key="@string/pref_fade_music_out_key"
             android:title="@string/pref_fade_music_out_title"
-            android:summary="@string/pref_fade_music_out_summary"/>
+            android:summary="@string/pref_fade_music_out_summary" />
 
         <linusfessler.alarmtiles.preferences.HoursMinutesTimePreference
             android:icon="@drawable/ic_delay"
             android:defaultValue="30"
             android:dependency="@string/pref_turn_music_off_key"
             android:key="@string/pref_turn_music_off_delay_key"
-            android:title="@string/pref_turn_music_off_delay_title"/>
+            android:title="@string/pref_turn_music_off_delay_title" />
 
         <SwitchPreference
             android:icon="@drawable/ic_show_notification"
@@ -146,7 +145,7 @@
             android:dependency="@string/pref_turn_music_off_key"
             android:key="@string/pref_show_music_notification_key"
             android:title="@string/pref_show_music_notification_title"
-            android:summary="@string/pref_show_music_notification_summary"/>
+            android:summary="@string/pref_show_music_notification_summary" />
 
     </PreferenceCategory>
 
@@ -159,7 +158,7 @@
             android:defaultValue="false"
             android:key="@string/pref_volume_buttons_key"
             android:title="@string/pref_volume_buttons_title"
-            android:summary="@string/pref_volume_buttons_summary"/>
+            android:summary="@string/pref_volume_buttons_summary" />
 
     </PreferenceCategory>
 
@@ -172,7 +171,7 @@
             android:defaultValue="false"
             android:key="@string/pref_flashlight_key"
             android:title="@string/pref_flashlight_title"
-            android:summary="@string/pref_flashlight_summary"/>
+            android:summary="@string/pref_flashlight_summary" />
 
     </PreferenceCategory>
 
@@ -185,7 +184,7 @@
             android:defaultValue="false"
             android:key="@string/pref_hide_launcher_icon_key"
             android:title="@string/pref_hide_launcher_icon_title"
-            android:summary="@string/pref_hide_launcher_icon_summary"/>
+            android:summary="@string/pref_hide_launcher_icon_summary" />
 
     </PreferenceCategory>
 

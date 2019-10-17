@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/alarm_tile_height"
+    android:background="?attr/selectableItemBackground">
+
+    <Space
+        android:layout_width="24dp"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_gravity="center"
+        android:tint="@color/white"
+        tools:src="@drawable/ic_alarm_24px" />
+
+    <Space
+        android:layout_width="16dp"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        tools:text="Alarm" />
+
+    <Space
+        android:layout_width="16dp"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="fragment_padding">16dp</dimen>
+    <dimen name="setting_height">48dp</dimen>
+    <dimen name="alarm_tile_height">64dp</dimen>
+</resources>

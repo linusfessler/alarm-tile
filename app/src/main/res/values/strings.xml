@@ -1,9 +1,21 @@
 <resources>
+
     <string name="app_name">Alarm Tiles</string>
+    <string name="silencer">Silencer</string>
     <string name="alarm">Alarm</string>
     <string name="timer">Timer</string>
     <string name="snooze">Snooze</string>
     <string name="dismiss">Dismiss</string>
+
+    <string name="next">Continue</string>
+    <string name="finish">Save</string>
+
+    <string name="sleep_timer_info">Set a timer that stops all audio and video after the specified amount of time.</string>
+    <string name="alarm_info">Set a timer that wakes you up after the specified amount of time.</string>
+    <string name="wake_timer_info">Set a standard alarm that wakes you up at the specified time.</string>
+    <string name="alarm_wake_timer_info">If you set both an alarm and a timer, the resultant alarm will be the one that sets in earlier.</string>
+    <string name="snooze_info">On the alarm screen, you can swipe up or press the volume up button to snooze.</string>
+    <string name="revert_info">In the morning, all settings will be reverted to the state of the night before.</string>
 
     <string name="activity_main_title">Alarm Tiles</string>
     <string name="activity_settings_title">Settings</string>
@@ -111,4 +123,5 @@
     <string name="pref_hide_launcher_icon_key">hide_launcher_icon</string>
     <string name="pref_hide_launcher_icon_title">Hide launcher icon</string>
     <string name="pref_hide_launcher_icon_summary">Note: you will only be able to open this app by long pressing a tile</string>
+
 </resources>

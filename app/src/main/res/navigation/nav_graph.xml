@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="linusfessler.alarmtiles.fragments.MainFragment"
+        android:label="Your alarm tiles"
+        tools:layout="@layout/main_fragment">
+        <action
+            android:id="@+id/action_mainFragment_to_newAlarmFragment"
+            app:destination="@id/newAlarmFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/newAlarmFragment"
+        android:name="linusfessler.alarmtiles.fragments.NewAlarmFragment"
+        android:label="Create alarm tile"
+        tools:layout="@layout/new_alarm_fragment">
+        <action
+            android:id="@+id/action_newAlarmFragment_to_fallingAsleepFragment"
+            app:destination="@id/fallingAsleepFragment"
+            app:enterAnim="@anim/nav_slide_enter_anim"
+            app:exitAnim="@anim/nav_slide_exit_anim"
+            app:popEnterAnim="@anim/nav_slide_pop_enter_anim"
+            app:popExitAnim="@anim/nav_slide_pop_exit_anim" />
+        <argument
+            android:name="alarmTile"
+            app:argType="linusfessler.alarmtiles.model.AlarmTile" />
+    </fragment>
+    <fragment
+        android:id="@+id/fallingAsleepFragment"
+        android:name="linusfessler.alarmtiles.fragments.FallingAsleepFragment"
+        android:label="Falling asleep"
+        tools:layout="@layout/falling_asleep_fragment">
+        <action
+            android:id="@+id/action_fallingAsleepFragment_to_sleepFragment"
+            app:destination="@id/sleepFragment"
+            app:enterAnim="@anim/nav_slide_enter_anim"
+            app:exitAnim="@anim/nav_slide_exit_anim"
+            app:popEnterAnim="@anim/nav_slide_pop_enter_anim"
+            app:popExitAnim="@anim/nav_slide_pop_exit_anim" />
+        <argument
+            android:name="alarmTile"
+            app:argType="linusfessler.alarmtiles.model.AlarmTile" />
+    </fragment>
+    <fragment
+        android:id="@+id/sleepFragment"
+        android:name="linusfessler.alarmtiles.fragments.SleepFragment"
+        android:label="Sleep"
+        tools:layout="@layout/sleep_fragment">
+        <action
+            android:id="@+id/action_sleepFragment_to_wakingUpFragment"
+            app:destination="@id/wakingUpFragment"
+            app:enterAnim="@anim/nav_slide_enter_anim"
+            app:exitAnim="@anim/nav_slide_exit_anim"
+            app:popEnterAnim="@anim/nav_slide_pop_enter_anim"
+            app:popExitAnim="@anim/nav_slide_pop_exit_anim" />
+        <argument
+            android:name="alarmTile"
+            app:argType="linusfessler.alarmtiles.model.AlarmTile" />
+    </fragment>
+    <fragment
+        android:id="@+id/wakingUpFragment"
+        android:name="linusfessler.alarmtiles.fragments.WakingUpFragment"
+        android:label="Waking up"
+        tools:layout="@layout/waking_up_fragment">
+        <action
+            android:id="@+id/action_wakingUpFragment_to_snoozeFragment"
+            app:destination="@id/snoozeFragment"
+            app:enterAnim="@anim/nav_slide_enter_anim"
+            app:exitAnim="@anim/nav_slide_exit_anim"
+            app:popEnterAnim="@anim/nav_slide_pop_enter_anim"
+            app:popExitAnim="@anim/nav_slide_pop_exit_anim" />
+        <argument
+            android:name="alarmTile"
+            app:argType="linusfessler.alarmtiles.model.AlarmTile" />
+    </fragment>
+    <fragment
+        android:id="@+id/snoozeFragment"
+        android:name="linusfessler.alarmtiles.fragments.SnoozeFragment"
+        android:label="Snooze"
+        tools:layout="@layout/snooze_fragment">
+        <action
+            android:id="@+id/action_snoozeFragment_to_advancedFragment"
+            app:destination="@id/advancedFragment"
+            app:enterAnim="@anim/nav_slide_enter_anim"
+            app:exitAnim="@anim/nav_slide_exit_anim"
+            app:popEnterAnim="@anim/nav_slide_pop_enter_anim"
+            app:popExitAnim="@anim/nav_slide_pop_exit_anim" />
+        <argument
+            android:name="alarmTile"
+            app:argType="linusfessler.alarmtiles.model.AlarmTile" />
+    </fragment>
+    <fragment
+        android:id="@+id/advancedFragment"
+        android:name="linusfessler.alarmtiles.fragments.AdvancedFragment"
+        android:label="Advanced"
+        tools:layout="@layout/advanced_fragment">
+        <action
+            android:id="@+id/action_advancedFragment_to_mainFragment2"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@+id/nav_graph" />
+        <argument
+            android:name="alarmTile"
+            app:argType="linusfessler.alarmtiles.model.AlarmTile" />
+    </fragment>
+
+</navigation>

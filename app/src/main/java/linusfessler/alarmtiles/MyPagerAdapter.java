@@ -12,15 +12,15 @@ import java.util.List;
 
 import linusfessler.alarmtiles.fragments.AlarmFragment;
 import linusfessler.alarmtiles.fragments.SchedulerFragment;
-import linusfessler.alarmtiles.fragments.SnoozeFragment;
+import linusfessler.alarmtiles.fragments.SnoozeFragment1;
 import linusfessler.alarmtiles.fragments.TimerFragment;
 
-public class PagerAdapter extends FragmentPagerAdapter {
+public class MyPagerAdapter extends FragmentPagerAdapter {
 
     private int numberOfTabs;
     private List<SchedulerFragment> fragments = new ArrayList<>(3);
 
-    public PagerAdapter(FragmentManager fragmentManager, int numberOfTabs) {
+    public MyPagerAdapter(FragmentManager fragmentManager, int numberOfTabs) {
         super(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.numberOfTabs = numberOfTabs;
     }
@@ -40,7 +40,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
                 fragment = new TimerFragment();
                 break;
             case 2:
-                fragment = new SnoozeFragment();
+                fragment = new SnoozeFragment1();
                 break;
         }
         return fragment;

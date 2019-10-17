@@ -11,11 +11,9 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.AudioFocusRequest;
 import android.media.AudioManager;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.schedulers.Schedulers;
@@ -93,7 +91,7 @@ public class MusicSchedulerService extends JobService implements AudioManager.On
 
         Notification.Builder builder = new Notification.Builder(context)
                 .setSmallIcon(R.drawable.ic_music_note)
-                .setColor(context.getColor(R.color.colorAccent))
+                .setColor(context.getColor(R.color.blue))
                 .setOngoing(true)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
@@ -181,5 +179,6 @@ public class MusicSchedulerService extends JobService implements AudioManager.On
     }
 
     @Override
-    public void onAudioFocusChange(int i) {}
+    public void onAudioFocusChange(int i) {
+    }
 }

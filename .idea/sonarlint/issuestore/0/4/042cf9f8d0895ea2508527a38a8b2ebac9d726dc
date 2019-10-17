@@ -1,0 +1,7 @@
+
+rsquid:UselessImportCheck
+"NRemove this unused import 'linusfessler.alarmtiles.schedulers.TimerScheduler'.(¯õª 
+nsquid:UselessImportCheck"JRemove this unused import 'linusfessler.alarmtiles.schedulers.Schedulers'.(—î¾
+rsquid:UselessImportCheck"IRemove this unused import 'linusfessler.alarmtiles.schedulers.Scheduler'.(ÈğÍƒşÿÿÿÿ
+xsquid:UselessImportCheck	"ORemove this unused import 'linusfessler.alarmtiles.schedulers.SnoozeScheduler'.(ìˆÃÍøÿÿÿÿ
+rsquid:UselessImportCheck"NRemove this unused import 'linusfessler.alarmtiles.schedulers.AlarmScheduler'.(Á±ø°

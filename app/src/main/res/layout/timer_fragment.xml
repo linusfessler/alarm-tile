@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="settings"
+            type="linusfessler.alarmtiles.Settings" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:animateLayoutChanges="true">
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Do not disturb" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Allow priority notifications" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="Gradually increase volume" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/snooze_gradually_increase_volume_duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:text="over 00:15" />
+
+            </RelativeLayout>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vibrate" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_height"
+                android:gravity="center_vertical"
+                android:text="Silence after" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sleep timer is enabled"
+                android:textOff="Sleep timer is disabled" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:text="The sleep timer stops any music and video after a set period of time."
+                style="@style/Info" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_height"
+                android:gravity="center_vertical"
+                android:text="Duration\n00:30" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fade music out" />
+
+            <View style="@style/HorizontalLine" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Wake timer" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:text="The wake timer specifies."
+                style="@style/Info" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_height"
+                android:gravity="center_vertical"
+                android:text="Duration\n00:30" />
+
+            <View style="@style/HorizontalLine" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Snooze" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:text="During the alarmTile in the morning, you are given the option to snooze "
+                style="@style/Info" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_height"
+                android:gravity="center_vertical"
+                android:text="Duration\n00:30" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:text="@string/revert_info"
+                style="@style/Info" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/snooze_info"
+                style="@style/Info" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

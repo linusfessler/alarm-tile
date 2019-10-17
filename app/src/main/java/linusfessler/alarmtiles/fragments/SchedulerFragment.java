@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import linusfessler.alarmtiles.R;
-import linusfessler.alarmtiles.TimePickerDialog;
+import linusfessler.alarmtiles.TrashTimePickerDialog;
 import linusfessler.alarmtiles.schedulers.Scheduler;
 import linusfessler.alarmtiles.utility.TimeFormatter;
 
@@ -29,7 +29,7 @@ public abstract class SchedulerFragment extends Fragment {
     private boolean use24hFormat;
     private int hours;
     private int minutes;
-    private TimePickerDialog timePickerDialog;
+    private TrashTimePickerDialog timePickerDialog;
     private DialogInterface.OnClickListener positiveOnClickListener;
     private DialogInterface.OnDismissListener onDismissListener;
 
@@ -136,7 +136,7 @@ public abstract class SchedulerFragment extends Fragment {
             // no need to reset timePickerAnalog for digital clocks
             return;
         }
-        timePickerDialog = new TimePickerDialog(getContext(), useAnalogClocks, use24hFormat, hours, minutes);
+        timePickerDialog = new TrashTimePickerDialog(getContext(), useAnalogClocks, use24hFormat, hours, minutes);
         // work-around for positive button not working, probably a bug
         // neutral -> negative
         timePickerDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "CANCEL", (DialogInterface.OnClickListener) null);

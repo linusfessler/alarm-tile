@@ -148,7 +148,7 @@ public abstract class Scheduler {
 
                 Notification notification = new Notification.Builder(context)
                         .setSmallIcon(R.drawable.ic_alarm_24px)
-                        .setColor(context.getColor(R.color.colorAccent))
+                        .setColor(context.getColor(R.color.blue))
                         .setAutoCancel(true)
                         .setContentIntent(pendingIntent)
                         .setDeleteIntent(pendingIntent)

@@ -1,38 +1,38 @@
 package linusfessler.alarmtiles.fragments;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
+import com.google.android.material.button.MaterialButton;
+
 import linusfessler.alarmtiles.R;
-import linusfessler.alarmtiles.schedulers.Scheduler;
-import linusfessler.alarmtiles.schedulers.SnoozeScheduler;
+import linusfessler.alarmtiles.model.AlarmTile;
 
-public class SnoozeFragment extends SchedulerFragment {
+public class SnoozeFragment extends Fragment {
+
+    private AlarmTile alarmTile;
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.fragment;
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        alarmTile = SnoozeFragmentArgs.fromBundle(requireArguments()).getAlarmTile();
     }
 
     @Override
-    protected int getPositiveIconId() {
-        return R.drawable.ic_snooze_24px;
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.snooze_fragment, container, false);
+
+        MaterialButton button = root.findViewById(R.id.next_button);
+        button.setOnClickListener(Navigation.createNavigateOnClickListener(SnoozeFragmentDirections.actionSnoozeFragmentToAdvancedFragment(alarmTile)));
+
+        return root;
     }
 
-    @Override
-    protected int getNegativeIconId() {
-        return R.drawable.ic_alarm_off_24px;
-    }
-
-    @Override
-    protected int getTimeKeyId() {
-        return R.string.pref_snooze_duration_key;
-    }
-
-    @Override
-    protected int getScheduledKeyId() {
-        return R.string.pref_snooze_scheduled_key;
-    }
-
-    @Override
-    protected Scheduler getScheduler() {
-        return SnoozeScheduler.getInstance(getContext());
-    }
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="settings"
+            type="linusfessler.alarmtiles.Settings" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/fragment_padding">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:text="@string/snooze_info"
+                style="@style/Info" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_height"
+                android:text="Snooze" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_height"
+                android:gravity="center_vertical"
+                android:text="Duration" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_height"
+                android:gravity="center_vertical"
+                android:text="Alarm sound" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/next_button"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_height"
+                android:text="@string/next" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

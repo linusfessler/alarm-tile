@@ -14,6 +14,7 @@ import android.os.IBinder;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
+
 import androidx.annotation.Nullable;
 
 import java.util.concurrent.Executors;
@@ -22,7 +23,7 @@ import linusfessler.alarmtiles.R;
 
 public class AlarmService extends Service {
 
-    public static final long[] DEFAULT_VIBRATION_PATTERN = { 500, 500 };
+    public static final long[] DEFAULT_VIBRATION_PATTERN = {500, 500};
 
     private Ringtone alarmTone;
     private Vibrator vibrator;
@@ -49,7 +50,7 @@ public class AlarmService extends Service {
             if (vibrator != null) {
                 long vibrationPause = Long.parseLong(preferences.getString(getString(R.string.pref_pause_duration_key), String.valueOf(DEFAULT_VIBRATION_PATTERN[0])));
                 long vibrationDuration = Long.parseLong(preferences.getString(getString(R.string.pref_vibration_duration_key), String.valueOf(DEFAULT_VIBRATION_PATTERN[1])));
-                long[] vibrationPattern = new long[]{ vibrationPause, vibrationDuration };
+                long[] vibrationPattern = new long[]{vibrationPause, vibrationDuration};
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     vibrator.vibrate(VibrationEffect.createWaveform(vibrationPattern, 0));
                 } else {

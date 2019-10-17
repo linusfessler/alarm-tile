@@ -1,14 +1,14 @@
 package linusfessler.alarmtiles;
 
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.widget.TimePicker;
 
-/** Have to call setIsAnalog, then setIs24HourView in that order */
-public class TimePickerDialog extends android.app.TimePickerDialog {
+public class TrashTimePickerDialog extends TimePickerDialog {
 
     private TimePicker timePicker;
 
-    public TimePickerDialog(Context context, boolean isAnalog, boolean is24HourView, int hour, int minute) {
+    public TrashTimePickerDialog(Context context, boolean isAnalog, boolean is24HourView, int hour, int minute) {
         super(context, null, hour, minute, is24HourView);
 
         int layoutId;
@@ -18,7 +18,7 @@ public class TimePickerDialog extends android.app.TimePickerDialog {
             layoutId = R.layout.time_picker_digital;
         }
         timePicker = (TimePicker) getLayoutInflater().inflate(layoutId, null);
-        timePicker.setIs24HourView(is24HourView);
+        timePicker.setIs24HourView(is24HourView); // Default should be DateFormat.is24HourFormat(getActivity()
         timePicker.setHour(hour);
         timePicker.setMinute(minute);
         setView(timePicker);

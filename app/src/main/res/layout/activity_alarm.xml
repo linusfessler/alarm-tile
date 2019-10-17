@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
         android:textSize="72sp"
-        app:layout_constraintBottom_toTopOf="@id/alarm"
+        app:layout_constraintBottom_toTopOf="@id/alarmTile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,7 +20,7 @@
         tools:text="08:00" />
 
     <TextView
-        android:id="@+id/alarm"
+        android:id="@+id/alarmTile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/activity_alarm_title"
@@ -38,7 +38,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/alarm"
+        app:layout_constraintTop_toBottomOf="@id/alarmTile"
         app:layout_constraintVertical_bias="1.0">
 
         <SeekBar
@@ -65,7 +65,7 @@
             android:tint="@color/white"
             android:scaleType="fitCenter"
             android:background="@drawable/circle"
-            android:backgroundTint="@color/colorAccent"
+            android:backgroundTint="@color/blue"
             android:contentDescription="@string/snooze" />
 
         <ImageView
@@ -78,7 +78,7 @@
             android:tint="@color/white"
             android:scaleType="fitCenter"
             android:background="@drawable/circle"
-            android:backgroundTint="@color/colorAccent"
+            android:backgroundTint="@color/blue"
             android:contentDescription="@string/alarm" />
 
         <View
@@ -100,7 +100,7 @@
             android:tint="@color/white"
             android:scaleType="fitCenter"
             android:background="@drawable/circle"
-            android:backgroundTint="@color/colorAccent"
+            android:backgroundTint="@color/blue"
             android:contentDescription="@string/dismiss" />
 
     </RelativeLayout>

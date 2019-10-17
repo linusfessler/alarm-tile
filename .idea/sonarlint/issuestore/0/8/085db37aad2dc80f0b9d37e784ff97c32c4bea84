@@ -1,9 +1,2 @@
 
-lsquid:MaximumInheritanceDepth"<This class has 8 parents which is greater than 5 authorized.(ìêÍâ8‚ ¸™Ù-
-U"squid:SwitchLastCaseIsDefaultCheckr""Add a default case to this switch.(øå´¡ÿÿÿÿÿ
-˜squid:S1186Z"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ž¦›Í
-msquid:CallToDeprecatedMethod'"9Remove this use of "PreferenceManager"; it is deprecated.(¨àº¦þÿÿÿÿ8‹²Ê—Ù-
-squid:S1186V"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(½Ä³ïþÿÿÿÿ
-gsquid:S1301r"KReplace this "switch" statement by "if" statements to increase readability.(øå´¡ÿÿÿÿÿ
-P"squid:SwitchLastCaseIsDefaultCheck:""Add a default case to this switch.(þ™ÅÞ
-lsquid:CallToDeprecatedMethod'"8Remove this use of "setDefaultValues"; it is deprecated.(¨àº¦þÿÿÿÿ8ˆà»®Ù-
+ksquid:MaximumInheritanceDepth"<This class has 8 parents which is greater than 5 authorized.(±¬Ê8‚ ¸™Ù-

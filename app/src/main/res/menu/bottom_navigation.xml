@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/wake_timer"
+        android:title="@string/timer"
+        android:icon="@drawable/ic_timer_24px" />
+    <item
+        android:id="@+id/alarmTile"
+        android:title="@string/alarm"
+        android:icon="@drawable/ic_alarm_24px" />
+
+    <item
+        android:id="@+id/sleep_timer"
+        android:title="@string/silencer"
+        android:icon="@drawable/ic_timer_24px" />
+    <item
+        android:id="@+id/snooze"
+        android:title="@string/snooze"
+        android:icon="@drawable/ic_snooze_24px" />
+
+</menu>

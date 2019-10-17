@@ -1,7 +1,11 @@
 
 asquid:CallToDeprecatedMethodX"9Remove this use of "PreferenceManager"; it is deprecated.(ëá¶õ
 asquid:CallToDeprecatedMethod2"9Remove this use of "PreferenceManager"; it is deprecated.(¨ Å§
-ksquid:CallToDeprecatedMethod?"CRemove this use of "getDefaultSharedPreferences"; it is deprecated.(¨ Å§
 ksquid:CallToDeprecatedMethodX"CRemove this use of "getDefaultSharedPreferences"; it is deprecated.(ëá¶õ
 ksquid:CallToDeprecatedMethod2"CRemove this use of "getDefaultSharedPreferences"; it is deprecated.(¨ Å§
 asquid:CallToDeprecatedMethod?"9Remove this use of "PreferenceManager"; it is deprecated.(¨ Å§
+ksquid:CallToDeprecatedMethod?"CRemove this use of "getDefaultSharedPreferences"; it is deprecated.(¨ Å§
+Ksquid:S16046"(Make this anonymous inner class a lambda(ù‘’Øüÿÿÿÿ8‘ê€àÛ-
+Ksquid:S1604c"(Make this anonymous inner class a lambda(Êœüûÿÿÿÿ8‘ê€àÛ-
+Ksquid:S1604m"(Make this anonymous inner class a lambda(ë‚Õ£øÿÿÿÿ8‘ê€àÛ-
+Ksquid:S1604|"(Make this anonymous inner class a lambda(âÂêŞúÿÿÿÿ8‘ê€àÛ-
