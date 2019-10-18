@@ -26,6 +26,7 @@ import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.Settings;
 import linusfessler.alarmtiles.databinding.MainFragmentBinding;
 import linusfessler.alarmtiles.model.AlarmTile;
+import linusfessler.alarmtiles.model.BasicSettings;
 
 public class MainFragment extends Fragment {
 
@@ -52,16 +53,25 @@ public class MainFragment extends Fragment {
         final List<AlarmTile> alarmTiles = new ArrayList<>();
 
         final AlarmTile workweekAlarmTile = new AlarmTile();
-        workweekAlarmTile.getBasicSettings().setName("Workweek");
-        workweekAlarmTile.getBasicSettings().setIconResourceId(R.drawable.ic_alarm_24px);
-
         final AlarmTile weekendTimerTile = new AlarmTile();
-        weekendTimerTile.getBasicSettings().setName("Weekend");
-        weekendTimerTile.getBasicSettings().setIconResourceId(R.drawable.ic_timer_24px);
-
         final AlarmTile napTile = new AlarmTile();
-        napTile.getBasicSettings().setName("Nap");
-        napTile.getBasicSettings().setIconResourceId(R.drawable.ic_snooze_24px);
+
+        final BasicSettings workweekBasicSettings = BasicSettings.builder()
+                .name("Workweek")
+                .iconResourceId(R.drawable.ic_alarm_24px)
+                .build();
+        final BasicSettings weekendBasicSettings = BasicSettings.builder()
+                .name("Weekend")
+                .iconResourceId(R.drawable.ic_timer_24px)
+                .build();
+        final BasicSettings napBasicSettings = BasicSettings.builder()
+                .name("Nap")
+                .iconResourceId(R.drawable.ic_snooze_24px)
+                .build();
+
+        workweekAlarmTile.setBasicSettings(workweekBasicSettings);
+        weekendTimerTile.setBasicSettings(weekendBasicSettings);
+        napTile.setBasicSettings(napBasicSettings);
 
         alarmTiles.add(workweekAlarmTile);
         alarmTiles.add(weekendTimerTile);

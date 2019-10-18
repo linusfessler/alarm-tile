@@ -26,6 +26,7 @@ import linusfessler.alarmtiles.DrawablePickerDialog;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.databinding.NewAlarmFragmentBinding;
 import linusfessler.alarmtiles.model.AlarmTile;
+import linusfessler.alarmtiles.model.BasicSettings;
 import linusfessler.alarmtiles.viewmodel.BasicSettingsViewModel;
 
 public class BasicSettingsFragment extends Fragment implements DrawablePickerDialog.OnDrawablePickedListener {
@@ -61,10 +62,10 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         viewModel = ViewModelProviders.of(this).get(BasicSettingsViewModel.class);
 
-        // FIXME: Should be able to rely on model not being null
-        if (alarmTile.getBasicSettings() != null && alarmTile.getBasicSettings().getIconResourceId() != null) {
-            viewModel.setName(alarmTile.getBasicSettings().getName());
-            viewModel.setIconResourceId(alarmTile.getBasicSettings().getIconResourceId());
+        if (alarmTile.getBasicSettings() != null) {
+            final BasicSettings basicSettings = alarmTile.getBasicSettings();
+            viewModel.setName(basicSettings.getName());
+            viewModel.setIconResourceId(basicSettings.getIconResourceId());
         }
 
         final NewAlarmFragmentBinding binding = DataBindingUtil.inflate(inflater, R.layout.new_alarm_fragment, container, false);
@@ -99,11 +100,14 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
 
         final MaterialButton button = binding.getRoot().findViewById(R.id.next_button);
         button.setOnClickListener(v -> {
-            alarmTile.getBasicSettings().setName(viewModel.getName());
-            alarmTile.getBasicSettings().setIconResourceId(viewModel.getIconResourceId());
+            final BasicSettings basicSettings = BasicSettings.builder()
+                    .name(viewModel.getName())
+                    .iconResourceId(viewModel.getIconResourceId())
+                    .build();
+            alarmTile.setBasicSettings(basicSettings);
 
             final NavController navController = Navigation.findNavController(binding.getRoot());
-            navController.navigate(BasicSettingsFragmentDirections.actionNewAlarmFragmentToFallingAsleepFragment(alarmTile));
+            navController.navigate(BasicSettingsFragmentDirections.actionBasicSettingsFragmentToFallAsleepSettingsFragment(alarmTile));
         });
 
         return binding.getRoot();
