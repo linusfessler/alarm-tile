@@ -3,13 +3,11 @@ package linusfessler.alarmtiles.viewmodel;
 import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
 
-import linusfessler.alarmtiles.R;
 import lombok.Getter;
 
 @Getter
 public class BasicSettingsViewModel extends ObservableViewModel {
 
-    public static final int DEFAULT_ICON_RESOURCE_ID = R.drawable.ic_alarm_24px;
     public static final int MAX_NAME_LENGTH = 20;
     public static final String NAME_ERROR_TEXT = "Please enter a name"; // TODO: Add to R.string
 
@@ -17,7 +15,7 @@ public class BasicSettingsViewModel extends ObservableViewModel {
     private String name;
 
     @Bindable
-    private int iconResourceId = DEFAULT_ICON_RESOURCE_ID;
+    private Integer iconResourceId;
 
     @Bindable
     private boolean nameErrorEnabled = false;
@@ -41,7 +39,7 @@ public class BasicSettingsViewModel extends ObservableViewModel {
 
     @Bindable("iconResourceId")
     public boolean isIconResourceIdValid() {
-        return true;
+        return iconResourceId != null;
     }
 
     @Bindable({"name", "iconResourceId"})

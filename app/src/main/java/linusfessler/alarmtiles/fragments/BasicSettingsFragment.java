@@ -65,6 +65,8 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
             final BasicSettings basicSettings = alarmTile.getBasicSettings();
             viewModel.setName(basicSettings.getName());
             viewModel.setIconResourceId(basicSettings.getIconResourceId());
+        } else {
+            viewModel.setIconResourceId(ICON_RESOURCE_IDS[0]);
         }
 
         final NewAlarmFragmentBinding binding = DataBindingUtil.inflate(inflater, R.layout.new_alarm_fragment, container, false);
