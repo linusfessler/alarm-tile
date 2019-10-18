@@ -49,7 +49,6 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
 
     private AlarmTile alarmTile;
     private BasicSettingsViewModel viewModel;
-    private DrawableStateController drawableStateController;
     private DrawablePickerDialog iconPickerDialog;
 
     @Override
@@ -94,7 +93,7 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
         final ImageView icon = binding.getRoot().findViewById(R.id.icon);
         icon.setOnClickListener(view -> iconPickerDialog.show());
 
-        drawableStateController = new DrawableStateController(icon.getBackground());
+        final DrawableStateController drawableStateController = new DrawableStateController(icon.getBackground());
         drawableStateController.press(SHOW_ICON_RIPPLE_AFTER_MILLISECONDS, HIDE_ICON_RIPPLE_AFTER_MILLISECONDS);
 
         final MaterialButton button = binding.getRoot().findViewById(R.id.next_button);
@@ -122,4 +121,5 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
     public void onDrawablePicked(final int resourceId) {
         viewModel.setIconResourceId(resourceId);
     }
+
 }
