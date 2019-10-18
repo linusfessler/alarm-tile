@@ -34,11 +34,18 @@ public class MainFragment extends Fragment {
     private Settings settings;
     private AlertDialog currentDialog;
 
+    @Override
+    public void onCreate(@Nullable final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        db = ((App) requireActivity().getApplication()).getDb();
+        settings = db.settingsDao().getSettings().getValue();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
-        db = ((App) requireActivity().getApplication()).getDb();
-        settings = db.settingsDao().getSettings().getValue();
+        super.onCreateView(inflater, container, savedInstanceState);
 
         final FragmentMainBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
         binding.setSettings(settings);
@@ -48,6 +55,8 @@ public class MainFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         final NavController navController = Navigation.findNavController(view);
 
         final List<AlarmTile> alarmTiles = new ArrayList<>();

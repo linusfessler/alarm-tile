@@ -59,14 +59,19 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+
         initViewModel();
         final FragmentBasicSettingsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_basic_settings, container, false);
         binding.setViewModel(viewModel);
+
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         final NavController navController = Navigation.findNavController(view);
         showBackConfirmationDialog(navController);
         initIconPicker(view);
@@ -87,8 +92,8 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
     private void initViewModel() {
         viewModel = ViewModelProviders.of(this).get(BasicSettingsViewModel.class);
 
-        if (alarmTile.getBasicSettings() != null) {
-            final BasicSettings basicSettings = alarmTile.getBasicSettings();
+        final BasicSettings basicSettings = alarmTile.getBasicSettings();
+        if (basicSettings != null) {
             viewModel.setName(basicSettings.getName());
             viewModel.setIconResourceId(basicSettings.getIconResourceId());
         } else {

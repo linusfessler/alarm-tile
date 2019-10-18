@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="settings"
-            type="linusfessler.alarmtiles.Settings" />
+            name="viewModel"
+            type="linusfessler.alarmtiles.viewmodel.FallAsleepSettingsViewModel" />
 
     </data>
 
@@ -28,7 +28,8 @@
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Timer" />
+                android:text="Timer"
+                android:checked="@={viewModel.timerEnabled}" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
@@ -39,7 +40,8 @@
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Slowly fade music out" />
+                android:text="Slowly fade music out"
+                android:checked="@={viewModel.slowlyFadingMusicOut}" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/next_button"

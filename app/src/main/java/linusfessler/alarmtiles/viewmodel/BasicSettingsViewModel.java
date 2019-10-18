@@ -9,7 +9,7 @@ import lombok.Getter;
 public class BasicSettingsViewModel extends ObservableViewModel {
 
     public static final int MAX_NAME_LENGTH = 20;
-    public static final String NAME_ERROR_TEXT = "Please enter a name"; // TODO: Add to R.string
+    public static final String NAME_ERROR_TEXT = "Please enter a name";
 
     @Bindable
     private String name;
@@ -56,4 +56,5 @@ public class BasicSettingsViewModel extends ObservableViewModel {
     public String getNameErrorText() {
         return nameErrorEnabled ? NAME_ERROR_TEXT : null;
     }
+
 }
