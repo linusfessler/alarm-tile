@@ -2,9 +2,7 @@ package linusfessler.alarmtiles.fragments;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +21,7 @@ import androidx.navigation.Navigation;
 import com.google.android.material.button.MaterialButton;
 
 import linusfessler.alarmtiles.DrawablePickerDialog;
+import linusfessler.alarmtiles.DrawableStateController;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.databinding.NewAlarmFragmentBinding;
 import linusfessler.alarmtiles.model.AlarmTile;
@@ -50,6 +49,7 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
 
     private AlarmTile alarmTile;
     private BasicSettingsViewModel viewModel;
+    private DrawableStateController drawableStateController;
     private DrawablePickerDialog iconPickerDialog;
 
     @Override
@@ -94,9 +94,8 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
         final ImageView icon = binding.getRoot().findViewById(R.id.icon);
         icon.setOnClickListener(view -> iconPickerDialog.show());
 
-        final Handler handler = new Handler();
-        handler.postDelayed(() -> showRipple(icon.getBackground()), SHOW_ICON_RIPPLE_AFTER_MILLISECONDS);
-        handler.postDelayed(() -> hideRipple(icon.getBackground()), SHOW_ICON_RIPPLE_AFTER_MILLISECONDS + HIDE_ICON_RIPPLE_AFTER_MILLISECONDS);
+        drawableStateController = new DrawableStateController(icon.getBackground());
+        drawableStateController.press(SHOW_ICON_RIPPLE_AFTER_MILLISECONDS, HIDE_ICON_RIPPLE_AFTER_MILLISECONDS);
 
         final MaterialButton button = binding.getRoot().findViewById(R.id.next_button);
         button.setOnClickListener(v -> {
@@ -111,14 +110,6 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
         });
 
         return binding.getRoot();
-    }
-
-    private void showRipple(final Drawable ripple) {
-        ripple.setState(new int[]{android.R.attr.state_pressed, android.R.attr.state_enabled});
-    }
-
-    private void hideRipple(final Drawable ripple) {
-        ripple.setState(new int[]{});
     }
 
     @Override
