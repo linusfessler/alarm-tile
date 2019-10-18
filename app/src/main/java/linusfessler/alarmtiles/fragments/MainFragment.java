@@ -40,7 +40,7 @@ public class MainFragment extends Fragment {
         db = ((App) requireActivity().getApplication()).getDb();
         settings = db.settingsDao().getSettings().getValue();
 
-        final MainFragmentBinding binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment, container, false);
+        final MainFragmentBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
         binding.setSettings(settings);
 
         return binding.getRoot();

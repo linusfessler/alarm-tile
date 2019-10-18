@@ -9,7 +9,7 @@
         android:id="@+id/mainFragment"
         android:name="linusfessler.alarmtiles.fragments.MainFragment"
         android:label="Your alarm tiles"
-        tools:layout="@layout/main_fragment">
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_basicSettingsFragment"
             app:destination="@id/basicSettingsFragment"
@@ -22,7 +22,7 @@
         android:id="@+id/basicSettingsFragment"
         android:name="linusfessler.alarmtiles.fragments.BasicSettingsFragment"
         android:label="Basic settings"
-        tools:layout="@layout/new_alarm_fragment">
+        tools:layout="@layout/fragment_basic_settings">
         <action
             android:id="@+id/action_basicSettingsFragment_to_fallAsleepSettingsFragment"
             app:destination="@id/fallAsleepSettingsFragment"

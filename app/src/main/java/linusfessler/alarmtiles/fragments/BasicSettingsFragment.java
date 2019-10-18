@@ -60,7 +60,7 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         initViewModel();
-        final NewAlarmFragmentBinding binding = DataBindingUtil.inflate(inflater, R.layout.new_alarm_fragment, container, false);
+        final NewAlarmFragmentBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_basic_settings, container, false);
         binding.setViewModel(viewModel);
 
         final View root = binding.getRoot();
