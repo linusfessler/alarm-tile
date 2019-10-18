@@ -1,5 +1,6 @@
 <resources>
     <dimen name="fragment_padding">16dp</dimen>
     <dimen name="setting_height">48dp</dimen>
-    <dimen name="alarm_tile_height">64dp</dimen>
+    <dimen name="alarm_tile_height">72dp</dimen>
+    <dimen name="icon_size">32dp</dimen>
 </resources>

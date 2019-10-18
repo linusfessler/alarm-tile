@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="viewModel"
-            type="linusfessler.alarmtiles.viewmodel.NewAlarmViewModel" />
+            type="linusfessler.alarmtiles.viewmodel.BasicSettingsViewModel" />
 
     </data>
 
@@ -18,46 +19,50 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/fragment_padding"
-            android:clipChildren="false"
-            android:clipToPadding="false">
+            android:padding="@dimen/fragment_padding">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/name_input_layout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Alarm tile name"
-                app:errorText="@{viewModel.nameErrorText}"
-                app:errorEnabled="@{viewModel.nameErrorEnabled}"
-                app:counterEnabled="true"
-                app:counterMaxLength="@{viewModel.maxNameLength}"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:orientation="horizontal">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/name_input_edit_text"
+                <ImageView
+                    android:id="@+id/icon"
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="12dp"
+                    android:src="@{viewModel.iconResourceId}"
+                    android:tint="@color/white"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    tools:src="@drawable/ic_alarm_24px" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/name_input_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:lines="1"
-                    android:maxLines="1"
-                    android:maxLength="@{viewModel.maxNameLength}"
-                    android:text="@={viewModel.name}" />
+                    android:hint="Alarm tile name"
+                    app:errorText="@{viewModel.nameErrorText}"
+                    app:errorEnabled="@{viewModel.nameErrorEnabled}"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="@{viewModel.maxNameLength}"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/name_input_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:maxLength="@{viewModel.maxNameLength}"
+                        android:text="@={viewModel.name}" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/setting_height"
-                android:gravity="center_vertical"
-                android:text="Select an icon"
-                android:drawableStart="@drawable/ic_alarm_24px"
-                android:drawableTint="@color/white"
-                android:drawablePadding="8dp"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <include layout="@layout/icons" />
+            </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/next_button"

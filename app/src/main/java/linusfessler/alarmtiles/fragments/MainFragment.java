@@ -35,31 +35,31 @@ public class MainFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         db = ((App) requireActivity().getApplication()).getDb();
         settings = db.settingsDao().getSettings().getValue();
 
-        MainFragmentBinding binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment, container, false);
+        final MainFragmentBinding binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment, container, false);
         binding.setSettings(settings);
 
         return binding.getRoot();
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        NavController navController = Navigation.findNavController(view);
+    public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
+        final NavController navController = Navigation.findNavController(view);
 
-        List<AlarmTile> alarmTiles = new ArrayList<>();
+        final List<AlarmTile> alarmTiles = new ArrayList<>();
 
-        AlarmTile workweekAlarmTile = new AlarmTile();
+        final AlarmTile workweekAlarmTile = new AlarmTile();
         workweekAlarmTile.getBasicSettings().setName("Workweek");
         workweekAlarmTile.getBasicSettings().setIconResourceId(R.drawable.ic_alarm_24px);
 
-        AlarmTile weekendTimerTile = new AlarmTile();
+        final AlarmTile weekendTimerTile = new AlarmTile();
         weekendTimerTile.getBasicSettings().setName("Weekend");
         weekendTimerTile.getBasicSettings().setIconResourceId(R.drawable.ic_timer_24px);
 
-        AlarmTile napTile = new AlarmTile();
+        final AlarmTile napTile = new AlarmTile();
         napTile.getBasicSettings().setName("Nap");
         napTile.getBasicSettings().setIconResourceId(R.drawable.ic_snooze_24px);
 
@@ -67,22 +67,22 @@ public class MainFragment extends Fragment {
         alarmTiles.add(weekendTimerTile);
         alarmTiles.add(napTile);
 
-        AlarmTileListAdapter adapter = new AlarmTileListAdapter(getLayoutInflater(), alarmTiles);
+        final AlarmTileListAdapter adapter = new AlarmTileListAdapter(getLayoutInflater(), alarmTiles);
 
-        ListView list = view.findViewById(R.id.list);
+        final ListView list = view.findViewById(R.id.list);
         list.setAdapter(adapter);
         list.setOnItemClickListener((parent, itemView, position, id) -> {
             if (currentDialog != null) {
                 return;
             }
 
-            AlarmTile alarmTile = adapter.getItem(position);
+            final AlarmTile alarmTile = adapter.getItem(position);
 
             currentDialog = new AlertDialog.Builder(requireActivity())
                     .setTitle(alarmTile.getBasicSettings().getName())
                     .setMessage("Select an action for this alarm tile")
                     .setPositiveButton("Edit", (dialog, which) ->
-                            navController.navigate(MainFragmentDirections.actionMainFragmentToNewAlarmFragment(alarmTile))
+                            navController.navigate(MainFragmentDirections.actionMainFragmentToBasicSettingsFragment(alarmTile))
                     )
                     .setNeutralButton("Delete", (dialog, which) -> {
                         alarmTiles.remove(alarmTile);
@@ -94,8 +94,8 @@ public class MainFragment extends Fragment {
             currentDialog.show();
         });
 
-        FloatingActionButton button = view.findViewById(R.id.fab);
-        button.setOnClickListener(Navigation.createNavigateOnClickListener(MainFragmentDirections.actionMainFragmentToNewAlarmFragment(new AlarmTile())));
+        final FloatingActionButton button = view.findViewById(R.id.fab);
+        button.setOnClickListener(Navigation.createNavigateOnClickListener(MainFragmentDirections.actionMainFragmentToBasicSettingsFragment(new AlarmTile())));
     }
 
     @Override

@@ -3,23 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/alarm_tile_height"
-    android:background="?attr/selectableItemBackground">
+    android:layout_height="@dimen/alarm_tile_height">
 
     <Space
         android:layout_width="24dp"
         android:layout_height="match_parent" />
 
     <ImageView
-        android:id="@+id/icon"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
+        android:id="@+id/selected_icon"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
         android:layout_gravity="center"
         android:tint="@color/white"
         tools:src="@drawable/ic_alarm_24px" />
 
     <Space
-        android:layout_width="16dp"
+        android:layout_width="18dp"
         android:layout_height="match_parent" />
 
     <TextView
@@ -28,12 +27,12 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_gravity="center_vertical"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textColor="@color/white"
         tools:text="Alarm" />
 
     <Space
-        android:layout_width="16dp"
+        android:layout_width="18dp"
         android:layout_height="match_parent" />
 
 </LinearLayout>

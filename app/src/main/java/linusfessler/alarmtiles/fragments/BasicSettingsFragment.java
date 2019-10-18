@@ -1,6 +1,10 @@
 package linusfessler.alarmtiles.fragments;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +20,15 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.button.MaterialButton;
 
+import linusfessler.alarmtiles.DrawablePickerDialog;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.databinding.NewAlarmFragmentBinding;
 import linusfessler.alarmtiles.model.AlarmTile;
-import linusfessler.alarmtiles.viewmodel.NewAlarmViewModel;
+import linusfessler.alarmtiles.viewmodel.BasicSettingsViewModel;
 
-public class NewAlarmFragment extends Fragment {
+public class BasicSettingsFragment extends Fragment implements DrawablePickerDialog.OnDrawablePickedListener {
 
     private static final int[] ICON_RESOURCE_IDS = {
             R.drawable.ic_alarm_24px,
@@ -40,17 +44,22 @@ public class NewAlarmFragment extends Fragment {
             R.drawable.ic_notifications_active_24px,
     };
 
+    private static final long SHOW_ICON_RIPPLE_AFTER_MILLISECONDS = 750;
+    private static final long HIDE_ICON_RIPPLE_AFTER_MILLISECONDS = 250;
+
     private AlarmTile alarmTile;
+    private BasicSettingsViewModel viewModel;
+    private DrawablePickerDialog drawablePickerDialog;
 
     @Override
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        alarmTile = NewAlarmFragmentArgs.fromBundle(requireArguments()).getAlarmTile();
+        alarmTile = BasicSettingsFragmentArgs.fromBundle(requireArguments()).getAlarmTile();
     }
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        final NewAlarmViewModel viewModel = ViewModelProviders.of(this).get(NewAlarmViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(BasicSettingsViewModel.class);
 
         // FIXME: Should be able to rely on model not being null
         if (alarmTile.getBasicSettings() != null && alarmTile.getBasicSettings().getIconResourceId() != null) {
@@ -73,29 +82,20 @@ public class NewAlarmFragment extends Fragment {
             }
         });
 
-        // Since there is currently no app:error, we can not use data binding
-        /*final TextInputLayout nameInputLayout = binding.getRoot().findViewById(R.id.name_input_layout);
-        nameInputLayout.setError("Please enter a name");
-        viewModel.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(final Observable sender, final int propertyId) {
-                if (viewModel.isNameError()) {
-                    nameInputLayout.setError("Please enter a name");
-                }
-            }
-        });*/
+        final Context context = requireContext();
+        final Resources resources = getResources();
+        final String title = "Select an icon"; // TODO: Get from R.string
+        final int size = resources.getDimensionPixelSize(R.dimen.icon_size);
+        final int color = resources.getColor(R.color.white, context.getTheme());
+        drawablePickerDialog = new DrawablePickerDialog(context, title, ICON_RESOURCE_IDS, size, size, color);
+        drawablePickerDialog.addListener(this);
 
-        /*final RecyclerView iconRecyclerView = binding.getRoot().findViewById(R.id.icon_recycler_view);
-        iconRecyclerView.setHasFixedSize(true);
-        iconRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false));
-        iconRecyclerView.setAdapter(new DrawableResourceAdapter(ICON_RESOURCE_IDS));*/
+        final ImageView icon = binding.getRoot().findViewById(R.id.icon);
+        icon.setOnClickListener(view -> drawablePickerDialog.show());
 
-        final FlexboxLayout icons = binding.getRoot().findViewById(R.id.icons);
-        for (final int iconResourceId : ICON_RESOURCE_IDS) {
-            final ImageView icon = (ImageView) inflater.inflate(R.layout.icon, icons, false);
-            icon.setImageResource(iconResourceId);
-            icons.addView(icon);
-        }
+        final Handler handler = new Handler();
+        handler.postDelayed(() -> showRipple(icon.getBackground()), SHOW_ICON_RIPPLE_AFTER_MILLISECONDS);
+        handler.postDelayed(() -> hideRipple(icon.getBackground()), SHOW_ICON_RIPPLE_AFTER_MILLISECONDS + HIDE_ICON_RIPPLE_AFTER_MILLISECONDS);
 
         final MaterialButton button = binding.getRoot().findViewById(R.id.next_button);
         button.setOnClickListener(v -> {
@@ -103,10 +103,28 @@ public class NewAlarmFragment extends Fragment {
             alarmTile.getBasicSettings().setIconResourceId(viewModel.getIconResourceId());
 
             final NavController navController = Navigation.findNavController(binding.getRoot());
-            navController.navigate(NewAlarmFragmentDirections.actionNewAlarmFragmentToFallingAsleepFragment(alarmTile));
+            navController.navigate(BasicSettingsFragmentDirections.actionNewAlarmFragmentToFallingAsleepFragment(alarmTile));
         });
 
         return binding.getRoot();
     }
 
+    private void showRipple(final Drawable ripple) {
+        ripple.setState(new int[]{android.R.attr.state_pressed, android.R.attr.state_enabled});
+    }
+
+    private void hideRipple(final Drawable ripple) {
+        ripple.setState(new int[]{});
+    }
+
+    @Override
+    public void onDestroyView() {
+        drawablePickerDialog.removeListener(this);
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onDrawablePicked(final int resourceId) {
+        viewModel.setIconResourceId(resourceId);
+    }
 }

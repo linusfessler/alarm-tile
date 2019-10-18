@@ -14,4 +14,5 @@ public class MaterialBindingAdapters {
     public static void setErrorMessage(final TextInputLayout view, final String errorMessage) {
         view.setError(errorMessage);
     }
+
 }

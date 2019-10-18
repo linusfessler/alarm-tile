@@ -42,10 +42,10 @@ public class TitleSummaryView extends LinearLayout {
         final MaterialTextView titleTextView = root.findViewById(R.id.title);
         final MaterialTextView summaryTextView = root.findViewById(R.id.summary);
 
-        final TypedArray styleAttributesArray = context.obtainStyledAttributes(attrs, R.styleable.TitleSummaryView);
-        final String title = styleAttributesArray.getString(R.styleable.TitleSummaryView_title);
-        final String summary = styleAttributesArray.getString(R.styleable.TitleSummaryView_summary);
-        styleAttributesArray.recycle();
+        final TypedArray styledAttributes = context.obtainStyledAttributes(attrs, R.styleable.TitleSummaryView);
+        final String title = styledAttributes.getString(R.styleable.TitleSummaryView_title);
+        final String summary = styledAttributes.getString(R.styleable.TitleSummaryView_summary);
+        styledAttributes.recycle();
 
         titleTextView.setText(title);
         summaryTextView.setText(summary);

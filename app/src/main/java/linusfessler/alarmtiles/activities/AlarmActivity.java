@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.View;
@@ -18,11 +17,11 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.concurrent.Executors;
 
-import linusfessler.alarmtiles.schedulers.Schedulers;
 import linusfessler.alarmtiles.Flashlight;
+import linusfessler.alarmtiles.R;
+import linusfessler.alarmtiles.schedulers.Schedulers;
 import linusfessler.alarmtiles.schedulers.SnoozeScheduler;
 import linusfessler.alarmtiles.services.AlarmService;
-import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.utility.TimeFormatter;
 
 public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeListener {
@@ -42,25 +41,25 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
     private boolean isTrackingTouch;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
 
-        Window window = getWindow();
+        final Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
         window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
-        Calendar calendar = Calendar.getInstance();
-        TextView time = findViewById(R.id.time);
+        final Calendar calendar = Calendar.getInstance();
+        final TextView time = findViewById(R.id.time);
         time.setText(TimeFormatter.format(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
 
         snoozeImage = findViewById(R.id.image_snooze);
         alarmImage = findViewById(R.id.image_alarm);
         dismissImage = findViewById(R.id.image_dismiss);
 
-        SeekBar seekBar = findViewById(R.id.seek_bar);
+        final SeekBar seekBar = findViewById(R.id.seek_bar);
         seekBar.setOnSeekBarChangeListener(this);
         onProgressChanged(seekBar, seekBar.getProgress(), false);
 
@@ -70,7 +69,7 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
 
         startService(new Intent(this, AlarmService.class));
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         volumeButtons = preferences.getBoolean(getString(R.string.pref_volume_buttons_key), false);
         useFlashlight = preferences.getBoolean(getString(R.string.pref_flashlight_key), false);
@@ -88,7 +87,7 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
                 while (!finished) {
                     try {
                         Thread.sleep(vibrationPause);
-                    } catch (InterruptedException e) {
+                    } catch (final InterruptedException e) {
                         e.printStackTrace();
                     }
                     if (finished) {
@@ -97,13 +96,13 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            rippleDrawable.setState(new int[] { android.R.attr.state_pressed, android.R.attr.state_enabled });
+                            rippleDrawable.setState(new int[]{android.R.attr.state_pressed, android.R.attr.state_enabled});
                         }
                     });
 
                     try {
                         Thread.sleep(vibrationDuration);
-                    } catch (InterruptedException e) {
+                    } catch (final InterruptedException e) {
                         e.printStackTrace();
                     }
                     if (finished) {
@@ -112,7 +111,7 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            rippleDrawable.setState(new int[] {});
+                            rippleDrawable.setState(new int[]{});
                         }
                     });
                 }
@@ -134,21 +133,22 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
         stopService(new Intent(this, AlarmService.class));
         finishAndRemoveTask();
     }
+
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)  {
-        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+    public boolean onKeyDown(final int keyCode, final KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             return true;
         }
         return super.onKeyDown(keyCode, event);
     }
 
     @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
+    public boolean dispatchKeyEvent(final KeyEvent event) {
         if (!volumeButtons || event.getAction() != KeyEvent.ACTION_DOWN) {
             return super.dispatchKeyEvent(event);
         }
 
-        int keyCode = event.getKeyCode();
+        final int keyCode = event.getKeyCode();
         switch (keyCode) {
             case KeyEvent.KEYCODE_VOLUME_UP:
                 snooze();
@@ -168,7 +168,7 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
     }
 
     @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+    public void onProgressChanged(final SeekBar seekBar, int progress, final boolean fromUser) {
         if (firstTouch) {
             firstTouch = false;
             isTrackingTouch = 25 < progress && progress < 75;
@@ -179,11 +179,11 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
             return;
         }
 
-        float center = seekBar.getMax() / 2f;
+        final float center = seekBar.getMax() / 2f;
         progress -= center;
-        float scale = Math.abs(progress) / center;
-        float scaleInv = 1 - scale;
-        float largeScale = 0.5f * scale + 1;
+        final float scale = Math.abs(progress) / center;
+        final float scaleInv = 1 - scale;
+        final float largeScale = 0.5f * scale + 1;
 
         setScale(alarmImage, scaleInv);
         if (progress > 0) {
@@ -204,30 +204,30 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
         }
     }
 
-    private void setBackgroundAlpha(View view, float alpha) {
+    private void setBackgroundAlpha(final View view, final float alpha) {
         view.getBackground().setAlpha((int) alpha);
     }
 
-    private void setScale(View view, float scale) {
+    private void setScale(final View view, final float scale) {
         view.setScaleX(scale);
         view.setScaleY(scale);
     }
 
     @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
+    public void onStartTrackingTouch(final SeekBar seekBar) {
         firstTouch = true;
     }
 
     @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
+    public void onStopTrackingTouch(final SeekBar seekBar) {
         if (!isTrackingTouch) {
             return;
         }
 
         int progress = seekBar.getProgress();
-        float center = seekBar.getMax() / 2f;
+        final float center = seekBar.getMax() / 2f;
         progress -= center;
-        float threshold = 0.8f * center;
+        final float threshold = 0.8f * center;
 
         if (progress < -threshold) {
             dismiss();

@@ -17,10 +17,10 @@ import lombok.RequiredArgsConstructor;
 public class AlarmTileListAdapter extends BaseAdapter {
 
     @NonNull
-    private LayoutInflater inflater;
+    private final LayoutInflater inflater;
 
     @NonNull
-    private List<AlarmTile> alarmTiles;
+    private final List<AlarmTile> alarmTiles;
 
     @Override
     public int getCount() {
@@ -28,27 +28,27 @@ public class AlarmTileListAdapter extends BaseAdapter {
     }
 
     @Override
-    public AlarmTile getItem(int position) {
+    public AlarmTile getItem(final int position) {
         return alarmTiles.get(position);
     }
 
     @Override
-    public long getItemId(int position) {
+    public long getItemId(final int position) {
         return getItem(position).hashCode();
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, final ViewGroup parent) {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.alarm_tile, parent, false);
         }
 
-        AlarmTile alarmTile = getItem(position);
+        final AlarmTile alarmTile = getItem(position);
 
-        ImageView iconView = convertView.findViewById(R.id.icon);
+        final ImageView iconView = convertView.findViewById(R.id.selected_icon);
         iconView.setImageResource(alarmTile.getBasicSettings().getIconResourceId());
 
-        TextView nameView = convertView.findViewById(R.id.name);
+        final TextView nameView = convertView.findViewById(R.id.name);
         nameView.setText(alarmTile.getBasicSettings().getName());
 
         return convertView;
