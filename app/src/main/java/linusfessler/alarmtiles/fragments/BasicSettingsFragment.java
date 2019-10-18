@@ -23,7 +23,7 @@ import com.google.android.material.button.MaterialButton;
 import linusfessler.alarmtiles.DrawablePickerDialog;
 import linusfessler.alarmtiles.DrawableStateController;
 import linusfessler.alarmtiles.R;
-import linusfessler.alarmtiles.databinding.NewAlarmFragmentBinding;
+import linusfessler.alarmtiles.databinding.FragmentBasicSettingsBinding;
 import linusfessler.alarmtiles.model.AlarmTile;
 import linusfessler.alarmtiles.model.BasicSettings;
 import linusfessler.alarmtiles.viewmodel.BasicSettingsViewModel;
@@ -60,7 +60,7 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         initViewModel();
-        final NewAlarmFragmentBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_basic_settings, container, false);
+        final FragmentBasicSettingsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_basic_settings, container, false);
         binding.setViewModel(viewModel);
 
         final View root = binding.getRoot();

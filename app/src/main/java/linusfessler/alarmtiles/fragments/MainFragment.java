@@ -24,7 +24,7 @@ import linusfessler.alarmtiles.App;
 import linusfessler.alarmtiles.AppDatabase;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.Settings;
-import linusfessler.alarmtiles.databinding.MainFragmentBinding;
+import linusfessler.alarmtiles.databinding.FragmentMainBinding;
 import linusfessler.alarmtiles.model.AlarmTile;
 import linusfessler.alarmtiles.model.BasicSettings;
 
@@ -40,7 +40,7 @@ public class MainFragment extends Fragment {
         db = ((App) requireActivity().getApplication()).getDb();
         settings = db.settingsDao().getSettings().getValue();
 
-        final MainFragmentBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
+        final FragmentMainBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
         binding.setSettings(settings);
 
         return binding.getRoot();
