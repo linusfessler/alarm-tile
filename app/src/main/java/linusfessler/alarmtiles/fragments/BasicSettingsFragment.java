@@ -62,15 +62,15 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
         initViewModel();
         final FragmentBasicSettingsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_basic_settings, container, false);
         binding.setViewModel(viewModel);
+        return binding.getRoot();
+    }
 
-        final View root = binding.getRoot();
-        final NavController navController = Navigation.findNavController(container);
-
+    @Override
+    public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
+        final NavController navController = Navigation.findNavController(view);
         showBackConfirmationDialog(navController);
-        initIconPicker(root);
-        initNextButton(root, navController);
-
-        return root;
+        initIconPicker(view);
+        initNextButton(view, navController);
     }
 
     @Override
