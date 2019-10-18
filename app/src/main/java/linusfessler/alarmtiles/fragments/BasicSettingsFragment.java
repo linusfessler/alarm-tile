@@ -50,7 +50,7 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
 
     private AlarmTile alarmTile;
     private BasicSettingsViewModel viewModel;
-    private DrawablePickerDialog drawablePickerDialog;
+    private DrawablePickerDialog iconPickerDialog;
 
     @Override
     public void onCreate(@Nullable final Bundle savedInstanceState) {
@@ -85,14 +85,14 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
 
         final Context context = requireContext();
         final Resources resources = getResources();
-        final String title = "Select an icon"; // TODO: Get from R.string
+        final String title = resources.getString(R.string.dialog_icon_picker_title);
         final int size = resources.getDimensionPixelSize(R.dimen.icon_size);
         final int color = resources.getColor(R.color.white, context.getTheme());
-        drawablePickerDialog = new DrawablePickerDialog(context, title, ICON_RESOURCE_IDS, size, size, color);
-        drawablePickerDialog.addListener(this);
+        iconPickerDialog = new DrawablePickerDialog(context, title, ICON_RESOURCE_IDS, size, size, color);
+        iconPickerDialog.addListener(this);
 
         final ImageView icon = binding.getRoot().findViewById(R.id.icon);
-        icon.setOnClickListener(view -> drawablePickerDialog.show());
+        icon.setOnClickListener(view -> iconPickerDialog.show());
 
         final Handler handler = new Handler();
         handler.postDelayed(() -> showRipple(icon.getBackground()), SHOW_ICON_RIPPLE_AFTER_MILLISECONDS);
@@ -123,7 +123,7 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
 
     @Override
     public void onDestroyView() {
-        drawablePickerDialog.removeListener(this);
+        iconPickerDialog.removeListener(this);
         super.onDestroyView();
     }
 

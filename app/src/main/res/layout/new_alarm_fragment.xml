@@ -69,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@string/next"
+                android:text="@string/button_next"
                 android:enabled="@{viewModel.valid}" />
 
         </LinearLayout>
