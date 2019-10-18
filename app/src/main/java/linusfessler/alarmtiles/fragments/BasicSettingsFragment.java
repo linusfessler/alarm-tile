@@ -59,58 +59,18 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        viewModel = ViewModelProviders.of(this).get(BasicSettingsViewModel.class);
-
-        if (alarmTile.getBasicSettings() != null) {
-            final BasicSettings basicSettings = alarmTile.getBasicSettings();
-            viewModel.setName(basicSettings.getName());
-            viewModel.setIconResourceId(basicSettings.getIconResourceId());
-        } else {
-            viewModel.setIconResourceId(ICON_RESOURCE_IDS[0]);
-        }
-
+        initViewModel();
         final NewAlarmFragmentBinding binding = DataBindingUtil.inflate(inflater, R.layout.new_alarm_fragment, container, false);
         binding.setViewModel(viewModel);
 
-        requireActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                new AlertDialog.Builder(requireActivity())
-                        .setTitle("Go back?")
-                        .setMessage("Your current changes will be discarded")
-                        .setPositiveButton("Yes", (dialog, which) -> Navigation.findNavController(binding.getRoot()).popBackStack())
-                        .setNegativeButton("No", null)
-                        .show();
-            }
-        });
+        final View root = binding.getRoot();
+        final NavController navController = Navigation.findNavController(container);
 
-        final Context context = requireContext();
-        final Resources resources = getResources();
-        final String title = resources.getString(R.string.dialog_icon_picker_title);
-        final int size = resources.getDimensionPixelSize(R.dimen.icon_size);
-        final int color = resources.getColor(R.color.white, context.getTheme());
-        iconPickerDialog = new DrawablePickerDialog(context, title, ICON_RESOURCE_IDS, size, size, color);
-        iconPickerDialog.addListener(this);
+        showBackConfirmationDialog(navController);
+        initIconPicker(root);
+        initNextButton(root, navController);
 
-        final ImageView icon = binding.getRoot().findViewById(R.id.icon);
-        icon.setOnClickListener(view -> iconPickerDialog.show());
-
-        final DrawableStateController drawableStateController = new DrawableStateController(icon.getBackground());
-        drawableStateController.press(SHOW_ICON_RIPPLE_AFTER_MILLISECONDS, HIDE_ICON_RIPPLE_AFTER_MILLISECONDS);
-
-        final MaterialButton button = binding.getRoot().findViewById(R.id.next_button);
-        button.setOnClickListener(v -> {
-            final BasicSettings basicSettings = BasicSettings.builder()
-                    .name(viewModel.getName())
-                    .iconResourceId(viewModel.getIconResourceId())
-                    .build();
-            alarmTile.setBasicSettings(basicSettings);
-
-            final NavController navController = Navigation.findNavController(binding.getRoot());
-            navController.navigate(BasicSettingsFragmentDirections.actionBasicSettingsFragmentToFallAsleepSettingsFragment(alarmTile));
-        });
-
-        return binding.getRoot();
+        return root;
     }
 
     @Override
@@ -122,6 +82,61 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
     @Override
     public void onDrawablePicked(final int resourceId) {
         viewModel.setIconResourceId(resourceId);
+    }
+
+    private void initViewModel() {
+        viewModel = ViewModelProviders.of(this).get(BasicSettingsViewModel.class);
+
+        if (alarmTile.getBasicSettings() != null) {
+            final BasicSettings basicSettings = alarmTile.getBasicSettings();
+            viewModel.setName(basicSettings.getName());
+            viewModel.setIconResourceId(basicSettings.getIconResourceId());
+        } else {
+            viewModel.setIconResourceId(ICON_RESOURCE_IDS[0]);
+        }
+    }
+
+    private void showBackConfirmationDialog(final NavController navController) {
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                new AlertDialog.Builder(requireActivity())
+                        .setTitle("Go back?")
+                        .setMessage("Your current changes will be discarded")
+                        .setPositiveButton("Yes", (dialog, which) -> navController.popBackStack())
+                        .setNegativeButton("No", null)
+                        .show();
+            }
+        });
+    }
+
+    private void initIconPicker(final View root) {
+        final Context context = requireContext();
+        final Resources resources = getResources();
+        final String title = resources.getString(R.string.dialog_icon_picker_title);
+        final int size = resources.getDimensionPixelSize(R.dimen.icon_size);
+        final int color = resources.getColor(R.color.white, context.getTheme());
+        iconPickerDialog = new DrawablePickerDialog(context, title, ICON_RESOURCE_IDS, size, size, color);
+        iconPickerDialog.addListener(this);
+
+        final ImageView icon = root.findViewById(R.id.icon);
+        icon.setOnClickListener(view -> iconPickerDialog.show());
+
+        final DrawableStateController drawableStateController = new DrawableStateController(icon.getBackground());
+        drawableStateController.press(SHOW_ICON_RIPPLE_AFTER_MILLISECONDS, HIDE_ICON_RIPPLE_AFTER_MILLISECONDS);
+    }
+
+    private void initNextButton(final View root, final NavController navController) {
+        final MaterialButton button = root.findViewById(R.id.next_button);
+        button.setOnClickListener(v -> {
+            final BasicSettings basicSettings = BasicSettings.builder()
+                    .name(viewModel.getName())
+                    .iconResourceId(viewModel.getIconResourceId())
+                    .build();
+            alarmTile.setBasicSettings(basicSettings);
+
+            navController.navigate(BasicSettingsFragmentDirections.actionBasicSettingsFragmentToFallAsleepSettingsFragment(alarmTile));
+        });
     }
 
 }
