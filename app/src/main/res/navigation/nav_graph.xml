@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="linusfessler.alarmtiles.fragments.MainFragment"
-        android:label="Your alarm tiles"
+        android:label="@string/main_title"
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_basicSettingsFragment"
@@ -21,7 +21,7 @@
     <fragment
         android:id="@+id/basicSettingsFragment"
         android:name="linusfessler.alarmtiles.fragments.BasicSettingsFragment"
-        android:label="Basic settings"
+        android:label="@string/basic_settings_title"
         tools:layout="@layout/fragment_basic_settings">
         <action
             android:id="@+id/action_basicSettingsFragment_to_fallAsleepSettingsFragment"
@@ -34,7 +34,7 @@
     <fragment
         android:id="@+id/fallAsleepSettingsFragment"
         android:name="linusfessler.alarmtiles.fragments.FallAsleepSettingsFragment"
-        android:label="Fall asleep settings"
+        android:label="@string/fall_asleep_settings_title"
         tools:layout="@layout/fragment_fall_asleep_settings">
         <action
             android:id="@+id/action_fallAsleepSettingsFragment_to_sleepSettingsFragment"
@@ -47,7 +47,7 @@
     <fragment
         android:id="@+id/sleepSettingsFragment"
         android:name="linusfessler.alarmtiles.fragments.SleepSettingsFragment"
-        android:label="Sleep settings"
+        android:label="@string/sleep_settings_title"
         tools:layout="@layout/fragment_sleep_settings">
         <action
             android:id="@+id/action_sleepSettingsFragment_to_wakeUpSettingsFragment"
@@ -60,7 +60,7 @@
     <fragment
         android:id="@+id/wakeUpSettingsFragment"
         android:name="linusfessler.alarmtiles.fragments.WakeUpSettingsFragment"
-        android:label="Wake up settings"
+        android:label="@string/wake_up_settings_title"
         tools:layout="@layout/fragment_wake_up_settings">
         <action
             android:id="@+id/action_wakeUpSettingsFragment_to_snoozeSettingsFragment"
@@ -73,7 +73,7 @@
     <fragment
         android:id="@+id/snoozeSettingsFragment"
         android:name="linusfessler.alarmtiles.fragments.SnoozeSettingsFragment"
-        android:label="Snooze settings"
+        android:label="@string/snooze_settings_title"
         tools:layout="@layout/fragment_snooze_settings">
         <action
             android:id="@+id/action_snoozeSettingsFragment_to_advancedSettingsFragment"
@@ -86,7 +86,7 @@
     <fragment
         android:id="@+id/advancedSettingsFragment"
         android:name="linusfessler.alarmtiles.fragments.AdvancedSettingsFragment"
-        android:label="Advanced settings"
+        android:label="@string/advanced_settings_title"
         tools:layout="@layout/fragment_advanced_settings">
         <action
             android:id="@+id/action_advancedSettingsFragment_to_mainFragment"
