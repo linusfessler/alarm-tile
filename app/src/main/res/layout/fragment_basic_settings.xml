@@ -70,7 +70,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="@string/button_next"
-                android:enabled="@{viewModel.valid}" />
+                android:enabled="@{viewModel.valid}"
+                style="@style/Button" />
 
         </LinearLayout>
 

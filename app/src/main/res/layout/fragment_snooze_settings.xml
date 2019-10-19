@@ -44,7 +44,8 @@
                 android:id="@+id/next_button"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/setting_height"
-                android:text="@string/button_next" />
+                android:text="@string/button_next"
+                style="@style/Button" />
 
         </LinearLayout>
 

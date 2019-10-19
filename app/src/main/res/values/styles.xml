@@ -31,6 +31,10 @@
         <item name="android:numbersBackgroundColor">@color/grey</item>
     </style>
 
+    <style name="Button">
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+
     <style name="Info">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/setting_height</item>
