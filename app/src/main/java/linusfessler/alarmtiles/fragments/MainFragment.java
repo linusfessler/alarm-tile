@@ -29,8 +29,10 @@ import linusfessler.alarmtiles.databinding.FragmentMainBinding;
 import linusfessler.alarmtiles.model.AlarmTile;
 import linusfessler.alarmtiles.model.BasicSettings;
 import linusfessler.alarmtiles.model.FallAsleepSettings;
+import linusfessler.alarmtiles.model.SleepSettings;
 import linusfessler.alarmtiles.viewmodel.BasicSettingsViewModel;
 import linusfessler.alarmtiles.viewmodel.FallAsleepSettingsViewModel;
+import linusfessler.alarmtiles.viewmodel.SleepSettingsViewModel;
 
 public class MainFragment extends Fragment {
 
@@ -65,6 +67,7 @@ public class MainFragment extends Fragment {
 
         final List<AlarmTile> alarmTiles = new ArrayList<>();
 
+        // TODO: Insert into db on install and fetch instead of building here
         final AlarmTile workweekAlarmTile = new AlarmTile();
         final AlarmTile weekendTimerTile = new AlarmTile();
         final AlarmTile napTile = new AlarmTile();
@@ -102,6 +105,32 @@ public class MainFragment extends Fragment {
         workweekAlarmTile.setFallAsleepSettings(workweekFallAsleepSettings);
         weekendTimerTile.setFallAsleepSettings(weekendFallAsleepSettings);
         napTile.setFallAsleepSettings(napFallAsleepSettings);
+
+        final SleepSettings workweekSleepSettings = SleepSettings.builder()
+                .timerEnabled(true)
+                .hours(0)
+                .minutes(0)
+                .enteringDoNotDisturb(true)
+                .allowingPriorityNotifications(true)
+                .build();
+        final SleepSettings weekendSleepSettings = SleepSettings.builder()
+                .timerEnabled(true)
+                .hours(0)
+                .minutes(0)
+                .enteringDoNotDisturb(true)
+                .allowingPriorityNotifications(true)
+                .build();
+        final SleepSettings napSleepSettings = SleepSettings.builder()
+                .timerEnabled(true)
+                .hours(0)
+                .minutes(0)
+                .enteringDoNotDisturb(true)
+                .allowingPriorityNotifications(true)
+                .build();
+
+        workweekAlarmTile.setSleepSettings(workweekSleepSettings);
+        weekendTimerTile.setSleepSettings(weekendSleepSettings);
+        napTile.setSleepSettings(napSleepSettings);
 
         alarmTiles.add(workweekAlarmTile);
         alarmTiles.add(weekendTimerTile);
@@ -145,17 +174,21 @@ public class MainFragment extends Fragment {
     private void initViewModels(final AlarmTile alarmTile) {
         final BasicSettingsViewModel basicSettingsViewModel = ViewModelProviders.of(requireActivity()).get(BasicSettingsViewModel.class);
         final FallAsleepSettingsViewModel fallAsleepSettingsViewModel = ViewModelProviders.of(requireActivity()).get(FallAsleepSettingsViewModel.class);
+        final SleepSettingsViewModel sleepSettingsViewModel = ViewModelProviders.of(requireActivity()).get(SleepSettingsViewModel.class);
 
         basicSettingsViewModel.init(alarmTile.getBasicSettings());
         fallAsleepSettingsViewModel.init(alarmTile.getFallAsleepSettings());
+        sleepSettingsViewModel.init(alarmTile.getSleepSettings());
     }
 
     private void resetViewModels() {
         final BasicSettingsViewModel basicSettingsViewModel = ViewModelProviders.of(requireActivity()).get(BasicSettingsViewModel.class);
         final FallAsleepSettingsViewModel fallAsleepSettingsViewModel = ViewModelProviders.of(requireActivity()).get(FallAsleepSettingsViewModel.class);
+        final SleepSettingsViewModel sleepSettingsViewModel = ViewModelProviders.of(requireActivity()).get(SleepSettingsViewModel.class);
 
         basicSettingsViewModel.reset();
         fallAsleepSettingsViewModel.reset();
+        sleepSettingsViewModel.reset();
     }
 
     @Override

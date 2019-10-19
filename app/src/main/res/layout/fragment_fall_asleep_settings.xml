@@ -23,8 +23,6 @@
             android:padding="@dimen/fragment_padding">
 
             <com.google.android.material.textview.MaterialTextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/setting_height"
                 android:text="@string/fall_asleep_settings_timer_info"
                 style="@style/Info" />
 

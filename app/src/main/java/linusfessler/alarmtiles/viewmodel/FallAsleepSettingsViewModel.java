@@ -11,8 +11,8 @@ import lombok.Getter;
 @Getter
 public class FallAsleepSettingsViewModel extends ObservableViewModel {
 
-    private static final int DEFAULT_HOURS = 8;
-    private static final int DEFAULT_MINUTES = 0;
+    private static final int DEFAULT_HOURS = 0;
+    private static final int DEFAULT_MINUTES = 30;
 
     @Bindable
     private boolean timerEnabled;

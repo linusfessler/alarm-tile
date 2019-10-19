@@ -19,12 +19,6 @@
             android:orientation="vertical"
             android:padding="@dimen/fragment_padding">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/setting_height"
-                android:text="@string/alarm_info"
-                style="@style/Info" />
-
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -42,36 +36,7 @@
                 android:gravity="center_vertical"
                 android:text="Alarm sound" />
 
-            <View style="@style/HorizontalLine" />
-
             <com.google.android.material.textview.MaterialTextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/setting_height"
-                android:text="@string/wake_timer_info"
-                style="@style/Info" />
-
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Timer" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/setting_height"
-                android:gravity="center_vertical"
-                android:text="Length" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/setting_height"
-                android:gravity="center_vertical"
-                android:text="Alarm sound" />
-
-            <View style="@style/HorizontalLine" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/setting_height"
                 android:text="@string/alarm_wake_timer_info"
                 style="@style/Info" />
 
