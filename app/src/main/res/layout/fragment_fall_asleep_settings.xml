@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="linusfessler.alarmtiles.viewmodel.FallAsleepSettingsViewModel" />
@@ -33,9 +35,12 @@
                 android:checked="@={viewModel.timerEnabled}" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/time"
                 android:layout_width="@dimen/time_size"
                 android:layout_height="@dimen/time_size"
                 android:layout_gravity="center"
+                android:visibility="@{viewModel.timerEnabled ? View.VISIBLE : View.GONE}"
+                android:text="@{viewModel.time}"
                 tools:text="12:00"
                 style="@style/Time" />
 
@@ -43,7 +48,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/fall_asleep_settings_fade_music_out"
-                android:checked="@={viewModel.slowlyFadingMusicOut}" />
+                android:checked="@={viewModel.slowlyFadingMusicOut}"
+                android:visibility="@{viewModel.timerEnabled ? View.VISIBLE : View.GONE}" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/next_button"

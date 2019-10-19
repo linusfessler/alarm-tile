@@ -10,14 +10,14 @@ import lombok.Getter;
 public class FallAsleepSettings implements Serializable {
 
     private final boolean timerEnabled;
-    private final int hour;
-    private final int minute;
+    private final int hours;
+    private final int minutes;
     private final boolean slowlyFadingMusicOut;
 
-    private FallAsleepSettings(final boolean timerEnabled, final int hour, final int minute, final boolean slowlyFadingMusicOut) {
+    private FallAsleepSettings(final boolean timerEnabled, final int hours, final int minutes, final boolean slowlyFadingMusicOut) {
         this.timerEnabled = timerEnabled;
-        this.hour = hour;
-        this.minute = minute;
+        this.hours = hours;
+        this.minutes = minutes;
         this.slowlyFadingMusicOut = slowlyFadingMusicOut;
     }
 
