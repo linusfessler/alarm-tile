@@ -30,9 +30,6 @@
             app:exitAnim="@anim/nav_slide_exit_anim"
             app:popEnterAnim="@anim/nav_slide_pop_enter_anim"
             app:popExitAnim="@anim/nav_slide_pop_exit_anim" />
-        <argument
-            android:name="alarmTile"
-            app:argType="linusfessler.alarmtiles.model.AlarmTile" />
     </fragment>
     <fragment
         android:id="@+id/fallAsleepSettingsFragment"
@@ -46,9 +43,6 @@
             app:exitAnim="@anim/nav_slide_exit_anim"
             app:popEnterAnim="@anim/nav_slide_pop_enter_anim"
             app:popExitAnim="@anim/nav_slide_pop_exit_anim" />
-        <argument
-            android:name="alarmTile"
-            app:argType="linusfessler.alarmtiles.model.AlarmTile" />
     </fragment>
     <fragment
         android:id="@+id/sleepSettingsFragment"
@@ -62,9 +56,6 @@
             app:exitAnim="@anim/nav_slide_exit_anim"
             app:popEnterAnim="@anim/nav_slide_pop_enter_anim"
             app:popExitAnim="@anim/nav_slide_pop_exit_anim" />
-        <argument
-            android:name="alarmTile"
-            app:argType="linusfessler.alarmtiles.model.AlarmTile" />
     </fragment>
     <fragment
         android:id="@+id/wakeUpSettingsFragment"
@@ -78,9 +69,6 @@
             app:exitAnim="@anim/nav_slide_exit_anim"
             app:popEnterAnim="@anim/nav_slide_pop_enter_anim"
             app:popExitAnim="@anim/nav_slide_pop_exit_anim" />
-        <argument
-            android:name="alarmTile"
-            app:argType="linusfessler.alarmtiles.model.AlarmTile" />
     </fragment>
     <fragment
         android:id="@+id/snoozeSettingsFragment"
@@ -94,9 +82,6 @@
             app:exitAnim="@anim/nav_slide_exit_anim"
             app:popEnterAnim="@anim/nav_slide_pop_enter_anim"
             app:popExitAnim="@anim/nav_slide_pop_exit_anim" />
-        <argument
-            android:name="alarmTile"
-            app:argType="linusfessler.alarmtiles.model.AlarmTile" />
     </fragment>
     <fragment
         android:id="@+id/advancedSettingsFragment"
@@ -111,9 +96,6 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@+id/nav_graph" />
-        <argument
-            android:name="alarmTile"
-            app:argType="linusfessler.alarmtiles.model.AlarmTile" />
     </fragment>
 
 </navigation>

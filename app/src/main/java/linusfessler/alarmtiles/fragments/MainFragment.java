@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -27,6 +28,9 @@ import linusfessler.alarmtiles.Settings;
 import linusfessler.alarmtiles.databinding.FragmentMainBinding;
 import linusfessler.alarmtiles.model.AlarmTile;
 import linusfessler.alarmtiles.model.BasicSettings;
+import linusfessler.alarmtiles.model.FallAsleepSettings;
+import linusfessler.alarmtiles.viewmodel.BasicSettingsViewModel;
+import linusfessler.alarmtiles.viewmodel.FallAsleepSettingsViewModel;
 
 public class MainFragment extends Fragment {
 
@@ -82,6 +86,23 @@ public class MainFragment extends Fragment {
         weekendTimerTile.setBasicSettings(weekendBasicSettings);
         napTile.setBasicSettings(napBasicSettings);
 
+        final FallAsleepSettings workweekFallAsleepSettings = FallAsleepSettings.builder()
+                .timerEnabled(true)
+                .slowlyFadingMusicOut(true)
+                .build();
+        final FallAsleepSettings weekendFallAsleepSettings = FallAsleepSettings.builder()
+                .timerEnabled(true)
+                .slowlyFadingMusicOut(true)
+                .build();
+        final FallAsleepSettings napFallAsleepSettings = FallAsleepSettings.builder()
+                .timerEnabled(true)
+                .slowlyFadingMusicOut(true)
+                .build();
+
+        workweekAlarmTile.setFallAsleepSettings(workweekFallAsleepSettings);
+        weekendTimerTile.setFallAsleepSettings(weekendFallAsleepSettings);
+        napTile.setFallAsleepSettings(napFallAsleepSettings);
+
         alarmTiles.add(workweekAlarmTile);
         alarmTiles.add(weekendTimerTile);
         alarmTiles.add(napTile);
@@ -100,9 +121,10 @@ public class MainFragment extends Fragment {
             currentDialog = new AlertDialog.Builder(requireActivity())
                     .setTitle(alarmTile.getBasicSettings().getName())
                     .setMessage("Select an action for this alarm tile")
-                    .setPositiveButton("Edit", (dialog, which) ->
-                            navController.navigate(MainFragmentDirections.actionMainFragmentToBasicSettingsFragment(alarmTile))
-                    )
+                    .setPositiveButton("Edit", (dialog, which) -> {
+                        initViewModels(alarmTile);
+                        navController.navigate(MainFragmentDirections.actionMainFragmentToBasicSettingsFragment());
+                    })
                     .setNeutralButton("Delete", (dialog, which) -> {
                         alarmTiles.remove(alarmTile);
                         adapter.notifyDataSetChanged();
@@ -114,7 +136,26 @@ public class MainFragment extends Fragment {
         });
 
         final FloatingActionButton button = view.findViewById(R.id.fab);
-        button.setOnClickListener(Navigation.createNavigateOnClickListener(MainFragmentDirections.actionMainFragmentToBasicSettingsFragment(new AlarmTile())));
+        button.setOnClickListener(v -> {
+            resetViewModels();
+            navController.navigate(MainFragmentDirections.actionMainFragmentToBasicSettingsFragment());
+        });
+    }
+
+    private void initViewModels(final AlarmTile alarmTile) {
+        final BasicSettingsViewModel basicSettingsViewModel = ViewModelProviders.of(requireActivity()).get(BasicSettingsViewModel.class);
+        final FallAsleepSettingsViewModel fallAsleepSettingsViewModel = ViewModelProviders.of(requireActivity()).get(FallAsleepSettingsViewModel.class);
+
+        basicSettingsViewModel.init(alarmTile.getBasicSettings());
+        fallAsleepSettingsViewModel.init(alarmTile.getFallAsleepSettings());
+    }
+
+    private void resetViewModels() {
+        final BasicSettingsViewModel basicSettingsViewModel = ViewModelProviders.of(requireActivity()).get(BasicSettingsViewModel.class);
+        final FallAsleepSettingsViewModel fallAsleepSettingsViewModel = ViewModelProviders.of(requireActivity()).get(FallAsleepSettingsViewModel.class);
+
+        basicSettingsViewModel.reset();
+        fallAsleepSettingsViewModel.reset();
     }
 
     @Override

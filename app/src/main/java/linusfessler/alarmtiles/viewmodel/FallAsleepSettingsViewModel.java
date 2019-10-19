@@ -3,6 +3,7 @@ package linusfessler.alarmtiles.viewmodel;
 import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
 
+import linusfessler.alarmtiles.model.FallAsleepSettings;
 import lombok.Getter;
 
 @Getter
@@ -28,5 +29,15 @@ public class FallAsleepSettingsViewModel extends ObservableViewModel {
     public boolean isValid() {
         return true;
     }*/
+
+    public void reset() {
+        setTimerEnabled(false);
+        setSlowlyFadingMusicOut(false);
+    }
+
+    public void init(final FallAsleepSettings fallAsleepSettings) {
+        setTimerEnabled(fallAsleepSettings.isTimerEnabled());
+        setSlowlyFadingMusicOut(fallAsleepSettings.isSlowlyFadingMusicOut());
+    }
 
 }

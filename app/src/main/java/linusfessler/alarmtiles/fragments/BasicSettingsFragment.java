@@ -15,7 +15,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import com.google.android.material.button.MaterialButton;
@@ -24,8 +24,6 @@ import linusfessler.alarmtiles.DrawablePickerDialog;
 import linusfessler.alarmtiles.DrawableStateController;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.databinding.FragmentBasicSettingsBinding;
-import linusfessler.alarmtiles.model.AlarmTile;
-import linusfessler.alarmtiles.model.BasicSettings;
 import linusfessler.alarmtiles.viewmodel.BasicSettingsViewModel;
 
 public class BasicSettingsFragment extends Fragment implements DrawablePickerDialog.OnDrawablePickedListener {
@@ -47,21 +45,14 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
     private static final long SHOW_ICON_RIPPLE_AFTER_MILLISECONDS = 750;
     private static final long HIDE_ICON_RIPPLE_AFTER_MILLISECONDS = 250;
 
-    private AlarmTile alarmTile;
     private BasicSettingsViewModel viewModel;
     private DrawablePickerDialog iconPickerDialog;
-
-    @Override
-    public void onCreate(@Nullable final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        alarmTile = BasicSettingsFragmentArgs.fromBundle(requireArguments()).getAlarmTile();
-    }
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        initViewModel();
+        viewModel = ViewModelProviders.of(requireActivity()).get(BasicSettingsViewModel.class);
         final FragmentBasicSettingsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_basic_settings, container, false);
         binding.setViewModel(viewModel);
 
@@ -72,16 +63,9 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
     public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final NavController navController = Navigation.findNavController(view);
-        showBackConfirmationDialog(navController);
+        initBackConfirmationDialog(view);
         initIconPicker(view);
-        initNextButton(view, navController);
-    }
-
-    @Override
-    public void onDestroyView() {
-        iconPickerDialog.removeListener(this);
-        super.onDestroyView();
+        initNextButton(view);
     }
 
     @Override
@@ -89,26 +73,14 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
         viewModel.setIconResourceId(resourceId);
     }
 
-    private void initViewModel() {
-        viewModel = ViewModelProviders.of(this).get(BasicSettingsViewModel.class);
-
-        final BasicSettings basicSettings = alarmTile.getBasicSettings();
-        if (basicSettings != null) {
-            viewModel.setName(basicSettings.getName());
-            viewModel.setIconResourceId(basicSettings.getIconResourceId());
-        } else {
-            viewModel.setIconResourceId(ICON_RESOURCE_IDS[0]);
-        }
-    }
-
-    private void showBackConfirmationDialog(final NavController navController) {
+    private void initBackConfirmationDialog(final View root) {
         requireActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 new AlertDialog.Builder(requireActivity())
                         .setTitle("Go back?")
                         .setMessage("Your current changes will be discarded")
-                        .setPositiveButton("Yes", (dialog, which) -> navController.popBackStack())
+                        .setPositiveButton("Yes", (dialog, which) -> Navigation.findNavController(root).popBackStack())
                         .setNegativeButton("No", null)
                         .show();
             }
@@ -131,17 +103,16 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
         drawableStateController.press(SHOW_ICON_RIPPLE_AFTER_MILLISECONDS, HIDE_ICON_RIPPLE_AFTER_MILLISECONDS);
     }
 
-    private void initNextButton(final View root, final NavController navController) {
+    private void initNextButton(final View root) {
         final MaterialButton button = root.findViewById(R.id.next_button);
-        button.setOnClickListener(v -> {
-            final BasicSettings basicSettings = BasicSettings.builder()
-                    .name(viewModel.getName())
-                    .iconResourceId(viewModel.getIconResourceId())
-                    .build();
-            alarmTile.setBasicSettings(basicSettings);
+        final NavDirections directions = BasicSettingsFragmentDirections.actionBasicSettingsFragmentToFallAsleepSettingsFragment();
+        button.setOnClickListener(Navigation.createNavigateOnClickListener(directions));
+    }
 
-            navController.navigate(BasicSettingsFragmentDirections.actionBasicSettingsFragmentToFallAsleepSettingsFragment(alarmTile));
-        });
+    @Override
+    public void onDestroyView() {
+        iconPickerDialog.removeListener(this);
+        super.onDestroyView();
     }
 
 }

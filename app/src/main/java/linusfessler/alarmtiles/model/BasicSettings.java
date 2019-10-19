@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Builder
+@Builder // TODO: BasicSettings.fromViewModel() => remove builder
 public class BasicSettings implements Serializable {
 
     private final String name;
