@@ -14,8 +14,12 @@
 
     <string name="main_title">Your alarm tiles</string>
 
-    <string name="basic_settings_title">Basic settings</string>
-    <string name="basic_settings_name_hint">Alarm tile name</string>
+    <string name="general_settings_title">General settings</string>
+    <string name="general_settings_name_hint">Alarm tile name</string>
+    <string name="general_settings_notification">Show notification for next alarm</string>
+    <string name="general_settings_increase_volume">Gradually increase alarm volume</string>
+    <string name="general_settings_vibrate">Vibrate during alarm</string>
+    <string name="general_settings_flashlight">Turn on flashlight on alarm</string>
 
     <string name="fall_asleep_settings_title">Fall asleep settings</string>
     <string name="fall_asleep_settings_timer_info">Set a timer that stops all audio and video after the specified duration.</string>
@@ -41,8 +45,6 @@
     <string name="snooze_settings_snooze_info">On the alarm screen, you can swipe up or press the volume up button to snooze.</string>
     <string name="snooze_settings_snooze">Snooze</string>
     <string name="snooze_settings_snooze_duration">Duration</string>
-
-    <string name="advanced_settings_title">Advanced settings</string>
 
     <string name="dialog_dnd_title">Permission needed</string>
     <string name="dialog_dnd_message">This option requires permission to change the do not disturb mode. Please enable the permission on the following screen and then press the back button.</string>

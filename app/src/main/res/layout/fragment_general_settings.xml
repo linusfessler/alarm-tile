@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="linusfessler.alarmtiles.viewmodel.BasicSettingsViewModel" />
+            type="linusfessler.alarmtiles.viewmodel.GeneralSettingsViewModel" />
 
     </data>
 
@@ -43,7 +43,7 @@
                     android:id="@+id/name_input_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/basic_settings_name_hint"
+                    android:hint="@string/general_settings_name_hint"
                     app:errorText="@{viewModel.nameErrorText}"
                     app:errorEnabled="@{viewModel.nameErrorEnabled}"
                     app:counterEnabled="true"
@@ -64,11 +64,30 @@
 
             </LinearLayout>
 
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/general_settings_notification" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/general_settings_increase_volume" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/general_settings_vibrate" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/general_settings_flashlight" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/next_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:text="@string/button_next"
                 android:enabled="@{viewModel.valid}"
                 style="@style/Button" />

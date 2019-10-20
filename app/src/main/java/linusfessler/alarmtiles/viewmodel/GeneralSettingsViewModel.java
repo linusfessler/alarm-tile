@@ -4,11 +4,11 @@ import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
 
 import linusfessler.alarmtiles.R;
-import linusfessler.alarmtiles.model.BasicSettings;
+import linusfessler.alarmtiles.model.GeneralSettings;
 import lombok.Getter;
 
 @Getter
-public class BasicSettingsViewModel extends ObservableViewModel {
+public class GeneralSettingsViewModel extends ObservableViewModel {
 
     public static final int MAX_NAME_LENGTH = 20;
     public static final String NAME_ERROR_TEXT = "Please enter a name";
@@ -65,9 +65,9 @@ public class BasicSettingsViewModel extends ObservableViewModel {
         setIconResourceId(DEFAULT_ICON_RESOURCE_ID);
     }
 
-    public void init(final BasicSettings basicSettings) {
-        setName(basicSettings.getName());
-        setIconResourceId(basicSettings.getIconResourceId());
+    public void init(final GeneralSettings generalSettings) {
+        setName(generalSettings.getName());
+        setIconResourceId(generalSettings.getIconResourceId());
     }
 
 }

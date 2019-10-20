@@ -1,4 +1,9 @@
 
-tsquid:S1450%"QRemove the "db" field and declare it as a local variable in the relevant methods.(½µ×ùÿÿÿÿ8‹ÄËèÛ-
-Gsquid:S1185¢"(Remove this method to simply inherit it.(±íòÑ8ŞÅñœŞ-
-jsquid:CommentedOutCodeLine£"<This block of commented-out lines of code should be removed.(‹¸Àò8ŞÅñœŞ-
+Psquid:S1135w"2Complete the task associated to this TODO comment.(ôĞ8Á«áÂŞ-
+Vsquid:S1135é"2Complete the task associated to this TODO comment.(Ó«”üÿÿÿÿ8ŸáÂŞ-
+nsquid:CommentedOutCodeLinet"<This block of commented-out lines of code should be removed.(ÿÅ¢®şÿÿÿÿ8ñ€šÂŞ-
+nsquid:CommentedOutCodeLinev"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ8ñ€šÂŞ-
+jsquid:CommentedOutCodeLine”"<This block of commented-out lines of code should be removed.(‹¸Àò8óıúÁŞ-
+Lsquid:S1172s".Remove this unused method parameter "context".(Üçïã8ñ€šÂŞ-
+tsquid:S14501"QRemove the "db" field and declare it as a local variable in the relevant methods.(½µ×ùÿÿÿÿ8‹ÄËèÛ-
+Gsquid:S1185“"(Remove this method to simply inherit it.(±íòÑ8óıúÁŞ-

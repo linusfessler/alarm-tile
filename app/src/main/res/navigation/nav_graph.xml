@@ -11,20 +11,20 @@
         android:label="@string/main_title"
         tools:layout="@layout/fragment_main">
         <action
-            android:id="@+id/action_mainFragment_to_basicSettingsFragment"
-            app:destination="@id/basicSettingsFragment"
+            android:id="@+id/action_mainFragment_to_generalSettingsFragment"
+            app:destination="@id/generalSettingsFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
-        android:id="@+id/basicSettingsFragment"
-        android:name="linusfessler.alarmtiles.fragments.BasicSettingsFragment"
-        android:label="@string/basic_settings_title"
-        tools:layout="@layout/fragment_basic_settings">
+        android:id="@+id/generalSettingsFragment"
+        android:name="linusfessler.alarmtiles.fragments.GeneralSettingsFragment"
+        android:label="@string/general_settings_title"
+        tools:layout="@layout/fragment_general_settings">
         <action
-            android:id="@+id/action_basicSettingsFragment_to_fallAsleepSettingsFragment"
+            android:id="@+id/action_generalSettingsFragment_to_fallAsleepSettingsFragment"
             app:destination="@id/fallAsleepSettingsFragment"
             app:enterAnim="@anim/nav_slide_enter_anim"
             app:exitAnim="@anim/nav_slide_exit_anim"
@@ -76,26 +76,12 @@
         android:label="@string/snooze_settings_title"
         tools:layout="@layout/fragment_snooze_settings">
         <action
-            android:id="@+id/action_snoozeSettingsFragment_to_advancedSettingsFragment"
-            app:destination="@id/advancedSettingsFragment"
-            app:enterAnim="@anim/nav_slide_enter_anim"
-            app:exitAnim="@anim/nav_slide_exit_anim"
-            app:popEnterAnim="@anim/nav_slide_pop_enter_anim"
-            app:popExitAnim="@anim/nav_slide_pop_exit_anim" />
-    </fragment>
-    <fragment
-        android:id="@+id/advancedSettingsFragment"
-        android:name="linusfessler.alarmtiles.fragments.AdvancedSettingsFragment"
-        android:label="@string/advanced_settings_title"
-        tools:layout="@layout/fragment_advanced_settings">
-        <action
-            android:id="@+id/action_advancedSettingsFragment_to_mainFragment"
+            android:id="@+id/action_snoozeSettingsFragment_to_mainFragment"
             app:destination="@id/mainFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@+id/nav_graph" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
 </navigation>

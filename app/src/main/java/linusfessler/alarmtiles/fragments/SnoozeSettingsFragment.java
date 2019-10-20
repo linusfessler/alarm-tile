@@ -57,7 +57,7 @@ public class SnoozeSettingsFragment extends Fragment implements TimePicker.OnTim
 
     private void initNextButton(final View root) {
         final MaterialButton button = root.findViewById(R.id.next_button);
-        final NavDirections directions = SnoozeSettingsFragmentDirections.actionSnoozeSettingsFragmentToAdvancedSettingsFragment();
+        final NavDirections directions = SnoozeSettingsFragmentDirections.actionSnoozeSettingsFragmentToMainFragment();
         button.setOnClickListener(Navigation.createNavigateOnClickListener(directions));
     }
 

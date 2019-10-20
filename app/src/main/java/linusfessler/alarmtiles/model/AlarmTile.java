@@ -9,11 +9,10 @@ import lombok.Setter;
 @Setter
 public class AlarmTile implements Serializable {
 
-    private BasicSettings basicSettings;
+    private GeneralSettings generalSettings;
     private FallAsleepSettings fallAsleepSettings;
     private SleepSettings sleepSettings;
     private WakeUpSettings wakeUpSettings;
     private SnoozeSettings snoozeSettings;
-    private AdvancedSettings advancedSettings;
 
 }

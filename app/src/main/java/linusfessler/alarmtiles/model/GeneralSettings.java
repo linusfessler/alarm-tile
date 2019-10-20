@@ -7,13 +7,13 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Builder // TODO: BasicSettings.fromViewModel() => remove builder
-public class BasicSettings implements Serializable {
+@Builder
+public class GeneralSettings implements Serializable {
 
     private final String name;
     private final int iconResourceId;
 
-    private BasicSettings(final String name, final int iconResourceId) {
+    private GeneralSettings(final String name, final int iconResourceId) {
         Assert.isNotEmpty(name, "Name must not be null.");
         this.name = name;
         this.iconResourceId = iconResourceId;

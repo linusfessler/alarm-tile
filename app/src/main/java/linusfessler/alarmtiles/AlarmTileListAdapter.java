@@ -46,10 +46,10 @@ public class AlarmTileListAdapter extends BaseAdapter {
         final AlarmTile alarmTile = getItem(position);
 
         final ImageView iconView = convertView.findViewById(R.id.selected_icon);
-        iconView.setImageResource(alarmTile.getBasicSettings().getIconResourceId());
+        iconView.setImageResource(alarmTile.getGeneralSettings().getIconResourceId());
 
         final TextView nameView = convertView.findViewById(R.id.name);
-        nameView.setText(alarmTile.getBasicSettings().getName());
+        nameView.setText(alarmTile.getGeneralSettings().getName());
 
         return convertView;
     }

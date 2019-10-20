@@ -23,10 +23,10 @@ import com.google.android.material.button.MaterialButton;
 import linusfessler.alarmtiles.DrawablePickerDialog;
 import linusfessler.alarmtiles.DrawableStateController;
 import linusfessler.alarmtiles.R;
-import linusfessler.alarmtiles.databinding.FragmentBasicSettingsBinding;
-import linusfessler.alarmtiles.viewmodel.BasicSettingsViewModel;
+import linusfessler.alarmtiles.databinding.FragmentGeneralSettingsBinding;
+import linusfessler.alarmtiles.viewmodel.GeneralSettingsViewModel;
 
-public class BasicSettingsFragment extends Fragment implements DrawablePickerDialog.OnDrawablePickedListener {
+public class GeneralSettingsFragment extends Fragment implements DrawablePickerDialog.OnDrawablePickedListener {
 
     private static final int[] ICON_RESOURCE_IDS = {
             R.drawable.ic_alarm_24px,
@@ -45,15 +45,15 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
     private static final long SHOW_ICON_RIPPLE_AFTER_MILLISECONDS = 750;
     private static final long HIDE_ICON_RIPPLE_AFTER_MILLISECONDS = 250;
 
-    private BasicSettingsViewModel viewModel;
+    private GeneralSettingsViewModel viewModel;
     private DrawablePickerDialog iconPickerDialog;
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        viewModel = ViewModelProviders.of(requireActivity()).get(BasicSettingsViewModel.class);
-        final FragmentBasicSettingsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_basic_settings, container, false);
+        viewModel = ViewModelProviders.of(requireActivity()).get(GeneralSettingsViewModel.class);
+        final FragmentGeneralSettingsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_general_settings, container, false);
         binding.setViewModel(viewModel);
 
         return binding.getRoot();
@@ -105,7 +105,7 @@ public class BasicSettingsFragment extends Fragment implements DrawablePickerDia
 
     private void initNextButton(final View root) {
         final MaterialButton button = root.findViewById(R.id.next_button);
-        final NavDirections directions = BasicSettingsFragmentDirections.actionBasicSettingsFragmentToFallAsleepSettingsFragment();
+        final NavDirections directions = GeneralSettingsFragmentDirections.actionGeneralSettingsFragmentToFallAsleepSettingsFragment();
         button.setOnClickListener(Navigation.createNavigateOnClickListener(directions));
     }
 
