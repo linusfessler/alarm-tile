@@ -22,10 +22,13 @@
     <string name="fall_asleep_settings_title">Fall asleep settings</string>
     <string name="fall_asleep_settings_timer_info">Set a timer that stops all audio and video after the specified amount of time.</string>
     <string name="fall_asleep_settings_timer">Timer</string>
+    <string name="fall_asleep_settings_duration">Duration</string>
     <string name="fall_asleep_settings_fade_music_out">Slowly fade music out</string>
 
     <string name="sleep_settings_title">Sleep settings</string>
     <string name="sleep_settings_timer_info">Set a timer that wakes you up after the specified amount of time.</string>
+    <string name="sleep_settings_timer">Timer</string>
+    <string name="sleep_settings_timer_duration">Duration</string>
     <string name="sleep_settings_do_not_disturb_info">The do not disturb mode will block all notifications during the night. You may choose to allow priority notifications, which you can configure in your device\'s settings.</string>
     <string name="sleep_settings_do_not_disturb">Do not disturb</string>
     <string name="sleep_settings_allow_priority_notifications">Allow priority notifications</string>

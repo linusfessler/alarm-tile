@@ -32,15 +32,33 @@
                 android:text="@string/fall_asleep_settings_timer"
                 android:checked="@={viewModel.timerEnabled}" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/time"
-                android:layout_width="@dimen/time_size"
-                android:layout_height="@dimen/time_size"
-                android:layout_gravity="center"
-                android:visibility="@{viewModel.timerEnabled ? View.VISIBLE : View.GONE}"
-                android:text="@{viewModel.time}"
-                tools:text="12:00"
-                style="@style/Time" />
+            <LinearLayout
+                android:id="@+id/duration"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/setting_height"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="@{viewModel.timerEnabled ? View.VISIBLE : View.GONE}">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|start"
+                    android:text="@string/fall_asleep_settings_duration"
+                    android:textColor="@color/white" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|end"
+                    android:text="@{viewModel.duration}"
+                    android:textColor="@color/lightGrey"
+                    tools:text="30 minutes" />
+
+            </LinearLayout>
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:layout_width="match_parent"

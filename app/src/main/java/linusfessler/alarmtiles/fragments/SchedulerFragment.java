@@ -34,11 +34,11 @@ public abstract class SchedulerFragment extends Fragment {
     private DialogInterface.OnDismissListener onDismissListener;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         return inflater.inflate(getLayoutId(), container, false);
     }
 
-    public void onPageSelected(FloatingActionButton fab) {
+    public void onPageSelected(final FloatingActionButton fab) {
         if (fab == null) {
             return;
         }
@@ -47,20 +47,20 @@ public abstract class SchedulerFragment extends Fragment {
         positiveIcon = Icon.createWithResource(fab.getContext(), getPositiveIconId());
         negativeIcon = Icon.createWithResource(fab.getContext(), getNegativeIconId());
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(fab.getContext());
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(fab.getContext());
 
-        boolean isEnabled = preferences.getBoolean(fab.getContext().getString(getScheduledKeyId()), false);
+        final boolean isEnabled = preferences.getBoolean(fab.getContext().getString(getScheduledKeyId()), false);
         updateFab(isEnabled);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 onFabClick();
             }
         });
     }
 
     protected void onFabClick() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(fab.getContext());
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(fab.getContext());
         boolean isEnabled = preferences.getBoolean(fab.getContext().getString(getScheduledKeyId()), false);
         isEnabled = !isEnabled;
         updateFab(isEnabled);
@@ -72,7 +72,7 @@ public abstract class SchedulerFragment extends Fragment {
         }
     }
 
-    private void updateFab(boolean isEnabled) {
+    private void updateFab(final boolean isEnabled) {
         fab.setImageIcon(isEnabled ? negativeIcon : positiveIcon);
     }
 
@@ -80,7 +80,7 @@ public abstract class SchedulerFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        View root = getView();
+        final View root = getView();
         if (root == null) {
             return;
         }
@@ -90,32 +90,32 @@ public abstract class SchedulerFragment extends Fragment {
         useAnalogClocks = preferences.getBoolean(getString(R.string.pref_use_analog_clocks_key), false);
         use24hFormat = preferences.getBoolean(getString(R.string.pref_use_24h_format_key), false);
 
-        int milliseconds = preferences.getInt(getString(getTimeKeyId()), 0);
+        final int milliseconds = preferences.getInt(getString(getTimeKeyId()), 0);
         minutes = milliseconds / 60000;
         hours = minutes / 60;
         minutes = minutes % 60;
 
-        View button = root.findViewById(R.id.button);
+        final View button = root.findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 timePickerDialog.show();
             }
         });
 
-        final TextView time = button.findViewById(R.id.time);
+        final TextView time = button.findViewById(R.id.duration);
         time.setText(TimeFormatter.format(hours, minutes));
 
         positiveOnClickListener = new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public void onClick(final DialogInterface dialogInterface, final int i) {
                 hours = timePickerDialog.getHour();
                 minutes = timePickerDialog.getMinute();
 
                 time.setText(TimeFormatter.format(hours, minutes));
-                int milliseconds = 60000 * (60 * hours + minutes);
+                final int milliseconds = 60000 * (60 * hours + minutes);
                 preferences.edit().putInt(getContext().getString(getTimeKeyId()), milliseconds).apply();
-                boolean isEnabled = preferences.getBoolean(getContext().getString(getScheduledKeyId()), false);
+                final boolean isEnabled = preferences.getBoolean(getContext().getString(getScheduledKeyId()), false);
                 if (isEnabled) {
                     getScheduler().schedule();
                 }
@@ -123,7 +123,7 @@ public abstract class SchedulerFragment extends Fragment {
         };
         onDismissListener = new DialogInterface.OnDismissListener() {
             @Override
-            public void onDismiss(DialogInterface dialogInterface) {
+            public void onDismiss(final DialogInterface dialogInterface) {
                 resetTimePickerDialog();
             }
         };

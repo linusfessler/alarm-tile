@@ -38,35 +38,36 @@
     <style name="Info">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:drawableStart">@drawable/ic_info_24px</item>
-        <item name="android:drawableTint">@color/white</item>
-        <item name="android:drawablePadding">16dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:textColor">@color/lightGrey</item>
     </style>
 
     <style name="Time">
-        <item name="android:layout_width">100dp</item>
-        <item name="android:layout_height">100dp</item>
-        <item name="android:layout_margin">25dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">24dp</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">32sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
-        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
     </style>
 
     <style name="HorizontalLine">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1px</item>
-        <item name="android:background">@color/white</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:background">@color/lightGrey</item>
     </style>
 
     <style name="VerticalLine">
-        <item name="android:layout_width">1px</item>
+        <item name="android:layout_width">1dp</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@color/lightGrey</item>
     </style>
 
 </resources>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
@@ -16,7 +17,6 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textview.MaterialTextView;
 
 import linusfessler.alarmtiles.DigitalTimePickerDialog;
 import linusfessler.alarmtiles.R;
@@ -51,8 +51,8 @@ public class SleepSettingsFragment extends Fragment implements TimePicker.OnTime
         final int minutes = viewModel.getMinutes();
         final DigitalTimePickerDialog timePickerDialog = new DigitalTimePickerDialog(context, this, hours, minutes, true);
 
-        final MaterialTextView time = root.findViewById(R.id.time);
-        time.setOnClickListener(v -> timePickerDialog.show());
+        final LinearLayout duration = root.findViewById(R.id.duration);
+        duration.setOnClickListener(v -> timePickerDialog.show());
     }
 
     private void initNextButton(final View root) {

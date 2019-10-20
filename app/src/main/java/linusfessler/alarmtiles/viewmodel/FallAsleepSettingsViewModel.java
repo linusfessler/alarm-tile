@@ -3,8 +3,7 @@ package linusfessler.alarmtiles.viewmodel;
 import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
 
-import java.util.Locale;
-
+import linusfessler.alarmtiles.TimeFormatter;
 import linusfessler.alarmtiles.model.FallAsleepSettings;
 import lombok.Getter;
 
@@ -13,6 +12,8 @@ public class FallAsleepSettingsViewModel extends ObservableViewModel {
 
     private static final int DEFAULT_HOURS = 0;
     private static final int DEFAULT_MINUTES = 30;
+
+    private final TimeFormatter timeFormatter = new TimeFormatter();
 
     @Bindable
     private boolean timerEnabled;
@@ -47,8 +48,8 @@ public class FallAsleepSettingsViewModel extends ObservableViewModel {
     }
 
     @Bindable({"hours", "minutes"})
-    public String getTime() {
-        return String.format(Locale.getDefault(), "%02d:%02d", hours, minutes);
+    public String getDuration() {
+        return timeFormatter.format(hours, minutes);
     }
 
     public void reset() {
