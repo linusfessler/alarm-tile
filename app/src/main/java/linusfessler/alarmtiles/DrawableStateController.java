@@ -13,13 +13,23 @@ public class DrawableStateController {
     private final Drawable drawable;
 
     public void press(final long pressAfterMilliseconds, final long releaseAfterMilliseconds) {
-        final Handler handler = new Handler();
-        handler.postDelayed(this::press, pressAfterMilliseconds);
-        handler.postDelayed(this::release, pressAfterMilliseconds + releaseAfterMilliseconds);
+        press(pressAfterMilliseconds, releaseAfterMilliseconds, false);
     }
 
     public void pressRepeatedly(final long pressAfterMilliseconds, final long releaseAfterMilliseconds) {
-        throw new UnsupportedOperationException("Not yet implemented.");
+        press(pressAfterMilliseconds, releaseAfterMilliseconds, true);
+    }
+
+    private void press(final long pressAfterMilliseconds, final long releaseAfterMilliseconds, final boolean repeat) {
+        final long releaseAfterMillisecondsFromStart = pressAfterMilliseconds + releaseAfterMilliseconds;
+
+        final Handler handler = new Handler();
+        handler.postDelayed(this::press, pressAfterMilliseconds);
+        handler.postDelayed(this::release, releaseAfterMillisecondsFromStart);
+        if (repeat) {
+            handler.postDelayed(() ->
+                    press(pressAfterMilliseconds, releaseAfterMilliseconds, true), releaseAfterMillisecondsFromStart);
+        }
     }
 
     private void press() {
