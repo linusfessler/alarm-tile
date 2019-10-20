@@ -1,5 +1,7 @@
 package linusfessler.alarmtiles.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.preference.PreferenceManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -23,6 +26,7 @@ import java.util.List;
 import linusfessler.alarmtiles.AlarmTileListAdapter;
 import linusfessler.alarmtiles.App;
 import linusfessler.alarmtiles.AppDatabase;
+import linusfessler.alarmtiles.BuildConfig;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.Settings;
 import linusfessler.alarmtiles.databinding.FragmentMainBinding;
@@ -35,6 +39,8 @@ import linusfessler.alarmtiles.viewmodel.FallAsleepSettingsViewModel;
 import linusfessler.alarmtiles.viewmodel.SleepSettingsViewModel;
 
 public class MainFragment extends Fragment {
+
+    private static final String LAST_VERSION_CODE = "last_version_code";
 
     private AppDatabase db;
     private Settings settings;
@@ -65,9 +71,53 @@ public class MainFragment extends Fragment {
 
         final NavController navController = Navigation.findNavController(view);
 
+        final List<AlarmTile> alarmTiles = getAlarmTiles(requireContext());
+
+        final AlarmTileListAdapter adapter = new AlarmTileListAdapter(getLayoutInflater(), alarmTiles);
+
+        final ListView list = view.findViewById(R.id.list);
+        list.setAdapter(adapter);
+        list.setOnItemClickListener((parent, itemView, position, id) -> {
+            if (currentDialog != null) {
+                return;
+            }
+
+            final AlarmTile alarmTile = adapter.getItem(position);
+
+            currentDialog = new AlertDialog.Builder(requireActivity())
+                    .setTitle(alarmTile.getBasicSettings().getName())
+                    .setMessage("Select an action for this alarm tile")
+                    .setPositiveButton("Edit", (dialog, which) -> {
+                        initViewModels(alarmTile);
+                        navController.navigate(MainFragmentDirections.actionMainFragmentToBasicSettingsFragment());
+                    })
+                    .setNeutralButton("Delete", (dialog, which) -> {
+                        alarmTiles.remove(alarmTile);
+                        adapter.notifyDataSetChanged();
+                    })
+                    .setOnDismissListener(dialog -> currentDialog = null)
+                    .create();
+
+            currentDialog.show();
+        });
+
+        final FloatingActionButton button = view.findViewById(R.id.fab);
+        button.setOnClickListener(v -> {
+            resetViewModels();
+            navController.navigate(MainFragmentDirections.actionMainFragmentToBasicSettingsFragment());
+        });
+    }
+
+    private List<AlarmTile> getAlarmTiles(final Context context) {
+        //if (isFirstStart(context)) {
+        return createAlarmTiles();
+        //}
+        // TODO: Get from DB
+    }
+
+    private List<AlarmTile> createAlarmTiles() {
         final List<AlarmTile> alarmTiles = new ArrayList<>();
 
-        // TODO: Insert into db on install and fetch instead of building here
         final AlarmTile workweekAlarmTile = new AlarmTile();
         final AlarmTile weekendTimerTile = new AlarmTile();
         final AlarmTile napTile = new AlarmTile();
@@ -136,39 +186,17 @@ public class MainFragment extends Fragment {
         alarmTiles.add(weekendTimerTile);
         alarmTiles.add(napTile);
 
-        final AlarmTileListAdapter adapter = new AlarmTileListAdapter(getLayoutInflater(), alarmTiles);
+        // TODO: Store in DB
 
-        final ListView list = view.findViewById(R.id.list);
-        list.setAdapter(adapter);
-        list.setOnItemClickListener((parent, itemView, position, id) -> {
-            if (currentDialog != null) {
-                return;
-            }
+        return alarmTiles;
+    }
 
-            final AlarmTile alarmTile = adapter.getItem(position);
-
-            currentDialog = new AlertDialog.Builder(requireActivity())
-                    .setTitle(alarmTile.getBasicSettings().getName())
-                    .setMessage("Select an action for this alarm tile")
-                    .setPositiveButton("Edit", (dialog, which) -> {
-                        initViewModels(alarmTile);
-                        navController.navigate(MainFragmentDirections.actionMainFragmentToBasicSettingsFragment());
-                    })
-                    .setNeutralButton("Delete", (dialog, which) -> {
-                        alarmTiles.remove(alarmTile);
-                        adapter.notifyDataSetChanged();
-                    })
-                    .setOnDismissListener(dialog -> currentDialog = null)
-                    .create();
-
-            currentDialog.show();
-        });
-
-        final FloatingActionButton button = view.findViewById(R.id.fab);
-        button.setOnClickListener(v -> {
-            resetViewModels();
-            navController.navigate(MainFragmentDirections.actionMainFragmentToBasicSettingsFragment());
-        });
+    public boolean isFirstStart(final Context context) {
+        final int versionCode = BuildConfig.VERSION_CODE;
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        final int lastVersionCode = sharedPreferences.getInt(LAST_VERSION_CODE, -1);
+        sharedPreferences.edit().putInt(LAST_VERSION_CODE, versionCode).apply();
+        return versionCode > lastVersionCode;
     }
 
     private void initViewModels(final AlarmTile alarmTile) {
