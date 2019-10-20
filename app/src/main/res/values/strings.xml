@@ -10,7 +10,6 @@
     <string name="button_next">Continue</string>
     <string name="button_finish">Save</string>
 
-    <string name="snooze_info">On the alarm screen, you can swipe up or press the volume up button to snooze.</string>
     <string name="revert_info">In the morning, all settings will be reverted to the state of the night before.</string>
 
     <string name="main_title">Your alarm tiles</string>
@@ -39,6 +38,9 @@
     <string name="wake_up_settings_both_timer_and_alarm_info">You set both a timer and an alarm. The resulting alarm will be the one that sets in earlier.</string>
 
     <string name="snooze_settings_title">Snooze settings</string>
+    <string name="snooze_settings_snooze_info">On the alarm screen, you can swipe up or press the volume up button to snooze.</string>
+    <string name="snooze_settings_snooze">Snooze</string>
+    <string name="snooze_settings_snooze_duration">Duration</string>
 
     <string name="advanced_settings_title">Advanced settings</string>
 

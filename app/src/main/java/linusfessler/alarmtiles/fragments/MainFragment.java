@@ -34,10 +34,13 @@ import linusfessler.alarmtiles.model.AlarmTile;
 import linusfessler.alarmtiles.model.BasicSettings;
 import linusfessler.alarmtiles.model.FallAsleepSettings;
 import linusfessler.alarmtiles.model.SleepSettings;
+import linusfessler.alarmtiles.model.SnoozeSettings;
 import linusfessler.alarmtiles.model.WakeUpSettings;
 import linusfessler.alarmtiles.viewmodel.BasicSettingsViewModel;
 import linusfessler.alarmtiles.viewmodel.FallAsleepSettingsViewModel;
 import linusfessler.alarmtiles.viewmodel.SleepSettingsViewModel;
+import linusfessler.alarmtiles.viewmodel.SnoozeSettingsViewModel;
+import linusfessler.alarmtiles.viewmodel.WakeUpSettingsViewModel;
 
 public class MainFragment extends Fragment {
 
@@ -205,6 +208,24 @@ public class MainFragment extends Fragment {
         weekendTimerTile.setWakeUpSettings(weekendWakeUpSettings);
         napTile.setWakeUpSettings(napWakeUpSettings);
 
+        final SnoozeSettings workweekSnoozeSettings = SnoozeSettings.builder()
+                .snoozeEnabled(true)
+                .snoozeHours(0)
+                .snoozeMinutes(15)
+                .build();
+        final SnoozeSettings weekendSnoozeSettings = SnoozeSettings.builder()
+                .snoozeEnabled(false)
+                .build();
+        final SnoozeSettings napSnoozeSettings = SnoozeSettings.builder()
+                .snoozeEnabled(true)
+                .snoozeHours(0)
+                .snoozeMinutes(15)
+                .build();
+
+        workweekAlarmTile.setSnoozeSettings(workweekSnoozeSettings);
+        weekendTimerTile.setSnoozeSettings(weekendSnoozeSettings);
+        napTile.setSnoozeSettings(napSnoozeSettings);
+
         alarmTiles.add(workweekAlarmTile);
         alarmTiles.add(weekendTimerTile);
         alarmTiles.add(napTile);
@@ -226,20 +247,28 @@ public class MainFragment extends Fragment {
         final BasicSettingsViewModel basicSettingsViewModel = ViewModelProviders.of(requireActivity()).get(BasicSettingsViewModel.class);
         final FallAsleepSettingsViewModel fallAsleepSettingsViewModel = ViewModelProviders.of(requireActivity()).get(FallAsleepSettingsViewModel.class);
         final SleepSettingsViewModel sleepSettingsViewModel = ViewModelProviders.of(requireActivity()).get(SleepSettingsViewModel.class);
+        final WakeUpSettingsViewModel wakeUpSettingsViewModel = ViewModelProviders.of(requireActivity()).get(WakeUpSettingsViewModel.class);
+        final SnoozeSettingsViewModel snoozeSettingsViewModel = ViewModelProviders.of(requireActivity()).get(SnoozeSettingsViewModel.class);
 
         basicSettingsViewModel.init(alarmTile.getBasicSettings());
         fallAsleepSettingsViewModel.init(alarmTile.getFallAsleepSettings());
         sleepSettingsViewModel.init(alarmTile.getSleepSettings());
+        wakeUpSettingsViewModel.init(alarmTile.getWakeUpSettings());
+        snoozeSettingsViewModel.init(alarmTile.getSnoozeSettings());
     }
 
     private void resetViewModels() {
         final BasicSettingsViewModel basicSettingsViewModel = ViewModelProviders.of(requireActivity()).get(BasicSettingsViewModel.class);
         final FallAsleepSettingsViewModel fallAsleepSettingsViewModel = ViewModelProviders.of(requireActivity()).get(FallAsleepSettingsViewModel.class);
         final SleepSettingsViewModel sleepSettingsViewModel = ViewModelProviders.of(requireActivity()).get(SleepSettingsViewModel.class);
+        final WakeUpSettingsViewModel wakeUpSettingsViewModel = ViewModelProviders.of(requireActivity()).get(WakeUpSettingsViewModel.class);
+        final SnoozeSettingsViewModel snoozeSettingsViewModel = ViewModelProviders.of(requireActivity()).get(SnoozeSettingsViewModel.class);
 
         basicSettingsViewModel.reset();
         fallAsleepSettingsViewModel.reset();
         sleepSettingsViewModel.reset();
+        wakeUpSettingsViewModel.reset();
+        snoozeSettingsViewModel.reset();
     }
 
     @Override

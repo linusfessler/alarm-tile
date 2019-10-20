@@ -33,7 +33,7 @@
                 android:checked="@={viewModel.timerEnabled}" />
 
             <LinearLayout
-                android:id="@+id/timer_duration"
+                android:id="@+id/snooze_duration"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/setting_height"

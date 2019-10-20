@@ -12,7 +12,7 @@ public class TimeOfDayFormatter {
             return String.format(Locale.getDefault(), "%02d:%02d", hours, minutes);
         }
 
-        final SimpleDateFormat parseFormat = new SimpleDateFormat("H:m", Locale.US);
+        final SimpleDateFormat parseFormat = new SimpleDateFormat("H:m", Locale.UK);
         final SimpleDateFormat displayFormat = new SimpleDateFormat("h:mm a", Locale.US);
         final Date date;
         try {

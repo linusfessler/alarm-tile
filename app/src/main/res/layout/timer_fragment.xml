@@ -122,7 +122,7 @@
                 style="@style/Info" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:text="@string/snooze_info"
+                android:text="@string/snooze_settings_snooze_info"
                 style="@style/Info" />
 
         </LinearLayout>

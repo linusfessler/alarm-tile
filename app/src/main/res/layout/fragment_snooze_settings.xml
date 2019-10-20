@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
-            name="settings"
-            type="linusfessler.alarmtiles.Settings" />
+            name="viewModel"
+            type="linusfessler.alarmtiles.viewmodel.SnoozeSettingsViewModel" />
 
     </data>
 
@@ -20,25 +23,45 @@
             android:padding="@dimen/fragment_padding">
 
             <com.google.android.material.textview.MaterialTextView
-                android:text="@string/snooze_info"
+                android:text="@string/snooze_settings_snooze_info"
                 style="@style/Info" />
 
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/setting_height"
-                android:text="Snooze" />
+                android:text="@string/snooze_settings_snooze"
+                android:checked="@={viewModel.snoozeEnabled}" />
 
-            <com.google.android.material.textview.MaterialTextView
+            <LinearLayout
+                android:id="@+id/snooze_duration"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/setting_height"
-                android:gravity="center_vertical"
-                android:text="Duration" />
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="@{viewModel.snoozeEnabled ? View.VISIBLE : View.GONE}">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/setting_height"
-                android:gravity="center_vertical"
-                android:text="Alarm sound" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical|start"
+                    android:text="@string/snooze_settings_snooze_duration"
+                    android:textColor="@color/white" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical|end"
+                    android:padding="6dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:text="@{viewModel.snoozeDuration}"
+                    android:textColor="@color/lightGrey"
+                    tools:text="15 minutes" />
+
+            </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/next_button"

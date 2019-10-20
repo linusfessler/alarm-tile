@@ -51,7 +51,7 @@ public class FallAsleepSettingsFragment extends Fragment implements TimePicker.O
         final int minutes = viewModel.getTimerMinutes();
         final DigitalTimePickerDialog timePickerDialog = new DigitalTimePickerDialog(context, this, hours, minutes, true);
 
-        final LinearLayout timerDuration = root.findViewById(R.id.timer_duration);
+        final LinearLayout timerDuration = root.findViewById(R.id.snooze_duration);
         timerDuration.setOnClickListener(v -> timePickerDialog.show());
     }
 

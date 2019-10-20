@@ -103,7 +103,7 @@ public abstract class SchedulerFragment extends Fragment {
             }
         });
 
-        final TextView time = button.findViewById(R.id.timer_duration);
+        final TextView time = button.findViewById(R.id.snooze_duration);
         time.setText(TimeFormatter.format(hours, minutes));
 
         positiveOnClickListener = new DialogInterface.OnClickListener() {
