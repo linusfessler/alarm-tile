@@ -34,6 +34,7 @@ import linusfessler.alarmtiles.model.AlarmTile;
 import linusfessler.alarmtiles.model.BasicSettings;
 import linusfessler.alarmtiles.model.FallAsleepSettings;
 import linusfessler.alarmtiles.model.SleepSettings;
+import linusfessler.alarmtiles.model.WakeUpSettings;
 import linusfessler.alarmtiles.viewmodel.BasicSettingsViewModel;
 import linusfessler.alarmtiles.viewmodel.FallAsleepSettingsViewModel;
 import linusfessler.alarmtiles.viewmodel.SleepSettingsViewModel;
@@ -141,14 +142,20 @@ public class MainFragment extends Fragment {
 
         final FallAsleepSettings workweekFallAsleepSettings = FallAsleepSettings.builder()
                 .timerEnabled(true)
+                .timerHours(0)
+                .timerMinutes(0)
                 .slowlyFadingMusicOut(true)
                 .build();
         final FallAsleepSettings weekendFallAsleepSettings = FallAsleepSettings.builder()
                 .timerEnabled(true)
+                .timerHours(0)
+                .timerMinutes(0)
                 .slowlyFadingMusicOut(true)
                 .build();
         final FallAsleepSettings napFallAsleepSettings = FallAsleepSettings.builder()
                 .timerEnabled(true)
+                .timerHours(0)
+                .timerMinutes(0)
                 .slowlyFadingMusicOut(true)
                 .build();
 
@@ -158,22 +165,22 @@ public class MainFragment extends Fragment {
 
         final SleepSettings workweekSleepSettings = SleepSettings.builder()
                 .timerEnabled(true)
-                .hours(0)
-                .minutes(0)
+                .timerHours(0)
+                .timerMinutes(0)
                 .enteringDoNotDisturb(true)
                 .allowingPriorityNotifications(true)
                 .build();
         final SleepSettings weekendSleepSettings = SleepSettings.builder()
                 .timerEnabled(true)
-                .hours(0)
-                .minutes(0)
+                .timerHours(0)
+                .timerMinutes(0)
                 .enteringDoNotDisturb(true)
                 .allowingPriorityNotifications(true)
                 .build();
         final SleepSettings napSleepSettings = SleepSettings.builder()
                 .timerEnabled(true)
-                .hours(0)
-                .minutes(0)
+                .timerHours(0)
+                .timerMinutes(0)
                 .enteringDoNotDisturb(true)
                 .allowingPriorityNotifications(true)
                 .build();
@@ -181,6 +188,22 @@ public class MainFragment extends Fragment {
         workweekAlarmTile.setSleepSettings(workweekSleepSettings);
         weekendTimerTile.setSleepSettings(weekendSleepSettings);
         napTile.setSleepSettings(napSleepSettings);
+
+        final WakeUpSettings workweekWakeUpSettings = WakeUpSettings.builder()
+                .alarmEnabled(true)
+                .alarmHour(6)
+                .alarmMinute(30)
+                .build();
+        final WakeUpSettings weekendWakeUpSettings = WakeUpSettings.builder()
+                .alarmEnabled(false)
+                .build();
+        final WakeUpSettings napWakeUpSettings = WakeUpSettings.builder()
+                .alarmEnabled(false)
+                .build();
+
+        workweekAlarmTile.setWakeUpSettings(workweekWakeUpSettings);
+        weekendTimerTile.setWakeUpSettings(weekendWakeUpSettings);
+        napTile.setWakeUpSettings(napWakeUpSettings);
 
         alarmTiles.add(workweekAlarmTile);
         alarmTiles.add(weekendTimerTile);

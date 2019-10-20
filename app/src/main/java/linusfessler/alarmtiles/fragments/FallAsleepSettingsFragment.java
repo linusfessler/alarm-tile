@@ -47,12 +47,12 @@ public class FallAsleepSettingsFragment extends Fragment implements TimePicker.O
 
     private void initTimePicker(final View root) {
         final Context context = requireContext();
-        final int hours = viewModel.getHours();
-        final int minutes = viewModel.getMinutes();
+        final int hours = viewModel.getTimerHours();
+        final int minutes = viewModel.getTimerMinutes();
         final DigitalTimePickerDialog timePickerDialog = new DigitalTimePickerDialog(context, this, hours, minutes, true);
 
-        final LinearLayout duration = root.findViewById(R.id.duration);
-        duration.setOnClickListener(v -> timePickerDialog.show());
+        final LinearLayout timerDuration = root.findViewById(R.id.timer_duration);
+        timerDuration.setOnClickListener(v -> timePickerDialog.show());
     }
 
     private void initNextButton(final View root) {
@@ -62,8 +62,8 @@ public class FallAsleepSettingsFragment extends Fragment implements TimePicker.O
     }
 
     @Override
-    public void onTimeChanged(final TimePicker view, final int hours, final int minute) {
-        viewModel.setHours(hours);
-        viewModel.setMinutes(minute);
+    public void onTimeChanged(final TimePicker view, final int timerHours, final int timerMinutes) {
+        viewModel.setTimerHours(timerHours);
+        viewModel.setTimerMinutes(timerMinutes);
     }
 }

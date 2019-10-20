@@ -33,7 +33,7 @@
                 android:checked="@={viewModel.timerEnabled}" />
 
             <LinearLayout
-                android:id="@+id/duration"
+                android:id="@+id/timer_duration"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/setting_height"
@@ -57,7 +57,7 @@
                     android:gravity="center_vertical|end"
                     android:padding="6dp"
                     android:background="?attr/selectableItemBackground"
-                    android:text="@{viewModel.duration}"
+                    android:text="@{viewModel.timerDuration}"
                     android:textColor="@color/lightGrey"
                     tools:text="30 minutes" />
 

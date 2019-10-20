@@ -10,14 +10,13 @@
     <string name="button_next">Continue</string>
     <string name="button_finish">Save</string>
 
-    <string name="wake_timer_info">Set a standard alarm that wakes you up at the specified time.</string>
-    <string name="alarm_wake_timer_info">If you set both an alarm and a timer, the resulting alarm will be the one that sets in earlier.</string>
     <string name="snooze_info">On the alarm screen, you can swipe up or press the volume up button to snooze.</string>
     <string name="revert_info">In the morning, all settings will be reverted to the state of the night before.</string>
 
     <string name="main_title">Your alarm tiles</string>
 
     <string name="basic_settings_title">Basic settings</string>
+    <string name="basic_settings_name_hint">Alarm tile name</string>
 
     <string name="fall_asleep_settings_title">Fall asleep settings</string>
     <string name="fall_asleep_settings_timer_info">Set a timer that stops all audio and video after the specified duration.</string>
@@ -34,6 +33,10 @@
     <string name="sleep_settings_allow_priority_notifications">Allow priority notifications</string>
 
     <string name="wake_up_settings_title">Wake up settings</string>
+    <string name="wake_up_settings_alarm_info">Set a standard alarm that wakes you up at the specified time.</string>
+    <string name="wake_up_settings_alarm">Alarm</string>
+    <string name="wake_up_settings_alarm_time">Time</string>
+    <string name="wake_up_settings_both_timer_and_alarm_info">You set both a timer and an alarm. The resulting alarm will be the one that sets in earlier.</string>
 
     <string name="snooze_settings_title">Snooze settings</string>
 

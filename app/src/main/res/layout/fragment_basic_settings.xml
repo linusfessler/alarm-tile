@@ -43,7 +43,7 @@
                     android:id="@+id/name_input_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Alarm tile name"
+                    android:hint="@string/basic_settings_name_hint"
                     app:errorText="@{viewModel.nameErrorText}"
                     app:errorEnabled="@{viewModel.nameErrorEnabled}"
                     app:counterEnabled="true"

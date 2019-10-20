@@ -10,8 +10,8 @@ import lombok.Getter;
 @Getter
 public class SleepSettingsViewModel extends ObservableViewModel {
 
-    private static final int DEFAULT_HOURS = 8;
-    private static final int DEFAULT_MINUTES = 0;
+    private static final int DEFAULT_TIMER_HOURS = 8;
+    private static final int DEFAULT_TIMER_MINUTES = 0;
 
     private final TimeFormatter timeFormatter = new TimeFormatter();
 
@@ -19,10 +19,10 @@ public class SleepSettingsViewModel extends ObservableViewModel {
     private boolean timerEnabled;
 
     @Bindable
-    private int hours;
+    private int timerHours;
 
     @Bindable
-    private int minutes;
+    private int timerMinutes;
 
     @Bindable
     private boolean enteringDoNotDisturb;
@@ -35,14 +35,14 @@ public class SleepSettingsViewModel extends ObservableViewModel {
         notifyPropertyChanged(BR.timerEnabled);
     }
 
-    public void setHours(final int hours) {
-        this.hours = hours;
-        notifyPropertyChanged(BR.hours);
+    public void setTimerHours(final int timerHours) {
+        this.timerHours = timerHours;
+        notifyPropertyChanged(BR.timerHours);
     }
 
-    public void setMinutes(final int minutes) {
-        this.minutes = minutes;
-        notifyPropertyChanged(BR.minutes);
+    public void setTimerMinutes(final int timerMinutes) {
+        this.timerMinutes = timerMinutes;
+        notifyPropertyChanged(BR.timerMinutes);
     }
 
     public void setEnteringDoNotDisturb(final boolean enteringDoNotDisturb) {
@@ -55,23 +55,23 @@ public class SleepSettingsViewModel extends ObservableViewModel {
         notifyPropertyChanged(BR.allowingPriorityNotifications);
     }
 
-    @Bindable({"hours", "minutes"})
-    public String getDuration() {
-        return timeFormatter.format(hours, minutes);
+    @Bindable({"timerHours", "timerMinutes"})
+    public String getTimerDuration() {
+        return timeFormatter.format(timerHours, timerMinutes);
     }
 
     public void reset() {
         setTimerEnabled(false);
-        setHours(DEFAULT_HOURS);
-        setMinutes(DEFAULT_MINUTES);
+        setTimerHours(DEFAULT_TIMER_HOURS);
+        setTimerMinutes(DEFAULT_TIMER_MINUTES);
         setEnteringDoNotDisturb(false);
         setAllowingPriorityNotifications(false);
     }
 
     public void init(final SleepSettings sleepSettings) {
         setTimerEnabled(sleepSettings.isTimerEnabled());
-        setHours(sleepSettings.getHours());
-        setMinutes(sleepSettings.getMinutes());
+        setTimerHours(sleepSettings.getTimerHours());
+        setTimerMinutes(sleepSettings.getTimerMinutes());
         setEnteringDoNotDisturb(sleepSettings.isEnteringDoNotDisturb());
         setAllowingPriorityNotifications(sleepSettings.isAllowingPriorityNotifications());
     }

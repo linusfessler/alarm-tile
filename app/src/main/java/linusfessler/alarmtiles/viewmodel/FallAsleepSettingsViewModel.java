@@ -10,8 +10,8 @@ import lombok.Getter;
 @Getter
 public class FallAsleepSettingsViewModel extends ObservableViewModel {
 
-    private static final int DEFAULT_HOURS = 0;
-    private static final int DEFAULT_MINUTES = 30;
+    private static final int DEFAULT_TIMER_HOURS = 0;
+    private static final int DEFAULT_TIMER_MINUTES = 30;
 
     private final TimeFormatter timeFormatter = new TimeFormatter();
 
@@ -19,10 +19,10 @@ public class FallAsleepSettingsViewModel extends ObservableViewModel {
     private boolean timerEnabled;
 
     @Bindable
-    private int hours;
+    private int timerHours;
 
     @Bindable
-    private int minutes;
+    private int timerMinutes;
 
     @Bindable
     private boolean slowlyFadingMusicOut;
@@ -32,14 +32,14 @@ public class FallAsleepSettingsViewModel extends ObservableViewModel {
         notifyPropertyChanged(BR.timerEnabled);
     }
 
-    public void setHours(final int hours) {
-        this.hours = hours;
-        notifyPropertyChanged(BR.hours);
+    public void setTimerHours(final int timerHours) {
+        this.timerHours = timerHours;
+        notifyPropertyChanged(BR.timerHours);
     }
 
-    public void setMinutes(final int minutes) {
-        this.minutes = minutes;
-        notifyPropertyChanged(BR.minutes);
+    public void setTimerMinutes(final int timerMinutes) {
+        this.timerMinutes = timerMinutes;
+        notifyPropertyChanged(BR.timerMinutes);
     }
 
     public void setSlowlyFadingMusicOut(final boolean slowlyFadingMusicOut) {
@@ -47,22 +47,22 @@ public class FallAsleepSettingsViewModel extends ObservableViewModel {
         notifyPropertyChanged(BR.slowlyFadingMusicOut);
     }
 
-    @Bindable({"hours", "minutes"})
-    public String getDuration() {
-        return timeFormatter.format(hours, minutes);
+    @Bindable({"timerHours", "timerMinutes"})
+    public String getTimerDuration() {
+        return timeFormatter.format(timerHours, timerMinutes);
     }
 
     public void reset() {
         setTimerEnabled(false);
-        setHours(DEFAULT_HOURS);
-        setMinutes(DEFAULT_MINUTES);
+        setTimerHours(DEFAULT_TIMER_HOURS);
+        setTimerMinutes(DEFAULT_TIMER_MINUTES);
         setSlowlyFadingMusicOut(false);
     }
 
     public void init(final FallAsleepSettings fallAsleepSettings) {
         setTimerEnabled(fallAsleepSettings.isTimerEnabled());
-        setHours(fallAsleepSettings.getHours());
-        setMinutes(fallAsleepSettings.getMinutes());
+        setTimerHours(fallAsleepSettings.getTimerHours());
+        setTimerMinutes(fallAsleepSettings.getTimerMinutes());
         setSlowlyFadingMusicOut(fallAsleepSettings.isSlowlyFadingMusicOut());
     }
 

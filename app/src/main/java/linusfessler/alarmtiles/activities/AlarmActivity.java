@@ -52,7 +52,7 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
         window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
         final Calendar calendar = Calendar.getInstance();
-        final TextView time = findViewById(R.id.duration);
+        final TextView time = findViewById(R.id.timer_duration);
         time.setText(TimeFormatter.format(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
 
         snoozeImage = findViewById(R.id.image_snooze);
