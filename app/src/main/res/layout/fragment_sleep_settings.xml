@@ -37,23 +37,26 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/setting_height"
-                android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
                 android:visibility="@{viewModel.timerEnabled ? View.VISIBLE : View.GONE}">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
                     android:gravity="center_vertical|start"
                     android:text="@string/fall_asleep_settings_duration"
                     android:textColor="@color/white" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:gravity="center_vertical|end"
+                    android:padding="6dp"
+                    android:background="?attr/selectableItemBackground"
                     android:text="@{viewModel.duration}"
                     android:textColor="@color/lightGrey"
                     tools:text="8 hours" />

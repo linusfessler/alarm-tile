@@ -18,7 +18,7 @@ public class TimeFormatter {
         }
 
         if (hoursString == null && minutesString == null) {
-            return "0 minutes";
+            return "0 hours 0 minutes";
         }
 
         if (hoursString == null) {
