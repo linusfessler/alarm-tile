@@ -67,22 +67,26 @@
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/general_settings_notification" />
+                android:text="@string/general_settings_notification"
+                android:checked="@={viewModel.showingNotification}" />
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/general_settings_increase_volume" />
+                android:text="@string/general_settings_increase_volume"
+                android:checked="@={viewModel.graduallyIncreasingVolume}" />
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/general_settings_vibrate" />
+                android:text="@string/general_settings_vibrate"
+                android:checked="@={viewModel.vibrating}" />
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/general_settings_flashlight" />
+                android:text="@string/general_settings_flashlight"
+                android:checked="@={viewModel.turningOnFlashlight}" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/next_button"
