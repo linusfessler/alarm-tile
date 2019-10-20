@@ -44,11 +44,6 @@ public class DrawablePickerDialog {
         final int margin = dialogPreferredPaddingValue / 4;
         flexboxLayout.setPadding(padding, padding, padding, padding);
 
-        alertDialog = new AlertDialog.Builder(context)
-                .setTitle(title)
-                .setCancelable(true)
-                .create();
-
         for (final int resourceId : resourceIds) {
             final ImageView imageView = new ImageView(context);
             imageView.setImageResource(resourceId);
@@ -74,7 +69,11 @@ public class DrawablePickerDialog {
             flexboxLayout.addView(imageView);
         }
 
-        alertDialog.setView(flexboxLayout);
+        alertDialog = new AlertDialog.Builder(context)
+                .setTitle(title)
+                .setView(flexboxLayout)
+                .setCancelable(true)
+                .create();
     }
 
     public void show() {

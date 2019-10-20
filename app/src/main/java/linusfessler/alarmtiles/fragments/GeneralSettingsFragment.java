@@ -74,16 +74,15 @@ public class GeneralSettingsFragment extends Fragment implements DrawablePickerD
         viewModel.setIconResourceId(resourceId);
     }
 
-    // TODO: Get strings from strings.xml
     private void initBackConfirmationDialog(final View root) {
         requireActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 new AlertDialog.Builder(requireActivity())
-                        .setTitle("Go back?")
-                        .setMessage("Your current changes will be discarded")
-                        .setPositiveButton("Yes", (dialog, which) -> Navigation.findNavController(root).popBackStack())
-                        .setNegativeButton("No", null)
+                        .setTitle(R.string.dialog_back_title)
+                        .setMessage(R.string.dialog_back_message)
+                        .setPositiveButton(R.string.dialog_yes, (dialog, which) -> Navigation.findNavController(root).popBackStack())
+                        .setNegativeButton(R.string.dialog_no, null)
                         .show();
             }
         });

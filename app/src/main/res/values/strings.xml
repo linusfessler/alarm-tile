@@ -46,6 +46,13 @@
     <string name="snooze_settings_snooze">Snooze</string>
     <string name="snooze_settings_snooze_duration">Duration</string>
 
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_never">Never</string>
+    <string name="dialog_back_title">Go back?</string>
+    <string name="dialog_back_message">Your current changes will be discarded.</string>
     <string name="dialog_dnd_title">Permission needed</string>
     <string name="dialog_dnd_message">This option requires permission to change the do not disturb mode. Please enable the permission on the following screen and then press the back button.</string>
     <string name="dialog_icon_picker_title">Select an icon</string>
