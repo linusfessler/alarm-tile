@@ -42,11 +42,12 @@ public class GeneralSettingsFragment extends Fragment implements DrawablePickerD
             R.drawable.ic_notifications_active_24px,
     };
 
-    private static final long SHOW_ICON_RIPPLE_AFTER_MILLISECONDS = 750;
+    private static final long SHOW_ICON_RIPPLE_AFTER_MILLISECONDS = 5000;
     private static final long HIDE_ICON_RIPPLE_AFTER_MILLISECONDS = 250;
 
     private GeneralSettingsViewModel viewModel;
     private DrawablePickerDialog iconPickerDialog;
+    private DrawableStateController drawableStateController;
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
@@ -73,6 +74,7 @@ public class GeneralSettingsFragment extends Fragment implements DrawablePickerD
         viewModel.setIconResourceId(resourceId);
     }
 
+    // TODO: Get strings from strings.xml
     private void initBackConfirmationDialog(final View root) {
         requireActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -97,10 +99,13 @@ public class GeneralSettingsFragment extends Fragment implements DrawablePickerD
         iconPickerDialog.addListener(this);
 
         final ImageView icon = root.findViewById(R.id.icon);
-        icon.setOnClickListener(view -> iconPickerDialog.show());
+        icon.setOnClickListener(view -> {
+            drawableStateController.stop();
+            iconPickerDialog.show();
+        });
 
-        final DrawableStateController drawableStateController = new DrawableStateController(icon.getBackground());
-        drawableStateController.press(SHOW_ICON_RIPPLE_AFTER_MILLISECONDS, HIDE_ICON_RIPPLE_AFTER_MILLISECONDS);
+        drawableStateController = new DrawableStateController(icon.getBackground());
+        drawableStateController.pressAndRelease(SHOW_ICON_RIPPLE_AFTER_MILLISECONDS, HIDE_ICON_RIPPLE_AFTER_MILLISECONDS, true);
     }
 
     private void initNextButton(final View root) {
@@ -112,6 +117,7 @@ public class GeneralSettingsFragment extends Fragment implements DrawablePickerD
     @Override
     public void onDestroyView() {
         iconPickerDialog.removeListener(this);
+        drawableStateController.stop();
         super.onDestroyView();
     }
 

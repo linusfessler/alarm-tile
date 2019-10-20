@@ -12,32 +12,29 @@ public class DrawableStateController {
     @NonNull
     private final Drawable drawable;
 
-    public void press(final long pressAfterMilliseconds, final long releaseAfterMilliseconds) {
-        press(pressAfterMilliseconds, releaseAfterMilliseconds, false);
+    private final Handler handler = new Handler();
+
+    public void press() {
+        drawable.setState(new int[]{android.R.attr.state_pressed, android.R.attr.state_enabled});
     }
 
-    public void pressRepeatedly(final long pressAfterMilliseconds, final long releaseAfterMilliseconds) {
-        press(pressAfterMilliseconds, releaseAfterMilliseconds, true);
+    public void release() {
+        drawable.setState(new int[]{});
     }
 
-    private void press(final long pressAfterMilliseconds, final long releaseAfterMilliseconds, final boolean repeat) {
+    public void pressAndRelease(final long pressAfterMilliseconds, final long releaseAfterMilliseconds, final boolean repeat) {
         final long releaseAfterMillisecondsFromStart = pressAfterMilliseconds + releaseAfterMilliseconds;
 
-        final Handler handler = new Handler();
         handler.postDelayed(this::press, pressAfterMilliseconds);
         handler.postDelayed(this::release, releaseAfterMillisecondsFromStart);
         if (repeat) {
             handler.postDelayed(() ->
-                    press(pressAfterMilliseconds, releaseAfterMilliseconds, true), releaseAfterMillisecondsFromStart);
+                    pressAndRelease(pressAfterMilliseconds, releaseAfterMilliseconds, true), releaseAfterMillisecondsFromStart);
         }
     }
 
-    private void press() {
-        drawable.setState(new int[]{android.R.attr.state_pressed, android.R.attr.state_enabled});
-    }
-
-    private void release() {
-        drawable.setState(new int[]{});
+    public void stop() {
+        handler.removeCallbacksAndMessages(null);
     }
 
 }
