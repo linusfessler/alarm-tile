@@ -11,93 +11,99 @@
 
     </data>
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/fragment_padding">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:padding="@dimen/fragment_padding">
 
-                <ImageView
-                    android:id="@+id/icon"
-                    android:layout_width="@dimen/icon_size"
-                    android:layout_height="@dimen/icon_size"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="12dp"
-                    android:src="@{viewModel.iconResourceId}"
-                    android:tint="@color/white"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"
-                    tools:src="@drawable/ic_alarm_24px" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/name_input_layout"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/general_settings_name_hint"
-                    app:errorText="@{viewModel.nameErrorText}"
-                    app:errorEnabled="@{viewModel.nameErrorEnabled}"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="@{viewModel.maxNameLength}"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    android:orientation="horizontal">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/name_input_edit_text"
+                    <ImageView
+                        android:id="@+id/icon"
+                        android:layout_width="@dimen/icon_size"
+                        android:layout_height="@dimen/icon_size"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="12dp"
+                        android:src="@{viewModel.iconResourceId}"
+                        android:tint="@color/white"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
+                        tools:src="@drawable/ic_alarm_24px" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/name_input_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:lines="1"
-                        android:maxLines="1"
-                        android:maxLength="@{viewModel.maxNameLength}"
-                        android:text="@={viewModel.name}" />
+                        android:hint="@string/general_settings_name_hint"
+                        app:errorText="@{viewModel.nameErrorText}"
+                        app:errorEnabled="@{viewModel.nameErrorEnabled}"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="@{viewModel.maxNameLength}"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/name_input_edit_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:lines="1"
+                            android:maxLines="1"
+                            android:maxLength="@{viewModel.maxNameLength}"
+                            android:text="@={viewModel.name}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/general_settings_notification"
+                    android:checked="@={viewModel.showingNotification}" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/general_settings_increase_volume"
+                    android:checked="@={viewModel.graduallyIncreasingVolume}" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/general_settings_vibrate"
+                    android:checked="@={viewModel.vibrating}" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/general_settings_flashlight"
+                    android:checked="@={viewModel.turningOnFlashlight}" />
 
             </LinearLayout>
 
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/general_settings_notification"
-                android:checked="@={viewModel.showingNotification}" />
+        </ScrollView>
 
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/general_settings_increase_volume"
-                android:checked="@={viewModel.graduallyIncreasingVolume}" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/next_button"
+            android:text="@string/button_next"
+            android:enabled="@{viewModel.valid}"
+            style="@style/Button" />
 
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/general_settings_vibrate"
-                android:checked="@={viewModel.vibrating}" />
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/general_settings_flashlight"
-                android:checked="@={viewModel.turningOnFlashlight}" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/next_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/button_next"
-                android:enabled="@{viewModel.valid}"
-                style="@style/Button" />
-
-        </LinearLayout>
-
-    </ScrollView>
+    </LinearLayout>
 
 </layout>

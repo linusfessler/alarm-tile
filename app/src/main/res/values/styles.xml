@@ -32,7 +32,12 @@
     </style>
 
     <style name="Button">
-        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@color/blue</item>
+        <item name="android:insetTop">0dp</item>pppppppppppp
+        <item name="android:insetBottom">0dp</item>
+        <item name="cornerRadius">0dp</item>
     </style>
 
     <style name="Info">

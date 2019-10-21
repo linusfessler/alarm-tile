@@ -12,71 +12,77 @@
 
     </data>
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/fragment_padding">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:text="@string/wake_up_settings_alarm_info"
-                style="@style/Info" />
-
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/wake_up_settings_alarm"
-                android:checked="@={viewModel.alarmEnabled}" />
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <LinearLayout
-                android:id="@+id/alarm_time"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/setting_height"
-                android:clickable="true"
-                android:focusable="true"
-                android:visibility="@{viewModel.alarmEnabled ? View.VISIBLE : View.GONE}">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/fragment_padding">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="0dp"
+                    android:text="@string/wake_up_settings_alarm_info"
+                    style="@style/Info" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center_vertical|start"
-                    android:text="@string/wake_up_settings_alarm_time"
-                    android:textColor="@color/white" />
+                    android:text="@string/wake_up_settings_alarm"
+                    android:checked="@={viewModel.alarmEnabled}" />
+
+                <LinearLayout
+                    android:id="@+id/alarm_time"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/setting_height"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:visibility="@{viewModel.alarmEnabled ? View.VISIBLE : View.GONE}">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/wake_up_settings_alarm_time"
+                        android:textColor="@color/white" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical|end"
+                        android:padding="6dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:text="@{viewModel.alarmTime}"
+                        android:textColor="@color/lightGrey"
+                        tools:text="8:00" />
+
+                </LinearLayout>
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center_vertical|end"
-                    android:padding="6dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:text="@{viewModel.alarmTime}"
-                    android:textColor="@color/lightGrey"
-                    tools:text="8:00" />
+                    android:text="@string/wake_up_settings_both_timer_and_alarm_info"
+                    android:visibility="@{viewModel.showingBothTimerAndAlarmInfo ? View.VISIBLE : View.GONE}"
+                    style="@style/Info" />
 
             </LinearLayout>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:text="@string/wake_up_settings_both_timer_and_alarm_info"
-                android:visibility="@{viewModel.showingBothTimerAndAlarmInfo ? View.VISIBLE : View.GONE}"
-                style="@style/Info" />
+        </ScrollView>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/next_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/button_next"
-                style="@style/Button" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/next_button"
+            android:text="@string/button_next"
+            style="@style/Button" />
 
-        </LinearLayout>
-
-    </ScrollView>
+    </LinearLayout>
 
 </layout>
