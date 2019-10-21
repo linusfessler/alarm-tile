@@ -75,41 +75,11 @@ public class SnoozeSettingsFragment extends Fragment implements TimePicker.OnTim
         final WakeUpSettingsViewModel wakeUpSettingsViewModel = ViewModelProviders.of(requireActivity()).get(WakeUpSettingsViewModel.class);
         final SnoozeSettingsViewModel snoozeSettingsViewModel = ViewModelProviders.of(requireActivity()).get(SnoozeSettingsViewModel.class);
 
-        final GeneralSettings generalSettings = GeneralSettings.builder()
-                .name(generalSettingsViewModel.getName())
-                .iconResourceId(generalSettingsViewModel.getIconResourceId())
-                .showingNotification(generalSettingsViewModel.isShowingNotification())
-                .graduallyIncreasingVolume(generalSettingsViewModel.isGraduallyIncreasingVolume())
-                .vibrating(generalSettingsViewModel.isVibrating())
-                .turningOnFlashlight(generalSettingsViewModel.isTurningOnFlashlight())
-                .build();
-
-        final FallAsleepSettings fallAsleepSettings = FallAsleepSettings.builder()
-                .timerEnabled(fallAsleepSettingsViewModel.isTimerEnabled())
-                .timerHours(fallAsleepSettingsViewModel.getTimerHours())
-                .timerMinutes(fallAsleepSettingsViewModel.getTimerMinutes())
-                .slowlyFadingMusicOut(fallAsleepSettingsViewModel.isSlowlyFadingMusicOut())
-                .build();
-
-        final SleepSettings sleepSettings = SleepSettings.builder()
-                .timerEnabled(sleepSettingsViewModel.isTimerEnabled())
-                .timerHours(sleepSettingsViewModel.getTimerHours())
-                .timerMinutes(sleepSettingsViewModel.getTimerMinutes())
-                .enteringDoNotDisturb(sleepSettingsViewModel.isEnteringDoNotDisturb())
-                .allowingPriorityNotifications(sleepSettingsViewModel.isAllowingPriorityNotifications())
-                .build();
-
-        final WakeUpSettings wakeUpSettings = WakeUpSettings.builder()
-                .alarmEnabled(wakeUpSettingsViewModel.isAlarmEnabled())
-                .alarmHour(wakeUpSettingsViewModel.getAlarmHour())
-                .alarmMinute(wakeUpSettingsViewModel.getAlarmMinute())
-                .build();
-
-        final SnoozeSettings snoozeSettings = SnoozeSettings.builder()
-                .snoozeEnabled(snoozeSettingsViewModel.isSnoozeEnabled())
-                .snoozeHours(snoozeSettingsViewModel.getSnoozeHours())
-                .snoozeMinutes(snoozeSettingsViewModel.getSnoozeMinutes())
-                .build();
+        final GeneralSettings generalSettings = generalSettingsViewModel.getGeneralSettings();
+        final FallAsleepSettings fallAsleepSettings = fallAsleepSettingsViewModel.getFallAsleepSettings();
+        final SleepSettings sleepSettings = sleepSettingsViewModel.getSleepSettings();
+        final WakeUpSettings wakeUpSettings = wakeUpSettingsViewModel.getWakeUpSettings();
+        final SnoozeSettings snoozeSettings = snoozeSettingsViewModel.getSnoozeSettings();
 
         final AlarmTile alarmTile = new AlarmTile(generalSettings, fallAsleepSettings, sleepSettings, wakeUpSettings, snoozeSettings);
 

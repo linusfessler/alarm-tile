@@ -110,4 +110,15 @@ public class GeneralSettingsViewModel extends ObservableViewModel {
         setTurningOnFlashlight(generalSettings.isTurningOnFlashlight());
     }
 
+    public GeneralSettings getGeneralSettings() {
+        return GeneralSettings.builder()
+                .name(getName())
+                .iconResourceId(getIconResourceId())
+                .showingNotification(isShowingNotification())
+                .graduallyIncreasingVolume(isGraduallyIncreasingVolume())
+                .vibrating(isVibrating())
+                .turningOnFlashlight(isTurningOnFlashlight())
+                .build();
+    }
+
 }

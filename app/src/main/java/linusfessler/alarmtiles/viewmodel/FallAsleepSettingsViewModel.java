@@ -66,4 +66,13 @@ public class FallAsleepSettingsViewModel extends ObservableViewModel {
         setSlowlyFadingMusicOut(fallAsleepSettings.isSlowlyFadingMusicOut());
     }
 
+    public FallAsleepSettings getFallAsleepSettings() {
+        return FallAsleepSettings.builder()
+                .timerEnabled(isTimerEnabled())
+                .timerHours(getTimerHours())
+                .timerMinutes(getTimerMinutes())
+                .slowlyFadingMusicOut(isSlowlyFadingMusicOut())
+                .build();
+    }
+
 }

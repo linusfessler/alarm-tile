@@ -73,4 +73,12 @@ public class WakeUpSettingsViewModel extends ObservableViewModel {
         setAlarmMinute(wakeUpSettings.getAlarmMinute());
     }
 
+    public WakeUpSettings getWakeUpSettings() {
+        return WakeUpSettings.builder()
+                .alarmEnabled(isAlarmEnabled())
+                .alarmHour(getAlarmHour())
+                .alarmMinute(getAlarmMinute())
+                .build();
+    }
+
 }

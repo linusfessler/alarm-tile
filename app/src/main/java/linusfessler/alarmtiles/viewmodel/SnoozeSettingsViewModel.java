@@ -56,4 +56,12 @@ public class SnoozeSettingsViewModel extends ObservableViewModel {
         setSnoozeMinutes(snoozeSettings.getSnoozeMinutes());
     }
 
+    public SnoozeSettings getSnoozeSettings() {
+        return SnoozeSettings.builder()
+                .snoozeEnabled(isSnoozeEnabled())
+                .snoozeHours(getSnoozeHours())
+                .snoozeMinutes(getSnoozeMinutes())
+                .build();
+    }
+
 }

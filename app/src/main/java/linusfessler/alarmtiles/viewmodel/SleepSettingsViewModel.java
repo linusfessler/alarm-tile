@@ -76,4 +76,14 @@ public class SleepSettingsViewModel extends ObservableViewModel {
         setAllowingPriorityNotifications(sleepSettings.isAllowingPriorityNotifications());
     }
 
+    public SleepSettings getSleepSettings() {
+        return SleepSettings.builder()
+                .timerEnabled(isTimerEnabled())
+                .timerHours(getTimerHours())
+                .timerMinutes(getTimerMinutes())
+                .enteringDoNotDisturb(isEnteringDoNotDisturb())
+                .allowingPriorityNotifications(isAllowingPriorityNotifications())
+                .build();
+    }
+
 }
