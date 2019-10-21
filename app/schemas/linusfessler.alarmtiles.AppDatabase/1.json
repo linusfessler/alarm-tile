@@ -2,21 +2,141 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d702cf269a40b10feb287b46cbbb8973",
+    "identityHash": "7b5ec491719205e391200d8e423e5749",
     "entities": [
       {
-        "tableName": "settings",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER, `vibrate` INTEGER, PRIMARY KEY(`id`))",
+        "tableName": "AlarmTile",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `general_name` TEXT, `general_iconResourceId` INTEGER, `general_showingNotification` INTEGER, `general_graduallyIncreasingVolume` INTEGER, `general_vibrating` INTEGER, `general_turningOnFlashlight` INTEGER, `fall_asleep_timerEnabled` INTEGER, `fall_asleep_timerHours` INTEGER, `fall_asleep_timerMinutes` INTEGER, `fall_asleep_slowlyFadingMusicOut` INTEGER, `sleep_timerEnabled` INTEGER, `sleep_timerHours` INTEGER, `sleep_timerMinutes` INTEGER, `sleep_enteringDoNotDisturb` INTEGER, `sleep_allowingPriorityNotifications` INTEGER, `wake_up_alarmEnabled` INTEGER, `wake_up_alarmHour` INTEGER, `wake_up_alarmMinute` INTEGER, `snooze_snoozeEnabled` INTEGER, `snooze_snoozeHours` INTEGER, `snooze_snoozeMinutes` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "generalSettings.name",
+            "columnName": "general_name",
+            "affinity": "TEXT",
             "notNull": false
           },
           {
-            "fieldPath": "vibrate",
-            "columnName": "vibrate",
+            "fieldPath": "generalSettings.iconResourceId",
+            "columnName": "general_iconResourceId",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "generalSettings.showingNotification",
+            "columnName": "general_showingNotification",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "generalSettings.graduallyIncreasingVolume",
+            "columnName": "general_graduallyIncreasingVolume",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "generalSettings.vibrating",
+            "columnName": "general_vibrating",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "generalSettings.turningOnFlashlight",
+            "columnName": "general_turningOnFlashlight",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fallAsleepSettings.timerEnabled",
+            "columnName": "fall_asleep_timerEnabled",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fallAsleepSettings.timerHours",
+            "columnName": "fall_asleep_timerHours",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fallAsleepSettings.timerMinutes",
+            "columnName": "fall_asleep_timerMinutes",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fallAsleepSettings.slowlyFadingMusicOut",
+            "columnName": "fall_asleep_slowlyFadingMusicOut",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sleepSettings.timerEnabled",
+            "columnName": "sleep_timerEnabled",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sleepSettings.timerHours",
+            "columnName": "sleep_timerHours",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sleepSettings.timerMinutes",
+            "columnName": "sleep_timerMinutes",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sleepSettings.enteringDoNotDisturb",
+            "columnName": "sleep_enteringDoNotDisturb",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sleepSettings.allowingPriorityNotifications",
+            "columnName": "sleep_allowingPriorityNotifications",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "wakeUpSettings.alarmEnabled",
+            "columnName": "wake_up_alarmEnabled",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "wakeUpSettings.alarmHour",
+            "columnName": "wake_up_alarmHour",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "wakeUpSettings.alarmMinute",
+            "columnName": "wake_up_alarmMinute",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "snoozeSettings.snoozeEnabled",
+            "columnName": "snooze_snoozeEnabled",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "snoozeSettings.snoozeHours",
+            "columnName": "snooze_snoozeHours",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "snoozeSettings.snoozeMinutes",
+            "columnName": "snooze_snoozeMinutes",
             "affinity": "INTEGER",
             "notNull": false
           }
@@ -25,7 +145,7 @@
           "columnNames": [
             "id"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
@@ -34,7 +154,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd702cf269a40b10feb287b46cbbb8973')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7b5ec491719205e391200d8e423e5749')"
     ]
   }
 }

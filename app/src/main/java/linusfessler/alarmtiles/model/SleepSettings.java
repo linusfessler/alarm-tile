@@ -1,13 +1,11 @@
 package linusfessler.alarmtiles.model;
 
-import java.io.Serializable;
-
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder
-public class SleepSettings implements Serializable {
+public class SleepSettings {
 
     private final boolean timerEnabled;
     private final int timerHours;
@@ -15,7 +13,7 @@ public class SleepSettings implements Serializable {
     private final boolean enteringDoNotDisturb;
     private final boolean allowingPriorityNotifications;
 
-    private SleepSettings(final boolean timerEnabled, final int timerHours, final int timerMinutes, final boolean enteringDoNotDisturb, final boolean allowingPriorityNotifications) {
+    public SleepSettings(final boolean timerEnabled, final int timerHours, final int timerMinutes, final boolean enteringDoNotDisturb, final boolean allowingPriorityNotifications) {
         this.timerEnabled = timerEnabled;
         this.timerHours = timerHours;
         this.timerMinutes = timerMinutes;

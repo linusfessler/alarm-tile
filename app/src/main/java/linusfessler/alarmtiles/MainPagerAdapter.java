@@ -7,7 +7,6 @@ import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import linusfessler.alarmtiles.fragments.FallAsleepSettingsFragment;
-import linusfessler.alarmtiles.timer.TimerFragment;
 
 public class MainPagerAdapter extends FragmentStateAdapter {
 
@@ -26,8 +25,8 @@ public class MainPagerAdapter extends FragmentStateAdapter {
         switch (position) {
             case 0:
                 return new FallAsleepSettingsFragment();
-            case 1:
-                return TimerFragment.newInstance();
+            //case 1:
+            //    return TimerFragment.newInstance();
             default:
                 throw new IllegalStateException("Should never happen");
         }

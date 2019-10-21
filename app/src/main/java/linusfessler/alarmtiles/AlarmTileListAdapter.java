@@ -7,6 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.List;
 
 import linusfessler.alarmtiles.model.AlarmTile;
@@ -18,9 +19,7 @@ public class AlarmTileListAdapter extends BaseAdapter {
 
     @NonNull
     private final LayoutInflater inflater;
-
-    @NonNull
-    private final List<AlarmTile> alarmTiles;
+    private List<AlarmTile> alarmTiles = Collections.emptyList();
 
     @Override
     public int getCount() {
@@ -52,6 +51,11 @@ public class AlarmTileListAdapter extends BaseAdapter {
         nameView.setText(alarmTile.getGeneralSettings().getName());
 
         return convertView;
+    }
+
+    public void setAlarmTiles(final List<AlarmTile> alarmTiles) {
+        this.alarmTiles = alarmTiles;
+        notifyDataSetChanged();
     }
 
 }
