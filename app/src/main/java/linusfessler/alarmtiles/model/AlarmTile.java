@@ -4,13 +4,15 @@ import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
 @Getter
 @Entity
-public class AlarmTile {
+public class AlarmTile implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @Setter

@@ -1,11 +1,13 @@
 package linusfessler.alarmtiles.model;
 
+import java.io.Serializable;
+
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder
-public class SnoozeSettings {
+public class SnoozeSettings implements Serializable {
 
     private final boolean snoozeEnabled;
     private final int snoozeHours;

@@ -1,11 +1,13 @@
 package linusfessler.alarmtiles.model;
 
+import java.io.Serializable;
+
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder
-public class WakeUpSettings {
+public class WakeUpSettings implements Serializable {
 
     private final boolean alarmEnabled;
     private final int alarmHour;

@@ -1,12 +1,14 @@
 package linusfessler.alarmtiles.model;
 
+import java.io.Serializable;
+
 import linusfessler.alarmtiles.Assert;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder
-public class GeneralSettings {
+public class GeneralSettings implements Serializable {
 
     private final String name;
     private final int iconResourceId;
