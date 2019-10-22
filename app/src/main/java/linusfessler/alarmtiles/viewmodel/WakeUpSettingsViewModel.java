@@ -4,81 +4,62 @@ import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
 
 import linusfessler.alarmtiles.TimeOfDayFormatter;
-import linusfessler.alarmtiles.model.WakeUpSettings;
+import linusfessler.alarmtiles.model.AlarmTile;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 public class WakeUpSettingsViewModel extends ObservableViewModel {
 
-    private static final int DEFAULT_ALARM_HOUR = 8;
-    private static final int DEFAULT_ALARM_MINUTE = 0;
-
     private final TimeOfDayFormatter timeOfDayFormatter = new TimeOfDayFormatter();
+
+    @Setter
+    private AlarmTile alarmTile;
 
     @Setter
     private boolean is24Hours;
 
-    @Bindable
-    private boolean alarmEnabled;
+    @Setter
+    private boolean isSleepSettingsTimerEnabled;
 
     @Bindable
-    private int alarmHour;
-
-    @Bindable
-    private int alarmMinute;
-
-    @Bindable
-    private boolean sleepSettingsTimerEnabled;
+    public boolean isAlarmEnabled() {
+        return alarmTile.getWakeUpSettings().isAlarmEnabled();
+    }
 
     public void setAlarmEnabled(final boolean alarmEnabled) {
-        this.alarmEnabled = alarmEnabled;
+        alarmTile.getWakeUpSettings().setAlarmEnabled(alarmEnabled);
         notifyPropertyChanged(BR.alarmEnabled);
     }
 
+    @Bindable
+    public int getAlarmHour() {
+        return alarmTile.getWakeUpSettings().getAlarmHour();
+    }
+
     public void setAlarmHour(final int alarmHour) {
-        this.alarmHour = alarmHour;
+        alarmTile.getWakeUpSettings().setAlarmHour(alarmHour);
         notifyPropertyChanged(BR.alarmHour);
     }
 
+    @Bindable
+    public int getAlarmMinute() {
+        return alarmTile.getWakeUpSettings().getAlarmMinute();
+    }
+
     public void setAlarmMinute(final int alarmMinute) {
-        this.alarmMinute = alarmMinute;
+        alarmTile.getWakeUpSettings().setAlarmMinute(alarmMinute);
         notifyPropertyChanged(BR.alarmMinute);
     }
 
-    public void setSleepSettingsTimerEnabled(final boolean sleepSettingsTimerEnabled) {
-        this.sleepSettingsTimerEnabled = sleepSettingsTimerEnabled;
-        notifyPropertyChanged(BR.sleepSettingsTimerEnabled);
-    }
-
-    @Bindable({"alarmEnabled", "sleepSettingsTimerEnabled"})
+    @Bindable("alarmEnabled")
     public boolean isShowingBothTimerAndAlarmInfo() {
-        return alarmEnabled && sleepSettingsTimerEnabled;
+        return isAlarmEnabled() && isSleepSettingsTimerEnabled;
     }
 
     @Bindable({"alarmHour", "alarmMinute"})
     public String getAlarmTime() {
-        return timeOfDayFormatter.format(alarmHour, alarmMinute, is24Hours);
-    }
-
-    public void reset() {
-        setAlarmEnabled(false);
-        setAlarmHour(DEFAULT_ALARM_HOUR);
-        setAlarmMinute(DEFAULT_ALARM_MINUTE);
-    }
-
-    public void init(final WakeUpSettings wakeUpSettings) {
-        setAlarmEnabled(wakeUpSettings.isAlarmEnabled());
-        setAlarmHour(wakeUpSettings.getAlarmHour());
-        setAlarmMinute(wakeUpSettings.getAlarmMinute());
-    }
-
-    public WakeUpSettings getWakeUpSettings() {
-        return WakeUpSettings.builder()
-                .alarmEnabled(isAlarmEnabled())
-                .alarmHour(getAlarmHour())
-                .alarmMinute(getAlarmMinute())
-                .build();
+        return timeOfDayFormatter.format(getAlarmHour(), getAlarmMinute(), is24Hours);
     }
 
 }

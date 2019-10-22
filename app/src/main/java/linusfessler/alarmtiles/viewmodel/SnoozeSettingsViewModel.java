@@ -4,64 +4,51 @@ import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
 
 import linusfessler.alarmtiles.TimeFormatter;
-import linusfessler.alarmtiles.model.SnoozeSettings;
+import linusfessler.alarmtiles.model.AlarmTile;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public class SnoozeSettingsViewModel extends ObservableViewModel {
 
-    private static final int DEFAULT_SNOOZE_HOURS = 0;
-    private static final int DEFAULT_SNOOZE_MINUTES = 15;
-
     private final TimeFormatter timeFormatter = new TimeFormatter();
 
-    @Bindable
-    private boolean snoozeEnabled;
+    @Setter
+    private AlarmTile alarmTile;
 
     @Bindable
-    private int snoozeHours;
-
-    @Bindable
-    private int snoozeMinutes;
+    public boolean isSnoozeEnabled() {
+        return alarmTile.getSnoozeSettings().isSnoozeEnabled();
+    }
 
     public void setSnoozeEnabled(final boolean snoozeEnabled) {
-        this.snoozeEnabled = snoozeEnabled;
+        alarmTile.getSnoozeSettings().setSnoozeEnabled(snoozeEnabled);
         notifyPropertyChanged(BR.snoozeEnabled);
     }
 
+    @Bindable
+    public int getSnoozeHours() {
+        return alarmTile.getSnoozeSettings().getSnoozeHours();
+    }
+
     public void setSnoozeHours(final int snoozeHours) {
-        this.snoozeHours = snoozeHours;
+        alarmTile.getSnoozeSettings().setSnoozeHours(snoozeHours);
         notifyPropertyChanged(BR.snoozeHours);
     }
 
+    @Bindable
+    public int getSnoozeMinutes() {
+        return alarmTile.getSnoozeSettings().getSnoozeMinutes();
+    }
+
     public void setSnoozeMinutes(final int snoozeMinutes) {
-        this.snoozeMinutes = snoozeMinutes;
+        alarmTile.getSnoozeSettings().setSnoozeMinutes(snoozeMinutes);
         notifyPropertyChanged(BR.snoozeMinutes);
     }
 
     @Bindable({"snoozeHours", "snoozeMinutes"})
     public String getSnoozeDuration() {
-        return timeFormatter.format(snoozeHours, snoozeMinutes);
-    }
-
-    public void reset() {
-        setSnoozeEnabled(false);
-        setSnoozeHours(DEFAULT_SNOOZE_HOURS);
-        setSnoozeMinutes(DEFAULT_SNOOZE_MINUTES);
-    }
-
-    public void init(final SnoozeSettings snoozeSettings) {
-        setSnoozeEnabled(snoozeSettings.isSnoozeEnabled());
-        setSnoozeHours(snoozeSettings.getSnoozeHours());
-        setSnoozeMinutes(snoozeSettings.getSnoozeMinutes());
-    }
-
-    public SnoozeSettings getSnoozeSettings() {
-        return SnoozeSettings.builder()
-                .snoozeEnabled(isSnoozeEnabled())
-                .snoozeHours(getSnoozeHours())
-                .snoozeMinutes(getSnoozeMinutes())
-                .build();
+        return timeFormatter.format(getSnoozeHours(), getSnoozeMinutes());
     }
 
 }

@@ -32,8 +32,6 @@ import linusfessler.alarmtiles.viewmodel.WakeUpSettingsViewModel;
 
 public class MainFragment extends Fragment {
 
-    private static final String LAST_VERSION_CODE = "last_version_code";
-
     private AlertDialog currentDialog;
 
     @Nullable
@@ -81,7 +79,8 @@ public class MainFragment extends Fragment {
 
         final FloatingActionButton button = view.findViewById(R.id.fab);
         button.setOnClickListener(v -> {
-            resetViewModels();
+            final AlarmTile alarmTile = new AlarmTile();
+            initViewModels(alarmTile);
             navController.navigate(MainFragmentDirections.actionMainFragmentToGeneralSettingsFragment());
         });
     }
@@ -93,25 +92,11 @@ public class MainFragment extends Fragment {
         final WakeUpSettingsViewModel wakeUpSettingsViewModel = ViewModelProviders.of(requireActivity()).get(WakeUpSettingsViewModel.class);
         final SnoozeSettingsViewModel snoozeSettingsViewModel = ViewModelProviders.of(requireActivity()).get(SnoozeSettingsViewModel.class);
 
-        generalSettingsViewModel.init(alarmTile.getGeneralSettings());
-        fallAsleepSettingsViewModel.init(alarmTile.getFallAsleepSettings());
-        sleepSettingsViewModel.init(alarmTile.getSleepSettings());
-        wakeUpSettingsViewModel.init(alarmTile.getWakeUpSettings());
-        snoozeSettingsViewModel.init(alarmTile.getSnoozeSettings());
-    }
-
-    private void resetViewModels() {
-        final GeneralSettingsViewModel generalSettingsViewModel = ViewModelProviders.of(requireActivity()).get(GeneralSettingsViewModel.class);
-        final FallAsleepSettingsViewModel fallAsleepSettingsViewModel = ViewModelProviders.of(requireActivity()).get(FallAsleepSettingsViewModel.class);
-        final SleepSettingsViewModel sleepSettingsViewModel = ViewModelProviders.of(requireActivity()).get(SleepSettingsViewModel.class);
-        final WakeUpSettingsViewModel wakeUpSettingsViewModel = ViewModelProviders.of(requireActivity()).get(WakeUpSettingsViewModel.class);
-        final SnoozeSettingsViewModel snoozeSettingsViewModel = ViewModelProviders.of(requireActivity()).get(SnoozeSettingsViewModel.class);
-
-        generalSettingsViewModel.reset();
-        fallAsleepSettingsViewModel.reset();
-        sleepSettingsViewModel.reset();
-        wakeUpSettingsViewModel.reset();
-        snoozeSettingsViewModel.reset();
+        generalSettingsViewModel.setAlarmTile(alarmTile);
+        fallAsleepSettingsViewModel.setAlarmTile(alarmTile);
+        sleepSettingsViewModel.setAlarmTile(alarmTile);
+        wakeUpSettingsViewModel.setAlarmTile(alarmTile);
+        snoozeSettingsViewModel.setAlarmTile(alarmTile);
     }
 
 }

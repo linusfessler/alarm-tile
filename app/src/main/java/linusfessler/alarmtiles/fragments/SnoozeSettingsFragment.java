@@ -20,21 +20,13 @@ import com.google.android.material.button.MaterialButton;
 
 import java.util.concurrent.Executors;
 
+import linusfessler.alarmtiles.AlarmTileDao;
 import linusfessler.alarmtiles.AppDatabase;
 import linusfessler.alarmtiles.DigitalTimePickerDialog;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.databinding.FragmentSnoozeSettingsBinding;
 import linusfessler.alarmtiles.model.AlarmTile;
-import linusfessler.alarmtiles.model.FallAsleepSettings;
-import linusfessler.alarmtiles.model.GeneralSettings;
-import linusfessler.alarmtiles.model.SleepSettings;
-import linusfessler.alarmtiles.model.SnoozeSettings;
-import linusfessler.alarmtiles.model.WakeUpSettings;
-import linusfessler.alarmtiles.viewmodel.FallAsleepSettingsViewModel;
-import linusfessler.alarmtiles.viewmodel.GeneralSettingsViewModel;
-import linusfessler.alarmtiles.viewmodel.SleepSettingsViewModel;
 import linusfessler.alarmtiles.viewmodel.SnoozeSettingsViewModel;
-import linusfessler.alarmtiles.viewmodel.WakeUpSettingsViewModel;
 
 public class SnoozeSettingsFragment extends Fragment implements TimePicker.OnTimeChangedListener {
 
@@ -69,22 +61,16 @@ public class SnoozeSettingsFragment extends Fragment implements TimePicker.OnTim
     }
 
     private void initNextButton(final View root) {
-        final GeneralSettingsViewModel generalSettingsViewModel = ViewModelProviders.of(requireActivity()).get(GeneralSettingsViewModel.class);
-        final FallAsleepSettingsViewModel fallAsleepSettingsViewModel = ViewModelProviders.of(requireActivity()).get(FallAsleepSettingsViewModel.class);
-        final SleepSettingsViewModel sleepSettingsViewModel = ViewModelProviders.of(requireActivity()).get(SleepSettingsViewModel.class);
-        final WakeUpSettingsViewModel wakeUpSettingsViewModel = ViewModelProviders.of(requireActivity()).get(WakeUpSettingsViewModel.class);
-        final SnoozeSettingsViewModel snoozeSettingsViewModel = ViewModelProviders.of(requireActivity()).get(SnoozeSettingsViewModel.class);
+        final AlarmTile alarmTile = viewModel.getAlarmTile();
 
-        final GeneralSettings generalSettings = generalSettingsViewModel.getGeneralSettings();
-        final FallAsleepSettings fallAsleepSettings = fallAsleepSettingsViewModel.getFallAsleepSettings();
-        final SleepSettings sleepSettings = sleepSettingsViewModel.getSleepSettings();
-        final WakeUpSettings wakeUpSettings = wakeUpSettingsViewModel.getWakeUpSettings();
-        final SnoozeSettings snoozeSettings = snoozeSettingsViewModel.getSnoozeSettings();
-
-        final AlarmTile alarmTile = new AlarmTile(generalSettings, fallAsleepSettings, sleepSettings, wakeUpSettings, snoozeSettings);
-
-        Executors.newSingleThreadExecutor().submit(() ->
-                AppDatabase.getInstance(requireContext()).alarmTiles().insert(alarmTile));
+        Executors.newSingleThreadExecutor().submit(() -> {
+            final AlarmTileDao alarmTiles = AppDatabase.getInstance(requireContext()).alarmTiles();
+            if (alarmTile.getId() == null) {
+                alarmTiles.insert(alarmTile);
+            } else {
+                alarmTiles.update(alarmTile);
+            }
+        });
 
         final MaterialButton button = root.findViewById(R.id.next_button);
         final NavDirections directions = SnoozeSettingsFragmentDirections.actionSnoozeSettingsFragmentToMainFragment();

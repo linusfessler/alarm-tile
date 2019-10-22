@@ -1,26 +1,33 @@
 package linusfessler.alarmtiles.model;
 
-import java.io.Serializable;
+import androidx.room.Ignore;
 
-import linusfessler.alarmtiles.Assert;
+import linusfessler.alarmtiles.R;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 @Builder
-public class GeneralSettings implements Serializable {
+public class GeneralSettings {
 
-    private final String name;
-    private final int iconResourceId;
-    private final boolean showingNotification;
-    private final boolean graduallyIncreasingVolume;
-    private final boolean vibrating;
-    private final boolean turningOnFlashlight;
+    private String name;
+    private int iconResourceId;
+    private boolean showingNotification;
+    private boolean graduallyIncreasingVolume;
+    private boolean vibrating;
+    private boolean turningOnFlashlight;
 
-    public GeneralSettings(final String name, final int iconResourceId, final boolean showingNotification,
-                           final boolean graduallyIncreasingVolume, final boolean vibrating, final boolean turningOnFlashlight) {
-        Assert.isNotEmpty(name, "Name must not be empty.");
+    @Ignore
+    public GeneralSettings() {
+        setName(null);
+        setIconResourceId(R.drawable.ic_alarm_24px);
+        setShowingNotification(true);
+        setGraduallyIncreasingVolume(false);
+        setVibrating(false);
+        setTurningOnFlashlight(false);
+    }
 
+    public GeneralSettings(final String name, final int iconResourceId, final boolean showingNotification, final boolean graduallyIncreasingVolume, final boolean vibrating, final boolean turningOnFlashlight) {
         this.name = name;
         this.iconResourceId = iconResourceId;
         this.showingNotification = showingNotification;

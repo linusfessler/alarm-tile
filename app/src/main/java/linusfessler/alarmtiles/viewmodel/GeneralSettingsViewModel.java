@@ -3,73 +3,87 @@ package linusfessler.alarmtiles.viewmodel;
 import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
 
-import linusfessler.alarmtiles.R;
-import linusfessler.alarmtiles.model.GeneralSettings;
+import linusfessler.alarmtiles.model.AlarmTile;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public class GeneralSettingsViewModel extends ObservableViewModel {
 
     public static final int MAX_NAME_LENGTH = 20;
     public static final String NAME_ERROR_TEXT = "Please enter a name";
-    public static final int DEFAULT_ICON_RESOURCE_ID = R.drawable.ic_alarm_24px;
+
+    @Setter
+    private AlarmTile alarmTile;
 
     @Bindable
-    private String name;
-
-    @Bindable
-    private Integer iconResourceId;
-
-    @Bindable
-    private boolean showingNotification;
-
-    @Bindable
-    private boolean graduallyIncreasingVolume;
-
-    @Bindable
-    private boolean vibrating;
-
-    @Bindable
-    private boolean turningOnFlashlight;
+    public String getName() {
+        return alarmTile.getGeneralSettings().getName();
+    }
 
     public void setName(final String name) {
-        this.name = name;
+        alarmTile.getGeneralSettings().setName(name);
         notifyPropertyChanged(BR.name);
     }
 
+    @Bindable
+    public int getIconResourceId() {
+        return alarmTile.getGeneralSettings().getIconResourceId();
+    }
+
     public void setIconResourceId(final int iconResourceId) {
-        this.iconResourceId = iconResourceId;
+        alarmTile.getGeneralSettings().setIconResourceId(iconResourceId);
         notifyPropertyChanged(BR.iconResourceId);
     }
 
+    @Bindable
+    public boolean isShowingNotification() {
+        return alarmTile.getGeneralSettings().isShowingNotification();
+    }
+
     public void setShowingNotification(final boolean showingNotification) {
-        this.showingNotification = showingNotification;
+        alarmTile.getGeneralSettings().setShowingNotification(showingNotification);
         notifyPropertyChanged(BR.showingNotification);
     }
 
+    @Bindable
+    public boolean isGraduallyIncreasingVolume() {
+        return alarmTile.getGeneralSettings().isGraduallyIncreasingVolume();
+    }
+
     public void setGraduallyIncreasingVolume(final boolean graduallyIncreasingVolume) {
-        this.graduallyIncreasingVolume = graduallyIncreasingVolume;
+        alarmTile.getGeneralSettings().setGraduallyIncreasingVolume(graduallyIncreasingVolume);
         notifyPropertyChanged(BR.graduallyIncreasingVolume);
     }
 
+    @Bindable
+    public boolean isVibrating() {
+        return alarmTile.getGeneralSettings().isVibrating();
+    }
+
     public void setVibrating(final boolean vibrating) {
-        this.vibrating = vibrating;
+        alarmTile.getGeneralSettings().setVibrating(vibrating);
         notifyPropertyChanged(BR.vibrating);
     }
 
+    @Bindable
+    public boolean isTurningOnFlashlight() {
+        return alarmTile.getGeneralSettings().isTurningOnFlashlight();
+    }
+
     public void setTurningOnFlashlight(final boolean turningOnFlashlight) {
-        this.turningOnFlashlight = turningOnFlashlight;
+        alarmTile.getGeneralSettings().setTurningOnFlashlight(turningOnFlashlight);
         notifyPropertyChanged(BR.turningOnFlashlight);
     }
 
     @Bindable("name")
     public boolean isNameValid() {
-        return name != null && !name.isEmpty();
+        return getName() != null && !getName().isEmpty();
     }
 
     @Bindable("name")
     public boolean isNameErrorEnabled() {
-        return name != null && name.isEmpty();
+        return getName() != null && getName().isEmpty();
     }
 
     @Bindable("name")
@@ -79,7 +93,7 @@ public class GeneralSettingsViewModel extends ObservableViewModel {
 
     @Bindable("iconResourceId")
     public boolean isIconResourceIdValid() {
-        return iconResourceId != null;
+        return true;
     }
 
     @Bindable({"name", "iconResourceId"})
@@ -90,35 +104,6 @@ public class GeneralSettingsViewModel extends ObservableViewModel {
     @Bindable
     public int getMaxNameLength() {
         return MAX_NAME_LENGTH;
-    }
-
-    public void reset() {
-        setName(null);
-        setIconResourceId(DEFAULT_ICON_RESOURCE_ID);
-        setShowingNotification(true);
-        setGraduallyIncreasingVolume(false);
-        setVibrating(false);
-        setTurningOnFlashlight(false);
-    }
-
-    public void init(final GeneralSettings generalSettings) {
-        setName(generalSettings.getName());
-        setIconResourceId(generalSettings.getIconResourceId());
-        setShowingNotification(generalSettings.isShowingNotification());
-        setGraduallyIncreasingVolume(generalSettings.isGraduallyIncreasingVolume());
-        setVibrating(generalSettings.isVibrating());
-        setTurningOnFlashlight(generalSettings.isTurningOnFlashlight());
-    }
-
-    public GeneralSettings getGeneralSettings() {
-        return GeneralSettings.builder()
-                .name(getName())
-                .iconResourceId(getIconResourceId())
-                .showingNotification(isShowingNotification())
-                .graduallyIncreasingVolume(isGraduallyIncreasingVolume())
-                .vibrating(isVibrating())
-                .turningOnFlashlight(isTurningOnFlashlight())
-                .build();
     }
 
 }

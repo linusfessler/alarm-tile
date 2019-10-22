@@ -1,17 +1,24 @@
 package linusfessler.alarmtiles.model;
 
-import java.io.Serializable;
+import androidx.room.Ignore;
 
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 @Builder
-public class SnoozeSettings implements Serializable {
+public class SnoozeSettings {
 
-    private final boolean snoozeEnabled;
-    private final int snoozeHours;
-    private final int snoozeMinutes;
+    private boolean snoozeEnabled;
+    private int snoozeHours;
+    private int snoozeMinutes;
+
+    @Ignore
+    public SnoozeSettings() {
+        setSnoozeEnabled(false);
+        setSnoozeHours(0);
+        setSnoozeMinutes(15);
+    }
 
     public SnoozeSettings(final boolean snoozeEnabled, final int snoozeHours, final int snoozeMinutes) {
         this.snoozeEnabled = snoozeEnabled;

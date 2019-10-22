@@ -4,86 +4,71 @@ import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
 
 import linusfessler.alarmtiles.TimeFormatter;
-import linusfessler.alarmtiles.model.SleepSettings;
+import linusfessler.alarmtiles.model.AlarmTile;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public class SleepSettingsViewModel extends ObservableViewModel {
 
-    private static final int DEFAULT_TIMER_HOURS = 8;
-    private static final int DEFAULT_TIMER_MINUTES = 0;
-
     private final TimeFormatter timeFormatter = new TimeFormatter();
 
-    @Bindable
-    private boolean timerEnabled;
+    @Setter
+    private AlarmTile alarmTile;
 
     @Bindable
-    private int timerHours;
-
-    @Bindable
-    private int timerMinutes;
-
-    @Bindable
-    private boolean enteringDoNotDisturb;
-
-    @Bindable
-    private boolean allowingPriorityNotifications;
+    public boolean isTimerEnabled() {
+        return alarmTile.getSleepSettings().isTimerEnabled();
+    }
 
     public void setTimerEnabled(final boolean timerEnabled) {
-        this.timerEnabled = timerEnabled;
+        alarmTile.getSleepSettings().setTimerEnabled(timerEnabled);
         notifyPropertyChanged(BR.timerEnabled);
     }
 
+    @Bindable
+    public int getTimerHours() {
+        return alarmTile.getSleepSettings().getTimerHours();
+    }
+
     public void setTimerHours(final int timerHours) {
-        this.timerHours = timerHours;
+        alarmTile.getSleepSettings().setTimerHours(timerHours);
         notifyPropertyChanged(BR.timerHours);
     }
 
+    @Bindable
+    public int getTimerMinutes() {
+        return alarmTile.getSleepSettings().getTimerMinutes();
+    }
+
     public void setTimerMinutes(final int timerMinutes) {
-        this.timerMinutes = timerMinutes;
+        alarmTile.getSleepSettings().setTimerMinutes(timerMinutes);
         notifyPropertyChanged(BR.timerMinutes);
     }
 
+    @Bindable
+    public boolean isEnteringDoNotDisturb() {
+        return alarmTile.getSleepSettings().isEnteringDoNotDisturb();
+    }
+
     public void setEnteringDoNotDisturb(final boolean enteringDoNotDisturb) {
-        this.enteringDoNotDisturb = enteringDoNotDisturb;
+        alarmTile.getSleepSettings().setEnteringDoNotDisturb(enteringDoNotDisturb);
         notifyPropertyChanged(BR.enteringDoNotDisturb);
     }
 
+    @Bindable
+    public boolean isAllowingPriorityNotifications() {
+        return alarmTile.getSleepSettings().isAllowingPriorityNotifications();
+    }
+
     public void setAllowingPriorityNotifications(final boolean allowingPriorityNotifications) {
-        this.allowingPriorityNotifications = allowingPriorityNotifications;
+        alarmTile.getSleepSettings().setAllowingPriorityNotifications(allowingPriorityNotifications);
         notifyPropertyChanged(BR.allowingPriorityNotifications);
     }
 
     @Bindable({"timerHours", "timerMinutes"})
     public String getTimerDuration() {
-        return timeFormatter.format(timerHours, timerMinutes);
-    }
-
-    public void reset() {
-        setTimerEnabled(false);
-        setTimerHours(DEFAULT_TIMER_HOURS);
-        setTimerMinutes(DEFAULT_TIMER_MINUTES);
-        setEnteringDoNotDisturb(false);
-        setAllowingPriorityNotifications(false);
-    }
-
-    public void init(final SleepSettings sleepSettings) {
-        setTimerEnabled(sleepSettings.isTimerEnabled());
-        setTimerHours(sleepSettings.getTimerHours());
-        setTimerMinutes(sleepSettings.getTimerMinutes());
-        setEnteringDoNotDisturb(sleepSettings.isEnteringDoNotDisturb());
-        setAllowingPriorityNotifications(sleepSettings.isAllowingPriorityNotifications());
-    }
-
-    public SleepSettings getSleepSettings() {
-        return SleepSettings.builder()
-                .timerEnabled(isTimerEnabled())
-                .timerHours(getTimerHours())
-                .timerMinutes(getTimerMinutes())
-                .enteringDoNotDisturb(isEnteringDoNotDisturb())
-                .allowingPriorityNotifications(isAllowingPriorityNotifications())
-                .build();
+        return timeFormatter.format(getTimerHours(), getTimerMinutes());
     }
 
 }

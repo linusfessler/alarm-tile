@@ -1,19 +1,28 @@
 package linusfessler.alarmtiles.model;
 
-import java.io.Serializable;
+import androidx.room.Ignore;
 
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 @Builder
-public class SleepSettings implements Serializable {
+public class SleepSettings {
 
-    private final boolean timerEnabled;
-    private final int timerHours;
-    private final int timerMinutes;
-    private final boolean enteringDoNotDisturb;
-    private final boolean allowingPriorityNotifications;
+    private boolean timerEnabled;
+    private int timerHours;
+    private int timerMinutes;
+    private boolean enteringDoNotDisturb;
+    private boolean allowingPriorityNotifications;
+
+    @Ignore
+    public SleepSettings() {
+        setTimerEnabled(false);
+        setTimerHours(8);
+        setTimerMinutes(0);
+        setEnteringDoNotDisturb(false);
+        setAllowingPriorityNotifications(false);
+    }
 
     public SleepSettings(final boolean timerEnabled, final int timerHours, final int timerMinutes, final boolean enteringDoNotDisturb, final boolean allowingPriorityNotifications) {
         this.timerEnabled = timerEnabled;

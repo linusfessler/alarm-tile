@@ -2,41 +2,41 @@ package linusfessler.alarmtiles.model;
 
 import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import java.io.Serializable;
+import lombok.Data;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
-
-@Getter
+@Data
 @Entity
-public class AlarmTile implements Serializable {
+public class AlarmTile {
 
     @PrimaryKey(autoGenerate = true)
-    @Setter
-    private long id;
+    private Long id;
 
-    @NonNull
     @Embedded(prefix = "general_")
-    private final GeneralSettings generalSettings;
+    private GeneralSettings generalSettings;
 
-    @NonNull
     @Embedded(prefix = "fall_asleep_")
-    private final FallAsleepSettings fallAsleepSettings;
+    private FallAsleepSettings fallAsleepSettings;
 
-    @NonNull
     @Embedded(prefix = "sleep_")
-    private final SleepSettings sleepSettings;
+    private SleepSettings sleepSettings;
 
-    @NonNull
     @Embedded(prefix = "wake_up_")
-    private final WakeUpSettings wakeUpSettings;
+    private WakeUpSettings wakeUpSettings;
 
-    @NonNull
     @Embedded(prefix = "snooze_")
-    private final SnoozeSettings snoozeSettings;
+    private SnoozeSettings snoozeSettings;
+
+    @Ignore
+    public AlarmTile() {
+        this.generalSettings = new GeneralSettings();
+        this.fallAsleepSettings = new FallAsleepSettings();
+        this.sleepSettings = new SleepSettings();
+        this.wakeUpSettings = new WakeUpSettings();
+        this.snoozeSettings = new SnoozeSettings();
+    }
 
     public AlarmTile(final GeneralSettings generalSettings, final FallAsleepSettings fallAsleepSettings, final SleepSettings sleepSettings, final WakeUpSettings wakeUpSettings, final SnoozeSettings snoozeSettings) {
         this.generalSettings = generalSettings;
