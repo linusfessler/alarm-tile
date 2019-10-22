@@ -1,5 +1,7 @@
 package linusfessler.alarmtiles.sample;
 
+import android.content.Context;
+
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.model.AlarmTile;
 import linusfessler.alarmtiles.model.FallAsleepSettings;
@@ -7,12 +9,18 @@ import linusfessler.alarmtiles.model.GeneralSettings;
 import linusfessler.alarmtiles.model.SleepSettings;
 import linusfessler.alarmtiles.model.SnoozeSettings;
 import linusfessler.alarmtiles.model.WakeUpSettings;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class WorkweekAlarmTileBuilder {
+
+    @NonNull
+    private final Context context;
 
     public AlarmTile build() {
         final GeneralSettings generalSettings = GeneralSettings.builder()
-                .name("Workweek Alarm")
+                .name(context.getResources().getString(R.string.sample_workweek_name))
                 .iconResourceId(R.drawable.ic_alarm_24px)
                 .showingNotification(true)
                 .graduallyIncreasingVolume(false)

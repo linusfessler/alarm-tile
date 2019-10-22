@@ -27,17 +27,17 @@ public abstract class AppDatabase extends RoomDatabase {
             instance = Room
                     .databaseBuilder(context.getApplicationContext(), AppDatabase.class, "app-database")
                     .build();
-            instance.populate();
+            instance.populate(context);
         }
         return instance;
     }
 
-    private void populate() {
+    private void populate(final Context context) {
         Executors.newSingleThreadExecutor().submit(() -> {
             if (alarmTiles().count() == 0) {
-                final AlarmTile workweekAlarmTile = new WorkweekAlarmTileBuilder().build();
-                final AlarmTile weekendTimerTile = new WeekendAlarmTileBuilder().build();
-                final AlarmTile napTile = new NapAlarmTileBuilder().build();
+                final AlarmTile workweekAlarmTile = new WorkweekAlarmTileBuilder(context).build();
+                final AlarmTile weekendTimerTile = new WeekendAlarmTileBuilder(context).build();
+                final AlarmTile napTile = new NapAlarmTileBuilder(context).build();
 
                 final List<AlarmTile> alarmTiles = Arrays.asList(workweekAlarmTile, weekendTimerTile, napTile);
                 alarmTiles().insert(alarmTiles);
