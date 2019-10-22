@@ -61,15 +61,14 @@ public class MainFragment extends Fragment {
 
             final AlarmTile alarmTile = adapter.getItem(position);
 
-            // TODO: Set strings from strings.xml
             currentDialog = new AlertDialog.Builder(requireActivity())
                     .setTitle(alarmTile.getGeneralSettings().getName())
-                    .setMessage("Select an action for this alarm tile")
-                    .setPositiveButton("Edit", (dialog, which) -> {
+                    .setMessage(R.string.dialog_alarm_tile_message)
+                    .setPositiveButton(R.string.dialog_alarm_tile_edit, (dialog, which) -> {
                         initViewModels(alarmTile);
                         navController.navigate(MainFragmentDirections.actionMainFragmentToGeneralSettingsFragment());
                     })
-                    .setNeutralButton("Delete", (dialog, which) ->
+                    .setNeutralButton(R.string.dialog_alarm_tile_delete, (dialog, which) ->
                             Executors.newSingleThreadExecutor().submit(() -> db.alarmTiles().delete(alarmTile)))
                     .setOnDismissListener(dialog -> currentDialog = null)
                     .create();

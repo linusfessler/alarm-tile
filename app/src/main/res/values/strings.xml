@@ -53,9 +53,12 @@
     <string name="dialog_never">Never</string>
     <string name="dialog_back_title">Go back?</string>
     <string name="dialog_back_message">Your current changes will be discarded.</string>
+    <string name="dialog_alarm_tile_message">Select an action for this alarm tile</string>
+    <string name="dialog_alarm_tile_edit">Edit</string>
+    <string name="dialog_alarm_tile_delete">Delete</string>
+    <string name="dialog_icon_picker_title">Select an icon</string>
     <string name="dialog_dnd_title">Permission needed</string>
     <string name="dialog_dnd_message">This option requires permission to change the do not disturb mode. Please enable the permission on the following screen and then press the back button.</string>
-    <string name="dialog_icon_picker_title">Select an icon</string>
 
     <string name="notification_missed_alarm_title">Missed Alarm</string>
     <string name="notification_turn_music_off_title">Turning off music</string>

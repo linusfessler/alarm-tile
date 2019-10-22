@@ -50,5 +50,4 @@ public class NapAlarmTileBuilder {
         return new AlarmTile(generalSettings, fallAsleepSettings, sleepSettings, wakeUpSettings, snoozeSettings);
     }
 
-
 }

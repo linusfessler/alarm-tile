@@ -50,5 +50,4 @@ public class WorkweekAlarmTileBuilder {
         return new AlarmTile(generalSettings, fallAsleepSettings, sleepSettings, wakeUpSettings, snoozeSettings);
     }
 
-
 }
