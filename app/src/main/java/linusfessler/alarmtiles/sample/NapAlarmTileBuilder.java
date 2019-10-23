@@ -9,14 +9,14 @@ import linusfessler.alarmtiles.model.GeneralSettings;
 import linusfessler.alarmtiles.model.SleepSettings;
 import linusfessler.alarmtiles.model.SnoozeSettings;
 import linusfessler.alarmtiles.model.WakeUpSettings;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public class NapAlarmTileBuilder {
 
-    @NonNull
     private final Context context;
+
+    public NapAlarmTileBuilder(final Context context) {
+        this.context = context.getApplicationContext();
+    }
 
     public AlarmTile build() {
         final GeneralSettings generalSettings = GeneralSettings.builder()
