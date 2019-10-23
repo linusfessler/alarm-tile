@@ -42,7 +42,7 @@ public class GeneralSettingsFragment extends Fragment implements DrawablePickerD
             R.drawable.ic_notifications_active_24px,
     };
 
-    private static final long SHOW_ICON_RIPPLE_AFTER_MILLISECONDS = 5000;
+    private static final long SHOW_ICON_RIPPLE_AFTER_MILLISECONDS = 1000;
     private static final long HIDE_ICON_RIPPLE_AFTER_MILLISECONDS = 250;
 
     private GeneralSettingsViewModel viewModel;
