@@ -62,7 +62,6 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="scalingPercent" value="50" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -84,10 +83,9 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="1a73e9" />
-                                      <entry key="foregroundImage" value="C:\Users\linus\Downloads\nights_stay-24px (1).svg" />
-                                      <entry key="generateRoundIcon" value="false" />
-                                      <entry key="legacyIconShape" value="CIRCLE" />
+                                      <entry key="backgroundColor" value="202125" />
+                                      <entry key="backgroundImage" value="D:\Projects\alarm-tiles\app\src\main\res\values\ic_launcher_background.xml" />
+                                      <entry key="foregroundImage" value="D:\Projects\alarm-tiles\app\src\main\res\drawable\ic_launcher_foreground.xml" />
                                       <entry key="webIconShape" value="NONE" />
                                     </map>
                                   </option>
@@ -110,6 +108,24 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                      <entry key="image">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="color" value="000000" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="cropped" value="true" />
+                                      <entry key="imageAsset" value="D:\Projects\alarm-tiles\app\src\main\res\mipmap-anydpi-v26\ic_launcher.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>

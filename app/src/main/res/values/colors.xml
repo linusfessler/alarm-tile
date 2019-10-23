@@ -4,9 +4,12 @@
     <color name="red">#cf6679</color>
     <color name="white">#ffffff</color>
     <color name="lightGrey">#99ffffff</color>
-    <color name="grey">#1F1F1F</color>
+    <color name="grey">#1f1f1f</color>
     <color name="darkGrey">#121212</color>
     <color name="black">#000000</color>
-    <color name="evening">#072379</color>
-    <color name="morning">#b67800</color>
+    <color name="quickSettingsIconEnabled">#202125</color>
+    <color name="quickSettingsIconDisabled">#C9CBC7</color>
+    <color name="quickSettingsBackgroundEnabled">@color/blue</color>
+    <color name="quickSettingsBackgroundDisabled">#4E4F53</color>
+    <color name="quickSettingsBackground">@color/quickSettingsIconEnabled</color>
 </resources>
