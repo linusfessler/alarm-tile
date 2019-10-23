@@ -10,10 +10,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
 
+import linusfessler.alarmtiles.exampletiles.ExampleTile1Builder;
+import linusfessler.alarmtiles.exampletiles.ExampleTile2Builder;
+import linusfessler.alarmtiles.exampletiles.ExampleTile3Builder;
 import linusfessler.alarmtiles.model.AlarmTile;
-import linusfessler.alarmtiles.sample.NapAlarmTileBuilder;
-import linusfessler.alarmtiles.sample.WeekendAlarmTileBuilder;
-import linusfessler.alarmtiles.sample.WorkweekAlarmTileBuilder;
 
 @Database(entities = AlarmTile.class, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
@@ -35,11 +35,11 @@ public abstract class AppDatabase extends RoomDatabase {
     private void populate(final Context context) {
         Executors.newSingleThreadExecutor().submit(() -> {
             if (alarmTiles().count() == 0) {
-                final AlarmTile workweekAlarmTile = new WorkweekAlarmTileBuilder(context).build();
-                final AlarmTile weekendTimerTile = new WeekendAlarmTileBuilder(context).build();
-                final AlarmTile napTile = new NapAlarmTileBuilder(context).build();
+                final AlarmTile exampleTile1 = new ExampleTile1Builder(context).build();
+                final AlarmTile exampleTile2 = new ExampleTile2Builder(context).build();
+                final AlarmTile exampleTile3 = new ExampleTile3Builder(context).build();
 
-                final List<AlarmTile> alarmTiles = Arrays.asList(workweekAlarmTile, weekendTimerTile, napTile);
+                final List<AlarmTile> alarmTiles = Arrays.asList(exampleTile1, exampleTile2, exampleTile3);
                 alarmTiles().insert(alarmTiles);
             }
         });

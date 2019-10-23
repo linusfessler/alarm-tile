@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.sample;
+package linusfessler.alarmtiles.exampletiles;
 
 import android.content.Context;
 
@@ -10,18 +10,18 @@ import linusfessler.alarmtiles.model.SleepSettings;
 import linusfessler.alarmtiles.model.SnoozeSettings;
 import linusfessler.alarmtiles.model.WakeUpSettings;
 
-public class WorkweekAlarmTileBuilder {
+public class ExampleTile2Builder {
 
     private final Context context;
 
-    public WorkweekAlarmTileBuilder(final Context context) {
+    public ExampleTile2Builder(final Context context) {
         this.context = context.getApplicationContext();
     }
 
     public AlarmTile build() {
         final GeneralSettings generalSettings = GeneralSettings.builder()
-                .name(context.getResources().getString(R.string.sample_workweek_name))
-                .iconResourceId(R.drawable.ic_alarm_24px)
+                .name(context.getResources().getString(R.string.example_tile_2))
+                .iconResourceId(R.drawable.ic_timer_24px)
                 .showingNotification(true)
                 .graduallyIncreasingVolume(false)
                 .vibrating(false)
@@ -31,28 +31,28 @@ public class WorkweekAlarmTileBuilder {
         final FallAsleepSettings fallAsleepSettings = FallAsleepSettings.builder()
                 .timerEnabled(true)
                 .timerHours(0)
-                .timerMinutes(30)
+                .timerMinutes(45)
                 .slowlyFadingMusicOut(true)
                 .build();
 
         final SleepSettings sleepSettings = SleepSettings.builder()
-                .timerEnabled(false)
-                .timerHours(0)
+                .timerEnabled(true)
+                .timerHours(9)
                 .timerMinutes(0)
                 .enteringDoNotDisturb(true)
-                .allowingPriorityNotifications(false)
+                .allowingPriorityNotifications(true)
                 .build();
 
         final WakeUpSettings wakeUpSettings = WakeUpSettings.builder()
-                .alarmEnabled(true)
-                .alarmHour(6)
-                .alarmMinute(30)
+                .alarmEnabled(false)
+                .alarmHour(0)
+                .alarmMinute(0)
                 .build();
 
         final SnoozeSettings snoozeSettings = SnoozeSettings.builder()
                 .snoozeEnabled(true)
                 .snoozeHours(0)
-                .snoozeMinutes(15)
+                .snoozeMinutes(30)
                 .build();
 
         return new AlarmTile(generalSettings, fallAsleepSettings, sleepSettings, wakeUpSettings, snoozeSettings);
