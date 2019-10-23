@@ -54,14 +54,14 @@ public class MainFragment extends Fragment {
         list.setOnItemClickListener((parent, itemView, position, id) -> {
             final AlarmTile alarmTile = adapter.getItem(position);
             initViewModels(alarmTile);
-            navController.navigate(MainFragmentDirections.actionMainFragmentToGeneralSettingsFragment());
+            navController.navigate(MainFragmentDirections.actionMainFragmentToSettingsContainerFragment());
         });
 
         final FloatingActionButton button = view.findViewById(R.id.fab);
         button.setOnClickListener(v -> {
             final AlarmTile alarmTile = new AlarmTile();
             initViewModels(alarmTile);
-            navController.navigate(MainFragmentDirections.actionMainFragmentToGeneralSettingsFragment());
+            navController.navigate(MainFragmentDirections.actionMainFragmentToSettingsContainerFragment());
         });
     }
 

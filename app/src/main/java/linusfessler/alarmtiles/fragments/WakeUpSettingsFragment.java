@@ -13,24 +13,25 @@ import android.widget.TimePicker;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
-
-import com.google.android.material.button.MaterialButton;
 
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.databinding.FragmentWakeUpSettingsBinding;
 import linusfessler.alarmtiles.viewmodel.SleepSettingsViewModel;
 import linusfessler.alarmtiles.viewmodel.WakeUpSettingsViewModel;
 
-public class WakeUpSettingsFragment extends Fragment implements TimePickerDialog.OnTimeSetListener {
+public class WakeUpSettingsFragment extends SettingsFragment implements TimePickerDialog.OnTimeSetListener {
 
     private WakeUpSettingsViewModel viewModel;
     private boolean is24Hours;
 
+    @Override
+    public int getTitleResourceId() {
+        return R.string.wake_up_settings_title;
+    }
+
+    @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -54,7 +55,6 @@ public class WakeUpSettingsFragment extends Fragment implements TimePickerDialog
     public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initTimePicker(view);
-        initNextButton(view);
     }
 
     private void initTimePicker(final View root) {
@@ -65,12 +65,6 @@ public class WakeUpSettingsFragment extends Fragment implements TimePickerDialog
 
         final LinearLayout alarmTime = root.findViewById(R.id.alarm_time);
         alarmTime.setOnClickListener(v -> timePickerDialog.show());
-    }
-
-    private void initNextButton(final View root) {
-        final MaterialButton button = root.findViewById(R.id.next_button);
-        final NavDirections directions = WakeUpSettingsFragmentDirections.actionWakeUpSettingsFragmentToSnoozeSettingsFragment();
-        button.setOnClickListener(Navigation.createNavigateOnClickListener(directions));
     }
 
     @Override

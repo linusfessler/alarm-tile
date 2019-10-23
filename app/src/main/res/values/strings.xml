@@ -8,9 +8,15 @@
     <string name="dismiss">Dismiss</string>
 
     <string name="button_next">Continue</string>
-    <string name="button_finish">Save</string>
+    <string name="button_save">Save</string>
 
     <string name="revert_info">In the morning, all settings will be reverted to the state of the night before.</string>
+
+    <string name="bottom_navigation_general">General</string>
+    <string name="bottom_navigation_fall_asleep">Fall asleep</string>
+    <string name="bottom_navigation_sleep">Sleep</string>
+    <string name="bottom_navigation_wake_up">Wake up</string>
+    <string name="bottom_navigation_snooze">Snooze</string>
 
     <string name="main_title">Your alarm tiles</string>
 

@@ -11,79 +11,17 @@
         android:label="@string/main_title"
         tools:layout="@layout/fragment_main">
         <action
-            android:id="@+id/action_mainFragment_to_generalSettingsFragment"
-            app:destination="@id/generalSettingsFragment"
+            android:id="@+id/action_mainFragment_to_settingsContainerFragment"
+            app:destination="@id/settingsContainerFragment"
             app:enterAnim="@anim/nav_slide_enter_anim"
             app:exitAnim="@anim/nav_slide_exit_anim"
             app:popEnterAnim="@anim/nav_slide_pop_enter_anim"
             app:popExitAnim="@anim/nav_slide_pop_exit_anim" />
     </fragment>
     <fragment
-        android:id="@+id/generalSettingsFragment"
-        android:name="linusfessler.alarmtiles.fragments.GeneralSettingsFragment"
-        android:label="@string/general_settings_title"
-        tools:layout="@layout/fragment_general_settings">
-        <action
-            android:id="@+id/action_generalSettingsFragment_to_fallAsleepSettingsFragment"
-            app:destination="@id/fallAsleepSettingsFragment"
-            app:enterAnim="@anim/nav_slide_enter_anim"
-            app:exitAnim="@anim/nav_slide_exit_anim"
-            app:popEnterAnim="@anim/nav_slide_pop_enter_anim"
-            app:popExitAnim="@anim/nav_slide_pop_exit_anim" />
-    </fragment>
-    <fragment
-        android:id="@+id/fallAsleepSettingsFragment"
-        android:name="linusfessler.alarmtiles.fragments.FallAsleepSettingsFragment"
-        android:label="@string/fall_asleep_settings_title"
-        tools:layout="@layout/fragment_fall_asleep_settings">
-        <action
-            android:id="@+id/action_fallAsleepSettingsFragment_to_sleepSettingsFragment"
-            app:destination="@id/sleepSettingsFragment"
-            app:enterAnim="@anim/nav_slide_enter_anim"
-            app:exitAnim="@anim/nav_slide_exit_anim"
-            app:popEnterAnim="@anim/nav_slide_pop_enter_anim"
-            app:popExitAnim="@anim/nav_slide_pop_exit_anim" />
-    </fragment>
-    <fragment
-        android:id="@+id/sleepSettingsFragment"
-        android:name="linusfessler.alarmtiles.fragments.SleepSettingsFragment"
-        android:label="@string/sleep_settings_title"
-        tools:layout="@layout/fragment_sleep_settings">
-        <action
-            android:id="@+id/action_sleepSettingsFragment_to_wakeUpSettingsFragment"
-            app:destination="@id/wakeUpSettingsFragment"
-            app:enterAnim="@anim/nav_slide_enter_anim"
-            app:exitAnim="@anim/nav_slide_exit_anim"
-            app:popEnterAnim="@anim/nav_slide_pop_enter_anim"
-            app:popExitAnim="@anim/nav_slide_pop_exit_anim" />
-    </fragment>
-    <fragment
-        android:id="@+id/wakeUpSettingsFragment"
-        android:name="linusfessler.alarmtiles.fragments.WakeUpSettingsFragment"
-        android:label="@string/wake_up_settings_title"
-        tools:layout="@layout/fragment_wake_up_settings">
-        <action
-            android:id="@+id/action_wakeUpSettingsFragment_to_snoozeSettingsFragment"
-            app:destination="@id/snoozeSettingsFragment"
-            app:enterAnim="@anim/nav_slide_enter_anim"
-            app:exitAnim="@anim/nav_slide_exit_anim"
-            app:popEnterAnim="@anim/nav_slide_pop_enter_anim"
-            app:popExitAnim="@anim/nav_slide_pop_exit_anim" />
-    </fragment>
-    <fragment
-        android:id="@+id/snoozeSettingsFragment"
-        android:name="linusfessler.alarmtiles.fragments.SnoozeSettingsFragment"
-        android:label="@string/snooze_settings_title"
-        tools:layout="@layout/fragment_snooze_settings">
-        <action
-            android:id="@+id/action_snoozeSettingsFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
-            app:enterAnim="@anim/nav_slide_pop_enter_anim"
-            app:exitAnim="@anim/nav_slide_pop_exit_anim"
-            app:popEnterAnim="@anim/nav_slide_enter_anim"
-            app:popExitAnim="@anim/nav_slide_exit_anim"
-            app:popUpTo="@+id/nav_graph"
-            app:popUpToInclusive="true" />
-    </fragment>
+        android:id="@+id/settingsContainerFragment"
+        android:name="linusfessler.alarmtiles.fragments.SettingsContainerFragment"
+        android:label="fragment_settings_container"
+        tools:layout="@layout/fragment_settings_container" />
 
 </navigation>

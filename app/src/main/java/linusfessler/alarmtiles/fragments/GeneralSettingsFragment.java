@@ -13,12 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
-
-import com.google.android.material.button.MaterialButton;
 
 import linusfessler.alarmtiles.DrawablePickerDialog;
 import linusfessler.alarmtiles.DrawableStateController;
@@ -26,7 +22,7 @@ import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.databinding.FragmentGeneralSettingsBinding;
 import linusfessler.alarmtiles.viewmodel.GeneralSettingsViewModel;
 
-public class GeneralSettingsFragment extends Fragment implements DrawablePickerDialog.OnDrawablePickedListener {
+public class GeneralSettingsFragment extends SettingsFragment implements DrawablePickerDialog.OnDrawablePickedListener {
 
     private static final int[] ICON_RESOURCE_IDS = {
             R.drawable.ic_alarm_24px,
@@ -50,6 +46,12 @@ public class GeneralSettingsFragment extends Fragment implements DrawablePickerD
     private DrawableStateController drawableStateController;
 
     @Override
+    public int getTitleResourceId() {
+        return R.string.general_settings_title;
+    }
+
+    @Nullable
+    @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
@@ -66,7 +68,6 @@ public class GeneralSettingsFragment extends Fragment implements DrawablePickerD
 
         initBackConfirmationDialog(view);
         initIconPicker(view);
-        initNextButton(view);
     }
 
     @Override
@@ -105,12 +106,6 @@ public class GeneralSettingsFragment extends Fragment implements DrawablePickerD
 
         drawableStateController = new DrawableStateController(icon.getBackground());
         drawableStateController.pressAndRelease(SHOW_ICON_RIPPLE_AFTER_MILLISECONDS, HIDE_ICON_RIPPLE_AFTER_MILLISECONDS, true);
-    }
-
-    private void initNextButton(final View root) {
-        final MaterialButton button = root.findViewById(R.id.next_button);
-        final NavDirections directions = GeneralSettingsFragmentDirections.actionGeneralSettingsFragmentToFallAsleepSettingsFragment();
-        button.setOnClickListener(Navigation.createNavigateOnClickListener(directions));
     }
 
     @Override

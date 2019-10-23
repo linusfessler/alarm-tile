@@ -11,27 +11,23 @@ import android.widget.TimePicker;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 
-import com.google.android.material.button.MaterialButton;
-
-import java.util.concurrent.Executors;
-
-import linusfessler.alarmtiles.AlarmTileDao;
-import linusfessler.alarmtiles.AppDatabase;
 import linusfessler.alarmtiles.DigitalTimePickerDialog;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.databinding.FragmentSnoozeSettingsBinding;
-import linusfessler.alarmtiles.model.AlarmTile;
 import linusfessler.alarmtiles.viewmodel.SnoozeSettingsViewModel;
 
-public class SnoozeSettingsFragment extends Fragment implements TimePicker.OnTimeChangedListener {
+public class SnoozeSettingsFragment extends SettingsFragment implements TimePicker.OnTimeChangedListener {
 
     private SnoozeSettingsViewModel viewModel;
 
+    @Override
+    public int getTitleResourceId() {
+        return R.string.snooze_settings_title;
+    }
+
+    @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -47,7 +43,6 @@ public class SnoozeSettingsFragment extends Fragment implements TimePicker.OnTim
     public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initTimePicker(view);
-        initNextButton(view);
     }
 
     private void initTimePicker(final View root) {
@@ -58,23 +53,6 @@ public class SnoozeSettingsFragment extends Fragment implements TimePicker.OnTim
 
         final LinearLayout snoozeDuration = root.findViewById(R.id.snooze_duration);
         snoozeDuration.setOnClickListener(v -> timePickerDialog.show());
-    }
-
-    private void initNextButton(final View root) {
-        final AlarmTile alarmTile = viewModel.getAlarmTile();
-
-        Executors.newSingleThreadExecutor().submit(() -> {
-            final AlarmTileDao alarmTiles = AppDatabase.getInstance(requireContext()).alarmTiles();
-            if (alarmTile.getId() == null) {
-                alarmTiles.insert(alarmTile);
-            } else {
-                alarmTiles.update(alarmTile);
-            }
-        });
-
-        final MaterialButton button = root.findViewById(R.id.next_button);
-        final NavDirections directions = SnoozeSettingsFragmentDirections.actionSnoozeSettingsFragmentToMainFragment();
-        button.setOnClickListener(Navigation.createNavigateOnClickListener(directions));
     }
 
     @Override

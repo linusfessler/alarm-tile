@@ -11,22 +11,23 @@ import android.widget.TimePicker;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
-
-import com.google.android.material.button.MaterialButton;
 
 import linusfessler.alarmtiles.DigitalTimePickerDialog;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.databinding.FragmentFallAsleepSettingsBinding;
 import linusfessler.alarmtiles.viewmodel.FallAsleepSettingsViewModel;
 
-public class FallAsleepSettingsFragment extends Fragment implements TimePicker.OnTimeChangedListener {
+public class FallAsleepSettingsFragment extends SettingsFragment implements TimePicker.OnTimeChangedListener {
 
     private FallAsleepSettingsViewModel viewModel;
 
+    @Override
+    public int getTitleResourceId() {
+        return R.string.fall_asleep_settings_title;
+    }
+
+    @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -42,7 +43,6 @@ public class FallAsleepSettingsFragment extends Fragment implements TimePicker.O
     public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initTimePicker(view);
-        initNextButton(view);
     }
 
     private void initTimePicker(final View root) {
@@ -53,12 +53,6 @@ public class FallAsleepSettingsFragment extends Fragment implements TimePicker.O
 
         final LinearLayout timerDuration = root.findViewById(R.id.snooze_duration);
         timerDuration.setOnClickListener(v -> timePickerDialog.show());
-    }
-
-    private void initNextButton(final View root) {
-        final MaterialButton button = root.findViewById(R.id.next_button);
-        final NavDirections directions = FallAsleepSettingsFragmentDirections.actionFallAsleepSettingsFragmentToSleepSettingsFragment();
-        button.setOnClickListener(Navigation.createNavigateOnClickListener(directions));
     }
 
     @Override
