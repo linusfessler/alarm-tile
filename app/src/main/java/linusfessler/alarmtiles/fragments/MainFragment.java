@@ -8,7 +8,6 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
@@ -18,7 +17,6 @@ import androidx.navigation.Navigation;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
-import java.util.concurrent.Executors;
 
 import linusfessler.alarmtiles.AlarmTileListAdapter;
 import linusfessler.alarmtiles.AppDatabase;
@@ -32,8 +30,6 @@ import linusfessler.alarmtiles.viewmodel.WakeUpSettingsViewModel;
 
 public class MainFragment extends Fragment {
 
-    private AlertDialog currentDialog;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
@@ -46,34 +42,19 @@ public class MainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         final NavController navController = Navigation.findNavController(view);
 
-        final AppDatabase db = AppDatabase.getInstance(getContext());
+        final AppDatabase db = AppDatabase.getInstance(requireContext());
 
         final LiveData<List<AlarmTile>> liveAlarmTiles = db.alarmTiles().selectAll();
-        final AlarmTileListAdapter adapter = new AlarmTileListAdapter(getLayoutInflater());
+        final AlarmTileListAdapter adapter = new AlarmTileListAdapter(requireContext());
         liveAlarmTiles.observeForever(adapter::setAlarmTiles);
 
         final ListView list = view.findViewById(R.id.list);
         list.setAdapter(adapter);
+
         list.setOnItemClickListener((parent, itemView, position, id) -> {
-            if (currentDialog != null) {
-                return;
-            }
-
             final AlarmTile alarmTile = adapter.getItem(position);
-
-            currentDialog = new AlertDialog.Builder(requireActivity())
-                    .setTitle(alarmTile.getGeneralSettings().getName())
-                    .setMessage(R.string.dialog_alarm_tile_message)
-                    .setPositiveButton(R.string.dialog_alarm_tile_edit, (dialog, which) -> {
-                        initViewModels(alarmTile);
-                        navController.navigate(MainFragmentDirections.actionMainFragmentToGeneralSettingsFragment());
-                    })
-                    .setNeutralButton(R.string.dialog_alarm_tile_delete, (dialog, which) ->
-                            Executors.newSingleThreadExecutor().submit(() -> db.alarmTiles().delete(alarmTile)))
-                    .setOnDismissListener(dialog -> currentDialog = null)
-                    .create();
-
-            currentDialog.show();
+            initViewModels(alarmTile);
+            navController.navigate(MainFragmentDirections.actionMainFragmentToGeneralSettingsFragment());
         });
 
         final FloatingActionButton button = view.findViewById(R.id.fab);
