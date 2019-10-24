@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:fontFamily="sans-serif-light"
-            android:textColor="@android:color/white"
+            android:textColor="@color/colorOnBackground"
             android:textSize="84sp"
             android:textAlignment="center"
             android:background="?selectableItemBackgroundBorderless"

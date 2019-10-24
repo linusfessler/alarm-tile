@@ -30,7 +30,7 @@ public abstract class Scheduler {
     private boolean alarmIsActive = false;
     protected Context context;
 
-    protected Scheduler(Context context) {
+    protected Scheduler(final Context context) {
         this.context = context.getApplicationContext();
     }
 
@@ -46,12 +46,12 @@ public abstract class Scheduler {
 
     public abstract void schedule();
 
-    protected void schedule(Context context, int duration) {
+    protected void schedule(final Context context, final int duration) {
         Schedulers.getInstance(context).schedule();
 
         notifyTileService();
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         preferences.edit()
                 .putBoolean(context.getString(getIsScheduledKey()), true)
                 .putInt(getDurationLeftKey(), duration)
@@ -61,16 +61,16 @@ public abstract class Scheduler {
         cancelPendingIntent();
         enableResume();
 
-        boolean dndEnter = preferences.getBoolean(context.getString(R.string.pref_dnd_enter_key), false);
+        final boolean dndEnter = preferences.getBoolean(context.getString(R.string.pref_dnd_enter_key), false);
         if (dndEnter) {
-            boolean dndPriority = preferences.getBoolean(context.getString(R.string.pref_dnd_priority_key), false);
+            final boolean dndPriority = preferences.getBoolean(context.getString(R.string.pref_dnd_priority_key), false);
             DoNotDisturb.getInstance(context).turnOn(dndPriority);
         }
 
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
-            PendingIntent pendingIntent = getPendingIntent(PendingIntent.FLAG_UPDATE_CURRENT);
-            PendingIntent showIntent = PendingIntent.getActivity(context, getShowRequestCode(), new Intent(context, SettingsActivity.class), 0);
+            final PendingIntent pendingIntent = getPendingIntent(PendingIntent.FLAG_UPDATE_CURRENT);
+            final PendingIntent showIntent = PendingIntent.getActivity(context, getShowRequestCode(), new Intent(context, SettingsActivity.class), 0);
 
             alarmManager.setAlarmClock(
                     new AlarmManager.AlarmClockInfo(
@@ -81,11 +81,11 @@ public abstract class Scheduler {
             );
         }
 
-        boolean turnMusicOff = preferences.getBoolean(context.getString(R.string.pref_turn_music_off_key), false);
+        final boolean turnMusicOff = preferences.getBoolean(context.getString(R.string.pref_turn_music_off_key), false);
         if (turnMusicOff) {
             MusicSchedulerService.scheduleTurnMusicOff(context);
 
-            boolean fadeMusicOut = preferences.getBoolean(context.getString(R.string.pref_fade_music_out_key), false);
+            final boolean fadeMusicOut = preferences.getBoolean(context.getString(R.string.pref_fade_music_out_key), false);
             if (fadeMusicOut) {
                 MusicSchedulerService.scheduleFadeMusicOut(context);
             }
@@ -93,7 +93,7 @@ public abstract class Scheduler {
     }
 
     public boolean isScheduled() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getBoolean(context.getString(getIsScheduledKey()), false);
     }
 
@@ -110,14 +110,14 @@ public abstract class Scheduler {
         alarmIsActive = false;
         notifyTileService();
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         preferences.edit().putBoolean(context.getString(getIsScheduledKey()), false).apply();
 
         cancelPendingIntent();
         disableResume();
 
         if (!Schedulers.getInstance(context).isScheduled()) {
-            boolean dndExit = preferences.getBoolean(context.getString(R.string.pref_dnd_exit_key), false);
+            final boolean dndExit = preferences.getBoolean(context.getString(R.string.pref_dnd_exit_key), false);
             if (dndExit) {
                 DoNotDisturb.getInstance(context).turnOff();
             }
@@ -133,22 +133,22 @@ public abstract class Scheduler {
     public void resume() {
         if (isScheduled()) {
             updateDurationLeftAndTimestamp();
-            int durationLeft = getDurationLeft();
+            final int durationLeft = getDurationLeft();
             if (durationLeft > 0) {
                 schedule(context, durationLeft);
             } else {
                 dismiss();
 
                 // show "missed settings_alarm" notification
-                Calendar calendar = new GregorianCalendar();
+                final Calendar calendar = new GregorianCalendar();
                 calendar.setTimeInMillis(System.currentTimeMillis() + durationLeft);
 
-                Intent intent = new Intent(context, MainActivity.class);
-                PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+                final Intent intent = new Intent(context, MainActivity.class);
+                final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
-                Notification notification = new Notification.Builder(context)
+                final Notification notification = new Notification.Builder(context)
                         .setSmallIcon(R.drawable.ic_alarm_24px)
-                        .setColor(context.getColor(R.color.blue))
+                        .setColor(context.getColor(R.color.colorPrimary))
                         .setAutoCancel(true)
                         .setContentIntent(pendingIntent)
                         .setDeleteIntent(pendingIntent)
@@ -156,7 +156,7 @@ public abstract class Scheduler {
                         .setContentText(DateFormatSymbols.getInstance().getWeekdays()[calendar.get(Calendar.DAY_OF_WEEK)] + " " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE))
                         .build();
 
-                NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                final NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                 if (notificationManager != null) {
                     notificationManager.notify(0, notification);
                 }
@@ -177,10 +177,10 @@ public abstract class Scheduler {
     }
 
     private void updateDurationLeftAndTimestamp() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         int durationLeft = preferences.getInt(getDurationLeftKey(), 0);
-        long timestamp = preferences.getLong(getTimestampKey(), 0);
-        long now = System.currentTimeMillis();
+        final long timestamp = preferences.getLong(getTimestampKey(), 0);
+        final long now = System.currentTimeMillis();
         durationLeft -= now - timestamp;
         preferences.edit()
                 .putInt(getDurationLeftKey(), durationLeft)
@@ -189,20 +189,20 @@ public abstract class Scheduler {
     }
 
     public int getDurationLeft() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getInt(getDurationLeftKey(), 0);
     }
 
-    private PendingIntent getPendingIntent(int flags) {
-        Intent intent = new Intent(context, AlarmActivity.class);
+    private PendingIntent getPendingIntent(final int flags) {
+        final Intent intent = new Intent(context, AlarmActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return PendingIntent.getActivity(context, getActivityRequestCode(), intent, flags);
     }
 
     private void cancelPendingIntent() {
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
-            PendingIntent pendingIntent = getPendingIntent(PendingIntent.FLAG_NO_CREATE);
+            final PendingIntent pendingIntent = getPendingIntent(PendingIntent.FLAG_NO_CREATE);
             if (pendingIntent != null) {
                 alarmManager.cancel(pendingIntent);
                 pendingIntent.cancel();

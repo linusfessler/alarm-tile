@@ -48,7 +48,7 @@
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical|start"
                     android:text="@string/wake_up_settings_alarm_time"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/colorOnBackground" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"

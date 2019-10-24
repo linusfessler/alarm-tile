@@ -4,4 +4,4 @@
     android:layout_height="40dp"
     android:layout_margin="8dp"
     android:src="@drawable/ic_alarm_24px"
-    android:tint="@color/white" />
+    android:tint="@color/colorOnSurface" />

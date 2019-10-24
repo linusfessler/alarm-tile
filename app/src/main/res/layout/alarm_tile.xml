@@ -14,7 +14,7 @@
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
         android:layout_gravity="center"
-        android:tint="@color/white"
+        android:tint="@color/colorOnBackground"
         tools:src="@drawable/ic_alarm_24px" />
 
     <Space
@@ -28,7 +28,7 @@
         android:layout_weight="1"
         android:layout_gravity="center_vertical"
         android:textSize="18sp"
-        android:textColor="@color/white"
+        android:textColor="@color/colorOnBackground"
         tools:text="Alarm" />
 
     <Space
@@ -42,7 +42,7 @@
         android:padding="8dp"
         android:layout_gravity="center"
         android:src="@drawable/ic_delete_24px"
-        android:tint="@color/white"
+        android:tint="@color/colorOnBackground"
         android:background="?attr/selectableItemBackgroundBorderless" />
 
     <Space

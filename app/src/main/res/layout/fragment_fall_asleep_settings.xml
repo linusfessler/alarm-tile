@@ -48,7 +48,7 @@
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical|start"
                     android:text="@string/fall_asleep_settings_duration"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/colorOnBackground" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"

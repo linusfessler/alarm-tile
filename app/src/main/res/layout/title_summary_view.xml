@@ -14,7 +14,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center_vertical"
-        android:textColor="@color/white"
+        android:textColor="@color/colorOnBackground"
         tools:text="Title" />
 
     <com.google.android.material.textview.MaterialTextView

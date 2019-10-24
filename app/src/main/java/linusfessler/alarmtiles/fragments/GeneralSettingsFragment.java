@@ -94,7 +94,7 @@ public class GeneralSettingsFragment extends SettingsFragment implements Drawabl
         final Resources resources = getResources();
         final String title = resources.getString(R.string.dialog_icon_picker_title);
         final int size = resources.getDimensionPixelSize(R.dimen.icon_size);
-        final int color = resources.getColor(R.color.white, context.getTheme());
+        final int color = resources.getColor(R.color.colorOnSurface, context.getTheme());
         iconPickerDialog = new DrawablePickerDialog(context, title, ICON_RESOURCE_IDS, size, size, color);
         iconPickerDialog.addListener(this);
 
