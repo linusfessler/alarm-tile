@@ -33,7 +33,7 @@
                     android:layout_marginTop="12.5dp"
                     android:padding="@dimen/alarm_tile_padding"
                     android:src="@{viewModel.iconResourceId}"
-                    android:tint="@color/colorOnBackground"
+                    android:tint="@color/colorOnPrimary"
                     android:background="@drawable/bg_round_ripple"
                     android:clickable="true"
                     android:focusable="true"

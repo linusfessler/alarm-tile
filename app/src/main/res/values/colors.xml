@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="blue">#1a73e9</color>
-    <color name="red">#cf6679</color>
-    <color name="white">#ffffff</color>
-    <color name="grey">#1f1f1f</color>
+    <color name="blue">@color/quickSettingsBackgroundEnabled</color>
+    <color name="red">#CF6679</color>
+    <color name="white">#FFFFFF</color>
+    <color name="grey">#1F1F1F</color>
     <color name="darkGrey">#121212</color>
     <color name="black">#000000</color>
 
+    <color name="quickSettingsIconEnabled">#2E2E2E</color>
+    <color name="quickSettingsIconDisabled">#C3C3C3</color>
+    <color name="quickSettingsBackgroundEnabled">#8AB4F8</color>
+    <color name="quickSettingsBackgroundDisabled">#353535</color>
+    <color name="quickSettingsBackground">@color/black</color>
+
     <color name="colorPrimary">@color/blue</color>
-    <color name="colorOnPrimary">@color/white</color>
+    <color name="colorOnPrimary">@color/black</color>
     <color name="colorSecondary">@color/colorPrimary</color>
     <color name="colorOnSecondary">@color/colorOnPrimary</color>
-    <color name="colorBackground">@color/darkGrey</color>
+    <color name="colorBackground">@color/black</color>
     <color name="colorOnBackground">@color/white</color>
-    <color name="colorSurface">@color/grey</color>
+    <color name="colorSurface">@color/darkGrey</color>
     <color name="colorOnSurface">@color/white</color>
     <color name="colorError">@color/red</color>
     <color name="colorOnError">@color/white</color>
-
-    <color name="quickSettingsIconEnabled">#202125</color>
-    <color name="quickSettingsIconDisabled">#C9CBC7</color>
-    <color name="quickSettingsBackgroundEnabled">@color/blue</color>
-    <color name="quickSettingsBackgroundDisabled">#4E4F53</color>
-    <color name="quickSettingsBackground">@color/quickSettingsIconEnabled</color>
 </resources>

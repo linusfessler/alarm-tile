@@ -27,13 +27,13 @@
     </style>
 
     <style name="TimePickerStyle" parent="android:Widget.Material.TimePicker">
-        <item name="android:background">@color/colorBackground</item>
-        <item name="android:headerBackground">@color/colorSurface</item>
-        <item name="android:numbersBackgroundColor">@color/colorSurface</item>
+        <item name="android:background">@color/colorSurface</item>
+        <item name="android:headerBackground">@color/grey</item>
+        <item name="android:numbersBackgroundColor">@color/grey</item>
     </style>
 
     <style name="Toolbar">
-        <item name="android:background">@color/colorSurface</item>
+        <item name="android:background">@color/colorBackground</item>
     </style>
 
     <style name="Button">
