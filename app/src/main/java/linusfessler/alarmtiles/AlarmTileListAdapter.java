@@ -90,4 +90,8 @@ public class AlarmTileListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void dismissDeleteDialog() {
+        deleteDialog.dismiss();
+    }
+
 }

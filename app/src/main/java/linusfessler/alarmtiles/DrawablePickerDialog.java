@@ -84,6 +84,10 @@ public class DrawablePickerDialog {
         alertDialog.cancel();
     }
 
+    public void dismiss() {
+        alertDialog.dismiss();
+    }
+
     public void addListener(final OnDrawablePickedListener listener) {
         listeners.add(listener);
     }

@@ -22,6 +22,7 @@ import linusfessler.alarmtiles.viewmodel.SnoozeSettingsViewModel;
 public class SnoozeSettingsFragment extends SettingsFragment implements TimePicker.OnTimeChangedListener {
 
     private SnoozeSettingsViewModel viewModel;
+    private DigitalTimePickerDialog timePickerDialog;
 
     @Override
     public int getTitleResourceId() {
@@ -50,7 +51,8 @@ public class SnoozeSettingsFragment extends SettingsFragment implements TimePick
         final Context context = requireContext();
         final int hours = viewModel.getSnoozeHours();
         final int minutes = viewModel.getSnoozeMinutes();
-        final DigitalTimePickerDialog timePickerDialog = new DigitalTimePickerDialog(context, this, hours, minutes, true);
+
+        timePickerDialog = new DigitalTimePickerDialog(context, this, hours, minutes, true);
 
         final MaterialTextView snoozeDuration = root.findViewById(R.id.snooze_duration);
         snoozeDuration.setOnClickListener(v -> timePickerDialog.show());
@@ -60,6 +62,12 @@ public class SnoozeSettingsFragment extends SettingsFragment implements TimePick
     public void onTimeChanged(final TimePicker view, final int snoozeHours, final int snoozeMinutes) {
         viewModel.setSnoozeHours(snoozeHours);
         viewModel.setSnoozeMinutes(snoozeMinutes);
+    }
+
+    @Override
+    public void onDestroyView() {
+        timePickerDialog.dismiss();
+        super.onDestroyView();
     }
 
 }

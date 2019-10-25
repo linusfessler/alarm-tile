@@ -22,6 +22,7 @@ import linusfessler.alarmtiles.viewmodel.FallAsleepSettingsViewModel;
 public class FallAsleepSettingsFragment extends SettingsFragment implements TimePicker.OnTimeChangedListener {
 
     private FallAsleepSettingsViewModel viewModel;
+    private DigitalTimePickerDialog timePickerDialog;
 
     @Override
     public int getTitleResourceId() {
@@ -50,7 +51,8 @@ public class FallAsleepSettingsFragment extends SettingsFragment implements Time
         final Context context = requireContext();
         final int hours = viewModel.getTimerHours();
         final int minutes = viewModel.getTimerMinutes();
-        final DigitalTimePickerDialog timePickerDialog = new DigitalTimePickerDialog(context, this, hours, minutes, true);
+
+        timePickerDialog = new DigitalTimePickerDialog(context, this, hours, minutes, true);
 
         final MaterialTextView timerDuration = root.findViewById(R.id.timer_duration);
         timerDuration.setOnClickListener(v -> timePickerDialog.show());
@@ -60,5 +62,11 @@ public class FallAsleepSettingsFragment extends SettingsFragment implements Time
     public void onTimeChanged(final TimePicker view, final int timerHours, final int timerMinutes) {
         viewModel.setTimerHours(timerHours);
         viewModel.setTimerMinutes(timerMinutes);
+    }
+
+    @Override
+    public void onDestroyView() {
+        timePickerDialog.dismiss();
+        super.onDestroyView();
     }
 }

@@ -30,6 +30,8 @@ import linusfessler.alarmtiles.viewmodel.WakeUpSettingsViewModel;
 
 public class MainFragment extends Fragment {
 
+    private AlarmTileListAdapter adapter;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
@@ -45,7 +47,7 @@ public class MainFragment extends Fragment {
         final AppDatabase db = AppDatabase.getInstance(requireContext());
 
         final LiveData<List<AlarmTile>> liveAlarmTiles = db.alarmTiles().selectAll();
-        final AlarmTileListAdapter adapter = new AlarmTileListAdapter(requireContext());
+        adapter = new AlarmTileListAdapter(requireContext());
         liveAlarmTiles.observeForever(adapter::setAlarmTiles);
 
         final ListView list = view.findViewById(R.id.list);
@@ -79,4 +81,9 @@ public class MainFragment extends Fragment {
         snoozeSettingsViewModel.setAlarmTile(alarmTile);
     }
 
+    @Override
+    public void onDestroyView() {
+        adapter.dismissDeleteDialog();
+        super.onDestroyView();
+    }
 }

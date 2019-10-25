@@ -45,6 +45,8 @@ public class SettingsContainerFragment extends Fragment {
     private MaterialButton saveButton;
     private BottomNavigationView bottomNavigation;
 
+    private AlertDialog backConfirmationDialog;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
@@ -113,15 +115,17 @@ public class SettingsContainerFragment extends Fragment {
     }
 
     private void initBackConfirmationDialog() {
+        backConfirmationDialog = new AlertDialog.Builder(requireActivity())
+                .setTitle(R.string.dialog_back_title)
+                .setMessage(R.string.dialog_back_message)
+                .setPositiveButton(R.string.dialog_yes, (dialog, which) -> navController.popBackStack())
+                .setNegativeButton(R.string.dialog_no, null)
+                .create();
+
         requireActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                new AlertDialog.Builder(requireActivity())
-                        .setTitle(R.string.dialog_back_title)
-                        .setMessage(R.string.dialog_back_message)
-                        .setPositiveButton(R.string.dialog_yes, (dialog, which) -> navController.popBackStack())
-                        .setNegativeButton(R.string.dialog_no, null)
-                        .show();
+                backConfirmationDialog.show();
             }
         });
     }
@@ -146,7 +150,11 @@ public class SettingsContainerFragment extends Fragment {
     private void setChildFragment(final SettingsFragment fragment) {
         fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
         toolbar.setTitle(fragment.getTitleResourceId());
-
     }
 
+    @Override
+    public void onDestroyView() {
+        backConfirmationDialog.dismiss();
+        super.onDestroyView();
+    }
 }

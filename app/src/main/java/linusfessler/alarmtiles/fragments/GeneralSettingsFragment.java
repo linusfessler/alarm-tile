@@ -9,13 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TimePicker;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.Navigation;
 
 import com.google.android.material.textview.MaterialTextView;
 
@@ -43,6 +40,8 @@ public class GeneralSettingsFragment extends SettingsFragment implements Drawabl
 
     private GeneralSettingsViewModel viewModel;
     private DrawablePickerDialog iconPickerDialog;
+    private DigitalTimePickerDialog volumeTimePickerDialog;
+    private DigitalTimePickerDialog dismissTimePickerDialog;
 
     @Override
     public int getTitleResourceId() {
@@ -65,7 +64,6 @@ public class GeneralSettingsFragment extends SettingsFragment implements Drawabl
     public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        initBackConfirmationDialog(view);
         initIconPicker(view);
         initVolumeTimePicker(view);
         initDismissTimePicker(view);
@@ -74,20 +72,6 @@ public class GeneralSettingsFragment extends SettingsFragment implements Drawabl
     @Override
     public void onDrawablePicked(final int resourceId) {
         viewModel.setIconResourceId(resourceId);
-    }
-
-    private void initBackConfirmationDialog(final View root) {
-        requireActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                new AlertDialog.Builder(requireActivity())
-                        .setTitle(R.string.dialog_back_title)
-                        .setMessage(R.string.dialog_back_message)
-                        .setPositiveButton(R.string.dialog_yes, (dialog, which) -> Navigation.findNavController(root).popBackStack())
-                        .setNegativeButton(R.string.dialog_no, null)
-                        .show();
-            }
-        });
     }
 
     private void initIconPicker(final View root) {
@@ -112,10 +96,10 @@ public class GeneralSettingsFragment extends SettingsFragment implements Drawabl
             viewModel.setVolumeTimerMinutes(newMinutes);
         };
 
-        final DigitalTimePickerDialog timePickerDialog = new DigitalTimePickerDialog(context, listener, hours, minutes, true);
+        volumeTimePickerDialog = new DigitalTimePickerDialog(context, listener, hours, minutes, true);
 
         final MaterialTextView volumeTimerDuration = root.findViewById(R.id.volume_timer_duration);
-        volumeTimerDuration.setOnClickListener(v -> timePickerDialog.show());
+        volumeTimerDuration.setOnClickListener(v -> volumeTimePickerDialog.show());
     }
 
     private void initDismissTimePicker(final View root) {
@@ -127,15 +111,18 @@ public class GeneralSettingsFragment extends SettingsFragment implements Drawabl
             viewModel.setDismissTimerMinutes(newMinutes);
         };
 
-        final DigitalTimePickerDialog timePickerDialog = new DigitalTimePickerDialog(context, listener, hours, minutes, true);
+        dismissTimePickerDialog = new DigitalTimePickerDialog(context, listener, hours, minutes, true);
 
         final MaterialTextView dismissTimerDuration = root.findViewById(R.id.dismiss_timer_duration);
-        dismissTimerDuration.setOnClickListener(v -> timePickerDialog.show());
+        dismissTimerDuration.setOnClickListener(v -> dismissTimePickerDialog.show());
     }
 
     @Override
     public void onDestroyView() {
         iconPickerDialog.removeListener(this);
+        iconPickerDialog.dismiss();
+        volumeTimePickerDialog.dismiss();
+        dismissTimePickerDialog.dismiss();
         super.onDestroyView();
     }
 

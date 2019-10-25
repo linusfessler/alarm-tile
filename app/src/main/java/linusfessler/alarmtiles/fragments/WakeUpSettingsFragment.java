@@ -26,6 +26,7 @@ public class WakeUpSettingsFragment extends SettingsFragment implements TimePick
 
     private WakeUpSettingsViewModel viewModel;
     private boolean is24Hours;
+    private TimePickerDialog timePickerDialog;
 
     @Override
     public int getTitleResourceId() {
@@ -62,7 +63,8 @@ public class WakeUpSettingsFragment extends SettingsFragment implements TimePick
         final Context context = requireContext();
         final int alarmHour = viewModel.getAlarmHour();
         final int alarmMinute = viewModel.getAlarmMinute();
-        final TimePickerDialog timePickerDialog = new TimePickerDialog(context, this, alarmHour, alarmMinute, is24Hours);
+
+        timePickerDialog = new TimePickerDialog(context, this, alarmHour, alarmMinute, is24Hours);
 
         final MaterialTextView alarmTime = root.findViewById(R.id.alarm_time);
         alarmTime.setOnClickListener(v -> timePickerDialog.show());
@@ -72,5 +74,11 @@ public class WakeUpSettingsFragment extends SettingsFragment implements TimePick
     public void onTimeSet(final TimePicker view, final int alarmHour, final int alarmMinute) {
         viewModel.setAlarmHour(alarmHour);
         viewModel.setAlarmMinute(alarmMinute);
+    }
+
+    @Override
+    public void onDestroyView() {
+        timePickerDialog.dismiss();
+        super.onDestroyView();
     }
 }

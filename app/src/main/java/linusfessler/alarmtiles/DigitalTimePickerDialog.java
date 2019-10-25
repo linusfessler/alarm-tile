@@ -32,4 +32,8 @@ public class DigitalTimePickerDialog {
         alertDialog.hide();
     }
 
+    public void dismiss() {
+        alertDialog.dismiss();
+    }
+
 }
