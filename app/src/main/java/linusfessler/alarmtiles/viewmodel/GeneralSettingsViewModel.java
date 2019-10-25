@@ -13,7 +13,6 @@ public class GeneralSettingsViewModel extends ObservableViewModel {
 
     private final TimeFormatter timeFormatter = new TimeFormatter();
 
-    public static final int MAX_NAME_LENGTH = 20;
     public static final String NAME_ERROR_TEXT = "Please enter a name";
 
     @Setter
@@ -162,11 +161,6 @@ public class GeneralSettingsViewModel extends ObservableViewModel {
     @Bindable({"name", "iconResourceId"})
     public boolean isValid() {
         return isNameValid() && isIconResourceIdValid();
-    }
-
-    @Bindable
-    public int getMaxNameLength() {
-        return MAX_NAME_LENGTH;
     }
 
 }

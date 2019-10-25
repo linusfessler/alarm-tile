@@ -50,8 +50,6 @@
                     android:hint="@string/general_settings_name_hint"
                     app:errorText="@{viewModel.nameErrorText}"
                     app:errorEnabled="@{viewModel.nameErrorEnabled}"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="@{viewModel.maxNameLength}"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -61,7 +59,6 @@
                         android:singleLine="true"
                         android:lines="1"
                         android:maxLines="1"
-                        android:maxLength="@{viewModel.maxNameLength}"
                         android:text="@={viewModel.name}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
