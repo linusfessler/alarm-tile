@@ -23,7 +23,12 @@ public class ExampleTile1Builder {
                 .name(context.getResources().getString(R.string.example_tile_1))
                 .iconResourceId(R.drawable.ic_alarm_24px)
                 .showingNotification(true)
-                .graduallyIncreasingVolume(false)
+                .volumeTimerEnabled(true)
+                .volumeTimerHours(5)
+                .volumeTimerMinutes(0)
+                .dismissTimerEnabled(false)
+                .dismissTimerHours(0)
+                .dismissTimerMinutes(0)
                 .vibrating(false)
                 .turningOnFlashlight(false)
                 .build();

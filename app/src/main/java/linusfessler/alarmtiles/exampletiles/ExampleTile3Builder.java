@@ -23,7 +23,12 @@ public class ExampleTile3Builder {
                 .name(context.getResources().getString(R.string.example_tile_3))
                 .iconResourceId(R.drawable.ic_snooze_24px)
                 .showingNotification(true)
-                .graduallyIncreasingVolume(false)
+                .volumeTimerEnabled(false)
+                .volumeTimerHours(0)
+                .volumeTimerMinutes(0)
+                .dismissTimerEnabled(true)
+                .dismissTimerHours(5)
+                .dismissTimerMinutes(0)
                 .vibrating(false)
                 .turningOnFlashlight(false)
                 .build();

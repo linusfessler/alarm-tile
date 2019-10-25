@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TimePicker;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -16,6 +17,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
+import com.google.android.material.textview.MaterialTextView;
+
+import linusfessler.alarmtiles.DigitalTimePickerDialog;
 import linusfessler.alarmtiles.DrawablePickerDialog;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.databinding.FragmentGeneralSettingsBinding;
@@ -63,6 +67,8 @@ public class GeneralSettingsFragment extends SettingsFragment implements Drawabl
 
         initBackConfirmationDialog(view);
         initIconPicker(view);
+        initVolumeTimePicker(view);
+        initDismissTimePicker(view);
     }
 
     @Override
@@ -95,6 +101,36 @@ public class GeneralSettingsFragment extends SettingsFragment implements Drawabl
 
         final ImageView icon = root.findViewById(R.id.icon);
         icon.setOnClickListener(view -> iconPickerDialog.show());
+    }
+
+    private void initVolumeTimePicker(final View root) {
+        final Context context = requireContext();
+        final int hours = viewModel.getVolumeTimerHours();
+        final int minutes = viewModel.getVolumeTimerMinutes();
+        final TimePicker.OnTimeChangedListener listener = (view, newHours, newMinutes) -> {
+            viewModel.setVolumeTimerHours(newHours);
+            viewModel.setVolumeTimerMinutes(newMinutes);
+        };
+
+        final DigitalTimePickerDialog timePickerDialog = new DigitalTimePickerDialog(context, listener, hours, minutes, true);
+
+        final MaterialTextView volumeTimerDuration = root.findViewById(R.id.volume_timer_duration);
+        volumeTimerDuration.setOnClickListener(v -> timePickerDialog.show());
+    }
+
+    private void initDismissTimePicker(final View root) {
+        final Context context = requireContext();
+        final int hours = viewModel.getDismissTimerHours();
+        final int minutes = viewModel.getDismissTimerMinutes();
+        final TimePicker.OnTimeChangedListener listener = (view, newHours, newMinutes) -> {
+            viewModel.setDismissTimerHours(newHours);
+            viewModel.setDismissTimerMinutes(newMinutes);
+        };
+
+        final DigitalTimePickerDialog timePickerDialog = new DigitalTimePickerDialog(context, listener, hours, minutes, true);
+
+        final MaterialTextView dismissTimerDuration = root.findViewById(R.id.dismiss_timer_duration);
+        dismissTimerDuration.setOnClickListener(v -> timePickerDialog.show());
     }
 
     @Override
