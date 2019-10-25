@@ -34,7 +34,7 @@
                     android:padding="10dp"
                     android:src="@{viewModel.iconResourceId}"
                     android:tint="@color/colorOnBackground"
-                    android:background="@drawable/button_ripple"
+                    android:background="@drawable/bg_round_ripple"
                     android:clickable="true"
                     android:focusable="true"
                     tools:src="@drawable/ic_alarm_24px" />
