@@ -17,7 +17,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import linusfessler.alarmtiles.DrawablePickerDialog;
-import linusfessler.alarmtiles.DrawableStateController;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.databinding.FragmentGeneralSettingsBinding;
 import linusfessler.alarmtiles.viewmodel.GeneralSettingsViewModel;
@@ -38,12 +37,8 @@ public class GeneralSettingsFragment extends SettingsFragment implements Drawabl
             R.drawable.ic_notifications_active_24px,
     };
 
-    private static final long SHOW_ICON_RIPPLE_AFTER_MILLISECONDS = 1000;
-    private static final long HIDE_ICON_RIPPLE_AFTER_MILLISECONDS = 250;
-
     private GeneralSettingsViewModel viewModel;
     private DrawablePickerDialog iconPickerDialog;
-    private DrawableStateController drawableStateController;
 
     @Override
     public int getTitleResourceId() {
@@ -99,19 +94,12 @@ public class GeneralSettingsFragment extends SettingsFragment implements Drawabl
         iconPickerDialog.addListener(this);
 
         final ImageView icon = root.findViewById(R.id.icon);
-        icon.setOnClickListener(view -> {
-            drawableStateController.stop();
-            iconPickerDialog.show();
-        });
-
-        drawableStateController = new DrawableStateController(icon.getBackground());
-        drawableStateController.pressAndRelease(SHOW_ICON_RIPPLE_AFTER_MILLISECONDS, HIDE_ICON_RIPPLE_AFTER_MILLISECONDS, true);
+        icon.setOnClickListener(view -> iconPickerDialog.show());
     }
 
     @Override
     public void onDestroyView() {
         iconPickerDialog.removeListener(this);
-        drawableStateController.stop();
         super.onDestroyView();
     }
 

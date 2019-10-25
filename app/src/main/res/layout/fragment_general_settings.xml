@@ -28,16 +28,20 @@
 
                 <ImageView
                     android:id="@+id/icon"
-                    android:layout_width="@dimen/icon_size"
-                    android:layout_height="@dimen/icon_size"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="12dp"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="6dp"
+                    android:padding="10dp"
                     android:src="@{viewModel.iconResourceId}"
                     android:tint="@color/colorOnBackground"
-                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:background="@drawable/button_ripple"
                     android:clickable="true"
                     android:focusable="true"
                     tools:src="@drawable/ic_alarm_24px" />
+
+                <Space
+                    android:layout_height="match_parent"
+                    android:layout_width="@dimen/fragment_padding" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/name_input_layout"
