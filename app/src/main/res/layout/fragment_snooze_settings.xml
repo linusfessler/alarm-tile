@@ -35,7 +35,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/sleep_settings_timer"
+                    android:text="@string/snooze_settings_snooze"
                     android:checked="@={viewModel.snoozeEnabled}" />
 
                 <com.google.android.material.textview.MaterialTextView
