@@ -28,10 +28,10 @@
 
                 <ImageView
                     android:id="@+id/icon"
-                    android:layout_width="52dp"
-                    android:layout_height="52dp"
-                    android:layout_marginTop="6dp"
-                    android:padding="10dp"
+                    android:layout_width="@dimen/alarm_tile_size"
+                    android:layout_height="@dimen/alarm_tile_size"
+                    android:layout_marginTop="12.5dp"
+                    android:padding="@dimen/alarm_tile_padding"
                     android:src="@{viewModel.iconResourceId}"
                     android:tint="@color/colorOnBackground"
                     android:background="@drawable/bg_round_ripple"
