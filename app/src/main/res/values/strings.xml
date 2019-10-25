@@ -30,13 +30,11 @@
     <string name="fall_asleep_settings_title">Fall asleep settings</string>
     <string name="fall_asleep_settings_timer_info">Set a timer that stops all audio and video after the specified duration.</string>
     <string name="fall_asleep_settings_timer">Timer</string>
-    <string name="fall_asleep_settings_duration">Duration</string>
     <string name="fall_asleep_settings_fade_music_out">Slowly fade music out</string>
 
     <string name="sleep_settings_title">Sleep settings</string>
     <string name="sleep_settings_timer_info">Set a timer that wakes you up after the specified duration.</string>
     <string name="sleep_settings_timer">Timer</string>
-    <string name="sleep_settings_timer_duration">Duration</string>
     <string name="sleep_settings_do_not_disturb_info">The do not disturb mode will block all notifications during the night. You may choose to allow priority notifications, which you can configure in your device\'s settings.</string>
     <string name="sleep_settings_do_not_disturb">Do not disturb</string>
     <string name="sleep_settings_allow_priority_notifications">Allow priority notifications</string>
@@ -44,13 +42,11 @@
     <string name="wake_up_settings_title">Wake up settings</string>
     <string name="wake_up_settings_alarm_info">Set a standard alarm that wakes you up at the specified time.</string>
     <string name="wake_up_settings_alarm">Alarm</string>
-    <string name="wake_up_settings_alarm_time">Time</string>
     <string name="wake_up_settings_both_timer_and_alarm_info">You set both a timer and an alarm. The resulting alarm will be the one that sets in earlier.</string>
 
     <string name="snooze_settings_title">Snooze settings</string>
     <string name="snooze_settings_snooze_info">On the alarm screen, you can swipe up or press the volume up button to snooze.</string>
     <string name="snooze_settings_snooze">Snooze</string>
-    <string name="snooze_settings_snooze_duration">Duration</string>
 
     <string name="dialog_yes">Yes</string>
     <string name="dialog_no">No</string>

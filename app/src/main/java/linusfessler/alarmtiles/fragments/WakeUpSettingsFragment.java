@@ -7,7 +7,6 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
@@ -15,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
+
+import com.google.android.material.textview.MaterialTextView;
 
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.databinding.FragmentWakeUpSettingsBinding;
@@ -63,7 +64,7 @@ public class WakeUpSettingsFragment extends SettingsFragment implements TimePick
         final int alarmMinute = viewModel.getAlarmMinute();
         final TimePickerDialog timePickerDialog = new TimePickerDialog(context, this, alarmHour, alarmMinute, is24Hours);
 
-        final LinearLayout alarmTime = root.findViewById(R.id.alarm_time);
+        final MaterialTextView alarmTime = root.findViewById(R.id.alarm_time);
         alarmTime.setOnClickListener(v -> timePickerDialog.show());
     }
 

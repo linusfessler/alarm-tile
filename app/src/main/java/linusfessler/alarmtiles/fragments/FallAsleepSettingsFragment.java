@@ -5,13 +5,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
+
+import com.google.android.material.textview.MaterialTextView;
 
 import linusfessler.alarmtiles.DigitalTimePickerDialog;
 import linusfessler.alarmtiles.R;
@@ -51,7 +52,7 @@ public class FallAsleepSettingsFragment extends SettingsFragment implements Time
         final int minutes = viewModel.getTimerMinutes();
         final DigitalTimePickerDialog timePickerDialog = new DigitalTimePickerDialog(context, this, hours, minutes, true);
 
-        final LinearLayout timerDuration = root.findViewById(R.id.snooze_duration);
+        final MaterialTextView timerDuration = root.findViewById(R.id.timer_duration);
         timerDuration.setOnClickListener(v -> timePickerDialog.show());
     }
 
