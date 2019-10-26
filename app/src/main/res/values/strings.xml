@@ -35,7 +35,7 @@
     <string name="sleep_settings_title">Sleep settings</string>
     <string name="sleep_settings_timer_info">Set a timer that wakes you up after the specified duration.</string>
     <string name="sleep_settings_timer">Timer</string>
-    <string name="sleep_settings_do_not_disturb_info">The do not disturb mode will mute any sounds and vibrations during the night. You may choose to allow priority notifications, which you can configure in your device\'s settings.</string>
+    <string name="sleep_settings_do_not_disturb_info">Enable the do not disturb mode during the night. It will mute any sounds and vibrations until the next alarm. You may choose to allow priority notifications, which you can configure in your device\'s settings.</string>
     <string name="sleep_settings_do_not_disturb">Do not disturb</string>
     <string name="sleep_settings_allow_priority_notifications">Allow priority notifications</string>
     <string name="sleep_settings_open_settings">Settings</string>
