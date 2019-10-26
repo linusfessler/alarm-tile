@@ -33,6 +33,7 @@ public class GeneralSettingsFragment extends SettingsFragment implements Drawabl
             R.drawable.ic_alarm_off_24px,
             R.drawable.ic_call_made_24px,
             R.drawable.ic_call_missed_outgoing_24px,
+            R.drawable.ic_check_24px,
             R.drawable.ic_dashboard_24px,
             R.drawable.ic_delete_24px,
             R.drawable.ic_extension_24px,
