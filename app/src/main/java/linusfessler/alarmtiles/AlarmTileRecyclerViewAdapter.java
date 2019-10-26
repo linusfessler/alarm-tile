@@ -60,7 +60,9 @@ public class AlarmTileRecyclerViewAdapter extends RecyclerView.Adapter<AlarmTile
 
         viewHolder.itemView.setOnLongClickListener(v -> {
             final String dialogTitle = alarmTile.getGeneralSettings().getName();
-            deleteDialog.setTitle(dialogTitle);
+            if (!dialogTitle.equals("")) {
+                deleteDialog.setTitle(dialogTitle);
+            }
 
             final String dialogYes = activity.getString(R.string.dialog_yes);
             deleteDialog.setButton(DialogInterface.BUTTON_POSITIVE, dialogYes, (dialog, which) ->

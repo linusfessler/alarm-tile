@@ -72,7 +72,9 @@ public class AlarmTileListAdapter extends BaseAdapter {
         final ImageView deleteView = convertView.findViewById(R.id.delete);
         deleteView.setOnClickListener(v -> {
             final String dialogTitle = alarmTile.getGeneralSettings().getName();
-            deleteDialog.setTitle(dialogTitle);
+            if (!dialogTitle.equals("")) {
+                deleteDialog.setTitle(dialogTitle);
+            }
 
             final String dialogYes = context.getString(R.string.dialog_yes);
             deleteDialog.setButton(DialogInterface.BUTTON_POSITIVE, dialogYes, (dialog, which) ->
