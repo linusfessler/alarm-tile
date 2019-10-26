@@ -12,7 +12,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -27,19 +26,13 @@ import linusfessler.alarmtiles.AppDatabase;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.databinding.FragmentSettingsContainerBinding;
 import linusfessler.alarmtiles.model.AlarmTile;
-import linusfessler.alarmtiles.viewmodel.GeneralSettingsViewModel;
 
 public class SettingsContainerFragment extends Fragment {
 
+    private AlarmTile alarmTile;
     private AppDatabase db;
     private FragmentManager fragmentManager;
     private NavController navController;
-
-    private GeneralSettingsFragment generalSettingsFragment;
-    private FallAsleepSettingsFragment fallAsleepSettingsFragment;
-    private SleepSettingsFragment sleepSettingsFragment;
-    private WakeUpSettingsFragment wakeUpSettingsFragment;
-    private SnoozeSettingsFragment snoozeSettingsFragment;
 
     private MaterialToolbar toolbar;
     private MaterialButton saveButton;
@@ -47,14 +40,22 @@ public class SettingsContainerFragment extends Fragment {
 
     private AlertDialog backConfirmationDialog;
 
+    @Override
+    public void onCreate(@Nullable final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        alarmTile = SettingsContainerFragmentArgs.fromBundle(requireArguments()).getAlarmTile();
+    }
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        final GeneralSettingsViewModel viewModel = ViewModelProviders.of(requireActivity()).get(GeneralSettingsViewModel.class);
+        // TODO: Create main view model
+        //final GeneralSettingsViewModel viewModel = ViewModelProviders.of(requireActivity()).get(GeneralSettingsViewModel.class);
         final FragmentSettingsContainerBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings_container, container, false);
-        binding.setViewModel(viewModel);
+        //binding.setViewModel(viewModel);
 
         toolbar = binding.toolbar;
         saveButton = binding.saveButton;
@@ -72,26 +73,13 @@ public class SettingsContainerFragment extends Fragment {
         fragmentManager = getChildFragmentManager();
         navController = Navigation.findNavController(requireActivity().findViewById(R.id.nav_host_fragment));
 
-        createFragments();
-
         initSaveButton();
         initBottomNavigation();
         initBackConfirmationDialog();
     }
 
-    private void createFragments() {
-        generalSettingsFragment = new GeneralSettingsFragment();
-        fallAsleepSettingsFragment = new FallAsleepSettingsFragment();
-        sleepSettingsFragment = new SleepSettingsFragment();
-        wakeUpSettingsFragment = new WakeUpSettingsFragment();
-        snoozeSettingsFragment = new SnoozeSettingsFragment();
-    }
-
     private void initSaveButton() {
         saveButton.setOnClickListener(v -> {
-            final GeneralSettingsViewModel viewModel = ViewModelProviders.of(requireActivity()).get(GeneralSettingsViewModel.class);
-            final AlarmTile alarmTile = viewModel.getAlarmTile();
-
             Executors.newSingleThreadExecutor().submit(() -> {
                 final AlarmTileDao alarmTiles = db.alarmTiles();
                 if (alarmTile.getId() == null) {
@@ -107,11 +95,11 @@ public class SettingsContainerFragment extends Fragment {
 
     private void initBottomNavigation() {
         bottomNavigation.setOnNavigationItemSelectedListener(item -> {
-            final SettingsFragment fragment = getFragmentForIndex(item.getItemId());
+            final SettingsFragment fragment = getFragmentFromMenuItemId(item.getItemId());
             setChildFragment(fragment);
             return true;
         });
-        setChildFragment(generalSettingsFragment);
+        setChildFragment(GeneralSettingsFragment.newInstance(alarmTile));
     }
 
     private void initBackConfirmationDialog() {
@@ -130,18 +118,18 @@ public class SettingsContainerFragment extends Fragment {
         });
     }
 
-    private SettingsFragment getFragmentForIndex(final int index) {
+    private SettingsFragment getFragmentFromMenuItemId(final int index) {
         switch (index) {
             case R.id.menu_general:
-                return generalSettingsFragment;
+                return GeneralSettingsFragment.newInstance(alarmTile);
             case R.id.menu_fall_asleep:
-                return fallAsleepSettingsFragment;
+                return FallAsleepSettingsFragment.newInstance(alarmTile);
             case R.id.menu_sleep:
-                return sleepSettingsFragment;
+                return SleepSettingsFragment.newInstance(alarmTile);
             case R.id.menu_wake_up:
-                return wakeUpSettingsFragment;
+                return WakeUpSettingsFragment.newInstance(alarmTile);
             case R.id.menu_snooze:
-                return snoozeSettingsFragment;
+                return SnoozeSettingsFragment.newInstance(alarmTile);
             default:
                 throw new IllegalStateException("Bottom navigation bar has unknown menu items.");
         }

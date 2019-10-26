@@ -2,13 +2,15 @@ package linusfessler.alarmtiles.model;
 
 import androidx.room.Ignore;
 
+import java.io.Serializable;
+
 import linusfessler.alarmtiles.R;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class GeneralSettings {
+public class GeneralSettings implements Serializable {
 
     private String name;
     private int iconResourceId;

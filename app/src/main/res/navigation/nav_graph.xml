@@ -21,7 +21,10 @@
     <fragment
         android:id="@+id/settingsContainerFragment"
         android:name="linusfessler.alarmtiles.fragments.SettingsContainerFragment"
-        android:label="fragment_settings_container"
-        tools:layout="@layout/fragment_settings_container" />
+        tools:layout="@layout/fragment_settings_container">
+        <argument
+            android:name="alarmTile"
+            app:argType="linusfessler.alarmtiles.model.AlarmTile" />
+    </fragment>
 
 </navigation>

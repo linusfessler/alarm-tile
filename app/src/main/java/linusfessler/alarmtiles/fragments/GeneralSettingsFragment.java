@@ -20,9 +20,12 @@ import linusfessler.alarmtiles.DigitalTimePickerDialog;
 import linusfessler.alarmtiles.DrawablePickerDialog;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.databinding.FragmentGeneralSettingsBinding;
+import linusfessler.alarmtiles.model.AlarmTile;
 import linusfessler.alarmtiles.viewmodel.GeneralSettingsViewModel;
 
 public class GeneralSettingsFragment extends SettingsFragment implements DrawablePickerDialog.OnDrawablePickedListener {
+
+    private static final String ALARM_TILE_ARG_NAME = "alarm_tile";
 
     private static final int[] ICON_RESOURCE_IDS = {
             R.drawable.ic_add_24px,
@@ -46,14 +49,31 @@ public class GeneralSettingsFragment extends SettingsFragment implements Drawabl
             R.drawable.ic_trending_up_24px,
     };
 
+    private AlarmTile alarmTile;
     private GeneralSettingsViewModel viewModel;
     private DrawablePickerDialog iconPickerDialog;
     private DigitalTimePickerDialog volumeTimePickerDialog;
     private DigitalTimePickerDialog dismissTimePickerDialog;
 
+    public static GeneralSettingsFragment newInstance(final AlarmTile alarmTile) {
+        final GeneralSettingsFragment fragment = new GeneralSettingsFragment();
+
+        final Bundle args = new Bundle();
+        args.putSerializable(ALARM_TILE_ARG_NAME, alarmTile);
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
     @Override
     public int getTitleResourceId() {
         return R.string.general_settings_title;
+    }
+
+    @Override
+    public void onCreate(@Nullable final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        alarmTile = (AlarmTile) requireArguments().get(ALARM_TILE_ARG_NAME);
     }
 
     @Nullable
@@ -61,7 +81,8 @@ public class GeneralSettingsFragment extends SettingsFragment implements Drawabl
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        viewModel = ViewModelProviders.of(requireActivity()).get(GeneralSettingsViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(GeneralSettingsViewModel.class);
+        viewModel.setAlarmTile(alarmTile);
         final FragmentGeneralSettingsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_general_settings, container, false);
         binding.setViewModel(viewModel);
 

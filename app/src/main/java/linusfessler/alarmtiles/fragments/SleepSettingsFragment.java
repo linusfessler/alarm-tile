@@ -17,16 +17,36 @@ import com.google.android.material.textview.MaterialTextView;
 import linusfessler.alarmtiles.DigitalTimePickerDialog;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.databinding.FragmentSleepSettingsBinding;
+import linusfessler.alarmtiles.model.AlarmTile;
 import linusfessler.alarmtiles.viewmodel.SleepSettingsViewModel;
 
 public class SleepSettingsFragment extends SettingsFragment implements TimePicker.OnTimeChangedListener {
 
+    private static final String ALARM_TILE_ARG_NAME = "alarm_tile";
+
+    private AlarmTile alarmTile;
     private SleepSettingsViewModel viewModel;
     private DigitalTimePickerDialog timePickerDialog;
+
+    public static SleepSettingsFragment newInstance(final AlarmTile alarmTile) {
+        final SleepSettingsFragment fragment = new SleepSettingsFragment();
+
+        final Bundle args = new Bundle();
+        args.putSerializable(ALARM_TILE_ARG_NAME, alarmTile);
+        fragment.setArguments(args);
+
+        return fragment;
+    }
 
     @Override
     public int getTitleResourceId() {
         return R.string.sleep_settings_title;
+    }
+
+    @Override
+    public void onCreate(@Nullable final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        alarmTile = (AlarmTile) requireArguments().get(ALARM_TILE_ARG_NAME);
     }
 
     @Nullable
@@ -34,7 +54,8 @@ public class SleepSettingsFragment extends SettingsFragment implements TimePicke
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        viewModel = ViewModelProviders.of(requireActivity()).get(SleepSettingsViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(SleepSettingsViewModel.class);
+        viewModel.setAlarmTile(alarmTile);
         final FragmentSleepSettingsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sleep_settings, container, false);
         binding.setViewModel(viewModel);
 

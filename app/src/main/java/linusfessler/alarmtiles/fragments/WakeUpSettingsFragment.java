@@ -19,18 +19,37 @@ import com.google.android.material.textview.MaterialTextView;
 
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.databinding.FragmentWakeUpSettingsBinding;
-import linusfessler.alarmtiles.viewmodel.SleepSettingsViewModel;
+import linusfessler.alarmtiles.model.AlarmTile;
 import linusfessler.alarmtiles.viewmodel.WakeUpSettingsViewModel;
 
 public class WakeUpSettingsFragment extends SettingsFragment implements TimePickerDialog.OnTimeSetListener {
 
+    private static final String ALARM_TILE_ARG_NAME = "alarm_tile";
+
+    private AlarmTile alarmTile;
     private WakeUpSettingsViewModel viewModel;
     private boolean is24Hours;
     private TimePickerDialog timePickerDialog;
 
+    public static WakeUpSettingsFragment newInstance(final AlarmTile alarmTile) {
+        final WakeUpSettingsFragment fragment = new WakeUpSettingsFragment();
+
+        final Bundle args = new Bundle();
+        args.putSerializable(ALARM_TILE_ARG_NAME, alarmTile);
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
     @Override
     public int getTitleResourceId() {
         return R.string.wake_up_settings_title;
+    }
+
+    @Override
+    public void onCreate(@Nullable final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        alarmTile = (AlarmTile) requireArguments().get(ALARM_TILE_ARG_NAME);
     }
 
     @Nullable
@@ -40,12 +59,10 @@ public class WakeUpSettingsFragment extends SettingsFragment implements TimePick
 
         final FragmentActivity activity = requireActivity();
 
-        viewModel = ViewModelProviders.of(requireActivity()).get(WakeUpSettingsViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(WakeUpSettingsViewModel.class);
+        viewModel.setAlarmTile(alarmTile);
         final FragmentWakeUpSettingsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_wake_up_settings, container, false);
         binding.setViewModel(viewModel);
-
-        final SleepSettingsViewModel sleepSettingsViewModel = ViewModelProviders.of(requireActivity()).get(SleepSettingsViewModel.class);
-        viewModel.setSleepSettingsTimerEnabled(sleepSettingsViewModel.isTimerEnabled());
 
         is24Hours = DateFormat.is24HourFormat(activity);
         viewModel.set24Hours(is24Hours);

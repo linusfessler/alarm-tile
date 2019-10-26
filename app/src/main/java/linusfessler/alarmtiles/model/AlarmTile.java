@@ -5,11 +5,13 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 @Data
 @Entity
-public class AlarmTile {
+public class AlarmTile implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private Long id;

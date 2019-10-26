@@ -2,12 +2,14 @@ package linusfessler.alarmtiles.model;
 
 import androidx.room.Ignore;
 
+import java.io.Serializable;
+
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class FallAsleepSettings {
+public class FallAsleepSettings implements Serializable {
 
     private boolean timerEnabled;
     private int timerHours;

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -55,13 +55,8 @@ public class AlarmTileRecyclerViewAdapter extends RecyclerView.Adapter<AlarmTile
         viewHolder.setName(alarmTile.getGeneralSettings().getName());
         viewHolder.setIconResourceId(alarmTile.getGeneralSettings().getIconResourceId());
 
-        //viewHolder.itemView.setOnClickListener(Navigation.createNavigateOnClickListener(MainFragmentDirections.actionMainFragmentToSettingsContainerFragment()));
-        viewHolder.itemView.setOnClickListener(v -> {
-            // TODO: Don't use view models for communication between fragments
-            mainFragment.initViewModels(alarmTile);
-            final NavController navController = Navigation.findNavController(activity.findViewById(R.id.nav_host_fragment));
-            navController.navigate(MainFragmentDirections.actionMainFragmentToSettingsContainerFragment());
-        });
+        final NavDirections direction = MainFragmentDirections.actionMainFragmentToSettingsContainerFragment(alarmTile);
+        viewHolder.itemView.setOnClickListener(Navigation.createNavigateOnClickListener(direction));
 
         viewHolder.itemView.setOnLongClickListener(v -> {
             final String dialogTitle = alarmTile.getGeneralSettings().getName();
