@@ -37,7 +37,7 @@ public class ExampleTile3Builder {
                 .timerEnabled(false)
                 .timerHours(0)
                 .timerMinutes(0)
-                .slowlyFadingMusicOut(false)
+                .slowlyDecreasingVolume(false)
                 .build();
 
         final SleepSettings sleepSettings = SleepSettings.builder()

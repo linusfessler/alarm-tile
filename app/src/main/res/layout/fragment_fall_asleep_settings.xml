@@ -22,10 +22,6 @@
             android:orientation="vertical"
             android:padding="@dimen/fragment_padding">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:text="@string/fall_asleep_settings_timer_info"
-                style="@style/Info" />
-
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -55,8 +51,8 @@
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/fall_asleep_settings_fade_music_out"
-                android:checked="@={viewModel.slowlyFadingMusicOut}"
+                android:text="@string/fall_asleep_settings_slowly_decrease_volume"
+                android:checked="@={viewModel.slowlyDecreasingVolume}"
                 android:enabled="@{viewModel.timerEnabled}"
                 tools:enabled="false" />
 

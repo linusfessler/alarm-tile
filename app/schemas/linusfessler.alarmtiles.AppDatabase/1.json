@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "cff6d531d4f9c846ba9b28a4e2cedae2",
+    "identityHash": "c258f0fc93800eab0cb52e5a57b66c0b",
     "entities": [
       {
         "tableName": "AlarmTile",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `general_name` TEXT, `general_iconResourceId` INTEGER, `general_showingNotification` INTEGER, `general_volumeTimerEnabled` INTEGER, `general_volumeTimerHours` INTEGER, `general_volumeTimerMinutes` INTEGER, `general_dismissTimerEnabled` INTEGER, `general_dismissTimerHours` INTEGER, `general_dismissTimerMinutes` INTEGER, `general_vibrating` INTEGER, `general_turningOnFlashlight` INTEGER, `fall_asleep_timerEnabled` INTEGER, `fall_asleep_timerHours` INTEGER, `fall_asleep_timerMinutes` INTEGER, `fall_asleep_slowlyFadingMusicOut` INTEGER, `sleep_timerEnabled` INTEGER, `sleep_timerHours` INTEGER, `sleep_timerMinutes` INTEGER, `sleep_enteringDoNotDisturb` INTEGER, `sleep_allowingPriorityNotifications` INTEGER, `wake_up_alarmEnabled` INTEGER, `wake_up_alarmHour` INTEGER, `wake_up_alarmMinute` INTEGER, `snooze_snoozeEnabled` INTEGER, `snooze_snoozeHours` INTEGER, `snooze_snoozeMinutes` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `general_name` TEXT, `general_iconResourceId` INTEGER, `general_showingNotification` INTEGER, `general_volumeTimerEnabled` INTEGER, `general_volumeTimerHours` INTEGER, `general_volumeTimerMinutes` INTEGER, `general_dismissTimerEnabled` INTEGER, `general_dismissTimerHours` INTEGER, `general_dismissTimerMinutes` INTEGER, `general_vibrating` INTEGER, `general_turningOnFlashlight` INTEGER, `fall_asleep_timerEnabled` INTEGER, `fall_asleep_timerHours` INTEGER, `fall_asleep_timerMinutes` INTEGER, `fall_asleep_slowlyDecreasingVolume` INTEGER, `sleep_timerEnabled` INTEGER, `sleep_timerHours` INTEGER, `sleep_timerMinutes` INTEGER, `sleep_enteringDoNotDisturb` INTEGER, `sleep_allowingPriorityNotifications` INTEGER, `wake_up_alarmEnabled` INTEGER, `wake_up_alarmHour` INTEGER, `wake_up_alarmMinute` INTEGER, `snooze_snoozeEnabled` INTEGER, `snooze_snoozeHours` INTEGER, `snooze_snoozeMinutes` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -99,8 +99,8 @@
             "notNull": false
           },
           {
-            "fieldPath": "fallAsleepSettings.slowlyFadingMusicOut",
-            "columnName": "fall_asleep_slowlyFadingMusicOut",
+            "fieldPath": "fallAsleepSettings.slowlyDecreasingVolume",
+            "columnName": "fall_asleep_slowlyDecreasingVolume",
             "affinity": "INTEGER",
             "notNull": false
           },
@@ -184,7 +184,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cff6d531d4f9c846ba9b28a4e2cedae2')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c258f0fc93800eab0cb52e5a57b66c0b')"
     ]
   }
 }

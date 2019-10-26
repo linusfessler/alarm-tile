@@ -47,13 +47,13 @@ public class FallAsleepSettingsViewModel extends ObservableViewModel {
     }
 
     @Bindable
-    public boolean isSlowlyFadingMusicOut() {
-        return alarmTile.getFallAsleepSettings().isSlowlyFadingMusicOut();
+    public boolean isSlowlyDecreasingVolume() {
+        return alarmTile.getFallAsleepSettings().isSlowlyDecreasingVolume();
     }
 
-    public void setSlowlyFadingMusicOut(final boolean slowlyFadingMusicOut) {
-        alarmTile.getFallAsleepSettings().setSlowlyFadingMusicOut(slowlyFadingMusicOut);
-        notifyPropertyChanged(BR.slowlyFadingMusicOut);
+    public void setSlowlyDecreasingVolume(final boolean slowlyDecreasingVolume) {
+        alarmTile.getFallAsleepSettings().setSlowlyDecreasingVolume(slowlyDecreasingVolume);
+        notifyPropertyChanged(BR.slowlyDecreasingVolume);
     }
 
     @Bindable({"timerHours", "timerMinutes"})

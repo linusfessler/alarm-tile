@@ -14,21 +14,21 @@ public class FallAsleepSettings implements Serializable {
     private boolean timerEnabled;
     private int timerHours;
     private int timerMinutes;
-    private boolean slowlyFadingMusicOut;
+    private boolean slowlyDecreasingVolume;
 
     @Ignore
     public FallAsleepSettings() {
         setTimerEnabled(false);
         setTimerHours(0);
         setTimerMinutes(30);
-        setSlowlyFadingMusicOut(false);
+        setSlowlyDecreasingVolume(false);
     }
 
-    public FallAsleepSettings(final boolean timerEnabled, final int timerHours, final int timerMinutes, final boolean slowlyFadingMusicOut) {
+    public FallAsleepSettings(final boolean timerEnabled, final int timerHours, final int timerMinutes, final boolean slowlyDecreasingVolume) {
         this.timerEnabled = timerEnabled;
         this.timerHours = timerHours;
         this.timerMinutes = timerMinutes;
-        this.slowlyFadingMusicOut = slowlyFadingMusicOut;
+        this.slowlyDecreasingVolume = slowlyDecreasingVolume;
     }
 
 }

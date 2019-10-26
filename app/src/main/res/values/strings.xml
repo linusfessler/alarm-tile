@@ -29,9 +29,8 @@
     <string name="general_settings_flashlight">Turn on flashlight during alarm</string>
 
     <string name="fall_asleep_settings_title">Fall asleep settings</string>
-    <string name="fall_asleep_settings_timer_info">Set a timer that stops all audio and video after the specified duration.</string>
-    <string name="fall_asleep_settings_timer">Timer</string>
-    <string name="fall_asleep_settings_fade_music_out">Slowly fade music out</string>
+    <string name="fall_asleep_settings_timer">Stop media playback after …</string>
+    <string name="fall_asleep_settings_slowly_decrease_volume">Slowly decrease volume to zero before stopping media playback</string>
 
     <string name="sleep_settings_title">Sleep settings</string>
     <string name="sleep_settings_timer_info">Set a timer that wakes you up after the specified duration.</string>
