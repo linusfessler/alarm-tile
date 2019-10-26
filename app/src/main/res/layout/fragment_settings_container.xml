@@ -2,14 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-        <variable
-            name="viewModel"
-            type="linusfessler.alarmtiles.viewmodel.GeneralSettingsViewModel" />
-
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -30,7 +22,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
             android:text="@string/button_save"
-            android:enabled="@{viewModel.valid}"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintEnd_toEndOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="@+id/toolbar" />

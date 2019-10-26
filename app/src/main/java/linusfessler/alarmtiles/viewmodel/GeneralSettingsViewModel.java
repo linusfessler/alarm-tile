@@ -13,8 +13,6 @@ public class GeneralSettingsViewModel extends ObservableViewModel {
 
     private final TimeFormatter timeFormatter = new TimeFormatter();
 
-    public static final String NAME_ERROR_TEXT = "Please enter a name";
-
     @Setter
     private AlarmTile alarmTile;
 
@@ -136,31 +134,6 @@ public class GeneralSettingsViewModel extends ObservableViewModel {
     @Bindable({"dismissTimerHours", "dismissTimerMinutes"})
     public String getDismissTimerDuration() {
         return timeFormatter.format(getDismissTimerHours(), getDismissTimerMinutes());
-    }
-
-    @Bindable("name")
-    public boolean isNameValid() {
-        return getName() != null && !getName().isEmpty();
-    }
-
-    @Bindable("name")
-    public boolean isNameErrorEnabled() {
-        return getName() != null && getName().isEmpty();
-    }
-
-    @Bindable("name")
-    public String getNameErrorText() {
-        return isNameErrorEnabled() ? NAME_ERROR_TEXT : null;
-    }
-
-    @Bindable("iconResourceId")
-    public boolean isIconResourceIdValid() {
-        return true;
-    }
-
-    @Bindable({"name", "iconResourceId"})
-    public boolean isValid() {
-        return isNameValid() && isIconResourceIdValid();
     }
 
 }

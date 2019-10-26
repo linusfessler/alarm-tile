@@ -26,7 +26,7 @@ public class GeneralSettings implements Serializable {
 
     @Ignore
     public GeneralSettings() {
-        setName(null);
+        setName("");
         setIconResourceId(R.drawable.ic_alarm_24px);
         setShowingNotification(true);
         setVolumeTimerEnabled(false);

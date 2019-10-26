@@ -46,16 +46,11 @@ public class SettingsContainerFragment extends Fragment {
         alarmTile = SettingsContainerFragmentArgs.fromBundle(requireArguments()).getAlarmTile();
     }
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-
-        // TODO: Create main view model
-        //final GeneralSettingsViewModel viewModel = ViewModelProviders.of(requireActivity()).get(GeneralSettingsViewModel.class);
         final FragmentSettingsContainerBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings_container, container, false);
-        //binding.setViewModel(viewModel);
 
         toolbar = binding.toolbar;
         saveButton = binding.saveButton;
