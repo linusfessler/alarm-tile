@@ -28,7 +28,6 @@ public class AlarmTileListAdapter extends BaseAdapter {
 
     private List<AlarmTile> alarmTiles = Collections.emptyList();
 
-
     public AlarmTileListAdapter(final Context context) {
         this.context = context.getApplicationContext();
         db = AppDatabase.getInstance(context);
@@ -72,8 +71,8 @@ public class AlarmTileListAdapter extends BaseAdapter {
 
         final ImageView deleteView = convertView.findViewById(R.id.delete);
         deleteView.setOnClickListener(v -> {
-            final String title = alarmTile.getGeneralSettings().getName();
-            deleteDialog.setTitle(title);
+            final String dialogTitle = alarmTile.getGeneralSettings().getName();
+            deleteDialog.setTitle(dialogTitle);
 
             final String dialogYes = context.getString(R.string.dialog_yes);
             deleteDialog.setButton(DialogInterface.BUTTON_POSITIVE, dialogYes, (dialog, which) ->

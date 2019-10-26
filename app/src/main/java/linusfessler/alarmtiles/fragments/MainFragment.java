@@ -1,24 +1,25 @@
 package linusfessler.alarmtiles.fragments;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-import linusfessler.alarmtiles.AlarmTileListAdapter;
+import linusfessler.alarmtiles.AlarmTileRecyclerViewAdapter;
 import linusfessler.alarmtiles.AppDatabase;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.model.AlarmTile;
@@ -30,7 +31,10 @@ import linusfessler.alarmtiles.viewmodel.WakeUpSettingsViewModel;
 
 public class MainFragment extends Fragment {
 
-    private AlarmTileListAdapter adapter;
+    private static final int PORTRAIT_QUICK_SETTINGS_COLUMNS = 3;
+    private static final int LANDSCAPE_QUICK_SETTINGS_COLUMNS = 4;
+
+    private AlarmTileRecyclerViewAdapter adapter;
 
     @Nullable
     @Override
@@ -42,32 +46,41 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final NavController navController = Navigation.findNavController(view);
+        initRecyclerView(view);
+        initFab(view);
+    }
+
+    private void initRecyclerView(final View root) {
+        final RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
+
+        final int orientation = getResources().getConfiguration().orientation;
+        final int quickSettingsColumns;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            quickSettingsColumns = PORTRAIT_QUICK_SETTINGS_COLUMNS;
+        } else {
+            quickSettingsColumns = LANDSCAPE_QUICK_SETTINGS_COLUMNS;
+        }
+        final GridLayoutManager layoutManager = new GridLayoutManager(requireContext(), quickSettingsColumns);
+        recyclerView.setLayoutManager(layoutManager);
+
+        adapter = new AlarmTileRecyclerViewAdapter(requireActivity(), this);
+        recyclerView.setAdapter(adapter);
 
         final AppDatabase db = AppDatabase.getInstance(requireContext());
-
         final LiveData<List<AlarmTile>> liveAlarmTiles = db.alarmTiles().selectAll();
-        adapter = new AlarmTileListAdapter(requireContext());
         liveAlarmTiles.observeForever(adapter::setAlarmTiles);
+    }
 
-        final ListView list = view.findViewById(R.id.list);
-        list.setAdapter(adapter);
-
-        list.setOnItemClickListener((parent, itemView, position, id) -> {
-            final AlarmTile alarmTile = adapter.getItem(position);
-            initViewModels(alarmTile);
-            navController.navigate(MainFragmentDirections.actionMainFragmentToSettingsContainerFragment());
-        });
-
-        final FloatingActionButton button = view.findViewById(R.id.fab);
+    private void initFab(final View root) {
+        final FloatingActionButton button = root.findViewById(R.id.fab);
         button.setOnClickListener(v -> {
             final AlarmTile alarmTile = new AlarmTile();
             initViewModels(alarmTile);
-            navController.navigate(MainFragmentDirections.actionMainFragmentToSettingsContainerFragment());
+            Navigation.findNavController(root).navigate(MainFragmentDirections.actionMainFragmentToSettingsContainerFragment());
         });
     }
 
-    private void initViewModels(final AlarmTile alarmTile) {
+    public void initViewModels(final AlarmTile alarmTile) {
         final GeneralSettingsViewModel generalSettingsViewModel = ViewModelProviders.of(requireActivity()).get(GeneralSettingsViewModel.class);
         final FallAsleepSettingsViewModel fallAsleepSettingsViewModel = ViewModelProviders.of(requireActivity()).get(FallAsleepSettingsViewModel.class);
         final SleepSettingsViewModel sleepSettingsViewModel = ViewModelProviders.of(requireActivity()).get(SleepSettingsViewModel.class);
