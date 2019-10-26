@@ -1,6 +1,7 @@
 package linusfessler.alarmtiles.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 
 import linusfessler.alarmtiles.DigitalTimePickerDialog;
@@ -23,10 +25,14 @@ import linusfessler.alarmtiles.viewmodel.SleepSettingsViewModel;
 public class SleepSettingsFragment extends SettingsFragment implements TimePicker.OnTimeChangedListener {
 
     private static final String ALARM_TILE_ARG_NAME = "alarm_tile";
+    private static final String ACTION_ZEN_MODE_PRIORITY_SETTINGS = "android.settings.ZEN_MODE_PRIORITY_SETTINGS";
 
     private AlarmTile alarmTile;
     private SleepSettingsViewModel viewModel;
     private DigitalTimePickerDialog timePickerDialog;
+
+    private MaterialTextView timerDuration;
+    private MaterialButton openSettingsButton;
 
     public static SleepSettingsFragment newInstance(final AlarmTile alarmTile) {
         final SleepSettingsFragment fragment = new SleepSettingsFragment();
@@ -59,24 +65,32 @@ public class SleepSettingsFragment extends SettingsFragment implements TimePicke
         final FragmentSleepSettingsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sleep_settings, container, false);
         binding.setViewModel(viewModel);
 
+        timerDuration = binding.timerDuration;
+        openSettingsButton = binding.openSettingsButton;
+
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initTimePicker(view);
+        initTimePicker();
+        initOpenSettingsButton();
     }
 
-    private void initTimePicker(final View root) {
+    private void initTimePicker() {
         final Context context = requireContext();
         final int hours = viewModel.getTimerHours();
         final int minutes = viewModel.getTimerMinutes();
-
         timePickerDialog = new DigitalTimePickerDialog(context, this, hours, minutes, true);
-
-        final MaterialTextView timerDuration = root.findViewById(R.id.timer_duration);
         timerDuration.setOnClickListener(v -> timePickerDialog.show());
+    }
+
+    private void initOpenSettingsButton() {
+        openSettingsButton.setOnClickListener(v -> {
+            final Intent intent = new Intent(ACTION_ZEN_MODE_PRIORITY_SETTINGS);
+            startActivity(intent);
+        });
     }
 
     @Override

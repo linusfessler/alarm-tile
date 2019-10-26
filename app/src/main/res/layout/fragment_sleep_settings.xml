@@ -62,14 +62,34 @@
                 android:text="@string/sleep_settings_do_not_disturb"
                 android:checked="@={viewModel.enteringDoNotDisturb}" />
 
-            <com.google.android.material.checkbox.MaterialCheckBox
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/setting_height"
-                android:gravity="center_vertical"
-                android:text="@string/sleep_settings_allow_priority_notifications"
-                android:checked="@={viewModel.allowingPriorityNotifications}"
-                android:enabled="@{viewModel.enteringDoNotDisturb}"
-                tools:enabled="false" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/setting_height"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/sleep_settings_allow_priority_notifications"
+                    android:checked="@={viewModel.allowingPriorityNotifications}"
+                    android:enabled="@{viewModel.enteringDoNotDisturb}"
+                    tools:enabled="false" />
+
+                <Space
+                    android:layout_width="6dp"
+                    android:layout_height="match_parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/open_settings_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sleep_settings_open_settings"
+                    android:enabled="@{viewModel.enteringDoNotDisturb}"
+                    tools:enabled="false" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
