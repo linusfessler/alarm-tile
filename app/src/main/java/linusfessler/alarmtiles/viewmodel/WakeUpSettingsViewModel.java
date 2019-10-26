@@ -19,9 +19,6 @@ public class WakeUpSettingsViewModel extends ObservableViewModel {
     @Setter
     private boolean is24Hours;
 
-    @Setter
-    private boolean isSleepSettingsTimerEnabled;
-
     @Bindable
     public boolean isAlarmEnabled() {
         return alarmTile.getWakeUpSettings().isAlarmEnabled();
@@ -54,7 +51,7 @@ public class WakeUpSettingsViewModel extends ObservableViewModel {
 
     @Bindable("alarmEnabled")
     public boolean isShowingBothTimerAndAlarmInfo() {
-        return isAlarmEnabled() && isSleepSettingsTimerEnabled;
+        return isAlarmEnabled() && alarmTile.getSleepSettings().isTimerEnabled();
     }
 
     @Bindable({"alarmHour", "alarmMinute"})
