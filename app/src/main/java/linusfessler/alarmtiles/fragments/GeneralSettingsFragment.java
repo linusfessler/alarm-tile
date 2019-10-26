@@ -25,17 +25,25 @@ import linusfessler.alarmtiles.viewmodel.GeneralSettingsViewModel;
 public class GeneralSettingsFragment extends SettingsFragment implements DrawablePickerDialog.OnDrawablePickedListener {
 
     private static final int[] ICON_RESOURCE_IDS = {
+            R.drawable.ic_add_24px,
             R.drawable.ic_alarm_24px,
             R.drawable.ic_alarm_off_24px,
-            R.drawable.ic_timer_24px,
-            R.drawable.ic_timer_off_24px,
-            R.drawable.ic_snooze_24px,
-            R.drawable.ic_schedule_24px,
-            R.drawable.ic_info_24px,
-            R.drawable.ic_add_24px,
+            R.drawable.ic_call_made_24px,
+            R.drawable.ic_call_missed_outgoing_24px,
+            R.drawable.ic_dashboard_24px,
             R.drawable.ic_delete_24px,
+            R.drawable.ic_extension_24px,
+            R.drawable.ic_format_list_bulleted_24px,
+            R.drawable.ic_info_24px,
             R.drawable.ic_music_off_24px,
             R.drawable.ic_notifications_active_24px,
+            R.drawable.ic_schedule_24px,
+            R.drawable.ic_snooze_24px,
+            R.drawable.ic_timer_24px,
+            R.drawable.ic_timer_off_24px,
+            R.drawable.ic_trending_down_24px,
+            R.drawable.ic_trending_flat_24px,
+            R.drawable.ic_trending_up_24px,
     };
 
     private GeneralSettingsViewModel viewModel;
