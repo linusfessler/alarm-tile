@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -10,7 +11,11 @@
         android:id="@+id/button"
         android:layout_width="@dimen/alarm_tile_size"
         android:layout_height="@dimen/alarm_tile_size"
-        android:layout_centerHorizontal="true">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".4">
 
         <ImageView
             android:layout_width="match_parent"
@@ -23,11 +28,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:padding="@dimen/alarm_tile_padding"
-            android:tint="@color/quickSettingsIconDisabled"
             android:background="@drawable/bg_round_ripple"
             android:backgroundTint="@color/quickSettingsBackgroundDisabled"
             android:clickable="false"
+            android:padding="@dimen/alarm_tile_padding"
+            android:tint="@color/quickSettingsIconDisabled"
             tools:src="@drawable/ic_alarm_24px" />
 
     </RelativeLayout>
@@ -38,13 +43,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/button"
         android:layout_marginTop="8dp"
-        android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
+        android:lines="2"
+        android:maxLines="2"
+        android:minLines="2"
         android:textColor="@color/colorOnBackground"
         android:textSize="12sp"
-        android:lines="2"
-        android:minLines="2"
-        android:maxLines="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"
         tools:text="123456789012345" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
