@@ -1,6 +1,5 @@
 package linusfessler.alarmtiles.fragments;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,24 +11,19 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-import linusfessler.alarmtiles.AlarmTileRecyclerViewAdapter;
+import linusfessler.alarmtiles.AlarmTilePageConfiguration;
+import linusfessler.alarmtiles.AlarmTilePageFragmentAdapter;
 import linusfessler.alarmtiles.AppDatabase;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.model.AlarmTile;
 
 public class MainFragment extends Fragment {
-
-    private static final int PORTRAIT_QUICK_SETTINGS_COLUMNS = 3;
-    private static final int LANDSCAPE_QUICK_SETTINGS_COLUMNS = 4;
-
-    private AlarmTileRecyclerViewAdapter adapter;
 
     @Nullable
     @Override
@@ -41,25 +35,18 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initRecyclerView(view);
+        initViewPager(view);
         initFab(view);
     }
 
-    private void initRecyclerView(final View root) {
-        final RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
+    private void initViewPager(final View root) {
+        final ViewPager2 viewPager = root.findViewById(R.id.view_pager);
 
         final int orientation = getResources().getConfiguration().orientation;
-        final int quickSettingsColumns;
-        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-            quickSettingsColumns = PORTRAIT_QUICK_SETTINGS_COLUMNS;
-        } else {
-            quickSettingsColumns = LANDSCAPE_QUICK_SETTINGS_COLUMNS;
-        }
-        final GridLayoutManager layoutManager = new GridLayoutManager(requireContext(), quickSettingsColumns);
-        recyclerView.setLayoutManager(layoutManager);
+        final AlarmTilePageConfiguration pageConfiguration = AlarmTilePageConfiguration.fromOrientation(orientation);
 
-        adapter = new AlarmTileRecyclerViewAdapter(requireActivity(), this);
-        recyclerView.setAdapter(adapter);
+        final AlarmTilePageFragmentAdapter adapter = new AlarmTilePageFragmentAdapter(this, pageConfiguration.getCount());
+        viewPager.setAdapter(adapter);
 
         final AppDatabase db = AppDatabase.getInstance(requireContext());
         final LiveData<List<AlarmTile>> liveAlarmTiles = db.alarmTiles().selectAll();
@@ -73,9 +60,4 @@ public class MainFragment extends Fragment {
         button.setOnClickListener(Navigation.createNavigateOnClickListener(direction));
     }
 
-    @Override
-    public void onDestroyView() {
-        adapter.dismissDeleteDialog();
-        super.onDestroyView();
-    }
 }

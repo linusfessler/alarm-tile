@@ -35,8 +35,7 @@ public class AlarmTileListAdapter extends BaseAdapter {
 
         deleteDialog = new AlertDialog.Builder(context)
                 .setMessage(R.string.dialog_delete_message)
-                .setNegativeButton(R.string.dialog_no, (dialog, which) -> {
-                })
+                .setNegativeButton(R.string.dialog_no, null)
                 .create();
     }
 
