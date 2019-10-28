@@ -30,7 +30,8 @@
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/activity_main_title"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustNothing" />
 
         <activity
             android:name=".activities.SettingsActivity"

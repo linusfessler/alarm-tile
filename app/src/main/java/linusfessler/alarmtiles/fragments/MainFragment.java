@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 
 import java.util.List;
 
@@ -47,6 +48,9 @@ public class MainFragment extends Fragment {
 
         final AlarmTilePageFragmentAdapter adapter = new AlarmTilePageFragmentAdapter(this, pageConfiguration.getCount());
         viewPager.setAdapter(adapter);
+
+        final WormDotsIndicator pageIndicator = root.findViewById(R.id.page_indicator);
+        pageIndicator.setViewPager2(viewPager);
 
         final AppDatabase db = AppDatabase.getInstance(requireContext());
         final LiveData<List<AlarmTile>> liveAlarmTiles = db.alarmTiles().selectAll();
