@@ -51,10 +51,14 @@ public class MainFragment extends Fragment {
 
         final WormDotsIndicator pageIndicator = root.findViewById(R.id.page_indicator);
         pageIndicator.setViewPager2(viewPager);
+        pageIndicator.setVisibility(View.INVISIBLE);
 
         final AppDatabase db = AppDatabase.getInstance(requireContext());
         final LiveData<List<AlarmTile>> liveAlarmTiles = db.alarmTiles().selectAll();
-        liveAlarmTiles.observeForever(adapter::setAlarmTiles);
+        liveAlarmTiles.observeForever(alarmTiles -> {
+            adapter.setAlarmTiles(alarmTiles);
+            pageIndicator.setVisibility(alarmTiles.size() <= pageConfiguration.getCount() ? View.INVISIBLE : View.VISIBLE);
+        });
     }
 
     private void initFab(final View root) {
