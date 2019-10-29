@@ -23,7 +23,7 @@
 
     <string name="general_settings_title">General settings</string>
     <string name="general_settings_name_hint">Alarm tile name</string>
-    <string name="general_settings_notification">Show notification for next alarm</string>
+    <string name="general_settings_notification">Show notification for next event</string>
     <string name="general_settings_volume_timer">Gradually increase alarm volume over\u00A0…</string>
     <string name="general_settings_dismiss_timer">Automatically dismiss alarms after\u00A0…</string>
     <string name="general_settings_vibrate">Vibrate during alarm</string>
