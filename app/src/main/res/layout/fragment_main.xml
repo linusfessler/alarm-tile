@@ -34,16 +34,16 @@
         app:dotsStrokeColor="@color/quickSettingsIndicatorDisabled"
         app:dotsStrokeWidth="3dp"
         android:layout_marginBottom="@dimen/fragment_padding"
-        app:layout_constraintBottom_toTopOf="@id/fab"
+        app:layout_constraintBottom_toTopOf="@id/new_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/new_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/fragment_padding"
-        android:src="@drawable/ic_add_24px"
+        android:text="@string/button_new"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
