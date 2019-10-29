@@ -27,10 +27,10 @@ public class ExampleTile1Builder {
                 .build();
 
         final FallAsleepSettings fallAsleepSettings = FallAsleepSettings.builder()
-                .timerEnabled(true)
+                .timerEnabled(false)
                 .timerHours(0)
-                .timerMinutes(30)
-                .slowlyDecreasingVolume(true)
+                .timerMinutes(0)
+                .slowlyDecreasingVolume(false)
                 .build();
 
         final SleepSettings sleepSettings = SleepSettings.builder()
