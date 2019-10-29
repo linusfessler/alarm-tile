@@ -7,7 +7,6 @@ import linusfessler.alarmtiles.model.AlarmTile;
 import linusfessler.alarmtiles.model.FallAsleepSettings;
 import linusfessler.alarmtiles.model.GeneralSettings;
 import linusfessler.alarmtiles.model.SleepSettings;
-import linusfessler.alarmtiles.model.SnoozeSettings;
 import linusfessler.alarmtiles.model.WakeUpSettings;
 
 public class ExampleTile3Builder {
@@ -25,14 +24,6 @@ public class ExampleTile3Builder {
                 .name(context.getResources().getString(R.string.example_tile_3))
                 .iconResourceName(iconResourceName)
                 .showingNotification(true)
-                .volumeTimerEnabled(false)
-                .volumeTimerHours(0)
-                .volumeTimerMinutes(0)
-                .dismissTimerEnabled(true)
-                .dismissTimerHours(5)
-                .dismissTimerMinutes(0)
-                .vibrating(false)
-                .turningOnFlashlight(false)
                 .build();
 
         final FallAsleepSettings fallAsleepSettings = FallAsleepSettings.builder()
@@ -43,9 +34,6 @@ public class ExampleTile3Builder {
                 .build();
 
         final SleepSettings sleepSettings = SleepSettings.builder()
-                .timerEnabled(true)
-                .timerHours(1)
-                .timerMinutes(0)
                 .enteringDoNotDisturb(false)
                 .allowingPriorityNotifications(false)
                 .build();
@@ -54,15 +42,23 @@ public class ExampleTile3Builder {
                 .alarmEnabled(false)
                 .alarmHour(0)
                 .alarmMinute(0)
-                .build();
-
-        final SnoozeSettings snoozeSettings = SnoozeSettings.builder()
+                .timerEnabled(true)
+                .timerHours(1)
+                .timerMinutes(0)
                 .snoozeEnabled(false)
                 .snoozeHours(0)
                 .snoozeMinutes(0)
+                .volumeTimerEnabled(false)
+                .volumeTimerHours(0)
+                .volumeTimerMinutes(0)
+                .dismissTimerEnabled(true)
+                .dismissTimerHours(5)
+                .dismissTimerMinutes(0)
+                .vibrating(false)
+                .turningOnFlashlight(false)
                 .build();
 
-        return new AlarmTile(generalSettings, fallAsleepSettings, sleepSettings, wakeUpSettings, snoozeSettings);
+        return new AlarmTile(generalSettings, fallAsleepSettings, sleepSettings, wakeUpSettings);
     }
 
 }

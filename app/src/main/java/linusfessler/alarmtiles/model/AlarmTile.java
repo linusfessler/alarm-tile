@@ -30,24 +30,19 @@ public class AlarmTile implements Serializable {
     @Embedded(prefix = "wake_up_")
     private WakeUpSettings wakeUpSettings;
 
-    @Embedded(prefix = "snooze_")
-    private SnoozeSettings snoozeSettings;
-
     @Ignore
     public AlarmTile(final Context context) {
         this.generalSettings = new GeneralSettings(context);
         this.fallAsleepSettings = new FallAsleepSettings();
         this.sleepSettings = new SleepSettings();
         this.wakeUpSettings = new WakeUpSettings();
-        this.snoozeSettings = new SnoozeSettings();
     }
 
-    public AlarmTile(final GeneralSettings generalSettings, final FallAsleepSettings fallAsleepSettings, final SleepSettings sleepSettings, final WakeUpSettings wakeUpSettings, final SnoozeSettings snoozeSettings) {
+    public AlarmTile(final GeneralSettings generalSettings, final FallAsleepSettings fallAsleepSettings, final SleepSettings sleepSettings, final WakeUpSettings wakeUpSettings) {
         this.generalSettings = generalSettings;
         this.fallAsleepSettings = fallAsleepSettings;
         this.sleepSettings = sleepSettings;
         this.wakeUpSettings = wakeUpSettings;
-        this.snoozeSettings = snoozeSettings;
     }
 
 }

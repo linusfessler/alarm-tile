@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "42ff6d4f0b4a222976927f78946dd6c1",
+    "identityHash": "eca71ce150ecbfaf3dffe6a008a434e3",
     "entities": [
       {
         "tableName": "AlarmTile",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `general_name` TEXT, `general_iconResourceName` TEXT, `general_showingNotification` INTEGER, `general_volumeTimerEnabled` INTEGER, `general_volumeTimerHours` INTEGER, `general_volumeTimerMinutes` INTEGER, `general_dismissTimerEnabled` INTEGER, `general_dismissTimerHours` INTEGER, `general_dismissTimerMinutes` INTEGER, `general_vibrating` INTEGER, `general_turningOnFlashlight` INTEGER, `fall_asleep_timerEnabled` INTEGER, `fall_asleep_timerHours` INTEGER, `fall_asleep_timerMinutes` INTEGER, `fall_asleep_slowlyDecreasingVolume` INTEGER, `sleep_timerEnabled` INTEGER, `sleep_timerHours` INTEGER, `sleep_timerMinutes` INTEGER, `sleep_enteringDoNotDisturb` INTEGER, `sleep_allowingPriorityNotifications` INTEGER, `wake_up_alarmEnabled` INTEGER, `wake_up_alarmHour` INTEGER, `wake_up_alarmMinute` INTEGER, `snooze_snoozeEnabled` INTEGER, `snooze_snoozeHours` INTEGER, `snooze_snoozeMinutes` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `general_name` TEXT, `general_iconResourceName` TEXT, `general_showingNotification` INTEGER, `fall_asleep_timerEnabled` INTEGER, `fall_asleep_timerHours` INTEGER, `fall_asleep_timerMinutes` INTEGER, `fall_asleep_slowlyDecreasingVolume` INTEGER, `sleep_enteringDoNotDisturb` INTEGER, `sleep_allowingPriorityNotifications` INTEGER, `wake_up_alarmEnabled` INTEGER, `wake_up_alarmHour` INTEGER, `wake_up_alarmMinute` INTEGER, `wake_up_timerEnabled` INTEGER, `wake_up_timerHours` INTEGER, `wake_up_timerMinutes` INTEGER, `wake_up_snoozeEnabled` INTEGER, `wake_up_snoozeHours` INTEGER, `wake_up_snoozeMinutes` INTEGER, `wake_up_volumeTimerEnabled` INTEGER, `wake_up_volumeTimerHours` INTEGER, `wake_up_volumeTimerMinutes` INTEGER, `wake_up_dismissTimerEnabled` INTEGER, `wake_up_dismissTimerHours` INTEGER, `wake_up_dismissTimerMinutes` INTEGER, `wake_up_vibrating` INTEGER, `wake_up_turningOnFlashlight` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -33,54 +33,6 @@
             "notNull": false
           },
           {
-            "fieldPath": "generalSettings.volumeTimerEnabled",
-            "columnName": "general_volumeTimerEnabled",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "generalSettings.volumeTimerHours",
-            "columnName": "general_volumeTimerHours",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "generalSettings.volumeTimerMinutes",
-            "columnName": "general_volumeTimerMinutes",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "generalSettings.dismissTimerEnabled",
-            "columnName": "general_dismissTimerEnabled",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "generalSettings.dismissTimerHours",
-            "columnName": "general_dismissTimerHours",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "generalSettings.dismissTimerMinutes",
-            "columnName": "general_dismissTimerMinutes",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "generalSettings.vibrating",
-            "columnName": "general_vibrating",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "generalSettings.turningOnFlashlight",
-            "columnName": "general_turningOnFlashlight",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
             "fieldPath": "fallAsleepSettings.timerEnabled",
             "columnName": "fall_asleep_timerEnabled",
             "affinity": "INTEGER",
@@ -101,24 +53,6 @@
           {
             "fieldPath": "fallAsleepSettings.slowlyDecreasingVolume",
             "columnName": "fall_asleep_slowlyDecreasingVolume",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "sleepSettings.timerEnabled",
-            "columnName": "sleep_timerEnabled",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "sleepSettings.timerHours",
-            "columnName": "sleep_timerHours",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "sleepSettings.timerMinutes",
-            "columnName": "sleep_timerMinutes",
             "affinity": "INTEGER",
             "notNull": false
           },
@@ -153,20 +87,86 @@
             "notNull": false
           },
           {
-            "fieldPath": "snoozeSettings.snoozeEnabled",
-            "columnName": "snooze_snoozeEnabled",
+            "fieldPath": "wakeUpSettings.timerEnabled",
+            "columnName": "wake_up_timerEnabled",
             "affinity": "INTEGER",
             "notNull": false
           },
           {
-            "fieldPath": "snoozeSettings.snoozeHours",
-            "columnName": "snooze_snoozeHours",
+            "fieldPath": "wakeUpSettings.timerHours",
+            "columnName": "wake_up_timerHours",
             "affinity": "INTEGER",
             "notNull": false
           },
           {
-            "fieldPath": "snoozeSettings.snoozeMinutes",
-            "columnName": "snooze_snoozeMinutes",
+            "fieldPath": "wakeUpSettings.timerMinutes",
+            "columnName": "wake_up_timerMinutes",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "wakeUpSettings.snoozeEnabled",
+            "columnName": "wake_up_snoozeEnabled",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "wakeUpSettings.snoozeHours",
+            "columnName": "wake_up_snoozeHours",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "wakeUpSettings.snoozeMinutes",
+            "columnName": "wake_up_snoozeMinutes",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "wakeUpSettings.volumeTimerEnabled",
+            "columnName": "wake_up_volumeTimerEnabled",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "wakeUpSettings.volumeTimerHours",
+            "columnName": "wake_up_volumeTimerHours",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "wakeUpSettings.volumeTimerMinutes",
+            "columnName": "wake_up_volumeTimerMinutes",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "wakeUpSettings.dismissTimerEnabled",
+            "columnName": "wake_up_dismissTimerEnabled",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "wakeUpSettings.dismissTimerHours",
+            "columnName": "wake_up_dismissTimerHours",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "wakeUpSettings.dismissTimerMinutes",
+            "columnName": "wake_up_dismissTimerMinutes",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "wakeUpSettings.vibrating",
+            "columnName": "wake_up_vibrating",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "wakeUpSettings.turningOnFlashlight",
+            "columnName": "wake_up_turningOnFlashlight",
             "affinity": "INTEGER",
             "notNull": false
           }
@@ -184,7 +184,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '42ff6d4f0b4a222976927f78946dd6c1')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'eca71ce150ecbfaf3dffe6a008a434e3')"
     ]
   }
 }

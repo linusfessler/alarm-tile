@@ -123,8 +123,6 @@ public class SettingsContainerFragment extends Fragment {
                 return SleepSettingsFragment.newInstance(alarmTile);
             case R.id.menu_wake_up:
                 return WakeUpSettingsFragment.newInstance(alarmTile);
-            case R.id.menu_snooze:
-                return SnoozeSettingsFragment.newInstance(alarmTile);
             default:
                 throw new IllegalStateException("Bottom navigation bar has unknown menu items.");
         }

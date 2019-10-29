@@ -46,6 +46,11 @@ public class FallAsleepSettingsViewModel extends ObservableViewModel {
         notifyPropertyChanged(BR.timerMinutes);
     }
 
+    @Bindable({"timerHours", "timerMinutes"})
+    public String getTimerDuration() {
+        return timeFormatter.format(getTimerHours(), getTimerMinutes());
+    }
+
     @Bindable
     public boolean isSlowlyDecreasingVolume() {
         return alarmTile.getFallAsleepSettings().isSlowlyDecreasingVolume();
@@ -54,11 +59,6 @@ public class FallAsleepSettingsViewModel extends ObservableViewModel {
     public void setSlowlyDecreasingVolume(final boolean slowlyDecreasingVolume) {
         alarmTile.getFallAsleepSettings().setSlowlyDecreasingVolume(slowlyDecreasingVolume);
         notifyPropertyChanged(BR.slowlyDecreasingVolume);
-    }
-
-    @Bindable({"timerHours", "timerMinutes"})
-    public String getTimerDuration() {
-        return timeFormatter.format(getTimerHours(), getTimerMinutes());
     }
 
 }

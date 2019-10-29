@@ -43,6 +43,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:menu="@menu/bottom_navigation_menu"
+            app:labelVisibilityMode="labeled"
             style="@style/Widget.MaterialComponents.BottomNavigationView.Colored" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

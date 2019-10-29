@@ -17,19 +17,24 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.textview.MaterialTextView;
 
+import linusfessler.alarmtiles.DigitalTimePickerDialog;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.databinding.FragmentWakeUpSettingsBinding;
 import linusfessler.alarmtiles.model.AlarmTile;
 import linusfessler.alarmtiles.viewmodel.WakeUpSettingsViewModel;
 
-public class WakeUpSettingsFragment extends SettingsFragment implements TimePickerDialog.OnTimeSetListener {
+public class WakeUpSettingsFragment extends SettingsFragment {
 
     private static final String ALARM_TILE_ARG_NAME = "alarm_tile";
 
     private AlarmTile alarmTile;
     private WakeUpSettingsViewModel viewModel;
     private boolean is24Hours;
-    private TimePickerDialog timePickerDialog;
+    private TimePickerDialog alarmTimePickerDialog;
+    private DigitalTimePickerDialog timerTimePickerDialog;
+    private DigitalTimePickerDialog snoozeTimePickerDialog;
+    private DigitalTimePickerDialog volumeTimerTimePickerDialog;
+    private DigitalTimePickerDialog dismissTimerTimePickerDialog;
 
     public static WakeUpSettingsFragment newInstance(final AlarmTile alarmTile) {
         final WakeUpSettingsFragment fragment = new WakeUpSettingsFragment();
@@ -73,29 +78,95 @@ public class WakeUpSettingsFragment extends SettingsFragment implements TimePick
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initTimePicker(view);
+        initAlarmTimePicker(view);
+        initTimerTimePicker(view);
+        initSnoozeTimePicker(view);
+        initVolumeTimerTimePicker(view);
+        initDismissTimerTimePicker(view);
     }
 
-    private void initTimePicker(final View root) {
+    private void initAlarmTimePicker(final View root) {
         final Context context = requireContext();
         final int alarmHour = viewModel.getAlarmHour();
         final int alarmMinute = viewModel.getAlarmMinute();
+        final TimePickerDialog.OnTimeSetListener listener = (view, newAlarmHour, newAlarmMinute) -> {
+            viewModel.setAlarmHour(newAlarmHour);
+            viewModel.setAlarmMinute(newAlarmMinute);
+        };
 
-        timePickerDialog = new TimePickerDialog(context, this, alarmHour, alarmMinute, is24Hours);
+        alarmTimePickerDialog = new TimePickerDialog(context, listener, alarmHour, alarmMinute, is24Hours);
 
         final MaterialTextView alarmTime = root.findViewById(R.id.alarm_time);
-        alarmTime.setOnClickListener(v -> timePickerDialog.show());
+        alarmTime.setOnClickListener(v -> alarmTimePickerDialog.show());
     }
 
-    @Override
-    public void onTimeSet(final TimePicker view, final int alarmHour, final int alarmMinute) {
-        viewModel.setAlarmHour(alarmHour);
-        viewModel.setAlarmMinute(alarmMinute);
+    private void initTimerTimePicker(final View root) {
+        final Context context = requireContext();
+        final int timerHours = viewModel.getTimerHours();
+        final int timerMinutes = viewModel.getTimerMinutes();
+        final TimePicker.OnTimeChangedListener listener = (view, newTimerHours, newTimerMinutes) -> {
+            viewModel.setTimerHours(newTimerHours);
+            viewModel.setTimerMinutes(newTimerMinutes);
+        };
+
+        timerTimePickerDialog = new DigitalTimePickerDialog(context, listener, timerHours, timerMinutes, true);
+
+        final MaterialTextView timerDuration = root.findViewById(R.id.timer_duration);
+        timerDuration.setOnClickListener(v -> timerTimePickerDialog.show());
+    }
+
+    private void initSnoozeTimePicker(final View root) {
+        final Context context = requireContext();
+        final int snoozeHours = viewModel.getSnoozeHours();
+        final int snoozeMinutes = viewModel.getSnoozeMinutes();
+        final TimePicker.OnTimeChangedListener listener = (view, newSnoozeHours, newSnoozeMinutes) -> {
+            viewModel.setSnoozeHours(newSnoozeHours);
+            viewModel.setSnoozeMinutes(newSnoozeMinutes);
+        };
+
+        snoozeTimePickerDialog = new DigitalTimePickerDialog(context, listener, snoozeHours, snoozeMinutes, true);
+
+        final MaterialTextView snoozeDuration = root.findViewById(R.id.snooze_duration);
+        snoozeDuration.setOnClickListener(v -> snoozeTimePickerDialog.show());
+    }
+
+    private void initVolumeTimerTimePicker(final View root) {
+        final Context context = requireContext();
+        final int volumeHours = viewModel.getVolumeTimerHours();
+        final int volumeMinutes = viewModel.getVolumeTimerMinutes();
+        final TimePicker.OnTimeChangedListener listener = (view, newVolumeHours, newVolumeMinutes) -> {
+            viewModel.setVolumeTimerHours(newVolumeHours);
+            viewModel.setVolumeTimerMinutes(newVolumeMinutes);
+        };
+
+        volumeTimerTimePickerDialog = new DigitalTimePickerDialog(context, listener, volumeHours, volumeMinutes, true);
+
+        final MaterialTextView volumeTimerDuration = root.findViewById(R.id.volume_timer_duration);
+        volumeTimerDuration.setOnClickListener(v -> volumeTimerTimePickerDialog.show());
+    }
+
+    private void initDismissTimerTimePicker(final View root) {
+        final Context context = requireContext();
+        final int timerHours = viewModel.getDismissTimerHours();
+        final int timerMinutes = viewModel.getDismissTimerMinutes();
+        final TimePicker.OnTimeChangedListener listener = (view, newDismissHours, newDismissMinutes) -> {
+            viewModel.setDismissTimerHours(newDismissHours);
+            viewModel.setDismissTimerMinutes(newDismissMinutes);
+        };
+
+        dismissTimerTimePickerDialog = new DigitalTimePickerDialog(context, listener, timerHours, timerMinutes, true);
+
+        final MaterialTextView dismissTimerDuration = root.findViewById(R.id.dismiss_timer_duration);
+        dismissTimerDuration.setOnClickListener(v -> dismissTimerTimePickerDialog.show());
     }
 
     @Override
     public void onDestroyView() {
-        timePickerDialog.dismiss();
+        alarmTimePickerDialog.dismiss();
+        timerTimePickerDialog.dismiss();
+        snoozeTimePickerDialog.dismiss();
+        volumeTimerTimePickerDialog.dismiss();
+        dismissTimerTimePickerDialog.dismiss();
         super.onDestroyView();
     }
 }

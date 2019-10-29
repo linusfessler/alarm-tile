@@ -7,16 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.google.android.material.textview.MaterialTextView;
-
-import linusfessler.alarmtiles.DigitalTimePickerDialog;
 import linusfessler.alarmtiles.DrawablePickerDialog;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.databinding.FragmentGeneralSettingsBinding;
@@ -53,8 +49,6 @@ public class GeneralSettingsFragment extends SettingsFragment implements Drawabl
     private AlarmTile alarmTile;
     private GeneralSettingsViewModel viewModel;
     private DrawablePickerDialog iconPickerDialog;
-    private DigitalTimePickerDialog volumeTimePickerDialog;
-    private DigitalTimePickerDialog dismissTimePickerDialog;
 
     public static GeneralSettingsFragment newInstance(final AlarmTile alarmTile) {
         final GeneralSettingsFragment fragment = new GeneralSettingsFragment();
@@ -93,10 +87,7 @@ public class GeneralSettingsFragment extends SettingsFragment implements Drawabl
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         initIconPicker(view);
-        initVolumeTimePicker(view);
-        initDismissTimePicker(view);
     }
 
     @Override
@@ -118,42 +109,10 @@ public class GeneralSettingsFragment extends SettingsFragment implements Drawabl
         icon.setOnClickListener(view -> iconPickerDialog.show());
     }
 
-    private void initVolumeTimePicker(final View root) {
-        final Context context = requireContext();
-        final int hours = viewModel.getVolumeTimerHours();
-        final int minutes = viewModel.getVolumeTimerMinutes();
-        final TimePicker.OnTimeChangedListener listener = (view, newHours, newMinutes) -> {
-            viewModel.setVolumeTimerHours(newHours);
-            viewModel.setVolumeTimerMinutes(newMinutes);
-        };
-
-        volumeTimePickerDialog = new DigitalTimePickerDialog(context, listener, hours, minutes, true);
-
-        final MaterialTextView volumeTimerDuration = root.findViewById(R.id.volume_timer_duration);
-        volumeTimerDuration.setOnClickListener(v -> volumeTimePickerDialog.show());
-    }
-
-    private void initDismissTimePicker(final View root) {
-        final Context context = requireContext();
-        final int hours = viewModel.getDismissTimerHours();
-        final int minutes = viewModel.getDismissTimerMinutes();
-        final TimePicker.OnTimeChangedListener listener = (view, newHours, newMinutes) -> {
-            viewModel.setDismissTimerHours(newHours);
-            viewModel.setDismissTimerMinutes(newMinutes);
-        };
-
-        dismissTimePickerDialog = new DigitalTimePickerDialog(context, listener, hours, minutes, true);
-
-        final MaterialTextView dismissTimerDuration = root.findViewById(R.id.dismiss_timer_duration);
-        dismissTimerDuration.setOnClickListener(v -> dismissTimePickerDialog.show());
-    }
-
     @Override
     public void onDestroyView() {
         iconPickerDialog.removeListener(this);
         iconPickerDialog.dismiss();
-        volumeTimePickerDialog.dismiss();
-        dismissTimePickerDialog.dismiss();
         super.onDestroyView();
     }
 

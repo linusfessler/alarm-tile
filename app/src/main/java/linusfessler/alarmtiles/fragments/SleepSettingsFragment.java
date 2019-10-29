@@ -1,12 +1,10 @@
 package linusfessler.alarmtiles.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,25 +12,18 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textview.MaterialTextView;
 
-import linusfessler.alarmtiles.DigitalTimePickerDialog;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.databinding.FragmentSleepSettingsBinding;
 import linusfessler.alarmtiles.model.AlarmTile;
 import linusfessler.alarmtiles.viewmodel.SleepSettingsViewModel;
 
-public class SleepSettingsFragment extends SettingsFragment implements TimePicker.OnTimeChangedListener {
+public class SleepSettingsFragment extends SettingsFragment {
 
     private static final String ALARM_TILE_ARG_NAME = "alarm_tile";
     private static final String ACTION_ZEN_MODE_PRIORITY_SETTINGS = "android.settings.ZEN_MODE_PRIORITY_SETTINGS";
 
     private AlarmTile alarmTile;
-    private SleepSettingsViewModel viewModel;
-    private DigitalTimePickerDialog timePickerDialog;
-
-    private MaterialTextView timerDuration;
-    private MaterialButton openSettingsButton;
 
     public static SleepSettingsFragment newInstance(final AlarmTile alarmTile) {
         final SleepSettingsFragment fragment = new SleepSettingsFragment();
@@ -60,13 +51,10 @@ public class SleepSettingsFragment extends SettingsFragment implements TimePicke
     public View onCreateView(@NonNull final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        viewModel = ViewModelProviders.of(this).get(SleepSettingsViewModel.class);
+        final SleepSettingsViewModel viewModel = ViewModelProviders.of(this).get(SleepSettingsViewModel.class);
         viewModel.setAlarmTile(alarmTile);
         final FragmentSleepSettingsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sleep_settings, container, false);
         binding.setViewModel(viewModel);
-
-        timerDuration = binding.timerDuration;
-        openSettingsButton = binding.openSettingsButton;
 
         return binding.getRoot();
     }
@@ -74,35 +62,15 @@ public class SleepSettingsFragment extends SettingsFragment implements TimePicke
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initTimePicker();
-        initOpenSettingsButton();
+        initOpenSettingsButton(view);
     }
 
-    private void initTimePicker() {
-        final Context context = requireContext();
-        final int hours = viewModel.getTimerHours();
-        final int minutes = viewModel.getTimerMinutes();
-        timePickerDialog = new DigitalTimePickerDialog(context, this, hours, minutes, true);
-        timerDuration.setOnClickListener(v -> timePickerDialog.show());
-    }
-
-    private void initOpenSettingsButton() {
+    private void initOpenSettingsButton(final View root) {
+        final MaterialButton openSettingsButton = root.findViewById(R.id.open_settings_button);
         openSettingsButton.setOnClickListener(v -> {
             final Intent intent = new Intent(ACTION_ZEN_MODE_PRIORITY_SETTINGS);
             startActivity(intent);
         });
-    }
-
-    @Override
-    public void onTimeChanged(final TimePicker view, final int timerHours, final int timerMinutes) {
-        viewModel.setTimerHours(timerHours);
-        viewModel.setTimerMinutes(timerMinutes);
-    }
-
-    @Override
-    public void onDestroyView() {
-        timePickerDialog.dismiss();
-        super.onDestroyView();
     }
 
 }

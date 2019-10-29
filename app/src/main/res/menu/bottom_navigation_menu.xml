@@ -18,9 +18,5 @@
         android:id="@+id/menu_wake_up"
         android:title="@string/bottom_navigation_wake_up"
         android:icon="@drawable/ic_alarm_24px" />
-    <item
-        android:id="@+id/menu_snooze"
-        android:title="@string/bottom_navigation_snooze"
-        android:icon="@drawable/ic_snooze_24px" />
 
 </menu>

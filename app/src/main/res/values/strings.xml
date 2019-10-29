@@ -24,31 +24,27 @@
     <string name="general_settings_title">General settings</string>
     <string name="general_settings_name_hint">Alarm tile name</string>
     <string name="general_settings_notification">Show notification for next event</string>
-    <string name="general_settings_volume_timer">Gradually increase alarm volume over\u00A0…</string>
-    <string name="general_settings_dismiss_timer">Automatically dismiss alarms after\u00A0…</string>
-    <string name="general_settings_vibrate">Vibrate during alarm</string>
-    <string name="general_settings_flashlight">Turn on flashlight during alarm</string>
 
     <string name="fall_asleep_settings_title">Fall asleep settings</string>
     <string name="fall_asleep_settings_timer">Stop media playback after …</string>
     <string name="fall_asleep_settings_slowly_decrease_volume">Slowly decrease volume to zero before stopping media playback</string>
 
     <string name="sleep_settings_title">Sleep settings</string>
-    <string name="sleep_settings_timer_info">Set a timer that wakes you up after the specified duration.</string>
-    <string name="sleep_settings_timer">Timer</string>
     <string name="sleep_settings_do_not_disturb_info">Enable the do not disturb mode during the night. It will mute any sounds and vibrations until the next alarm. You may choose to allow priority notifications, which you can configure in your device\'s settings.</string>
     <string name="sleep_settings_do_not_disturb">Do not disturb</string>
     <string name="sleep_settings_allow_priority_notifications">Allow priority notifications</string>
     <string name="sleep_settings_open_settings">Settings</string>
 
     <string name="wake_up_settings_title">Wake up settings</string>
-    <string name="wake_up_settings_alarm_info">Set a standard alarm that wakes you up at the specified time.</string>
     <string name="wake_up_settings_alarm">Alarm</string>
-    <string name="wake_up_settings_both_timer_and_alarm_info">You set both a timer and an alarm. The resulting alarm will be the one that sets in earlier.</string>
-
-    <string name="snooze_settings_title">Snooze settings</string>
-    <string name="snooze_settings_snooze_info">On the alarm screen, you can swipe up or press the volume up button to snooze.</string>
-    <string name="snooze_settings_snooze">Snooze</string>
+    <string name="wake_up_settings_timer">Timer</string>
+    <string name="wake_up_settings_both_timer_and_alarm_info">If you set both an alarm and a timer, the resulting alarm will be the one that sets in earlier.</string>
+    <string name="wake_up_settings_snooze_info">On the alarm screen, you can swipe up or press the volume up button to snooze.</string>
+    <string name="wake_up_settings_snooze">Snooze</string>
+    <string name="wake_up_settings_volume_timer">Gradually increase alarm volume over\u00A0…</string>
+    <string name="wake_up_settings_dismiss_timer">Automatically dismiss alarms after\u00A0…</string>
+    <string name="wake_up_settings_vibrate">Vibrate during alarm</string>
+    <string name="wake_up_settings_flashlight">Turn on flashlight during alarm</string>
 
     <string name="dialog_yes">Yes</string>
     <string name="dialog_no">No</string>
