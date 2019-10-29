@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -92,7 +93,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/wake_up_settings_snooze"
-                    android:checked="@={viewModel.snoozeEnabled}" />
+                    android:checked="@={viewModel.snoozeEnabled}"
+                    android:enabled="@{viewModel.wakingUp}" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/snooze_duration"
@@ -102,7 +104,7 @@
                     android:padding="@dimen/time_padding"
                     android:background="?attr/selectableItemBackground"
                     android:text="@{viewModel.snoozeDuration}"
-                    android:enabled="@{viewModel.snoozeEnabled}"
+                    android:enabled="@{viewModel.snoozeEnabledAndWakingUp}"
                     tools:text="15 minutes"
                     tools:enabled="false" />
 
@@ -118,7 +120,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/wake_up_settings_volume_timer"
-                    android:checked="@={viewModel.volumeTimerEnabled}" />
+                    android:checked="@={viewModel.volumeTimerEnabled}"
+                    android:enabled="@{viewModel.wakingUp}" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/volume_timer_duration"
@@ -128,7 +131,7 @@
                     android:padding="@dimen/time_padding"
                     android:background="?attr/selectableItemBackground"
                     android:text="@{viewModel.volumeTimerDuration}"
-                    android:enabled="@{viewModel.volumeTimerEnabled}"
+                    android:enabled="@{viewModel.volumeTimerEnabledAndWakingUp}"
                     tools:text="5 minutes"
                     tools:enabled="false" />
 
@@ -144,7 +147,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/wake_up_settings_dismiss_timer"
-                    android:checked="@={viewModel.dismissTimerEnabled}" />
+                    android:checked="@={viewModel.dismissTimerEnabled}"
+                    android:enabled="@{viewModel.wakingUp}" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/dismiss_timer_duration"
@@ -154,7 +158,7 @@
                     android:padding="@dimen/time_padding"
                     android:background="?attr/selectableItemBackground"
                     android:text="@{viewModel.dismissTimerDuration}"
-                    android:enabled="@{viewModel.dismissTimerEnabled}"
+                    android:enabled="@{viewModel.dismissTimerEnabledAndWakingUp}"
                     tools:text="10 minutes"
                     tools:enabled="false" />
 
@@ -164,13 +168,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/wake_up_settings_vibrate"
-                android:checked="@={viewModel.vibrating}" />
+                android:checked="@={viewModel.vibrating}"
+                android:enabled="@{viewModel.wakingUp}" />
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/wake_up_settings_flashlight"
-                android:checked="@={viewModel.turningOnFlashlight}" />
+                android:checked="@={viewModel.turningOnFlashlight}"
+                android:enabled="@{viewModel.wakingUp}" />
+
+            <linusfessler.alarmtiles.views.TitleSummaryView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="@{viewModel.wakingUp}"
+                app:title="Alarm Sound"
+                app:summary="" />
+
+            <!--com.google.android.material.slider.Slider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" /-->
 
         </LinearLayout>
 

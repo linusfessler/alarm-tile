@@ -91,6 +91,11 @@ public class WakeUpSettingsViewModel extends ObservableViewModel {
         return timeFormatter.format(getTimerHours(), getTimerMinutes());
     }
 
+    @Bindable({"alarmEnabled", "timerEnabled"})
+    public boolean isWakingUp() {
+        return isAlarmEnabled() || isTimerEnabled();
+    }
+
     @Bindable
     public boolean isSnoozeEnabled() {
         return alarmTile.getWakeUpSettings().isSnoozeEnabled();
@@ -99,6 +104,11 @@ public class WakeUpSettingsViewModel extends ObservableViewModel {
     public void setSnoozeEnabled(final boolean snoozeEnabled) {
         alarmTile.getWakeUpSettings().setSnoozeEnabled(snoozeEnabled);
         notifyPropertyChanged(BR.snoozeEnabled);
+    }
+
+    @Bindable({"snoozeEnabled", "wakingUp"})
+    public boolean isSnoozeEnabledAndWakingUp() {
+        return isSnoozeEnabled() && isWakingUp();
     }
 
     @Bindable
@@ -136,6 +146,11 @@ public class WakeUpSettingsViewModel extends ObservableViewModel {
         notifyPropertyChanged(BR.volumeTimerEnabled);
     }
 
+    @Bindable({"volumeTimerEnabled", "wakingUp"})
+    public boolean isVolumeTimerEnabledAndWakingUp() {
+        return isVolumeTimerEnabled() && isWakingUp();
+    }
+
     @Bindable
     public int getVolumeTimerHours() {
         return alarmTile.getWakeUpSettings().getVolumeTimerHours();
@@ -169,6 +184,11 @@ public class WakeUpSettingsViewModel extends ObservableViewModel {
     public void setDismissTimerEnabled(final boolean dismissTimerEnabled) {
         alarmTile.getWakeUpSettings().setDismissTimerEnabled(dismissTimerEnabled);
         notifyPropertyChanged(BR.dismissTimerEnabled);
+    }
+
+    @Bindable({"dismissTimerEnabled", "wakingUp"})
+    public boolean isDismissTimerEnabledAndWakingUp() {
+        return isDismissTimerEnabled() && isWakingUp();
     }
 
     @Bindable
