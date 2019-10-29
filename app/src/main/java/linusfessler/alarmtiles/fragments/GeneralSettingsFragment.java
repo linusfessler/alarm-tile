@@ -101,7 +101,8 @@ public class GeneralSettingsFragment extends SettingsFragment implements Drawabl
 
     @Override
     public void onDrawablePicked(final int resourceId) {
-        viewModel.setIconResourceId(resourceId);
+        final String resourceName = getResources().getResourceEntryName(resourceId);
+        viewModel.setIconResourceName(resourceName);
     }
 
     private void initIconPicker(final View root) {

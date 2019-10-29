@@ -1,5 +1,6 @@
 package linusfessler.alarmtiles;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +16,12 @@ import linusfessler.alarmtiles.model.AlarmTile;
 public class AlarmTileRecyclerViewAdapter extends RecyclerView.Adapter<AlarmTileViewHolder> {
 
     private final AlarmTilePageListener listener;
+    private final Context context;
 
     private List<AlarmTile> alarmTiles = Collections.emptyList();
 
-    public AlarmTileRecyclerViewAdapter(final AlarmTilePageListener listener) {
+    public AlarmTileRecyclerViewAdapter(final Context context, final AlarmTilePageListener listener) {
+        this.context = context;
         this.listener = listener;
     }
 
@@ -33,8 +36,10 @@ public class AlarmTileRecyclerViewAdapter extends RecyclerView.Adapter<AlarmTile
     public void onBindViewHolder(@NonNull final AlarmTileViewHolder viewHolder, final int position) {
         final AlarmTile alarmTile = alarmTiles.get(position);
 
+        final int iconResourceId = context.getResources().getIdentifier(alarmTile.getGeneralSettings().getIconResourceName(), "drawable", context.getPackageName());
+
         viewHolder.setName(alarmTile.getGeneralSettings().getName());
-        viewHolder.setIconResourceId(alarmTile.getGeneralSettings().getIconResourceId());
+        viewHolder.setIconResourceId(iconResourceId);
 
         viewHolder.itemView.setOnClickListener(v -> listener.onAlarmTileClicked(alarmTile));
         viewHolder.itemView.setOnLongClickListener(v -> {

@@ -19,9 +19,11 @@ public class ExampleTile1Builder {
     }
 
     public AlarmTile build() {
+        final String iconResourceName = context.getResources().getResourceEntryName(R.drawable.ic_alarm_24px);
+
         final GeneralSettings generalSettings = GeneralSettings.builder()
                 .name(context.getResources().getString(R.string.example_tile_1))
-                .iconResourceId(R.drawable.ic_alarm_24px)
+                .iconResourceName(iconResourceName)
                 .showingNotification(true)
                 .volumeTimerEnabled(true)
                 .volumeTimerHours(5)

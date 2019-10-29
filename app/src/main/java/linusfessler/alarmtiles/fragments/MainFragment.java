@@ -63,7 +63,7 @@ public class MainFragment extends Fragment {
 
     private void initNewButton(final View root) {
         final MaterialButton button = root.findViewById(R.id.new_button);
-        final AlarmTile alarmTile = new AlarmTile();
+        final AlarmTile alarmTile = new AlarmTile(requireContext());
         final NavDirections direction = MainFragmentDirections.actionMainFragmentToSettingsContainerFragment(alarmTile);
         button.setOnClickListener(Navigation.createNavigateOnClickListener(direction));
     }

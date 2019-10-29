@@ -1,5 +1,7 @@
 package linusfessler.alarmtiles.model;
 
+import android.content.Context;
+
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -32,8 +34,8 @@ public class AlarmTile implements Serializable {
     private SnoozeSettings snoozeSettings;
 
     @Ignore
-    public AlarmTile() {
-        this.generalSettings = new GeneralSettings();
+    public AlarmTile(final Context context) {
+        this.generalSettings = new GeneralSettings(context);
         this.fallAsleepSettings = new FallAsleepSettings();
         this.sleepSettings = new SleepSettings();
         this.wakeUpSettings = new WakeUpSettings();

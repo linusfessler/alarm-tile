@@ -1,5 +1,7 @@
 package linusfessler.alarmtiles.model;
 
+import android.content.Context;
+
 import androidx.room.Ignore;
 
 import java.io.Serializable;
@@ -13,7 +15,7 @@ import lombok.Data;
 public class GeneralSettings implements Serializable {
 
     private String name;
-    private int iconResourceId;
+    private String iconResourceName;
     private boolean showingNotification;
     private boolean volumeTimerEnabled;
     private int volumeTimerHours;
@@ -25,9 +27,11 @@ public class GeneralSettings implements Serializable {
     private boolean turningOnFlashlight;
 
     @Ignore
-    public GeneralSettings() {
+    public GeneralSettings(final Context context) {
+        final String defaultIconResourceName = context.getResources().getResourceEntryName(R.drawable.ic_alarm_24px);
+
         setName("");
-        setIconResourceId(R.drawable.ic_alarm_24px);
+        setIconResourceName(defaultIconResourceName);
         setShowingNotification(true);
         setVolumeTimerEnabled(false);
         setVolumeTimerHours(0);
@@ -39,9 +43,9 @@ public class GeneralSettings implements Serializable {
         setTurningOnFlashlight(false);
     }
 
-    public GeneralSettings(final String name, final int iconResourceId, final boolean showingNotification, final boolean volumeTimerEnabled, final int volumeTimerHours, final int volumeTimerMinutes, final boolean dismissTimerEnabled, final int dismissTimerHours, final int dismissTimerMinutes, final boolean vibrating, final boolean turningOnFlashlight) {
+    public GeneralSettings(final String name, final String iconResourceName, final boolean showingNotification, final boolean volumeTimerEnabled, final int volumeTimerHours, final int volumeTimerMinutes, final boolean dismissTimerEnabled, final int dismissTimerHours, final int dismissTimerMinutes, final boolean vibrating, final boolean turningOnFlashlight) {
         this.name = name;
-        this.iconResourceId = iconResourceId;
+        this.iconResourceName = iconResourceName;
         this.showingNotification = showingNotification;
         this.volumeTimerEnabled = volumeTimerEnabled;
         this.volumeTimerHours = volumeTimerHours;

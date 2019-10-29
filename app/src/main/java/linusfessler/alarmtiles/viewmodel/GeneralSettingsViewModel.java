@@ -27,13 +27,13 @@ public class GeneralSettingsViewModel extends ObservableViewModel {
     }
 
     @Bindable
-    public int getIconResourceId() {
-        return alarmTile.getGeneralSettings().getIconResourceId();
+    public String getIconResourceName() {
+        return alarmTile.getGeneralSettings().getIconResourceName();
     }
 
-    public void setIconResourceId(final int iconResourceId) {
-        alarmTile.getGeneralSettings().setIconResourceId(iconResourceId);
-        notifyPropertyChanged(BR.iconResourceId);
+    public void setIconResourceName(final String iconResourceName) {
+        alarmTile.getGeneralSettings().setIconResourceName(iconResourceName);
+        notifyPropertyChanged(BR.iconResourceName);
     }
 
     @Bindable

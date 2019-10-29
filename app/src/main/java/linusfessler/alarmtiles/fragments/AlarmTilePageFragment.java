@@ -71,7 +71,7 @@ public class AlarmTilePageFragment extends Fragment implements AlarmTilePageList
         final GridLayoutManager layoutManager = new SpanningGridLayoutManager(requireContext(), pageConfiguration.getRowCount(), pageConfiguration.getColumnCount());
         recyclerView.setLayoutManager(layoutManager);
 
-        final AlarmTileRecyclerViewAdapter adapter = new AlarmTileRecyclerViewAdapter(this);
+        final AlarmTileRecyclerViewAdapter adapter = new AlarmTileRecyclerViewAdapter(requireContext(), this);
         recyclerView.setAdapter(adapter);
 
         db = AppDatabase.getInstance(requireContext());
