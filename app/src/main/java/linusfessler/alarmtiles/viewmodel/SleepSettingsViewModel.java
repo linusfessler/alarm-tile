@@ -36,4 +36,9 @@ public class SleepSettingsViewModel extends ObservableViewModel {
         notifyPropertyChanged(BR.allowingPriorityNotifications);
     }
 
+    @Bindable({"enteringDoNotDisturb", "allowingPriorityNotifications"})
+    public boolean isOpenSettingsButtonEnabled() {
+        return isEnteringDoNotDisturb() && isAllowingPriorityNotifications();
+    }
+
 }
