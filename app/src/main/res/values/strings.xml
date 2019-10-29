@@ -41,8 +41,8 @@
     <string name="wake_up_settings_both_timer_and_alarm_info">If you set both an alarm and a timer, the resulting alarm will be the one that sets in earlier.</string>
     <string name="wake_up_settings_snooze_info">On the alarm screen, you can swipe up or press the volume up button to snooze.</string>
     <string name="wake_up_settings_snooze">Snooze</string>
-    <string name="wake_up_settings_volume_timer">Gradually increase alarm volume over\u00A0…</string>
-    <string name="wake_up_settings_dismiss_timer">Automatically dismiss alarms after\u00A0…</string>
+    <string name="wake_up_settings_volume_timer">Gradually increase alarm volume over</string>
+    <string name="wake_up_settings_dismiss_timer">Automatically dismiss alarms after</string>
     <string name="wake_up_settings_vibrate">Vibrate during alarm</string>
     <string name="wake_up_settings_flashlight">Turn on flashlight during alarm</string>
 
