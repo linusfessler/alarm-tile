@@ -46,7 +46,7 @@
     <string name="sleep_settings_open_settings">Einstellungen</string>
     <string name="sleep_settings_title">Schlafen</string>
     <string name="snooze">Schlummern</string>
-    <string name="timer">Zimer</string>
+    <string name="timer">Timer</string>
     <string name="wake_up_settings_alarm">Wecker</string>
     <string name="wake_up_settings_volume_timer">Allmählich Weckerlautstärke erhöhen während</string>
     <string name="wake_up_settings_both_timer_and_alarm_info">Du hast einen Wecker und Timer gesetzt. Der effektive Wecker ist der frühere von beiden.</string>
