@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import linusfessler.alarmtiles.AlarmTilePageConfiguration;
@@ -35,9 +36,9 @@ public class AlarmTilePageFragment extends Fragment implements AlarmTilePageList
 
     private int pageNumber;
 
-    private transient AppDatabase db;
-    private transient NavController navController;
-    private transient AlertDialog deleteDialog;
+    private AppDatabase db;
+    private NavController navController;
+    private AlertDialog contextDialog;
 
     public static AlarmTilePageFragment newInstance(final int pageNumber) {
         final AlarmTilePageFragment fragment = new AlarmTilePageFragment();
@@ -91,9 +92,8 @@ public class AlarmTilePageFragment extends Fragment implements AlarmTilePageList
         });
 
         navController = Navigation.findNavController(requireActivity().findViewById(R.id.nav_host_fragment));
-        deleteDialog = new AlertDialog.Builder(requireContext())
-                .setMessage(R.string.dialog_delete_message)
-                .setNegativeButton(R.string.dialog_no, null)
+        contextDialog = new AlertDialog.Builder(requireContext())
+                .setMessage(R.string.dialog_context_message)
                 .create();
 
         return recyclerView;
@@ -101,27 +101,48 @@ public class AlarmTilePageFragment extends Fragment implements AlarmTilePageList
 
     @Override
     public void onAlarmTileClicked(final AlarmTile alarmTile) {
-        final NavDirections direction = MainFragmentDirections.actionMainFragmentToSettingsContainerFragment(alarmTile);
-        navController.navigate(direction);
+        editAlarmTile(alarmTile);
     }
 
     @Override
     public void onAlarmTileLongClicked(final AlarmTile alarmTile) {
         final String dialogTitle = alarmTile.getGeneralSettings().getName();
         if (!dialogTitle.equals("")) {
-            deleteDialog.setTitle(dialogTitle);
+            contextDialog.setTitle(dialogTitle);
         }
 
-        final String dialogYes = getString(R.string.dialog_yes);
-        deleteDialog.setButton(DialogInterface.BUTTON_POSITIVE, dialogYes, (dialog, which) ->
-                Executors.newSingleThreadExecutor().submit(() -> db.alarmTiles().delete(alarmTile)));
+        final String positiveString = getString(R.string.dialog_context_edit);
+        final String neutralString = getString(R.string.dialog_context_delete);
+        final String negativeString = getString(R.string.dialog_context_duplicate);
 
-        deleteDialog.show();
+        final ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        contextDialog.setButton(DialogInterface.BUTTON_POSITIVE, positiveString, (dialog, which) ->
+                editAlarmTile(alarmTile));
+
+        contextDialog.setButton(DialogInterface.BUTTON_NEUTRAL, neutralString, (dialog, which) ->
+                executor.submit(() -> db.alarmTiles().delete(alarmTile)));
+
+        contextDialog.setButton(DialogInterface.BUTTON_NEGATIVE, negativeString, (dialog, which) ->
+                executor.submit(() -> {
+                    final long id = alarmTile.getId();
+                    alarmTile.setId(null);
+                    db.alarmTiles().insert(alarmTile);
+                    alarmTile.setId(id);
+                })
+        );
+
+        contextDialog.show();
+    }
+
+    private void editAlarmTile(final AlarmTile alarmTile) {
+        final NavDirections direction = MainFragmentDirections.actionMainFragmentToSettingsContainerFragment(alarmTile);
+        navController.navigate(direction);
     }
 
     @Override
     public void onDestroyView() {
-        deleteDialog.dismiss();
+        contextDialog.dismiss();
         super.onDestroyView();
     }
 
