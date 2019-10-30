@@ -92,7 +92,12 @@ public class WakeUpSettingsViewModel extends ObservableViewModel {
     }
 
     @Bindable({"alarmEnabled", "timerEnabled"})
-    public boolean isWakingUp() {
+    public boolean isAlarmAndTimerEnabled() {
+        return isAlarmEnabled() && isTimerEnabled();
+    }
+
+    @Bindable({"alarmEnabled", "timerEnabled"})
+    public boolean isAlarmOrTimerEnabled() {
         return isAlarmEnabled() || isTimerEnabled();
     }
 
@@ -106,9 +111,9 @@ public class WakeUpSettingsViewModel extends ObservableViewModel {
         notifyPropertyChanged(BR.snoozeEnabled);
     }
 
-    @Bindable({"snoozeEnabled", "wakingUp"})
-    public boolean isSnoozeEnabledAndWakingUp() {
-        return isSnoozeEnabled() && isWakingUp();
+    @Bindable({"snoozeEnabled", "alarmOrTimerEnabled"})
+    public boolean isSnoozeAndAlarmOrTimerEnabled() {
+        return isSnoozeEnabled() && isAlarmOrTimerEnabled();
     }
 
     @Bindable
@@ -146,9 +151,9 @@ public class WakeUpSettingsViewModel extends ObservableViewModel {
         notifyPropertyChanged(BR.volumeTimerEnabled);
     }
 
-    @Bindable({"volumeTimerEnabled", "wakingUp"})
-    public boolean isVolumeTimerEnabledAndWakingUp() {
-        return isVolumeTimerEnabled() && isWakingUp();
+    @Bindable({"volumeTimerEnabled", "alarmOrTimerEnabled"})
+    public boolean isVolumeTimerAndAlarmOrTimerEnabled() {
+        return isVolumeTimerEnabled() && isAlarmOrTimerEnabled();
     }
 
     @Bindable
@@ -186,9 +191,9 @@ public class WakeUpSettingsViewModel extends ObservableViewModel {
         notifyPropertyChanged(BR.dismissTimerEnabled);
     }
 
-    @Bindable({"dismissTimerEnabled", "wakingUp"})
-    public boolean isDismissTimerEnabledAndWakingUp() {
-        return isDismissTimerEnabled() && isWakingUp();
+    @Bindable({"dismissTimerEnabled", "alarmOrTimerEnabled"})
+    public boolean isDismissTimerAndAlarmOrTimerEnabled() {
+        return isDismissTimerEnabled() && isAlarmOrTimerEnabled();
     }
 
     @Bindable
