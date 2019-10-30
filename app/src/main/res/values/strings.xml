@@ -1,11 +1,9 @@
 <resources>
 
     <string name="app_name">Alarm Tiles</string>
-    <string name="silencer">Silencer</string>
     <string name="alarm">Alarm</string>
     <string name="timer">Timer</string>
     <string name="snooze">Snooze</string>
-    <string name="dismiss">Dismiss</string>
 
     <string name="button_new">New alarm tile</string>
     <string name="button_next">Continue</string>
@@ -27,7 +25,7 @@
 
     <string name="fall_asleep_settings_title">Fall asleep settings</string>
     <string name="fall_asleep_settings_timer">Stop media playback after</string>
-    <string name="fall_asleep_settings_slowly_decrease_volume">Slowly decrease volume to zero before stopping media playback</string>
+    <string name="fall_asleep_settings_slowly_decrease_volume">Slowly decrease volume to zero until media playback is stopped</string>
 
     <string name="sleep_settings_title">Sleep settings</string>
     <string name="sleep_settings_do_not_disturb_info">Enable the do not disturb mode during the night to mute any sounds and vibrations until the next alarm. You may choose to allow priority notifications, which you can configure in your device\'s settings.</string>
@@ -168,5 +166,6 @@
     <string name="pref_hide_launcher_icon_key">hide_launcher_icon</string>
     <string name="pref_hide_launcher_icon_title">Hide launcher icon</string>
     <string name="pref_hide_launcher_icon_summary">Note: you will only be able to open this app by long pressing a tile</string>
+    <string name="dismiss">Dismiss</string>
 
 </resources>
