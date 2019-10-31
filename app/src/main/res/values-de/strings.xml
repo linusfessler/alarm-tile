@@ -35,7 +35,7 @@
     <string name="fall_asleep_settings_timer">Medienwiedergabe stoppen nach:</string>
     <string name="fall_asleep_settings_title">Einschlafen</string>
     <string name="general_settings_name_hint">Alarm Tile Name</string>
-    <string name="general_settings_notification">Benachrichtigung für nächstes Ereignis anzeigen</string>
+    <string name="general_settings_notification">Benachrichtigung anzeigen</string>
     <string name="general_settings_title">Allgemein</string>
     <string name="main_title">Deine Alarm Tiles</string>
     <string name="notification_missed_alarm_title">Versäumter Wecker</string>
@@ -43,7 +43,7 @@
     <string name="sleep_settings_allow_priority_notifications">Dringende Benachrichtigungen erlauben</string>
     <string name="sleep_settings_do_not_disturb">Nicht stören</string>
     <string name="sleep_settings_do_not_disturb_info">Aktiviere den Nicht-Stören-Modus während der Nacht, um alle Töne und Vibrationen bis zum nächsten Wecker auszustellen. Du kannst eine Ausnahme für wichtige Benachrichtungen machen, die  in den Einstellungen deines Geräts konfigurierbar sind.</string>
-    <string name="sleep_settings_open_settings">Einstellungen</string>
+    <string name="sleep_settings_open_settings">Einstell.</string>
     <string name="sleep_settings_title">Schlafen</string>
     <string name="snooze">Schlummern</string>
     <string name="timer">Timer</string>
@@ -58,4 +58,6 @@
     <string name="wake_up_settings_title">Aufwachen</string>
     <string name="wake_up_settings_vibrate">Während Wecker vibrieren</string>
     <string name="dismiss">Ausschalten</string>
+    <string name="alarm_tile_create">Alarm Tile erstellen</string>
+    <string name="alarm_tile_edit">Alarm Tile bearbeiten</string>
 </resources>

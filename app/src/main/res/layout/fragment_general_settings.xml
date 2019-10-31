@@ -11,65 +11,59 @@
 
     </data>
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/fragment_padding">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/fragment_padding">
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal">
 
-            <LinearLayout
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="@dimen/alarm_tile_size"
+                android:layout_height="@dimen/alarm_tile_size"
+                android:layout_marginTop="12.5dp"
+                android:padding="@dimen/alarm_tile_padding"
+                android:tint="@color/colorOnPrimary"
+                android:background="@drawable/bg_round_ripple"
+                app:src="@{viewModel.iconResourceName}"
+                tools:src="@drawable/ic_alarm_24px" />
+
+            <Space
+                android:layout_height="match_parent"
+                android:layout_width="@dimen/fragment_padding" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/name_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:orientation="horizontal">
+                android:hint="@string/general_settings_name_hint"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <ImageView
-                    android:id="@+id/icon"
-                    android:layout_width="@dimen/alarm_tile_size"
-                    android:layout_height="@dimen/alarm_tile_size"
-                    android:layout_marginTop="12.5dp"
-                    android:padding="@dimen/alarm_tile_padding"
-                    android:tint="@color/colorOnPrimary"
-                    android:background="@drawable/bg_round_ripple"
-                    app:src="@{viewModel.iconResourceName}"
-                    tools:src="@drawable/ic_alarm_24px" />
-
-                <Space
-                    android:layout_height="match_parent"
-                    android:layout_width="@dimen/fragment_padding" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/name_input_layout"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/name_input_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/general_settings_name_hint"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:text="@={viewModel.name}" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/name_input_edit_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:lines="1"
-                        android:maxLines="1"
-                        android:text="@={viewModel.name}" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/general_settings_notification"
-                android:checked="@={viewModel.showingNotification}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
-    </ScrollView>
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/general_settings_notification"
+            android:checked="@={viewModel.showingNotification}" />
+
+    </LinearLayout>
 
 </layout>

@@ -11,8 +11,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/main_title"
-        style="@style/Toolbar" />
+        app:title="@string/main_title" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"

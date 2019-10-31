@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import linusfessler.alarmtiles.DrawablePickerDialog;
@@ -19,7 +20,7 @@ import linusfessler.alarmtiles.databinding.FragmentGeneralSettingsBinding;
 import linusfessler.alarmtiles.model.AlarmTile;
 import linusfessler.alarmtiles.viewmodel.GeneralSettingsViewModel;
 
-public class GeneralSettingsFragment extends SettingsFragment implements DrawablePickerDialog.OnDrawablePickedListener {
+public class GeneralSettingsFragment extends Fragment implements DrawablePickerDialog.OnDrawablePickedListener {
 
     private static final String ALARM_TILE_ARG_NAME = "alarm_tile";
 
@@ -58,11 +59,6 @@ public class GeneralSettingsFragment extends SettingsFragment implements Drawabl
         fragment.setArguments(args);
 
         return fragment;
-    }
-
-    @Override
-    public int getTitleResourceId() {
-        return R.string.general_settings_title;
     }
 
     @Override

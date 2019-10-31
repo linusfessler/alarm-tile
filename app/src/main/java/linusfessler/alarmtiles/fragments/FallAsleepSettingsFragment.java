@@ -10,6 +10,7 @@ import android.widget.TimePicker;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.textview.MaterialTextView;
@@ -20,7 +21,7 @@ import linusfessler.alarmtiles.databinding.FragmentFallAsleepSettingsBinding;
 import linusfessler.alarmtiles.model.AlarmTile;
 import linusfessler.alarmtiles.viewmodel.FallAsleepSettingsViewModel;
 
-public class FallAsleepSettingsFragment extends SettingsFragment implements TimePicker.OnTimeChangedListener {
+public class FallAsleepSettingsFragment extends Fragment implements TimePicker.OnTimeChangedListener {
 
     private static final String ALARM_TILE_ARG_NAME = "alarm_tile";
 
@@ -36,11 +37,6 @@ public class FallAsleepSettingsFragment extends SettingsFragment implements Time
         fragment.setArguments(args);
 
         return fragment;
-    }
-
-    @Override
-    public int getTitleResourceId() {
-        return R.string.fall_asleep_settings_title;
     }
 
     @Override

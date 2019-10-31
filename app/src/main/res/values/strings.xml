@@ -21,19 +21,19 @@
 
     <string name="general_settings_title">General</string>
     <string name="general_settings_name_hint">Alarm tile name</string>
-    <string name="general_settings_notification">Show notification for next event</string>
+    <string name="general_settings_notification">Show notification</string>
 
-    <string name="fall_asleep_settings_title">Fall asleep</string>
+    <string name="fall_asleep_settings_title">Fall asleep settings</string>
     <string name="fall_asleep_settings_timer">Stop media playback after</string>
     <string name="fall_asleep_settings_slowly_decrease_volume">Slowly decrease volume to zero until media playback is stopped</string>
 
-    <string name="sleep_settings_title">Sleep</string>
+    <string name="sleep_settings_title">Sleep settings</string>
     <string name="sleep_settings_do_not_disturb_info">Enable the do not disturb mode during the night to mute any sounds and vibrations until the next alarm. You may choose to allow priority notifications, which you can configure in your device\'s settings.</string>
     <string name="sleep_settings_do_not_disturb">Do not disturb</string>
     <string name="sleep_settings_allow_priority_notifications">Allow priority notifications</string>
     <string name="sleep_settings_open_settings">Settings</string>
 
-    <string name="wake_up_settings_title">Wake up</string>
+    <string name="wake_up_settings_title">Wake up settings</string>
     <string name="wake_up_settings_alarm">Alarm</string>
     <string name="wake_up_settings_timer">Timer</string>
     <string name="wake_up_settings_both_timer_and_alarm_info">You set both an alarm and a timer. The resulting alarm will be the one that sets in earlier.</string>
@@ -49,7 +49,7 @@
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_never">Never</string>
-    <string name="dialog_back_title" translatable="false">Go back?</string>
+    <string name="dialog_back_title">Go back?</string>
     <string name="dialog_back_message">Your current changes will be discarded.</string>
     <string name="dialog_context_message">Select an action for this alarm tile.</string>
     <string name="dialog_context_edit">Edit</string>
@@ -167,5 +167,7 @@
     <string name="pref_hide_launcher_icon_title">Hide launcher icon</string>
     <string name="pref_hide_launcher_icon_summary">Note: you will only be able to open this app by long pressing a tile</string>
     <string name="dismiss">Dismiss</string>
+    <string name="alarm_tile_create">Create alarm tile</string>
+    <string name="alarm_tile_edit">Edit alarm tile</string>
 
 </resources>

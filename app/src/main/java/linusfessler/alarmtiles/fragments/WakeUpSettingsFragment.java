@@ -12,6 +12,7 @@ import android.widget.TimePicker;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -23,7 +24,7 @@ import linusfessler.alarmtiles.databinding.FragmentWakeUpSettingsBinding;
 import linusfessler.alarmtiles.model.AlarmTile;
 import linusfessler.alarmtiles.viewmodel.WakeUpSettingsViewModel;
 
-public class WakeUpSettingsFragment extends SettingsFragment {
+public class WakeUpSettingsFragment extends Fragment {
 
     private static final String ALARM_TILE_ARG_NAME = "alarm_tile";
 
@@ -44,11 +45,6 @@ public class WakeUpSettingsFragment extends SettingsFragment {
         fragment.setArguments(args);
 
         return fragment;
-    }
-
-    @Override
-    public int getTitleResourceId() {
-        return R.string.wake_up_settings_title;
     }
 
     @Override
