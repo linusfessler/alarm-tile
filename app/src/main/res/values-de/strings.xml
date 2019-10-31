@@ -32,7 +32,7 @@
     <string name="example_tile_2">Mein Einschlaf-Timer</string>
     <string name="example_tile_3">Mein Nickerchen-Timer</string>
     <string name="fall_asleep_settings_slowly_decrease_volume">Lautstärke allmählich verringen bis Medienwiedergabe stoppt</string>
-    <string name="fall_asleep_settings_timer">Medienwiedergabe stoppen nach</string>
+    <string name="fall_asleep_settings_timer">Medienwiedergabe stoppen nach:</string>
     <string name="fall_asleep_settings_title">Einschlafen</string>
     <string name="general_settings_name_hint">Alarm Tile Name</string>
     <string name="general_settings_notification">Benachrichtigung für nächstes Ereignis anzeigen</string>
@@ -48,9 +48,9 @@
     <string name="snooze">Schlummern</string>
     <string name="timer">Timer</string>
     <string name="wake_up_settings_alarm">Wecker</string>
-    <string name="wake_up_settings_volume_timer">Allmählich Weckerlautstärke erhöhen während</string>
-    <string name="wake_up_settings_both_timer_and_alarm_info">Du hast einen Wecker und Timer gesetzt. Der effektive Wecker ist der frühere von beiden.</string>
-    <string name="wake_up_settings_dismiss_timer">Wecker automatisch ausschalten nach</string>
+    <string name="wake_up_settings_volume_timer">Allmählich Weckerlautstärke erhöhen während:</string>
+    <string name="wake_up_settings_both_timer_and_alarm_info">Du hast einen Wecker und Timer gesetzt. Der effektive Wecker ist der frühere der beiden.</string>
+    <string name="wake_up_settings_dismiss_timer">Wecker automatisch ausstellen nach:</string>
     <string name="wake_up_settings_flashlight">Taschenlampe während Wecker anschalten</string>
     <string name="wake_up_settings_snooze">Schlummern</string>
     <string name="wake_up_settings_snooze_info">Wische nach auf dem Wecker-Screen nach oben oder drücke die Lauter-Taste um zu schlummern</string>
