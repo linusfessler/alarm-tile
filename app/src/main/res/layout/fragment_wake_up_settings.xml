@@ -24,6 +24,10 @@
             android:text="@string/wake_up_settings_title"
             style="@style/Title" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:text="@string/wake_up_settings_both_timer_and_alarm_info"
+            style="@style/Info" />
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -77,8 +81,8 @@
         </LinearLayout>
 
         <com.google.android.material.textview.MaterialTextView
-            android:text="@string/wake_up_settings_both_timer_and_alarm_info"
-            android:visibility="@{viewModel.alarmAndTimerEnabled ? View.VISIBLE : View.GONE}"
+            android:text="@string/wake_up_settings_button_info"
+            android:enabled="@{viewModel.alarmOrTimerEnabled}"
             style="@style/Info" />
 
         <LinearLayout
@@ -107,11 +111,6 @@
                 tools:enabled="false" />
 
         </LinearLayout>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:text="@string/wake_up_settings_snooze_info"
-            android:visibility="@{viewModel.snoozeEnabled ? View.VISIBLE : View.GONE}"
-            style="@style/Info" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -184,6 +183,10 @@
         <!--com.google.android.material.slider.Slider
             android:layout_width="match_parent"
             android:layout_height="wrap_content" /-->
+
+        <com.google.android.material.textview.MaterialTextView
+            android:text="@string/revert_info"
+            style="@style/Info" />
 
     </LinearLayout>
 
