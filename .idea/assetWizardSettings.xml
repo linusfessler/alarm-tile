@@ -83,10 +83,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="202125" />
                                       <entry key="backgroundImage" value="D:\Projects\alarm-tiles\app\src\main\res\values\ic_launcher_background.xml" />
                                       <entry key="foregroundImage" value="D:\Projects\alarm-tiles\app\src\main\res\drawable\ic_launcher_foreground.xml" />
-                                      <entry key="webIconShape" value="NONE" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -152,6 +150,11 @@
                                 </PersistentState>
                               </value>
                             </entry>
+                          </map>
+                        </option>
+                        <option name="values">
+                          <map>
+                            <entry key="outputIconType" value="LAUNCHER_LEGACY" />
                           </map>
                         </option>
                       </PersistentState>
