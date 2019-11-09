@@ -17,25 +17,10 @@
         android:id="@+id/view_pager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/page_indicator"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
-
-    <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
-        android:id="@+id/page_indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:dotsColor="@color/quickSettingsIndicatorEnabled"
-        app:dotsCornerRadius="3dp"
-        app:dotsSize="6dp"
-        app:dotsSpacing="2dp"
-        app:dotsStrokeColor="@color/quickSettingsIndicatorDisabled"
-        app:dotsStrokeWidth="3dp"
-        android:layout_marginBottom="@dimen/fragment_padding"
-        app:layout_constraintBottom_toTopOf="@id/new_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/new_button"

@@ -14,7 +14,6 @@ import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.button.MaterialButton;
-import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 
 import java.util.List;
 
@@ -49,16 +48,9 @@ public class MainFragment extends Fragment {
         final AlarmTilePageFragmentAdapter adapter = new AlarmTilePageFragmentAdapter(this, pageConfiguration.getCount());
         viewPager.setAdapter(adapter);
 
-        final WormDotsIndicator pageIndicator = root.findViewById(R.id.page_indicator);
-        pageIndicator.setViewPager2(viewPager);
-        pageIndicator.setVisibility(View.INVISIBLE);
-
         final AppDatabase db = AppDatabase.getInstance(requireContext());
         final LiveData<List<AlarmTile>> liveAlarmTiles = db.alarmTiles().selectAll();
-        liveAlarmTiles.observeForever(alarmTiles -> {
-            adapter.setAlarmTiles(alarmTiles);
-            pageIndicator.setVisibility(alarmTiles.size() <= pageConfiguration.getCount() ? View.INVISIBLE : View.VISIBLE);
-        });
+        liveAlarmTiles.observeForever(adapter::setAlarmTiles);
     }
 
     private void initNewButton(final View root) {
