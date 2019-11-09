@@ -9,11 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
-
-import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
 
@@ -36,7 +32,6 @@ public class MainFragment extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViewPager(view);
-        initNewButton(view);
     }
 
     private void initViewPager(final View root) {
@@ -51,13 +46,6 @@ public class MainFragment extends Fragment {
         final AppDatabase db = AppDatabase.getInstance(requireContext());
         final LiveData<List<AlarmTile>> liveAlarmTiles = db.alarmTiles().selectAll();
         liveAlarmTiles.observeForever(adapter::setAlarmTiles);
-    }
-
-    private void initNewButton(final View root) {
-        final MaterialButton button = root.findViewById(R.id.new_button);
-        final AlarmTile alarmTile = new AlarmTile(requireContext());
-        final NavDirections direction = MainFragmentDirections.actionMainFragmentToSettingsContainerFragment(alarmTile);
-        button.setOnClickListener(Navigation.createNavigateOnClickListener(direction));
     }
 
 }
