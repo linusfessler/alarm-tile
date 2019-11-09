@@ -1,6 +1,8 @@
 <resources>
 
     <string name="app_name">Alarm Tiles</string>
+
+    <string name="sleep_timer">Sleep timer</string>
     <string name="alarm">Alarm</string>
     <string name="timer">Timer</string>
     <string name="snooze">Snooze</string>

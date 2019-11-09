@@ -2,10 +2,14 @@
 <resources>
 
     <declare-styleable name="TitleSummaryView">
-
         <attr name="title" format="string" />
         <attr name="summary" format="string" />
+    </declare-styleable>
 
+    <declare-styleable name="AlarmTile">
+        <attr name="enabled" format="boolean" />
+        <attr name="name" format="string" />
+        <attr name="icon" format="reference" />
     </declare-styleable>
 
 </resources>

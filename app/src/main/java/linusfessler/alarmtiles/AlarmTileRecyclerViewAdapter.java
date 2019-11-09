@@ -28,7 +28,7 @@ public class AlarmTileRecyclerViewAdapter extends RecyclerView.Adapter<AlarmTile
     @NonNull
     @Override
     public AlarmTileViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int viewType) {
-        final View alarmTileView = LayoutInflater.from(parent.getContext()).inflate(R.layout.vh_alarm_tile, parent, false);
+        final View alarmTileView = LayoutInflater.from(parent.getContext()).inflate(R.layout.alarm_tile, parent, false);
         return new AlarmTileViewHolder(alarmTileView);
     }
 

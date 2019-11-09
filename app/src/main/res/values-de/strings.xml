@@ -60,4 +60,5 @@
     <string name="dismiss">Ausschalten</string>
     <string name="alarm_tile_create">Alarm Tile erstellen</string>
     <string name="alarm_tile_edit">Alarm Tile bearbeiten</string>
+    <string name="sleep_timer">Einschlaf-Timer</string>
 </resources>
