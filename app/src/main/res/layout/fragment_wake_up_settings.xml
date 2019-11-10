@@ -94,7 +94,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/wake_up_settings_snooze"
+                android:text="@string/main_snooze_duration"
                 android:checked="@={viewModel.snoozeEnabled}"
                 android:enabled="@{viewModel.alarmOrTimerEnabled}" />
 
@@ -121,7 +121,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/wake_up_settings_volume_timer"
+                android:text="@string/main_volume_timer"
                 android:checked="@={viewModel.volumeTimerEnabled}"
                 android:enabled="@{viewModel.alarmOrTimerEnabled}" />
 
@@ -148,7 +148,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/wake_up_settings_dismiss_timer"
+                android:text="@string/main_dismiss_timer"
                 android:checked="@={viewModel.dismissTimerEnabled}"
                 android:enabled="@{viewModel.alarmOrTimerEnabled}" />
 
@@ -169,14 +169,14 @@
         <com.google.android.material.checkbox.MaterialCheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/wake_up_settings_vibrate"
+            android:text="@string/main_vibrate"
             android:checked="@={viewModel.vibrating}"
             android:enabled="@{viewModel.alarmOrTimerEnabled}" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/wake_up_settings_flashlight"
+            android:text="@string/main_flashlight"
             android:checked="@={viewModel.turningOnFlashlight}"
             android:enabled="@{viewModel.alarmOrTimerEnabled}" />
 

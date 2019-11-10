@@ -19,15 +19,15 @@
     <string name="bottom_navigation_wake_up">Wake up</string>
     <string name="bottom_navigation_snooze">Snooze</string>
 
-    <string name="main_title">Your alarm tiles</string>
+    <string name="main_title">Alarm tiles</string>
 
     <string name="general_settings_title">General</string>
     <string name="general_settings_name_hint">Alarm tile name</string>
-    <string name="general_settings_notification">Show notification</string>
+    <string name="main_show_notification">Show notification</string>
 
     <string name="fall_asleep_settings_title">Fall asleep settings</string>
     <string name="fall_asleep_settings_timer">Stop media playback after</string>
-    <string name="fall_asleep_settings_slowly_decrease_volume">Slowly decrease volume to zero until media playback is stopped</string>
+    <string name="main_slowly_decrease_volume">Slowly decrease volume to zero until media playback is stopped</string>
 
     <string name="sleep_settings_title">Sleep settings</string>
     <string name="sleep_settings_do_not_disturb_info">Enable the do not disturb mode during the night to mute any sounds and vibrations until the next alarm. You may choose to allow priority notifications, which you can configure in your device\'s settings.</string>
@@ -40,11 +40,11 @@
     <string name="wake_up_settings_timer">Timer</string>
     <string name="wake_up_settings_both_timer_and_alarm_info">If you set both an alarm and a timer, the resulting alarm will be the one that sets in earlier.</string>
     <string name="wake_up_settings_button_info">While the alarm is ringing, you can press the volume up and down buttons to snooze or dismiss the alarm, respectively.</string>
-    <string name="wake_up_settings_snooze">Snooze</string>
-    <string name="wake_up_settings_volume_timer">Gradually increase alarm volume over:</string>
-    <string name="wake_up_settings_dismiss_timer">Automatically dismiss alarm after:</string>
-    <string name="wake_up_settings_vibrate">Vibrate during alarm</string>
-    <string name="wake_up_settings_flashlight">Turn on flashlight during alarm</string>
+    <string name="main_snooze_duration">Snooze duration</string>
+    <string name="main_volume_timer">Gradually increase alarm volume over:</string>
+    <string name="main_dismiss_timer">Automatically dismiss alarm after:</string>
+    <string name="main_vibrate">Vibrate during alarm</string>
+    <string name="main_flashlight">Turn on flashlight during alarm</string>
 
     <string name="dialog_yes">Yes</string>
     <string name="dialog_no">No</string>
@@ -171,5 +171,14 @@
     <string name="dismiss">Dismiss</string>
     <string name="alarm_tile_create">Create alarm tile</string>
     <string name="alarm_tile_edit">Edit alarm tile</string>
+    <string name="settings_title_sleep_timer">Sleep timer</string>
+    <string name="main_title_alarm">Alarm</string>
+    <string name="main_title_snooze">Snooze</string>
+    <string name="accessibility_volume_down">Volume down</string>
+    <string name="accessibility_volume_up">Volume up</string>
+    <string name="accessibility_alarm_tile_icon">Alarm tile icon</string>
+    <string name="accessibility_alarm_tile_background">Alarm tile background</string>
+    <string name="main_alarm_sound">Alarm sound</string>
+    <string name="main_title_other">Other</string>
 
 </resources>

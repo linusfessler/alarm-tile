@@ -61,7 +61,7 @@
         <com.google.android.material.checkbox.MaterialCheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/general_settings_notification"
+            android:text="@string/main_show_notification"
             android:checked="@={viewModel.showingNotification}" />
 
     </LinearLayout>

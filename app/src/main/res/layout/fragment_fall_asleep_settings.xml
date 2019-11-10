@@ -53,7 +53,7 @@
         <com.google.android.material.checkbox.MaterialCheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/fall_asleep_settings_slowly_decrease_volume"
+            android:text="@string/main_slowly_decrease_volume"
             android:checked="@={viewModel.slowlyDecreasingVolume}"
             android:enabled="@{viewModel.timerEnabled}"
             tools:enabled="false" />
