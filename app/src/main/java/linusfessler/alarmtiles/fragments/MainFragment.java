@@ -9,11 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import linusfessler.alarmtiles.AlarmTilePageListener;
 import linusfessler.alarmtiles.R;
-import linusfessler.alarmtiles.model.AlarmTile;
 
-public class MainFragment extends Fragment implements AlarmTilePageListener {
+public class MainFragment extends Fragment {
 
     @Nullable
     @Override
@@ -29,16 +27,6 @@ public class MainFragment extends Fragment implements AlarmTilePageListener {
         /*final AppDatabase db = AppDatabase.getInstance(requireContext());
         final LiveData<List<AlarmTile>> liveAlarmTiles = db.alarmTiles().selectAll();
         liveAlarmTiles.observeForever(adapter::setAlarmTiles);*/
-    }
-
-    @Override
-    public void onAlarmTileClicked(final AlarmTile alarmTile) {
-
-    }
-
-    @Override
-    public void onAlarmTileLongClicked(final AlarmTile alarmTile) {
-
     }
 
 }
