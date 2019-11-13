@@ -12,4 +12,13 @@
         <attr name="icon" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="TimeSettings">
+        <attr name="hour" format="integer" />
+        <attr name="minute" format="integer" />
+        <attr name="timeFormat" format="enum">
+            <enum name="TIME" value="0" />
+            <enum name="TIME_OF_DAY" value="1" />
+        </attr>
+    </declare-styleable>
+
 </resources>
