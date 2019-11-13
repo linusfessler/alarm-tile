@@ -33,7 +33,7 @@
     </style>
 
     <style name="Title">
-        <item name="android:layout_height">@dimen/setting_height</item>
+        <item name="android:layout_height">@dimen/settings_height</item>
         <item name="android:layout_marginTop">@dimen/fragment_padding</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:textColor">@color/colorPrimary</item>
@@ -53,6 +53,16 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingTop">4dp</item>
         <item name="android:paddingBottom">4dp</item>
+    </style>
+
+    <style name="Settings">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/settings_height</item>
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:drawableTint">@color/colorOnBackground</item>
+        <item name="android:drawablePadding">4dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/colorOnBackground</item>
     </style>
 
     <style name="Time">
