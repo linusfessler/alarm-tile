@@ -8,6 +8,9 @@
         <option value="reformat" />
         <option value="fieldCanBeFinal" />
         <option value="localCanBeFinal" />
+        <option value="unqualifiedFieldAccess" />
+        <option value="unqualifiedMethodAccess" />
+        <option value="unqualifiedStaticMemberAccess" />
       </set>
     </option>
     <option name="configurationPath" value="" />
