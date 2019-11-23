@@ -1,5 +1,6 @@
 package linusfessler.alarmtiles.views;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.vectordrawable.graphics.drawable.ArgbEvaluator;
 
 import com.google.android.material.textview.MaterialTextView;
 
@@ -20,48 +22,60 @@ import linusfessler.alarmtiles.R;
 
 public class QuickSettingsTile extends ConstraintLayout {
 
-    private ColorStateList quickSettingsIconEnabledColor;
-    private ColorStateList quickSettingsIconDisabledColor;
-    private ColorStateList quickSettingsBackgroundEnabledColor;
-    private ColorStateList quickSettingsBackgroundDisabledColor;
+    private ValueAnimator iconColorAnimation;
+    private ValueAnimator backgroundColorAnimation;
 
     private MaterialTextView nameView;
     private ImageView iconView;
 
     public QuickSettingsTile(@NonNull final Context context) {
         super(context);
-        init(context, null);
+        this.init(context, null);
     }
 
     public QuickSettingsTile(@NonNull final Context context, @Nullable final AttributeSet attrs) {
         super(context, attrs);
-        init(context, attrs);
+        this.init(context, attrs);
     }
 
     public QuickSettingsTile(@NonNull final Context context, @Nullable final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs);
+        this.init(context, attrs);
     }
 
     private void init(@NonNull final Context context, @Nullable final AttributeSet attrs) {
-        initSelf(context);
-        inflateView(context);
+        this.inflateView(context);
+        this.initSelf(context);
         if (attrs != null) {
-            initWithAttrs(context, attrs);
+            this.initWithAttrs(context, attrs);
         }
     }
 
     private void initSelf(@NonNull final Context context) {
-        setClickable(true);
-        setFocusable(true);
+        this.setClickable(true);
+        this.setFocusable(true);
 
+        final ArgbEvaluator argbEvaluator = new ArgbEvaluator();
         final Resources resources = context.getResources();
         final Resources.Theme theme = context.getTheme();
 
-        this.quickSettingsIconEnabledColor = resources.getColorStateList(R.color.quickSettingsIconEnabled, theme);
-        this.quickSettingsIconDisabledColor = resources.getColorStateList(R.color.quickSettingsIconDisabled, theme);
-        this.quickSettingsBackgroundEnabledColor = resources.getColorStateList(R.color.quickSettingsBackgroundEnabled, theme);
-        this.quickSettingsBackgroundDisabledColor = resources.getColorStateList(R.color.quickSettingsBackgroundDisabled, theme);
+        final int quickSettingsIconEnabledColor = resources.getColor(R.color.quickSettingsIconEnabled, theme);
+        final int quickSettingsIconDisabledColor = resources.getColor(R.color.quickSettingsIconDisabled, theme);
+
+        final int quickSettingsBackgroundEnabledColor = resources.getColor(R.color.quickSettingsBackgroundEnabled, theme);
+        final int quickSettingsBackgroundDisabledColor = resources.getColor(R.color.quickSettingsBackgroundDisabled, theme);
+
+        this.iconColorAnimation = ValueAnimator.ofObject(argbEvaluator, quickSettingsIconDisabledColor, quickSettingsIconEnabledColor);
+        this.iconColorAnimation.addUpdateListener(animator -> {
+            final int iconColor = (int) animator.getAnimatedValue();
+            this.iconView.setImageTintList(ColorStateList.valueOf(iconColor));
+        });
+
+        this.backgroundColorAnimation = ValueAnimator.ofObject(argbEvaluator, quickSettingsBackgroundDisabledColor, quickSettingsBackgroundEnabledColor);
+        this.backgroundColorAnimation.addUpdateListener(animator -> {
+            final int backgroundColor = (int) animator.getAnimatedValue();
+            this.iconView.setBackgroundTintList(ColorStateList.valueOf(backgroundColor));
+        });
     }
 
     private void inflateView(@NonNull final Context context) {
@@ -79,19 +93,19 @@ public class QuickSettingsTile extends ConstraintLayout {
         final Drawable icon = styledAttributes.getDrawable(R.styleable.QuickSettingsTile_icon);
         styledAttributes.recycle();
 
-        setEnabled(enabled);
-        setName(name);
-        setIcon(icon);
+        this.setEnabled(enabled);
+        this.setName(name);
+        this.setIcon(icon);
     }
 
     @Override
     public void setEnabled(final boolean enabled) {
         if (enabled) {
-            this.iconView.setImageTintList(this.quickSettingsIconEnabledColor);
-            this.iconView.setBackgroundTintList(this.quickSettingsBackgroundEnabledColor);
+            this.iconColorAnimation.start();
+            this.backgroundColorAnimation.start();
         } else {
-            this.iconView.setImageTintList(this.quickSettingsIconDisabledColor);
-            this.iconView.setBackgroundTintList(this.quickSettingsBackgroundDisabledColor);
+            this.iconColorAnimation.reverse();
+            this.backgroundColorAnimation.reverse();
         }
     }
 
