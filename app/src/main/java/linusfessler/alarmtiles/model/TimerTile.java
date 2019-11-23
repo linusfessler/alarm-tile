@@ -7,12 +7,12 @@ import lombok.Data;
 
 @Data
 @Entity
-public class AlarmTile {
+public class TimerTile {
 
     @PrimaryKey(autoGenerate = true)
     private Long id;
 
-    public AlarmTile() {
+    public TimerTile() {
 
     }
 }

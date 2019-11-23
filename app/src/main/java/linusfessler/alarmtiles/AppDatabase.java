@@ -6,20 +6,17 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.Executors;
 
 import linusfessler.alarmtiles.dao.AlarmTileDao;
-import linusfessler.alarmtiles.exampletiles.ExampleTile1Builder;
-import linusfessler.alarmtiles.exampletiles.ExampleTile2Builder;
-import linusfessler.alarmtiles.exampletiles.ExampleTile3Builder;
+import linusfessler.alarmtiles.dao.SleepTimerTileDao;
+import linusfessler.alarmtiles.dao.TimerTileDao;
 import linusfessler.alarmtiles.model.AlarmTile;
+import linusfessler.alarmtiles.model.SleepTimerTile;
+import linusfessler.alarmtiles.model.TimerTile;
 
-@Database(entities = {AlarmTile.class}, version = 1)
+@Database(entities = {SleepTimerTile.class, AlarmTile.class, TimerTile.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
-
-    public abstract AlarmTileDao alarmTiles();
 
     private static AppDatabase instance;
 
@@ -28,21 +25,30 @@ public abstract class AppDatabase extends RoomDatabase {
             AppDatabase.instance = Room
                     .databaseBuilder(context.getApplicationContext(), AppDatabase.class, "app-database")
                     .build();
-            AppDatabase.instance.populate(context);
+            AppDatabase.instance.populate();
         }
         return AppDatabase.instance;
     }
 
-    private void populate(final Context context) {
+    private void populate() {
         Executors.newSingleThreadExecutor().submit(() -> {
-            if (this.alarmTiles().count() == 0) {
-                final AlarmTile exampleTile1 = new ExampleTile1Builder(context).build();
-                final AlarmTile exampleTile2 = new ExampleTile2Builder(context).build();
-                final AlarmTile exampleTile3 = new ExampleTile3Builder(context).build();
+            if (this.sleepTimerTileDao().count() == 0) {
+                this.sleepTimerTileDao().insert(new SleepTimerTile());
+            }
 
-                final List<AlarmTile> alarmTiles = Arrays.asList(exampleTile1, exampleTile2, exampleTile3);
-                this.alarmTiles().insert(alarmTiles);
+            if (this.alarmTileDao().count() == 0) {
+                this.alarmTileDao().insert(new AlarmTile());
+            }
+
+            if (this.timerTileDao().count() == 0) {
+                this.timerTileDao().insert(new TimerTile());
             }
         });
     }
+
+    public abstract SleepTimerTileDao sleepTimerTileDao();
+
+    public abstract AlarmTileDao alarmTileDao();
+
+    public abstract TimerTileDao timerTileDao();
 }

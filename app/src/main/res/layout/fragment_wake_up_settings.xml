@@ -6,10 +6,6 @@
 
         <import type="android.view.View" />
 
-        <variable
-            name="viewModel"
-            type="linusfessler.alarmtiles.viewmodel.WakeUpSettingsViewModel" />
-
     </data>
 
     <LinearLayout
@@ -31,14 +27,13 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/setting_height">
+            android:layout_height="@dimen/settings_height">
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/wake_up_settings_alarm"
-                android:checked="@={viewModel.alarmEnabled}" />
+                android:text="@string/wake_up_settings_alarm" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/alarm_time"
@@ -47,8 +42,6 @@
                 android:layout_gravity="center_vertical"
                 android:padding="@dimen/time_padding"
                 android:background="?attr/selectableItemBackground"
-                android:text="@{viewModel.alarmTime}"
-                android:enabled="@{viewModel.alarmEnabled}"
                 tools:text="08:00"
                 tools:enabled="false" />
 
@@ -57,14 +50,13 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/setting_height">
+            android:layout_height="@dimen/settings_height">
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/wake_up_settings_timer"
-                android:checked="@={viewModel.timerEnabled}" />
+                android:text="@string/wake_up_settings_timer" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/timer_duration"
@@ -73,8 +65,6 @@
                 android:layout_gravity="center_vertical"
                 android:padding="@dimen/time_padding"
                 android:background="?attr/selectableItemBackground"
-                android:text="@{viewModel.timerDuration}"
-                android:enabled="@{viewModel.timerEnabled}"
                 tools:text="8 hours"
                 tools:enabled="false" />
 
@@ -82,21 +72,18 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:text="@string/wake_up_settings_button_info"
-            android:enabled="@{viewModel.alarmOrTimerEnabled}"
             style="@style/Info" />
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/setting_height">
+            android:layout_height="@dimen/settings_height">
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/main_snooze_duration"
-                android:checked="@={viewModel.snoozeEnabled}"
-                android:enabled="@{viewModel.alarmOrTimerEnabled}" />
+                android:text="@string/main_snooze_duration" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/snooze_duration"
@@ -105,8 +92,6 @@
                 android:layout_gravity="center_vertical"
                 android:padding="@dimen/time_padding"
                 android:background="?attr/selectableItemBackground"
-                android:text="@{viewModel.snoozeDuration}"
-                android:enabled="@{viewModel.snoozeAndAlarmOrTimerEnabled}"
                 tools:text="15 minutes"
                 tools:enabled="false" />
 
@@ -115,15 +100,13 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/setting_height">
+            android:layout_height="@dimen/settings_height">
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/main_volume_timer"
-                android:checked="@={viewModel.volumeTimerEnabled}"
-                android:enabled="@{viewModel.alarmOrTimerEnabled}" />
+                android:text="@string/main_volume_timer" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/volume_timer_duration"
@@ -132,8 +115,6 @@
                 android:layout_gravity="center_vertical"
                 android:padding="@dimen/time_padding"
                 android:background="?attr/selectableItemBackground"
-                android:text="@{viewModel.volumeTimerDuration}"
-                android:enabled="@{viewModel.volumeTimerAndAlarmOrTimerEnabled}"
                 tools:text="5 minutes"
                 tools:enabled="false" />
 
@@ -142,15 +123,13 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/setting_height">
+            android:layout_height="@dimen/settings_height">
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/main_dismiss_timer"
-                android:checked="@={viewModel.dismissTimerEnabled}"
-                android:enabled="@{viewModel.alarmOrTimerEnabled}" />
+                android:text="@string/main_dismiss_timer" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/dismiss_timer_duration"
@@ -159,8 +138,6 @@
                 android:layout_gravity="center_vertical"
                 android:padding="@dimen/time_padding"
                 android:background="?attr/selectableItemBackground"
-                android:text="@{viewModel.dismissTimerDuration}"
-                android:enabled="@{viewModel.dismissTimerAndAlarmOrTimerEnabled}"
                 tools:text="10 minutes"
                 tools:enabled="false" />
 
@@ -169,16 +146,12 @@
         <com.google.android.material.checkbox.MaterialCheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/main_vibrate"
-            android:checked="@={viewModel.vibrating}"
-            android:enabled="@{viewModel.alarmOrTimerEnabled}" />
+            android:text="@string/main_vibrate" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/main_flashlight"
-            android:checked="@={viewModel.turningOnFlashlight}"
-            android:enabled="@{viewModel.alarmOrTimerEnabled}" />
+            android:text="@string/main_flashlight" />
 
         <!--com.google.android.material.slider.Slider
             android:layout_width="match_parent"

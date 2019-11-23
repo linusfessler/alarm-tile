@@ -25,7 +25,7 @@ public class MainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         /*final AppDatabase db = AppDatabase.getInstance(requireContext());
-        final LiveData<List<AlarmTile>> liveAlarmTiles = db.alarmTiles().selectAll();
+        final LiveData<List<AlarmTile>> liveAlarmTiles = db.alarmTileDao().selectAll();
         liveAlarmTiles.observeForever(adapter::setAlarmTiles);*/
     }
 

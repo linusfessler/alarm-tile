@@ -6,10 +6,6 @@
 
         <import type="android.view.View" />
 
-        <variable
-            name="viewModel"
-            type="linusfessler.alarmtiles.viewmodel.SleepSettingsViewModel" />
-
     </data>
 
     <LinearLayout
@@ -31,8 +27,7 @@
         <com.google.android.material.checkbox.MaterialCheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sleep_settings_do_not_disturb"
-            android:checked="@={viewModel.enteringDoNotDisturb}" />
+            android:text="@string/sleep_settings_do_not_disturb" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,12 +36,10 @@
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:layout_width="0dp"
-                android:layout_height="@dimen/setting_height"
+                android:layout_height="@dimen/settings_height"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="@string/sleep_settings_allow_priority_notifications"
-                android:checked="@={viewModel.allowingPriorityNotifications}"
-                android:enabled="@{viewModel.enteringDoNotDisturb}"
                 tools:enabled="false" />
 
             <Space
@@ -58,7 +51,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sleep_settings_open_settings"
-                android:enabled="@{viewModel.openSettingsButtonEnabled}"
                 tools:enabled="false" />
 
         </LinearLayout>

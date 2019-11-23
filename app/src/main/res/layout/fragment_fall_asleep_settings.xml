@@ -6,10 +6,6 @@
 
         <import type="android.view.View" />
 
-        <variable
-            name="viewModel"
-            type="linusfessler.alarmtiles.viewmodel.FallAsleepSettingsViewModel" />
-
     </data>
 
     <LinearLayout
@@ -27,14 +23,13 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/setting_height">
+            android:layout_height="@dimen/settings_height">
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fall_asleep_settings_timer"
-                android:checked="@={viewModel.timerEnabled}" />
+                android:text="@string/fall_asleep_settings_timer" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/timer_duration"
@@ -43,8 +38,6 @@
                 android:layout_gravity="center_vertical"
                 android:padding="@dimen/time_padding"
                 android:background="?attr/selectableItemBackground"
-                android:text="@{viewModel.timerDuration}"
-                android:enabled="@{viewModel.timerEnabled}"
                 tools:text="30 minutes"
                 tools:enabled="false" />
 
@@ -54,8 +47,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/main_slowly_decrease_volume"
-            android:checked="@={viewModel.slowlyDecreasingVolume}"
-            android:enabled="@{viewModel.timerEnabled}"
             tools:enabled="false" />
 
     </LinearLayout>
