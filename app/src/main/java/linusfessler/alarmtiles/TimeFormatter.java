@@ -4,16 +4,16 @@ import java.util.Locale;
 
 public class TimeFormatter {
 
-    private final String hourString;
-    private final String hoursString;
-    private final String minuteString;
-    private final String minutesString;
+    private final String hourSuffix;
+    private final String hoursSuffix;
+    private final String minuteSuffix;
+    private final String minutesSuffix;
 
-    public TimeFormatter(final String hourString, final String hoursString, final String minuteString, final String minutesString) {
-        this.hourString = hourString;
-        this.hoursString = hoursString;
-        this.minuteString = minuteString;
-        this.minutesString = minutesString;
+    public TimeFormatter(final String hourSuffix, final String hoursSuffix, final String minuteSuffix, final String minutesSuffix) {
+        this.hourSuffix = hourSuffix;
+        this.hoursSuffix = hoursSuffix;
+        this.minuteSuffix = minuteSuffix;
+        this.minutesSuffix = minutesSuffix;
     }
 
     public String format(final int hours, final int minutes) {
@@ -29,13 +29,13 @@ public class TimeFormatter {
     }
 
     private String formatHours(final int hours) {
-        final String hoursSuffix = hours == 1 ? this.hourString : this.hoursString;
-        return String.format(Locale.getDefault(), "%d%s", hours, hoursSuffix);
+        final String suffix = hours == 1 ? this.hourSuffix : this.hoursSuffix;
+        return String.format(Locale.getDefault(), "%d%s", hours, suffix);
     }
 
     private String formatMinutes(final int minutes) {
-        final String minutesSuffix = minutes == 1 ? this.minuteString : this.minutesString;
-        return String.format(Locale.getDefault(), "%d%s", minutes, minutesSuffix);
+        final String suffix = minutes == 1 ? this.minuteSuffix : this.minutesSuffix;
+        return String.format(Locale.getDefault(), "%d%s", minutes, suffix);
     }
 
 }
