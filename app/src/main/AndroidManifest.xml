@@ -15,23 +15,24 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".activities.LauncherActivity"
+            android:name=".activities.MainActivity"
+            android:label="@string/activity_main_title"
             android:launchMode="singleTask"
-            android:theme="@android:style/Theme.NoDisplay"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
-            android:name=".activities.MainActivity"
-            android:label="@string/activity_main_title"
+            android:name=".activities.LauncherActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustNothing" />
+            android:theme="@android:style/Theme.NoDisplay"
+            android:windowSoftInputMode="stateHidden" />
 
         <activity
             android:name=".activities.SettingsActivity"
