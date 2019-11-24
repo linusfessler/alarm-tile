@@ -1,29 +1,37 @@
 package linusfessler.alarmtiles;
 
-import android.content.Context;
+import android.app.Application;
 
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import linusfessler.alarmtiles.dao.AlarmTileDao;
-import linusfessler.alarmtiles.dao.SleepTimerTileDao;
-import linusfessler.alarmtiles.dao.TimerTileDao;
+import linusfessler.alarmtiles.dao.AlarmDao;
+import linusfessler.alarmtiles.dao.TimerDao;
 import linusfessler.alarmtiles.model.AlarmTile;
-import linusfessler.alarmtiles.model.SleepTimerTile;
 import linusfessler.alarmtiles.model.TimerTile;
+import linusfessler.alarmtiles.sleeptimer.SleepTimer;
+import linusfessler.alarmtiles.sleeptimer.SleepTimerDao;
+import lombok.Getter;
 
-@Database(entities = {SleepTimerTile.class, AlarmTile.class, TimerTile.class}, version = 1)
+@Database(entities = {SleepTimer.class, AlarmTile.class, TimerTile.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
+
+    private static final int NUMBER_OF_THREADS = 2;
 
     private static AppDatabase instance;
 
-    public static synchronized AppDatabase getInstance(final Context context) {
+    @Getter
+    private final ExecutorService writeExecutor =
+            Executors.newFixedThreadPool(AppDatabase.NUMBER_OF_THREADS);
+
+    public static synchronized AppDatabase getInstance(final Application application) {
         if (AppDatabase.instance == null) {
             AppDatabase.instance = Room
-                    .databaseBuilder(context.getApplicationContext(), AppDatabase.class, "app-database")
+                    .databaseBuilder(application, AppDatabase.class, "app-database")
                     .build();
             AppDatabase.instance.populate();
         }
@@ -31,24 +39,24 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     private void populate() {
-        Executors.newSingleThreadExecutor().submit(() -> {
-            if (this.sleepTimerTileDao().count() == 0) {
-                this.sleepTimerTileDao().insert(new SleepTimerTile());
+        this.getWriteExecutor().submit(() -> {
+            if (this.sleepTimerDao().count() == 0) {
+                this.sleepTimerDao().insert(new SleepTimer());
             }
 
-            if (this.alarmTileDao().count() == 0) {
-                this.alarmTileDao().insert(new AlarmTile());
+            if (this.alarmDao().count() == 0) {
+                this.alarmDao().insert(new AlarmTile());
             }
 
-            if (this.timerTileDao().count() == 0) {
-                this.timerTileDao().insert(new TimerTile());
+            if (this.timerDao().count() == 0) {
+                this.timerDao().insert(new TimerTile());
             }
         });
     }
 
-    public abstract SleepTimerTileDao sleepTimerTileDao();
+    public abstract SleepTimerDao sleepTimerDao();
 
-    public abstract AlarmTileDao alarmTileDao();
+    public abstract AlarmDao alarmDao();
 
-    public abstract TimerTileDao timerTileDao();
+    public abstract TimerDao timerDao();
 }

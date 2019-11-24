@@ -47,9 +47,9 @@
             android:theme="@style/AlarmTheme" />
 
         <service
-            android:name=".services.tile.AlarmTileService"
-            android:icon="@drawable/ic_alarm_24px"
-            android:label="@string/alarm"
+            android:name=".sleeptimer.SleepTimerTileService"
+            android:icon="@drawable/ic_music_off_24px"
+            android:label="@string/sleep_timer"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />

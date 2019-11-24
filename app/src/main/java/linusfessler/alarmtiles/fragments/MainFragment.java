@@ -7,9 +7,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import linusfessler.alarmtiles.R;
+import linusfessler.alarmtiles.databinding.FragmentMainBinding;
+import linusfessler.alarmtiles.sleeptimer.SleepTimerViewModel;
 
 public class MainFragment extends Fragment {
 
@@ -17,16 +21,18 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_main, container, false);
+
+        final FragmentMainBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
+
+        final SleepTimerViewModel sleepTimerViewModel = ViewModelProviders.of(this).get(SleepTimerViewModel.class);
+        sleepTimerViewModel.getSleepTimer().observe(this, sleepTimer -> {
+            binding.sleepTimer.setEnabled(sleepTimer.isEnabled());
+            binding.sleepTimer.setOnClickListener(v -> {
+                sleepTimer.setEnabled(!sleepTimer.isEnabled());
+                sleepTimerViewModel.setSleepTimer(sleepTimer);
+            });
+        });
+
+        return binding.getRoot();
     }
-
-    @Override
-    public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        /*final AppDatabase db = AppDatabase.getInstance(requireContext());
-        final LiveData<List<AlarmTile>> liveAlarmTiles = db.alarmTileDao().selectAll();
-        liveAlarmTiles.observeForever(adapter::setAlarmTiles);*/
-    }
-
 }

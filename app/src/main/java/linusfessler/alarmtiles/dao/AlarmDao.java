@@ -9,7 +9,7 @@ import androidx.room.Update;
 import linusfessler.alarmtiles.model.AlarmTile;
 
 @Dao
-public interface AlarmTileDao {
+public interface AlarmDao {
 
     @Query("SELECT * FROM AlarmTile")
     LiveData<AlarmTile> select();

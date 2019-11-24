@@ -45,6 +45,7 @@
                     android:orientation="horizontal">
 
                     <linusfessler.alarmtiles.views.QuickSettingsTile
+                        android:id="@+id/sleep_timer"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -53,6 +54,7 @@
                         app:name="@string/sleep_timer" />
 
                     <linusfessler.alarmtiles.views.QuickSettingsTile
+                        android:id="@+id/alarm"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -61,6 +63,7 @@
                         app:name="@string/alarm" />
 
                     <linusfessler.alarmtiles.views.QuickSettingsTile
+                        android:id="@+id/timer"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

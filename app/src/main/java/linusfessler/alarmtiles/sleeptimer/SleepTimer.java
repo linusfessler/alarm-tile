@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.model;
+package linusfessler.alarmtiles.sleeptimer;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -7,12 +7,14 @@ import lombok.Data;
 
 @Data
 @Entity
-public class SleepTimerTile {
+public class SleepTimer {
 
     @PrimaryKey(autoGenerate = true)
     private Long id;
 
-    public SleepTimerTile() {
+    private boolean enabled;
 
+    public SleepTimer() {
+        this.enabled = false;
     }
 }
