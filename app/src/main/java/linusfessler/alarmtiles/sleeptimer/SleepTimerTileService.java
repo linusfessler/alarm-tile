@@ -41,12 +41,15 @@ public class SleepTimerTileService extends TileService implements Observer<Sleep
     }
 
     private void updateTile() {
-        final Tile tile = this.getQsTile();
+        final int state;
         if (this.sleepTimer.isEnabled()) {
-            tile.setState(Tile.STATE_ACTIVE);
+            state = Tile.STATE_ACTIVE;
         } else {
-            tile.setState(Tile.STATE_INACTIVE);
+            state = Tile.STATE_INACTIVE;
         }
+
+        final Tile tile = this.getQsTile();
+        tile.setState(state);
         tile.updateTile();
     }
 }
