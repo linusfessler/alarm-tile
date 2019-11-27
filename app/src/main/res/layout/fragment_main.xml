@@ -73,152 +73,14 @@
                 </LinearLayout>
 
                 <com.google.android.material.textview.MaterialTextView
-                    style="@style/Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/settings_title_sleep_timer" />
+                    android:text="@string/tutorial" />
 
-                <com.google.android.material.checkbox.MaterialCheckBox
+                <Spinner
+                    android:id="@+id/sleep_timer_modes"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/main_slowly_decrease_volume" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    style="@style/Title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/main_title_alarm" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:drawableStart="@drawable/ic_notifications_active_24px"
-                    android:text="@string/main_alarm_sound"
-                    style="@style/Settings" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:clipChildren="false">
-
-                    <Space
-                        android:layout_width="4dp"
-                        android:layout_height="match_parent" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_volume_down_24px"
-                        android:tint="@color/colorOnBackground"
-                        android:contentDescription="@string/accessibility_volume_down" />
-
-                    <Space
-                        android:layout_width="8dp"
-                        android:layout_height="match_parent" />
-
-                    <com.google.android.material.slider.Slider
-                        android:id="@+id/alarm_volume"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
-                    <Space
-                        android:layout_width="8dp"
-                        android:layout_height="match_parent" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_volume_up_24px"
-                        android:tint="@color/colorOnBackground"
-                        android:contentDescription="@string/accessibility_volume_up" />
-
-                    <Space
-                        android:layout_width="4dp"
-                        android:layout_height="match_parent" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/settings_height"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.checkbox.MaterialCheckBox
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/main_volume_timer" />
-                    <!--
-                        android:checked="@={viewModel.volumeTimerEnabled}"
-                    -->
-
-                    <linusfessler.alarmtiles.views.TimeSettings
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:padding="6dp"
-                        app:hour="12"
-                        app:minute="30"
-                        app:timeFormat="TIME" />
-                    <!--
-                        android:text="@{viewModel.volumeTimerDuration}"
-                        android:enabled="@{viewModel.volumeTimerEnabled}"
-                    -->
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/settings_height"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.checkbox.MaterialCheckBox
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/main_dismiss_timer" />
-                    <!--
-                        android:checked="@={viewModel.dismissTimerEnabled}"
-                    -->
-
-                    <linusfessler.alarmtiles.views.TimeSettings
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:padding="6dp"
-                        app:hour="12"
-                        app:minute="30"
-                        app:timeFormat="TIME" />
-                    <!--
-                        android:text="@{viewModel.dismissTimerDuration}"
-                        android:enabled="@{viewModel.dismissTimerEnabled}"
-                    -->
-
-                </LinearLayout>
-
-                <com.google.android.material.checkbox.MaterialCheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/main_vibrate" />
-                <!--
-                    android:checked="@={viewModel.vibrating}"
-                    android:enabled="@{viewModel.alarmOrTimerEnabled}"
-                -->
-
-                <com.google.android.material.checkbox.MaterialCheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/main_flashlight" />
-                <!--
-                    android:checked="@={viewModel.turningOnFlashlight}"
-                    android:enabled="@{viewModel.alarmOrTimerEnabled}"
-                -->
-
-                <com.google.android.material.textview.MaterialTextView
-                    style="@style/Title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/main_title_snooze" />
+                    android:layout_height="wrap_content" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -249,17 +111,30 @@
 
                 </LinearLayout>
 
-                <com.google.android.material.textview.MaterialTextView
-                    style="@style/Title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/main_title_other" />
-
                 <com.google.android.material.checkbox.MaterialCheckBox
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:text="@string/main_show_notification" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/main_vibrate" />
+                <!--
+                    android:checked="@={viewModel.vibrating}"
+                    android:enabled="@{viewModel.alarmOrTimerEnabled}"
+                -->
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/main_flashlight" />
+                <!--
+                    android:checked="@={viewModel.turningOnFlashlight}"
+                    android:enabled="@{viewModel.alarmOrTimerEnabled}"
+                -->
+
 
             </LinearLayout>
 
