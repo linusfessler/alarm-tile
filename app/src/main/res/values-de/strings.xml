@@ -42,7 +42,7 @@
     <string name="notification_missed_alarm_title">Versäumter Wecker</string>
     <string name="revert_info">Am nächsten Morgen werden alle Einstellungen wieder auf den Stand des vorherigen Abends zurückgesetzt.</string>
     <string name="sleep_settings_allow_priority_notifications">Dringende Benachrichtigungen erlauben</string>
-    <string name="sleep_settings_do_not_disturb">Nicht stören</string>
+    <string name="do_not_disturb">Bitte nicht stören</string>
     <string name="sleep_settings_do_not_disturb_info">Aktiviere den Nicht-Stören-Modus während der Nacht, um alle Töne und Vibrationen bis zum nächsten Wecker auszustellen. Du kannst eine Ausnahme für wichtige Benachrichtungen machen, die  in den Einstellungen deines Geräts konfigurierbar sind.</string>
     <string name="sleep_settings_open_settings">Einstell.</string>
     <string name="sleep_settings_title">Schlafen</string>
@@ -69,6 +69,6 @@
     <string name="accessibility_alarm_tile_icon">Alarm Tile Icon</string>
     <string name="accessibility_volume_down">Leiser</string>
     <string name="accessibility_volume_up">Lauter</string>
-    <string name="main_alarm_sound">Weckton</string>
+    <string name="sound_settings">Sound-Einstellungen</string>
     <string name="main_title_other">Sonstiges</string>
 </resources>

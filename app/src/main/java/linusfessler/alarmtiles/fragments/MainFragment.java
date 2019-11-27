@@ -1,6 +1,8 @@
 package linusfessler.alarmtiles.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,11 @@ public class MainFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
 
         final FragmentMainBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
+
+        binding.soundSettings.setOnClickListener(v -> {
+            final Intent intent = new Intent(Settings.ACTION_SOUND_SETTINGS);
+            this.startActivity(intent);
+        });
 
         final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.requireContext(), R.array.sleep_timer_modes, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

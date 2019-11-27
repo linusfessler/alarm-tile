@@ -27,7 +27,7 @@
         <com.google.android.material.checkbox.MaterialCheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sleep_settings_do_not_disturb" />
+            android:text="@string/do_not_disturb" />
 
         <LinearLayout
             android:layout_width="match_parent"
