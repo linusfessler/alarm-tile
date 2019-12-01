@@ -71,4 +71,5 @@
     <string name="accessibility_volume_up">Lauter</string>
     <string name="sound_settings">Sound-Einstellungen</string>
     <string name="main_title_other">Sonstiges</string>
+    <string name="stopwatch">Stoppuhr</string>
 </resources>

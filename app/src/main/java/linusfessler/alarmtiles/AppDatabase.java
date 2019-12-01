@@ -15,9 +15,11 @@ import linusfessler.alarmtiles.model.AlarmTile;
 import linusfessler.alarmtiles.model.TimerTile;
 import linusfessler.alarmtiles.sleeptimer.SleepTimer;
 import linusfessler.alarmtiles.sleeptimer.SleepTimerDao;
+import linusfessler.alarmtiles.stopwatch.Stopwatch;
+import linusfessler.alarmtiles.stopwatch.StopwatchDao;
 import lombok.Getter;
 
-@Database(entities = {SleepTimer.class, AlarmTile.class, TimerTile.class}, version = 1)
+@Database(entities = {SleepTimer.class, AlarmTile.class, TimerTile.class, Stopwatch.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final int NUMBER_OF_THREADS = 2;
@@ -51,6 +53,10 @@ public abstract class AppDatabase extends RoomDatabase {
             if (this.timerDao().count() == 0) {
                 this.timerDao().insert(new TimerTile());
             }
+
+            if (this.stopwatchDao().count() == 0) {
+                this.stopwatchDao().insert(new Stopwatch());
+            }
         });
     }
 
@@ -59,4 +65,6 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract AlarmDao alarmDao();
 
     public abstract TimerDao timerDao();
+
+    public abstract StopwatchDao stopwatchDao();
 }

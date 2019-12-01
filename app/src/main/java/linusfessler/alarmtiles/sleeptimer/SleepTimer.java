@@ -29,12 +29,12 @@ public class SleepTimer {
         }
     }
 
-    private void enable() {
+    void enable() {
         this.setEnabled(true);
         this.setStartTimeStamp(System.currentTimeMillis());
     }
 
-    private void disable() {
+    void disable() {
         this.setEnabled(false);
         this.setStartTimeStamp(null);
     }

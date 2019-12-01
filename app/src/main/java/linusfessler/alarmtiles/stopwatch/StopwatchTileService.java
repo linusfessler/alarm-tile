@@ -1,20 +1,20 @@
-package linusfessler.alarmtiles.sleeptimer;
+package linusfessler.alarmtiles.stopwatch;
 
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
 import androidx.lifecycle.Observer;
 
-public class SleepTimerTileService extends TileService {
+public class StopwatchTileService extends TileService {
 
-    private SleepTimerViewModel viewModel;
-    private SleepTimer sleepTimer;
+    private StopwatchViewModel viewModel;
+    private Stopwatch stopwatch;
 
-    private final Observer<SleepTimer> sleepTimerObserver = value -> {
-        this.sleepTimer = value;
+    private final Observer<Stopwatch> stopwatchObserver = value -> {
+        this.stopwatch = value;
 
         final int state;
-        if (this.sleepTimer.isEnabled()) {
+        if (this.stopwatch.isEnabled()) {
             state = Tile.STATE_ACTIVE;
         } else {
             state = Tile.STATE_INACTIVE;
@@ -34,26 +34,26 @@ public class SleepTimerTileService extends TileService {
     @Override
     public void onCreate() {
         super.onCreate();
-        this.viewModel = new SleepTimerViewModel(this.getApplication());
+        this.viewModel = new StopwatchViewModel(this.getApplication());
     }
 
     @Override
     public void onClick() {
-        if (this.sleepTimer != null) {
-            this.viewModel.toggle(this.sleepTimer);
+        if (this.stopwatch != null) {
+            this.viewModel.toggle(this.stopwatch);
         }
     }
 
     @Override
     public void onStartListening() {
-        this.viewModel.getSleepTimer().observeForever(this.sleepTimerObserver);
+        this.viewModel.getStopwatch().observeForever(this.stopwatchObserver);
         this.viewModel.getTileLabel().observeForever(this.tileLabelObserver);
 
     }
 
     @Override
     public void onStopListening() {
-        this.viewModel.getSleepTimer().removeObserver(this.sleepTimerObserver);
+        this.viewModel.getStopwatch().removeObserver(this.stopwatchObserver);
         this.viewModel.getTileLabel().removeObserver(this.tileLabelObserver);
     }
 }

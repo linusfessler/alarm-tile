@@ -51,7 +51,7 @@ public class SleepTimerViewModel extends AndroidViewModel {
                 @Override
                 public void onTick(final long millisUntilFinished) {
                     //tileLabelMutableLiveData.postValue(timeFormatter.format(millisUntilFinished));
-                    tileLabelMutableLiveData.postValue("" + millisUntilFinished / 1000);
+                    tileLabelMutableLiveData.postValue(tileLabel + "\n" + millisUntilFinished / 1000);
                 }
 
                 @Override
@@ -78,8 +78,23 @@ public class SleepTimerViewModel extends AndroidViewModel {
         return this.tileLabelLiveData;
     }
 
-    public void toggleSleepTimer(final SleepTimer sleepTimer) {
-        sleepTimer.toggle();
+    public void toggle(final SleepTimer sleepTimer) {
+        if (sleepTimer.isEnabled()) {
+            this.disable(sleepTimer);
+        } else {
+            this.enable(sleepTimer);
+        }
+    }
+
+    private void enable(final SleepTimer sleepTimer) {
+        sleepTimer.setEnabled(true);
+        sleepTimer.setStartTimeStamp(System.currentTimeMillis());
+        this.repository.updateSleepTimer(sleepTimer);
+    }
+
+    private void disable(final SleepTimer sleepTimer) {
+        sleepTimer.setEnabled(false);
+        sleepTimer.setStartTimeStamp(null);
         this.repository.updateSleepTimer(sleepTimer);
     }
 }

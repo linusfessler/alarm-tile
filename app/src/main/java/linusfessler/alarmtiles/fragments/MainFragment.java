@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProviders;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.databinding.FragmentMainBinding;
 import linusfessler.alarmtiles.sleeptimer.SleepTimerViewModel;
+import linusfessler.alarmtiles.stopwatch.StopwatchViewModel;
 
 public class MainFragment extends Fragment {
 
@@ -41,10 +42,20 @@ public class MainFragment extends Fragment {
             if (sleepTimer == null) {
                 return;
             }
-            binding.sleepTimer.setEnabled(sleepTimer.isEnabled());
-            binding.sleepTimer.setOnClickListener(v -> sleepTimerViewModel.toggleSleepTimer(sleepTimer));
+            binding.alarmTiles.sleepTimer.setEnabled(sleepTimer.isEnabled());
+            binding.alarmTiles.sleepTimer.setOnClickListener(v -> sleepTimerViewModel.toggle(sleepTimer));
         });
-        sleepTimerViewModel.getTileLabel().observe(this, binding.sleepTimer::setLabel);
+        sleepTimerViewModel.getTileLabel().observe(this, binding.alarmTiles.sleepTimer::setLabel);
+
+        final StopwatchViewModel stopwatchViewModel = ViewModelProviders.of(this).get(StopwatchViewModel.class);
+        stopwatchViewModel.getStopwatch().observe(this, stopwatch -> {
+            if (stopwatch == null) {
+                return;
+            }
+            binding.alarmTiles.stopwatch.setEnabled(stopwatch.isEnabled());
+            binding.alarmTiles.stopwatch.setOnClickListener(v -> stopwatchViewModel.toggle(stopwatch));
+        });
+        stopwatchViewModel.getTileLabel().observe(this, binding.alarmTiles.stopwatch::setLabel);
 
         return binding.getRoot();
     }
