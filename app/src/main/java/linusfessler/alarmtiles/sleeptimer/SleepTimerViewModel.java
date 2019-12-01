@@ -10,10 +10,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
 import linusfessler.alarmtiles.R;
+import linusfessler.alarmtiles.TimeFormatter;
 
 public class SleepTimerViewModel extends AndroidViewModel {
-
-    private static final long ONE_SECOND = 1000;
 
     private final SleepTimerRepository repository;
 
@@ -29,7 +28,7 @@ public class SleepTimerViewModel extends AndroidViewModel {
         this.sleepTimerLiveData = this.repository.getSleepTimer();
 
         final String tileLabel = application.getString(R.string.sleep_timer);
-        //final TimeFormatter timeFormatter = new TimeFormatter("h", "h", "min", "min");
+        final TimeFormatter timeFormatter = new TimeFormatter();
         this.tileLabelLiveData = Transformations.switchMap(this.sleepTimerLiveData, sleepTimer -> {
             final MutableLiveData<String> tileLabelMutableLiveData = new MutableLiveData<>();
 
@@ -47,11 +46,11 @@ public class SleepTimerViewModel extends AndroidViewModel {
 
             final long millisElapsed = System.currentTimeMillis() - sleepTimer.getStartTimeStamp();
             final long millisLeft = sleepTimer.getDuration() - millisElapsed;
-            this.countdown = new CountDownTimer(millisLeft, SleepTimerViewModel.ONE_SECOND) {
+            this.countdown = new CountDownTimer(millisLeft, 1000) {
                 @Override
                 public void onTick(final long millisUntilFinished) {
-                    //tileLabelMutableLiveData.postValue(timeFormatter.format(millisUntilFinished));
-                    tileLabelMutableLiveData.postValue(tileLabel + "\n" + millisUntilFinished / 1000);
+                    final String formattedTimeLeft = timeFormatter.format(millisUntilFinished, false);
+                    tileLabelMutableLiveData.postValue(tileLabel + "\n" + formattedTimeLeft);
                 }
 
                 @Override

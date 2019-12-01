@@ -28,15 +28,6 @@ public class MainFragment extends Fragment {
 
         final FragmentMainBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
 
-        binding.soundSettings.setOnClickListener(v -> {
-            final Intent intent = new Intent(Settings.ACTION_SOUND_SETTINGS);
-            this.startActivity(intent);
-        });
-
-        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.requireContext(), R.array.sleep_timer_modes, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.sleepTimerModes.setAdapter(adapter);
-
         final SleepTimerViewModel sleepTimerViewModel = ViewModelProviders.of(this).get(SleepTimerViewModel.class);
         sleepTimerViewModel.getSleepTimer().observe(this, sleepTimer -> {
             if (sleepTimer == null) {
@@ -56,6 +47,15 @@ public class MainFragment extends Fragment {
             binding.alarmTiles.stopwatch.setOnClickListener(v -> stopwatchViewModel.toggle(stopwatch));
         });
         stopwatchViewModel.getTileLabel().observe(this, binding.alarmTiles.stopwatch::setLabel);
+
+        binding.soundSettings.setOnClickListener(v -> {
+            final Intent intent = new Intent(Settings.ACTION_SOUND_SETTINGS);
+            this.startActivity(intent);
+        });
+
+        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.requireContext(), R.array.sleep_timer_modes, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.sleepTimerModes.setAdapter(adapter);
 
         return binding.getRoot();
     }

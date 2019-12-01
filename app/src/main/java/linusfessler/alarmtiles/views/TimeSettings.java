@@ -53,7 +53,7 @@ public class TimeSettings extends com.google.android.material.textview.MaterialT
 
     private void initSelf(@NonNull final Context context) {
         this.timeOfDayFormatter = new TimeOfDayFormatter();
-        this.timeFormatter = new TimeFormatter("h", "h", "min", "min");
+        this.timeFormatter = new TimeFormatter();
 
         this.setClickable(true);
         this.setFocusable(true);

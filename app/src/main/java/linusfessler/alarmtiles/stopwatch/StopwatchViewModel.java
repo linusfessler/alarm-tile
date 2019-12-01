@@ -12,10 +12,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import linusfessler.alarmtiles.R;
+import linusfessler.alarmtiles.TimeFormatter;
 
 public class StopwatchViewModel extends AndroidViewModel {
-
-    private static final long ONE_SECOND = 1000;
 
     private final StopwatchRepository repository;
 
@@ -31,7 +30,7 @@ public class StopwatchViewModel extends AndroidViewModel {
         this.stopwatchLiveData = this.repository.getStopwatch();
 
         final String tileLabel = application.getString(R.string.stopwatch);
-        //final TimeFormatter timeFormatter = new TimeFormatter("h", "h", "min", "min");
+        final TimeFormatter timeFormatter = new TimeFormatter();
         this.tileLabelLiveData = Transformations.switchMap(this.stopwatchLiveData, stopwatch -> {
             final MutableLiveData<String> tileLabelMutableLiveData = new MutableLiveData<>();
 
@@ -48,13 +47,15 @@ public class StopwatchViewModel extends AndroidViewModel {
 
             this.timer = new Timer(false);
             this.timer.scheduleAtFixedRate(new TimerTask() {
-                long secondsElapsed = (System.currentTimeMillis() - stopwatch.getStartTimeStamp()) / 1000;
+                long elapsedMillis = System.currentTimeMillis() - stopwatch.getStartTimeStamp();
 
                 @Override
                 public void run() {
-                    tileLabelMutableLiveData.postValue(tileLabel + "\n" + this.secondsElapsed++);
+                    final String elapsedTime = timeFormatter.format(this.elapsedMillis, true);
+                    tileLabelMutableLiveData.postValue(tileLabel + "\n" + elapsedTime);
+                    this.elapsedMillis += 10;
                 }
-            }, 0, StopwatchViewModel.ONE_SECOND);
+            }, 0, 10);
 
             return tileLabelMutableLiveData;
         });
