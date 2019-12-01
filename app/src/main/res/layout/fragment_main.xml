@@ -51,7 +51,7 @@
                         android:layout_weight="1"
                         app:enabled="true"
                         app:icon="@drawable/ic_music_off_24px"
-                        app:name="@string/sleep_timer" />
+                        app:label="@string/sleep_timer" />
 
                     <linusfessler.alarmtiles.views.QuickSettingsTile
                         android:id="@+id/alarm"
@@ -60,7 +60,7 @@
                         android:layout_weight="1"
                         app:enabled="false"
                         app:icon="@drawable/ic_alarm_24px"
-                        app:name="@string/alarm" />
+                        app:label="@string/alarm" />
 
                     <linusfessler.alarmtiles.views.QuickSettingsTile
                         android:id="@+id/timer"
@@ -68,7 +68,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         app:icon="@drawable/ic_timer_24px"
-                        app:name="@string/timer" />
+                        app:label="@string/timer" />
 
                 </LinearLayout>
 

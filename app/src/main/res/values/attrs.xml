@@ -8,7 +8,7 @@
 
     <declare-styleable name="QuickSettingsTile">
         <attr name="enabled" format="boolean" />
-        <attr name="name" format="string" />
+        <attr name="label" format="string" />
         <attr name="icon" format="reference" />
     </declare-styleable>
 
