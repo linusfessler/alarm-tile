@@ -5,42 +5,14 @@ import android.service.quicksettings.TileService;
 
 import androidx.lifecycle.Observer;
 
-public class SleepTimerTileService extends TileService implements Observer<SleepTimer> {
+public class SleepTimerTileService extends TileService {
 
-    private SleepTimerRepository repository;
+    private SleepTimerViewModel viewModel;
     private SleepTimer sleepTimer;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        this.repository = new SleepTimerRepository(this.getApplication());
-        this.repository.getSleepTimer().observeForever(this);
-    }
+    private final Observer<SleepTimer> sleepTimerObserver = value -> {
+        this.sleepTimer = value;
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        this.repository.getSleepTimer().removeObserver(this);
-    }
-
-    @Override
-    public void onChanged(final SleepTimer sleepTimer) {
-        this.sleepTimer = sleepTimer;
-        this.updateTile();
-    }
-
-    @Override
-    public void onClick() {
-        this.sleepTimer.setEnabled(!this.sleepTimer.isEnabled());
-        this.repository.setSleepTimer(this.sleepTimer);
-    }
-
-    @Override
-    public void onStartListening() {
-        this.updateTile();
-    }
-
-    private void updateTile() {
         final int state;
         if (this.sleepTimer.isEnabled()) {
             state = Tile.STATE_ACTIVE;
@@ -51,5 +23,37 @@ public class SleepTimerTileService extends TileService implements Observer<Sleep
         final Tile tile = this.getQsTile();
         tile.setState(state);
         tile.updateTile();
+    };
+
+    private final Observer<String> tileLabelObserver = tileLabel -> {
+        final Tile tile = this.getQsTile();
+        tile.setLabel(tileLabel);
+        tile.updateTile();
+    };
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        this.viewModel = new SleepTimerViewModel(this.getApplication());
+    }
+
+    @Override
+    public void onClick() {
+        if (this.sleepTimer != null) {
+            this.viewModel.toggleSleepTimer(this.sleepTimer);
+        }
+    }
+
+    @Override
+    public void onStartListening() {
+        this.viewModel.getSleepTimer().observeForever(this.sleepTimerObserver);
+        this.viewModel.getTileLabel().observeForever(this.tileLabelObserver);
+
+    }
+
+    @Override
+    public void onStopListening() {
+        this.viewModel.getSleepTimer().removeObserver(this.sleepTimerObserver);
+        this.viewModel.getTileLabel().removeObserver(this.tileLabelObserver);
     }
 }

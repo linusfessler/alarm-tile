@@ -22,16 +22,11 @@ class SleepTimerRepository {
         final AppDatabase db = AppDatabase.getInstance(application);
         this.writeExecutor = db.getWriteExecutor();
         this.sleepTimerDao = db.sleepTimerDao();
+
         this.sleepTimer = this.sleepTimerDao.select();
     }
 
-    void setSleepTimer(final SleepTimer sleepTimer) {
-        this.writeExecutor.execute(() -> {
-            if (this.sleepTimerDao.count() == 0) {
-                this.sleepTimerDao.insert(sleepTimer);
-            } else {
-                this.sleepTimerDao.update(sleepTimer);
-            }
-        });
+    void updateSleepTimer(final SleepTimer sleepTimer) {
+        this.writeExecutor.execute(() -> this.sleepTimerDao.update(sleepTimer));
     }
 }

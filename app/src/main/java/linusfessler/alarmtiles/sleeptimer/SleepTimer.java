@@ -13,8 +13,29 @@ public class SleepTimer {
     private Long id;
 
     private boolean enabled;
+    private long duration;
+    private Long startTimeStamp;
 
+    // TODO: Add a constructor with sensible default values
     public SleepTimer() {
-        this.enabled = false;
+        this.duration = 10000;
+    }
+
+    void toggle() {
+        if (this.isEnabled()) {
+            this.disable();
+        } else {
+            this.enable();
+        }
+    }
+
+    private void enable() {
+        this.setEnabled(true);
+        this.setStartTimeStamp(System.currentTimeMillis());
+    }
+
+    private void disable() {
+        this.setEnabled(false);
+        this.setStartTimeStamp(null);
     }
 }

@@ -38,12 +38,13 @@ public class MainFragment extends Fragment {
 
         final SleepTimerViewModel sleepTimerViewModel = ViewModelProviders.of(this).get(SleepTimerViewModel.class);
         sleepTimerViewModel.getSleepTimer().observe(this, sleepTimer -> {
+            if (sleepTimer == null) {
+                return;
+            }
             binding.sleepTimer.setEnabled(sleepTimer.isEnabled());
-            binding.sleepTimer.setOnClickListener(v -> {
-                sleepTimer.setEnabled(!sleepTimer.isEnabled());
-                sleepTimerViewModel.setSleepTimer(sleepTimer);
-            });
+            binding.sleepTimer.setOnClickListener(v -> sleepTimerViewModel.toggleSleepTimer(sleepTimer));
         });
+        sleepTimerViewModel.getTileLabel().observe(this, binding.sleepTimer::setLabel);
 
         return binding.getRoot();
     }
