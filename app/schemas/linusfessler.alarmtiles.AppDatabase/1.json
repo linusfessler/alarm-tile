@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d3ef95d9eacd08ba8d34b8067c4e1ced",
+    "identityHash": "bd3a88f6419c3bac8adc8a166da4aa94",
     "entities": [
       {
         "tableName": "SleepTimer",
@@ -63,12 +63,30 @@
         "foreignKeys": []
       },
       {
-        "tableName": "TimerTile",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT)",
+        "tableName": "Timer",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `enabled` INTEGER NOT NULL, `duration` INTEGER NOT NULL, `startTimeStamp` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "enabled",
+            "columnName": "enabled",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "duration",
+            "columnName": "duration",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startTimeStamp",
+            "columnName": "startTimeStamp",
             "affinity": "INTEGER",
             "notNull": false
           }
@@ -118,7 +136,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd3ef95d9eacd08ba8d34b8067c4e1ced')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bd3a88f6419c3bac8adc8a166da4aa94')"
     ]
   }
 }

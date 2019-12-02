@@ -18,6 +18,7 @@ import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.databinding.FragmentMainBinding;
 import linusfessler.alarmtiles.sleeptimer.SleepTimerViewModel;
 import linusfessler.alarmtiles.stopwatch.StopwatchViewModel;
+import linusfessler.alarmtiles.timer.TimerViewModel;
 
 public class MainFragment extends Fragment {
 
@@ -37,6 +38,16 @@ public class MainFragment extends Fragment {
             binding.alarmTiles.sleepTimer.setOnClickListener(v -> sleepTimerViewModel.toggle(sleepTimer));
         });
         sleepTimerViewModel.getTileLabel().observe(this, binding.alarmTiles.sleepTimer::setLabel);
+
+        final TimerViewModel timerViewModel = ViewModelProviders.of(this).get(TimerViewModel.class);
+        timerViewModel.getTimer().observe(this, timer -> {
+            if (timer == null) {
+                return;
+            }
+            binding.alarmTiles.timer.setEnabled(timer.isEnabled());
+            binding.alarmTiles.timer.setOnClickListener(v -> timerViewModel.toggle(timer));
+        });
+        timerViewModel.getTileLabel().observe(this, binding.alarmTiles.timer::setLabel);
 
         final StopwatchViewModel stopwatchViewModel = ViewModelProviders.of(this).get(StopwatchViewModel.class);
         stopwatchViewModel.getStopwatch().observe(this, stopwatch -> {
