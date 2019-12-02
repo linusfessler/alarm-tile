@@ -78,22 +78,7 @@ public class SleepTimerViewModel extends AndroidViewModel {
     }
 
     public void toggle(final SleepTimer sleepTimer) {
-        if (sleepTimer.isEnabled()) {
-            this.disable(sleepTimer);
-        } else {
-            this.enable(sleepTimer);
-        }
-    }
-
-    private void enable(final SleepTimer sleepTimer) {
-        sleepTimer.setEnabled(true);
-        sleepTimer.setStartTimeStamp(System.currentTimeMillis());
-        this.repository.updateSleepTimer(sleepTimer);
-    }
-
-    private void disable(final SleepTimer sleepTimer) {
-        sleepTimer.setEnabled(false);
-        sleepTimer.setStartTimeStamp(null);
+        sleepTimer.toggle();
         this.repository.updateSleepTimer(sleepTimer);
     }
 }

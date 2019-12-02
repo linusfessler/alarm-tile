@@ -70,22 +70,7 @@ public class StopwatchViewModel extends AndroidViewModel {
     }
 
     public void toggle(final Stopwatch stopwatch) {
-        if (stopwatch.isEnabled()) {
-            this.disable(stopwatch);
-        } else {
-            this.enable(stopwatch);
-        }
-    }
-
-    private void enable(final Stopwatch stopwatch) {
-        stopwatch.setEnabled(true);
-        stopwatch.setStartTimeStamp(System.currentTimeMillis());
-        this.repository.updateStopwatch(stopwatch);
-    }
-
-    private void disable(final Stopwatch stopwatch) {
-        stopwatch.setEnabled(false);
-        stopwatch.setStartTimeStamp(null);
+        stopwatch.toggle();
         this.repository.updateStopwatch(stopwatch);
     }
 }

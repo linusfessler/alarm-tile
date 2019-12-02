@@ -14,4 +14,22 @@ public class Stopwatch {
 
     private boolean enabled;
     private Long startTimeStamp;
+
+    public void toggle() {
+        if (this.isEnabled()) {
+            this.disable();
+        } else {
+            this.enable();
+        }
+    }
+
+    private void enable() {
+        this.setEnabled(true);
+        this.setStartTimeStamp(System.currentTimeMillis());
+    }
+
+    private void disable() {
+        this.setEnabled(false);
+        this.setStartTimeStamp(null);
+    }
 }
