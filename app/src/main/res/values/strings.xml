@@ -2,7 +2,7 @@
 
     <string name="app_name">Alarm Tiles</string>
 
-    <string name="tutorial">Your quick settings tiles are ready to use. Long click a tile for more options.</string>
+    <string name="tutorial">Your quick settings tiles are ready to use. Long click a tile to configure it.</string>
 
     <string name="sleep_timer">Sleep timer</string>
     <string name="alarm">Alarm</string>
