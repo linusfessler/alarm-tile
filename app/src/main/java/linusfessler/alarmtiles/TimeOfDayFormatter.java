@@ -9,7 +9,7 @@ public class TimeOfDayFormatter {
 
     public String format(final int hourOfDay, final int minutesOfHour, final boolean is24Hours) {
         if (is24Hours) {
-            return String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minutesOfHour);
+            return String.format(Locale.getDefault(), "%d:%02d", hourOfDay, minutesOfHour);
         }
 
         final SimpleDateFormat parseFormat = new SimpleDateFormat("H:m", Locale.UK);
