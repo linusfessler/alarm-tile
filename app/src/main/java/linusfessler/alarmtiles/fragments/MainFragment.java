@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import linusfessler.alarmtiles.R;
+import linusfessler.alarmtiles.alarm.AlarmViewModel;
 import linusfessler.alarmtiles.databinding.FragmentMainBinding;
 import linusfessler.alarmtiles.sleeptimer.SleepTimerViewModel;
 import linusfessler.alarmtiles.stopwatch.StopwatchViewModel;
@@ -29,35 +30,10 @@ public class MainFragment extends Fragment {
 
         final FragmentMainBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
 
-        final SleepTimerViewModel sleepTimerViewModel = ViewModelProviders.of(this).get(SleepTimerViewModel.class);
-        sleepTimerViewModel.getSleepTimer().observe(this, sleepTimer -> {
-            if (sleepTimer == null) {
-                return;
-            }
-            binding.alarmTiles.sleepTimer.setEnabled(sleepTimer.isEnabled());
-            binding.alarmTiles.sleepTimer.setOnClickListener(v -> sleepTimerViewModel.toggle(sleepTimer));
-        });
-        sleepTimerViewModel.getTileLabel().observe(this, binding.alarmTiles.sleepTimer::setLabel);
-
-        final TimerViewModel timerViewModel = ViewModelProviders.of(this).get(TimerViewModel.class);
-        timerViewModel.getTimer().observe(this, timer -> {
-            if (timer == null) {
-                return;
-            }
-            binding.alarmTiles.timer.setEnabled(timer.isEnabled());
-            binding.alarmTiles.timer.setOnClickListener(v -> timerViewModel.toggle(timer));
-        });
-        timerViewModel.getTileLabel().observe(this, binding.alarmTiles.timer::setLabel);
-
-        final StopwatchViewModel stopwatchViewModel = ViewModelProviders.of(this).get(StopwatchViewModel.class);
-        stopwatchViewModel.getStopwatch().observe(this, stopwatch -> {
-            if (stopwatch == null) {
-                return;
-            }
-            binding.alarmTiles.stopwatch.setEnabled(stopwatch.isEnabled());
-            binding.alarmTiles.stopwatch.setOnClickListener(v -> stopwatchViewModel.toggle(stopwatch));
-        });
-        stopwatchViewModel.getTileLabel().observe(this, binding.alarmTiles.stopwatch::setLabel);
+        this.sleepTimer(binding);
+        this.alarm(binding);
+        this.timer(binding);
+        this.stopwatch(binding);
 
         binding.soundSettings.setOnClickListener(v -> {
             final Intent intent = new Intent(Settings.ACTION_SOUND_SETTINGS);
@@ -69,5 +45,53 @@ public class MainFragment extends Fragment {
         binding.sleepTimerModes.setAdapter(adapter);
 
         return binding.getRoot();
+    }
+
+    private void sleepTimer(final FragmentMainBinding binding) {
+        final SleepTimerViewModel sleepTimerViewModel = ViewModelProviders.of(this).get(SleepTimerViewModel.class);
+        sleepTimerViewModel.getSleepTimer().observe(this, sleepTimer -> {
+            if (sleepTimer == null) {
+                return;
+            }
+            binding.alarmTiles.sleepTimer.setEnabled(sleepTimer.isEnabled());
+            binding.alarmTiles.sleepTimer.setOnClickListener(v -> sleepTimerViewModel.toggle(sleepTimer));
+        });
+        sleepTimerViewModel.getTileLabel().observe(this, binding.alarmTiles.sleepTimer::setLabel);
+    }
+
+    private void alarm(final FragmentMainBinding binding) {
+        final AlarmViewModel alarmViewModel = ViewModelProviders.of(this).get(AlarmViewModel.class);
+        alarmViewModel.getAlarm().observe(this, alarm -> {
+            if (alarm == null) {
+                return;
+            }
+            binding.alarmTiles.alarm.setEnabled(alarm.isEnabled());
+            binding.alarmTiles.alarm.setOnClickListener(v -> alarmViewModel.toggle(alarm));
+        });
+        alarmViewModel.getTileLabel().observe(this, binding.alarmTiles.alarm::setLabel);
+    }
+
+    private void timer(final FragmentMainBinding binding) {
+        final TimerViewModel timerViewModel = ViewModelProviders.of(this).get(TimerViewModel.class);
+        timerViewModel.getTimer().observe(this, timer -> {
+            if (timer == null) {
+                return;
+            }
+            binding.alarmTiles.timer.setEnabled(timer.isEnabled());
+            binding.alarmTiles.timer.setOnClickListener(v -> timerViewModel.toggle(timer));
+        });
+        timerViewModel.getTileLabel().observe(this, binding.alarmTiles.timer::setLabel);
+    }
+
+    private void stopwatch(final FragmentMainBinding binding) {
+        final StopwatchViewModel stopwatchViewModel = ViewModelProviders.of(this).get(StopwatchViewModel.class);
+        stopwatchViewModel.getStopwatch().observe(this, stopwatch -> {
+            if (stopwatch == null) {
+                return;
+            }
+            binding.alarmTiles.stopwatch.setEnabled(stopwatch.isEnabled());
+            binding.alarmTiles.stopwatch.setOnClickListener(v -> stopwatchViewModel.toggle(stopwatch));
+        });
+        stopwatchViewModel.getTileLabel().observe(this, binding.alarmTiles.stopwatch::setLabel);
     }
 }
