@@ -67,26 +67,6 @@
             </intent-filter>
         </service>
 
-        <service
-            android:name=".services.tile.TimerTileService"
-            android:icon="@drawable/ic_timer_24px"
-            android:label="@string/timer"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
-            <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE" />
-            </intent-filter>
-        </service>
-
-        <service
-            android:name=".services.tile.SnoozeTileService"
-            android:icon="@drawable/ic_snooze_24px"
-            android:label="@string/snooze"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
-            <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE" />
-            </intent-filter>
-        </service>
-
         <service android:name=".services.AlarmService" />
 
         <service
