@@ -1,12 +1,0 @@
-
-Nsquid:S2696¤"6Make the enclosing method "static" or remove this set.(¹«’õ
-hsquid:CallToDeprecatedMethod?"9Remove this use of "PreferenceManager"; it is deprecated.(ä—´Ô8ï±Ö—Ù-
-Wsquid:CallToDeprecatedMethod\"/Remove this use of "Builder"; it is deprecated.(şŞ£ç
-hsquid:CallToDeprecatedMethod'"9Remove this use of "PreferenceManager"; it is deprecated.(ä—´Ô8ï±Ö—Ù-
-Ÿsquid:S1186¶"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¼Ø­y8û€¼¼ß-
-hsquid:CallToDeprecatedMethodg"9Remove this use of "PreferenceManager"; it is deprecated.(ä—´Ô8ï±Ö—Ù-
-rsquid:CallToDeprecatedMethod'"CRemove this use of "getDefaultSharedPreferences"; it is deprecated.(ä—´Ô8ï±Ö—Ù-
-asquid:CallToDeprecatedMethod‚"9Remove this use of "abandonAudioFocus"; it is deprecated.(Ïd
-gsquid:CallToDeprecatedMethod¥"9Remove this use of "requestAudioFocus"; it is deprecated.(È¤ïèşÿÿÿÿ
-rsquid:CallToDeprecatedMethod?"CRemove this use of "getDefaultSharedPreferences"; it is deprecated.(ä—´Ô8ï±Ö—Ù-
-rsquid:CallToDeprecatedMethodg"CRemove this use of "getDefaultSharedPreferences"; it is deprecated.(ä—´Ô8ï±Ö—Ù-

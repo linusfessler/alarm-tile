@@ -1,15 +1,0 @@
-
-jsquid:CallToDeprecatedMethod2"=Remove this use of "FLAG_DISMISS_KEYGUARD"; it is deprecated.(º¨ƒ±ûÿÿÿÿ
-bsquid:S2142i"FEither re-interrupt this method or rethrow the "InterruptedException".(Ñ‘Åüÿÿÿÿ
-jsquid:CallToDeprecatedMethodH"CRemove this use of "getDefaultSharedPreferences"; it is deprecated.(·àÀ%
-csquid:CallToDeprecatedMethod4";Remove this use of "FLAG_TURN_SCREEN_ON"; it is deprecated.(ºöô
-?squid:S1604T"(Make this anonymous inner class a lambda(êñªâ
-`squid:CallToDeprecatedMethodH"9Remove this use of "PreferenceManager"; it is deprecated.(·àÀ%
-Dsquid:S1604`"(Make this anonymous inner class a lambda(˜ã¯şÿÿÿÿ
-?squid:S1148j"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-o
-squid:S135W"YReduce the total number of break and continue statements in this loop to use at most one.(Áí°Î
-jsquid:CallToDeprecatedMethod1"=Remove this use of "FLAG_SHOW_WHEN_LOCKED"; it is deprecated.(£¿ÇÉûÿÿÿÿ
-?squid:S1148["#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-bsquid:S2142Z"FEither re-interrupt this method or rethrow the "InterruptedException".(Ñ‘Åüÿÿÿÿ
-Dsquid:S1604o"(Make this anonymous inner class a lambda(˜ã¯şÿÿÿÿ

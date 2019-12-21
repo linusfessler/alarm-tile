@@ -1,9 +1,0 @@
-
-Ksquid:S1604@"(Make this anonymous inner class a lambda(³ˆúĞûÿÿÿÿ8€ßÂà-
-?squid:S1148Q"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-qsquid:CallToDeprecatedMethod%"CRemove this use of "getDefaultSharedPreferences"; it is deprecated.(·àÀ%8€ßÂà-
-gsquid:CallToDeprecatedMethod%"9Remove this use of "PreferenceManager"; it is deprecated.(·àÀ%8€ßÂà-
-4squid:S2386"Make this member "protected".(ëüïÖ
-]squid:S2142P"FEither re-interrupt this method or rethrow the "InterruptedException".(ä ¹€
-isquid:S3776!"RRefactor this method to reduce its Cognitive Complexity from 22 to the 15 allowed.(Î¢È
-^squid:CallToDeprecatedMethod9"/Remove this use of "vibrate"; it is deprecated.(˜¤«º8æÁ»Âà-
