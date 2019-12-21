@@ -151,4 +151,54 @@ public class TimeFormatterTest {
         // THEN
         Assert.assertEquals(expected, actual);
     }
+
+    @Test
+    public void formatZeroMillis() {
+        // GIVEN
+        final int hours = 0;
+        final int minutes = 0;
+        final int seconds = 0;
+        final int millis = 0;
+        final String expected = "00";
+        // WHEN
+        final String actual = this.timeFormatter.format(hours, minutes, seconds, millis);
+        // THEN
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void formatZeroSeconds() {
+        // GIVEN
+        final int hours = 0;
+        final int minutes = 0;
+        final int seconds = 0;
+        final String expected = "0s";
+        // WHEN
+        final String actual = this.timeFormatter.format(hours, minutes, seconds);
+        // THEN
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void formatZeroMinutes() {
+        // GIVEN
+        final int hours = 0;
+        final int minutes = 0;
+        final String expected = "0m";
+        // WHEN
+        final String actual = this.timeFormatter.format(hours, minutes);
+        // THEN
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void formatZeroHours() {
+        // GIVEN
+        final int hours = 0;
+        final String expected = "0h";
+        // WHEN
+        final String actual = this.timeFormatter.formatHours(hours);
+        // THEN
+        Assert.assertEquals(expected, actual);
+    }
 }
