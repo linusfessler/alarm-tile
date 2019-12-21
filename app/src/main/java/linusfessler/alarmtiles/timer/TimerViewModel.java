@@ -9,6 +9,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
+import java.util.concurrent.TimeUnit;
+
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.TimeFormatter;
 
@@ -49,7 +51,7 @@ public class TimerViewModel extends AndroidViewModel {
             this.countdown = new CountDownTimer(millisLeft, 1000) {
                 @Override
                 public void onTick(final long millisUntilFinished) {
-                    final String formattedTimeLeft = timeFormatter.format(millisUntilFinished, false);
+                    final String formattedTimeLeft = timeFormatter.format(millisUntilFinished, TimeUnit.SECONDS);
                     tileLabelMutableLiveData.postValue(tileLabel + "\n" + formattedTimeLeft);
                 }
 

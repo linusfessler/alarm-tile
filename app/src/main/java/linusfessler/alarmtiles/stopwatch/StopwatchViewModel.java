@@ -10,6 +10,7 @@ import androidx.lifecycle.Transformations;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.TimeFormatter;
@@ -51,7 +52,7 @@ public class StopwatchViewModel extends AndroidViewModel {
 
                 @Override
                 public void run() {
-                    final String elapsedTime = timeFormatter.format(this.elapsedMillis, true);
+                    final String elapsedTime = timeFormatter.format(this.elapsedMillis, TimeUnit.MILLISECONDS);
                     tileLabelMutableLiveData.postValue(tileLabel + "\n" + elapsedTime);
                     this.elapsedMillis += 10;
                 }
