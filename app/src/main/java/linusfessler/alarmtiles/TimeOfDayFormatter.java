@@ -1,26 +1,22 @@
 package linusfessler.alarmtiles;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class TimeOfDayFormatter {
 
     public String format(final int hourOfDay, final int minutesOfHour, final boolean is24Hours) {
-        if (is24Hours) {
-            return String.format(Locale.getDefault(), "%d:%02d", hourOfDay, minutesOfHour);
-        }
-
-        final SimpleDateFormat parseFormat = new SimpleDateFormat("H:m", Locale.UK);
-        final SimpleDateFormat displayFormat = new SimpleDateFormat("h:mm a", Locale.US);
-        final Date date;
-        try {
-            date = parseFormat.parse(hourOfDay + ":" + minutesOfHour);
-        } catch (final ParseException e) {
-            throw new IllegalArgumentException(e);
-        }
-        return displayFormat.format(date);
+        final Date timeOfDay = new GregorianCalendar(0, 0, 0, hourOfDay, minutesOfHour).getTime();
+        final SimpleDateFormat displayFormat = this.getFormat(is24Hours);
+        return displayFormat.format(timeOfDay);
     }
 
+    private SimpleDateFormat getFormat(final boolean is24Hours) {
+        if (is24Hours) {
+            return new SimpleDateFormat("H:mm", Locale.UK);
+        }
+        return new SimpleDateFormat("h:mm a", Locale.US);
+    }
 }

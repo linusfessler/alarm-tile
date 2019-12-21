@@ -53,4 +53,5 @@ dependencies {
 
     annotationProcessor "org.projectlombok:lombok:1.18.10"
     annotationProcessor "androidx.room:room-compiler:2.2.3"
+    testImplementation 'junit:junit:4.12'
 }
