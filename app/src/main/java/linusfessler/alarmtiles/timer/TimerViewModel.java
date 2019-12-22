@@ -1,36 +1,34 @@
 package linusfessler.alarmtiles.timer;
 
-import android.app.Application;
 import android.os.CountDownTimer;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
+import androidx.lifecycle.ViewModel;
 
 import java.util.concurrent.TimeUnit;
 
-import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.TimeFormatter;
 
-public class TimerViewModel extends AndroidViewModel {
+public class TimerViewModel extends ViewModel {
 
     private final TimerRepository repository;
+    private final String tileLabel;
+    private final TimeFormatter timeFormatter;
 
     private final LiveData<Timer> timerLiveData;
     private final LiveData<String> tileLabelLiveData;
 
     private CountDownTimer countdown;
 
-    public TimerViewModel(@NonNull final Application application) {
-        super(application);
-        this.repository = new TimerRepository(application);
+    public TimerViewModel(final TimerRepository repository, final String tileLabel, final TimeFormatter timeFormatter) {
+        this.repository = repository;
+        this.tileLabel = tileLabel;
+        this.timeFormatter = timeFormatter;
 
         this.timerLiveData = this.repository.getTimer();
 
-        final String tileLabel = application.getString(R.string.timer);
-        final TimeFormatter timeFormatter = new TimeFormatter();
         this.tileLabelLiveData = Transformations.switchMap(this.timerLiveData, timer -> {
             final MutableLiveData<String> tileLabelMutableLiveData = new MutableLiveData<>();
 

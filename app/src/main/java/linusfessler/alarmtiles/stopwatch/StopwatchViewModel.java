@@ -1,37 +1,34 @@
 package linusfessler.alarmtiles.stopwatch;
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
+import androidx.lifecycle.ViewModel;
 
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.TimeFormatter;
 
-public class StopwatchViewModel extends AndroidViewModel {
+public class StopwatchViewModel extends ViewModel {
 
     private final StopwatchRepository repository;
+    private final String tileLabel;
+    private final TimeFormatter timeFormatter;
 
     private final LiveData<Stopwatch> stopwatchLiveData;
     private final LiveData<String> tileLabelLiveData;
 
     private Timer timer;
 
-    public StopwatchViewModel(@NonNull final Application application) {
-        super(application);
-        this.repository = new StopwatchRepository(application);
+    public StopwatchViewModel(final StopwatchRepository repository, final String tileLabel, final TimeFormatter timeFormatter) {
+        this.repository = repository;
+        this.tileLabel = tileLabel;
+        this.timeFormatter = timeFormatter;
 
         this.stopwatchLiveData = this.repository.getStopwatch();
 
-        final String tileLabel = application.getString(R.string.stopwatch);
-        final TimeFormatter timeFormatter = new TimeFormatter();
         this.tileLabelLiveData = Transformations.switchMap(this.stopwatchLiveData, stopwatch -> {
             final MutableLiveData<String> tileLabelMutableLiveData = new MutableLiveData<>();
 

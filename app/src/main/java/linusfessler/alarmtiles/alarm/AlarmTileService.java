@@ -5,7 +5,14 @@ import android.service.quicksettings.TileService;
 
 import androidx.lifecycle.Observer;
 
+import javax.inject.Inject;
+
+import linusfessler.alarmtiles.App;
+
 public class AlarmTileService extends TileService {
+
+    @Inject
+    AlarmViewModelFactory viewModelFactory;
 
     private AlarmViewModel viewModel;
     private Alarm alarm;
@@ -34,8 +41,10 @@ public class AlarmTileService extends TileService {
     @Override
     public void onCreate() {
         super.onCreate();
-        this.viewModel = new AlarmViewModel(this.getApplication());
+        ((App) this.getApplicationContext()).getAppComponent().inject(this);
+        this.viewModel = this.viewModelFactory.create(AlarmViewModel.class);
     }
+
 
     @Override
     public void onClick() {

@@ -6,7 +6,14 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 public class TimeOfDayFormatter {
+
+    @Inject
+    public TimeOfDayFormatter() {
+
+    }
 
     public String format(final int hourOfDay, final int minutesOfHour, final boolean is24Hours) {
         final Calendar calendar = new GregorianCalendar(0, 0, 0, hourOfDay, minutesOfHour);

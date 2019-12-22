@@ -1,9 +1,6 @@
 package linusfessler.alarmtiles;
 
-import android.app.Application;
-
 import androidx.room.Database;
-import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import java.util.concurrent.ExecutorService;
@@ -24,23 +21,10 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static final int NUMBER_OF_THREADS = 2;
 
-    private static AppDatabase instance;
-
     @Getter
-    private final ExecutorService writeExecutor =
-            Executors.newFixedThreadPool(AppDatabase.NUMBER_OF_THREADS);
+    private final ExecutorService writeExecutor = Executors.newFixedThreadPool(AppDatabase.NUMBER_OF_THREADS);
 
-    public static synchronized AppDatabase getInstance(final Application application) {
-        if (AppDatabase.instance == null) {
-            AppDatabase.instance = Room
-                    .databaseBuilder(application, AppDatabase.class, "app-database")
-                    .build();
-            AppDatabase.instance.populate();
-        }
-        return AppDatabase.instance;
-    }
-
-    private void populate() {
+    public void populate() {
         this.getWriteExecutor().submit(() -> {
             if (this.sleepTimerDao().count() == 0) {
                 this.sleepTimerDao().insert(new SleepTimer());

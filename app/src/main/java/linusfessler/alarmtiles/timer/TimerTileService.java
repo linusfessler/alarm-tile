@@ -5,7 +5,14 @@ import android.service.quicksettings.TileService;
 
 import androidx.lifecycle.Observer;
 
+import javax.inject.Inject;
+
+import linusfessler.alarmtiles.App;
+
 public class TimerTileService extends TileService {
+
+    @Inject
+    TimerViewModelFactory viewModelFactory;
 
     private TimerViewModel viewModel;
     private Timer timer;
@@ -34,8 +41,10 @@ public class TimerTileService extends TileService {
     @Override
     public void onCreate() {
         super.onCreate();
-        this.viewModel = new TimerViewModel(this.getApplication());
+        ((App) this.getApplicationContext()).getAppComponent().inject(this);
+        this.viewModel = this.viewModelFactory.create(TimerViewModel.class);
     }
+
 
     @Override
     public void onClick() {

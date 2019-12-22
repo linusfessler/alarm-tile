@@ -3,7 +3,14 @@ package linusfessler.alarmtiles;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
+
 public class TimeFormatter {
+
+    @Inject
+    public TimeFormatter() {
+
+    }
 
     public String format(final long millis, final TimeUnit precision) {
         long millisLeft = millis;

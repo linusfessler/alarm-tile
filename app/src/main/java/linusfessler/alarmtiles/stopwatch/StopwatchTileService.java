@@ -5,7 +5,14 @@ import android.service.quicksettings.TileService;
 
 import androidx.lifecycle.Observer;
 
+import javax.inject.Inject;
+
+import linusfessler.alarmtiles.App;
+
 public class StopwatchTileService extends TileService {
+
+    @Inject
+    StopwatchViewModelFactory viewModelFactory;
 
     private StopwatchViewModel viewModel;
     private Stopwatch stopwatch;
@@ -34,8 +41,10 @@ public class StopwatchTileService extends TileService {
     @Override
     public void onCreate() {
         super.onCreate();
-        this.viewModel = new StopwatchViewModel(this.getApplication());
+        ((App) this.getApplicationContext()).getAppComponent().inject(this);
+        this.viewModel = this.viewModelFactory.create(StopwatchViewModel.class);
     }
+
 
     @Override
     public void onClick() {

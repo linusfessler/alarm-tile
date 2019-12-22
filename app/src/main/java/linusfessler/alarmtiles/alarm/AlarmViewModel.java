@@ -1,33 +1,30 @@
 package linusfessler.alarmtiles.alarm;
 
-import android.app.Application;
-import android.text.format.DateFormat;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
+import androidx.lifecycle.ViewModel;
 
-import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.TimeOfDayFormatter;
 
-public class AlarmViewModel extends AndroidViewModel {
+public class AlarmViewModel extends ViewModel {
 
     private final AlarmRepository repository;
+    private final String tileLabel;
+    private final TimeOfDayFormatter timeOfDayFormatter;
+    private final boolean is24Hours;
 
     private final LiveData<Alarm> alarmLiveData;
     private final LiveData<String> tileLabelLiveData;
 
-    public AlarmViewModel(@NonNull final Application application) {
-        super(application);
-        this.repository = new AlarmRepository(application);
+    public AlarmViewModel(final AlarmRepository repository, final String tileLabel, final TimeOfDayFormatter timeOfDayFormatter, final boolean is24Hours) {
+        this.repository = repository;
+        this.tileLabel = tileLabel;
+        this.timeOfDayFormatter = timeOfDayFormatter;
+        this.is24Hours = is24Hours;
 
         this.alarmLiveData = this.repository.getAlarm();
 
-        final String tileLabel = application.getString(R.string.alarm);
-        final boolean is24Hours = DateFormat.is24HourFormat(application);
-        final TimeOfDayFormatter timeOfDayFormatter = new TimeOfDayFormatter();
         this.tileLabelLiveData = Transformations.switchMap(this.alarmLiveData, alarm -> {
             final MutableLiveData<String> tileLabelMutableLiveData = new MutableLiveData<>();
 
@@ -40,7 +37,7 @@ public class AlarmViewModel extends AndroidViewModel {
                 return tileLabelMutableLiveData;
             }
 
-            final String timeOfDay = timeOfDayFormatter.format(alarm.getHourOfDay(), alarm.getMinuteOfHour(), is24Hours);
+            final String timeOfDay = AlarmViewModel.this.timeOfDayFormatter.format(alarm.getHourOfDay(), alarm.getMinuteOfHour(), is24Hours);
             tileLabelMutableLiveData.postValue(tileLabel + "\n" + timeOfDay);
             return tileLabelMutableLiveData;
         });

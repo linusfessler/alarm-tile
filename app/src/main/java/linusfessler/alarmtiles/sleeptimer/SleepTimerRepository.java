@@ -1,11 +1,10 @@
 package linusfessler.alarmtiles.sleeptimer;
 
-import android.app.Application;
-
-import androidx.lifecycle.LiveData;
-
 import java.util.concurrent.ExecutorService;
 
+import javax.inject.Inject;
+
+import io.reactivex.Observable;
 import linusfessler.alarmtiles.AppDatabase;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -16,12 +15,12 @@ class SleepTimerRepository {
     private final SleepTimerDao sleepTimerDao;
 
     @Getter(AccessLevel.PACKAGE)
-    private final LiveData<SleepTimer> sleepTimer;
+    private final Observable<SleepTimer> sleepTimer;
 
-    SleepTimerRepository(final Application application) {
-        final AppDatabase db = AppDatabase.getInstance(application);
-        this.writeExecutor = db.getWriteExecutor();
-        this.sleepTimerDao = db.sleepTimerDao();
+    @Inject
+    SleepTimerRepository(final AppDatabase appDatabase) {
+        this.writeExecutor = appDatabase.getWriteExecutor();
+        this.sleepTimerDao = appDatabase.sleepTimerDao();
 
         this.sleepTimer = this.sleepTimerDao.select();
     }

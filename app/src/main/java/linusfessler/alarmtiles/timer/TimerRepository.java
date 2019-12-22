@@ -1,10 +1,10 @@
 package linusfessler.alarmtiles.timer;
 
-import android.app.Application;
-
 import androidx.lifecycle.LiveData;
 
 import java.util.concurrent.ExecutorService;
+
+import javax.inject.Inject;
 
 import linusfessler.alarmtiles.AppDatabase;
 import lombok.AccessLevel;
@@ -18,10 +18,10 @@ class TimerRepository {
     @Getter(AccessLevel.PACKAGE)
     private final LiveData<Timer> timer;
 
-    TimerRepository(final Application application) {
-        final AppDatabase db = AppDatabase.getInstance(application);
-        this.writeExecutor = db.getWriteExecutor();
-        this.timerDao = db.timerDao();
+    @Inject
+    TimerRepository(final AppDatabase appDatabase) {
+        this.writeExecutor = appDatabase.getWriteExecutor();
+        this.timerDao = appDatabase.timerDao();
 
         this.timer = this.timerDao.select();
     }

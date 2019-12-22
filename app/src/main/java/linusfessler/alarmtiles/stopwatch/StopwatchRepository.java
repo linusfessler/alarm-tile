@@ -1,10 +1,10 @@
 package linusfessler.alarmtiles.stopwatch;
 
-import android.app.Application;
-
 import androidx.lifecycle.LiveData;
 
 import java.util.concurrent.ExecutorService;
+
+import javax.inject.Inject;
 
 import linusfessler.alarmtiles.AppDatabase;
 import lombok.AccessLevel;
@@ -18,10 +18,10 @@ class StopwatchRepository {
     @Getter(AccessLevel.PACKAGE)
     private final LiveData<Stopwatch> stopwatch;
 
-    StopwatchRepository(final Application application) {
-        final AppDatabase db = AppDatabase.getInstance(application);
-        this.writeExecutor = db.getWriteExecutor();
-        this.stopwatchDao = db.stopwatchDao();
+    @Inject
+    StopwatchRepository(final AppDatabase appDatabase) {
+        this.writeExecutor = appDatabase.getWriteExecutor();
+        this.stopwatchDao = appDatabase.stopwatchDao();
 
         this.stopwatch = this.stopwatchDao.select();
     }
