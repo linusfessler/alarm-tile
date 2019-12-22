@@ -5,11 +5,13 @@ import androidx.lifecycle.LiveData;
 import java.util.concurrent.ExecutorService;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import linusfessler.alarmtiles.AppDatabase;
 import lombok.AccessLevel;
 import lombok.Getter;
 
+@Singleton
 class AlarmRepository {
 
     private final ExecutorService writeExecutor;

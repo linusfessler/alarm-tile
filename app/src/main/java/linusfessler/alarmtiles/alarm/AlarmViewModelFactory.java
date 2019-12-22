@@ -8,10 +8,12 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.TimeOfDayFormatter;
 
+@Singleton
 public class AlarmViewModelFactory implements ViewModelProvider.Factory {
 
     private final Application application;
