@@ -16,13 +16,13 @@ import linusfessler.alarmtiles.TimeFormatter;
 public class SleepTimerViewModelFactory implements ViewModelProvider.Factory {
 
     private final Application application;
-    private final SleepTimerRepository sleepTimerRepository;
+    private final SleepTimerService sleepTimerService;
     private final TimeFormatter timeFormatter;
 
     @Inject
-    public SleepTimerViewModelFactory(final Application application, final SleepTimerRepository sleepTimerRepository, final TimeFormatter timeFormatter) {
+    public SleepTimerViewModelFactory(final Application application, final SleepTimerService sleepTimerService, final TimeFormatter timeFormatter) {
         this.application = application;
-        this.sleepTimerRepository = sleepTimerRepository;
+        this.sleepTimerService = sleepTimerService;
         this.timeFormatter = timeFormatter;
     }
 
@@ -32,7 +32,7 @@ public class SleepTimerViewModelFactory implements ViewModelProvider.Factory {
     public <T extends ViewModel> T create(@NonNull final Class<T> modelClass) {
         if (modelClass.isAssignableFrom(SleepTimerViewModel.class)) {
             final String tileLabel = this.application.getString(R.string.sleep_timer);
-            return (T) new SleepTimerViewModel(this.sleepTimerRepository, tileLabel, this.timeFormatter);
+            return (T) new SleepTimerViewModel(this.sleepTimerService, tileLabel, this.timeFormatter);
         }
 
         throw new IllegalArgumentException(String.format("Unknown view model class: %s.", modelClass));

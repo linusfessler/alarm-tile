@@ -5,8 +5,11 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
+import javax.inject.Singleton;
+
 import linusfessler.alarmtiles.TimeOfDayFormatter;
 
+@Singleton
 public class AlarmViewModel extends ViewModel {
 
     private final AlarmRepository repository;

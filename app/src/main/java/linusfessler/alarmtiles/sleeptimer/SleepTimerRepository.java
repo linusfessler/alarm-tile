@@ -11,7 +11,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 
 @Singleton
-class SleepTimerRepository {
+public class SleepTimerRepository {
 
     private final ExecutorService writeExecutor;
     private final SleepTimerDao sleepTimerDao;

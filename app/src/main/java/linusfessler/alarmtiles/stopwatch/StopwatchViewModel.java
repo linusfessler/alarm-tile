@@ -9,8 +9,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Singleton;
+
 import linusfessler.alarmtiles.TimeFormatter;
 
+@Singleton
 public class StopwatchViewModel extends ViewModel {
 
     private final StopwatchRepository repository;

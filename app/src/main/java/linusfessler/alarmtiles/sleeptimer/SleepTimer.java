@@ -14,27 +14,25 @@ public class SleepTimer {
 
     private boolean enabled;
     private long duration;
-    private Long startTimeStamp;
-//    private UUID workRequestId;
-//    private Long originalVolume;
+    private boolean fading;
+    private Long startTimestamp;
+    private Integer originalVolume;
 
     // TODO: Add a constructor with sensible default values
     public SleepTimer() {
         this.duration = 10000;
+        this.fading = true;
     }
 
-
-    void enable(/*final UUID workRequestId, final long originalVolume*/) {
+    void start(final Integer originalVolume) {
         this.setEnabled(true);
-        this.setStartTimeStamp(System.currentTimeMillis());
-//        this.setWorkRequestId(workRequestId);
-//        this.setOriginalVolume(originalVolume);
+        this.setStartTimestamp(System.currentTimeMillis());
+        this.setOriginalVolume(originalVolume);
     }
 
-    void disable() {
+    void stop() {
         this.setEnabled(false);
-        this.setStartTimeStamp(null);
-//        this.setWorkRequestId(null);
-//        this.setOriginalVolume(null);
+        this.setStartTimestamp(null);
+        this.setOriginalVolume(null);
     }
 }

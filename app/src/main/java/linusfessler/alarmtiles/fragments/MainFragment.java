@@ -94,7 +94,7 @@ public class MainFragment extends Fragment {
                     return;
                 }
                 binding.alarmTiles.sleepTimer.setEnabled(sleepTimer.isEnabled());
-                binding.alarmTiles.sleepTimer.setOnClickListener(v -> this.sleepTimerViewModel.toggle(sleepTimer));
+                binding.alarmTiles.sleepTimer.setOnClickListener(v -> this.sleepTimerViewModel.onClick(sleepTimer));
             });
         }));
 

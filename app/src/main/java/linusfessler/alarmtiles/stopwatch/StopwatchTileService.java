@@ -6,9 +6,11 @@ import android.service.quicksettings.TileService;
 import androidx.lifecycle.Observer;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import linusfessler.alarmtiles.App;
 
+@Singleton
 public class StopwatchTileService extends TileService {
 
     @Inject

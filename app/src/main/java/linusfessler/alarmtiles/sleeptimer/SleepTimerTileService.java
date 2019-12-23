@@ -4,10 +4,12 @@ import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import io.reactivex.disposables.CompositeDisposable;
 import linusfessler.alarmtiles.App;
 
+@Singleton
 public class SleepTimerTileService extends TileService {
 
     @Inject
@@ -28,7 +30,7 @@ public class SleepTimerTileService extends TileService {
     @Override
     public void onClick() {
         if (this.sleepTimer != null) {
-            this.viewModel.toggle(this.sleepTimer);
+            this.viewModel.onClick(this.sleepTimer);
         }
     }
 
