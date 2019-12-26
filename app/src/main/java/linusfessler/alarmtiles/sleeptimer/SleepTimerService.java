@@ -149,6 +149,7 @@ public class SleepTimerService extends LifecycleService {
                 .setShowWhen(false)
                 .setSubText(this.getString(R.string.sleep_timer_running_notification_sub_text, subText))
                 .setColor(this.getColor(R.color.colorPrimary))
+                .setColorized(true)
                 .setSmallIcon(R.drawable.ic_music_off_24px)
                 .setContentIntent(pendingIntent)
                 .build();
