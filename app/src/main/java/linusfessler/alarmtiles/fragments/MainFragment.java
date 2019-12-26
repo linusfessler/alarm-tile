@@ -16,7 +16,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import linusfessler.alarmtiles.App;
 import linusfessler.alarmtiles.R;
@@ -87,17 +86,13 @@ public class MainFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void bindSleepTimer(final FragmentMainBinding binding) {// TODO: Replace runOnUiThread by mainThread scheduler or so
-        this.disposable.add(this.sleepTimerViewModel.getSleepTimer().subscribeOn(AndroidSchedulers.mainThread()).subscribe(sleepTimer -> {
-            this.requireActivity().runOnUiThread(() -> {
-                binding.alarmTiles.sleepTimer.setEnabled(sleepTimer.isEnabled());
-                binding.alarmTiles.sleepTimer.setOnClickListener(v -> this.sleepTimerViewModel.onClick(sleepTimer));
-            });
+    private void bindSleepTimer(final FragmentMainBinding binding) {
+        this.disposable.add(this.sleepTimerViewModel.getSleepTimer().subscribe(sleepTimer -> {
+            binding.alarmTiles.sleepTimer.setEnabled(sleepTimer.isEnabled());
+            binding.alarmTiles.sleepTimer.setOnClickListener(v -> this.sleepTimerViewModel.onClick(sleepTimer));
         }));
 
-        this.disposable.add(this.sleepTimerViewModel.getTileLabel().subscribeOn(AndroidSchedulers.mainThread()).subscribe(tileLabel ->
-                this.requireActivity().runOnUiThread(() ->
-                        binding.alarmTiles.sleepTimer.setLabel(tileLabel))));
+        this.disposable.add(this.sleepTimerViewModel.getTileLabel().subscribe(binding.alarmTiles.sleepTimer::setLabel));
     }
 
     private void bindAlarm(final FragmentMainBinding binding) {

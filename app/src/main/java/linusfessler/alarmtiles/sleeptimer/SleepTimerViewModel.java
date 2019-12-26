@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import linusfessler.alarmtiles.TimeFormatter;
 
 @Singleton
@@ -61,15 +62,15 @@ public class SleepTimerViewModel extends ViewModel {
     }
 
     public Observable<SleepTimer> getSleepTimer() {
-        return this.sleepTimerObservable;
+        return this.sleepTimerObservable.observeOn(AndroidSchedulers.mainThread());
     }
 
     public Observable<String> getTimeLeft() {
-        return this.timeLeftObservable;
+        return this.timeLeftObservable.observeOn(AndroidSchedulers.mainThread());
     }
 
     public Observable<String> getTileLabel() {
-        return this.tileLabelObservable;
+        return this.tileLabelObservable.observeOn(AndroidSchedulers.mainThread());
     }
 
     public void onClick(final SleepTimer sleepTimer) {
