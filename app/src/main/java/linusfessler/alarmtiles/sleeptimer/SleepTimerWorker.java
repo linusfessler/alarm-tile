@@ -119,7 +119,7 @@ class SleepTimerWorker {
 
     private void setVolume(final int volume) {
         if (volume >= 0) {
-            this.audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_SHOW_UI);
+            this.audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
         }
     }
 
