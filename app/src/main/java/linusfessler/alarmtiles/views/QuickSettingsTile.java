@@ -22,8 +22,10 @@ import linusfessler.alarmtiles.R;
 
 public class QuickSettingsTile extends ConstraintLayout {
 
-    private ValueAnimator iconColorAnimation;
-    private ValueAnimator backgroundColorAnimation;
+    private ValueAnimator iconColorEnablingAnimator;
+    private ValueAnimator iconColorDisablingAnimator;
+    private ValueAnimator backgroundColorEnablingAnimator;
+    private ValueAnimator backgroundColorDisablingAnimator;
 
     private MaterialTextView labelView;
     private ImageView iconView;
@@ -65,17 +67,27 @@ public class QuickSettingsTile extends ConstraintLayout {
         final int quickSettingsBackgroundEnabledColor = resources.getColor(R.color.quickSettingsBackgroundEnabled, theme);
         final int quickSettingsBackgroundDisabledColor = resources.getColor(R.color.quickSettingsBackgroundDisabled, theme);
 
-        this.iconColorAnimation = ValueAnimator.ofObject(argbEvaluator, quickSettingsIconDisabledColor, quickSettingsIconEnabledColor);
-        this.iconColorAnimation.addUpdateListener(animator -> {
+        this.iconColorEnablingAnimator = ValueAnimator.ofObject(argbEvaluator, quickSettingsIconDisabledColor, quickSettingsIconEnabledColor);
+        this.iconColorDisablingAnimator = ValueAnimator.ofObject(argbEvaluator, quickSettingsIconEnabledColor, quickSettingsIconDisabledColor);
+
+        final ValueAnimator.AnimatorUpdateListener iconColorAnimatorUpdateListener = animator -> {
             final int iconColor = (int) animator.getAnimatedValue();
             this.iconView.setImageTintList(ColorStateList.valueOf(iconColor));
-        });
+        };
 
-        this.backgroundColorAnimation = ValueAnimator.ofObject(argbEvaluator, quickSettingsBackgroundDisabledColor, quickSettingsBackgroundEnabledColor);
-        this.backgroundColorAnimation.addUpdateListener(animator -> {
+        this.iconColorEnablingAnimator.addUpdateListener(iconColorAnimatorUpdateListener);
+        this.iconColorDisablingAnimator.addUpdateListener(iconColorAnimatorUpdateListener);
+
+        this.backgroundColorEnablingAnimator = ValueAnimator.ofObject(argbEvaluator, quickSettingsBackgroundDisabledColor, quickSettingsBackgroundEnabledColor);
+        this.backgroundColorDisablingAnimator = ValueAnimator.ofObject(argbEvaluator, quickSettingsBackgroundEnabledColor, quickSettingsBackgroundDisabledColor);
+
+        final ValueAnimator.AnimatorUpdateListener backgroundColorAnimatorUpdateListener = animator -> {
             final int backgroundColor = (int) animator.getAnimatedValue();
             this.iconView.setBackgroundTintList(ColorStateList.valueOf(backgroundColor));
-        });
+        };
+
+        this.backgroundColorEnablingAnimator.addUpdateListener(backgroundColorAnimatorUpdateListener);
+        this.backgroundColorDisablingAnimator.addUpdateListener(backgroundColorAnimatorUpdateListener);
     }
 
     private void inflateView(@NonNull final Context context) {
@@ -101,11 +113,11 @@ public class QuickSettingsTile extends ConstraintLayout {
     @Override
     public void setEnabled(final boolean enabled) {
         if (enabled) {
-            this.iconColorAnimation.start();
-            this.backgroundColorAnimation.start();
+            this.iconColorEnablingAnimator.start();
+            this.backgroundColorEnablingAnimator.start();
         } else {
-            this.iconColorAnimation.reverse();
-            this.backgroundColorAnimation.reverse();
+            this.iconColorDisablingAnimator.start();
+            this.backgroundColorDisablingAnimator.start();
         }
     }
 
@@ -116,5 +128,4 @@ public class QuickSettingsTile extends ConstraintLayout {
     public void setIcon(final Drawable icon) {
         this.iconView.setImageDrawable(icon);
     }
-
 }
