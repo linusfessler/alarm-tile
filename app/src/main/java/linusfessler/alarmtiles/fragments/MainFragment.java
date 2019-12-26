@@ -70,10 +70,10 @@ public class MainFragment extends Fragment {
 
         final FragmentMainBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
 
-        this.sleepTimer(binding);
-        this.alarm(binding);
-        this.timer(binding);
-        this.stopwatch(binding);
+        this.bindSleepTimer(binding);
+        this.bindAlarm(binding);
+        this.bindTimer(binding);
+        this.bindStopwatch(binding);
 
         binding.soundSettings.setOnClickListener(v -> {
             final Intent intent = new Intent(Settings.ACTION_SOUND_SETTINGS);
@@ -87,25 +87,20 @@ public class MainFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void sleepTimer(final FragmentMainBinding binding) {// TODO: Replace runOnUiThread by mainThread scheduler or so
+    private void bindSleepTimer(final FragmentMainBinding binding) {// TODO: Replace runOnUiThread by mainThread scheduler or so
         this.disposable.add(this.sleepTimerViewModel.getSleepTimer().subscribeOn(AndroidSchedulers.mainThread()).subscribe(sleepTimer -> {
             this.requireActivity().runOnUiThread(() -> {
-                if (sleepTimer == null) {
-                    return;
-                }
                 binding.alarmTiles.sleepTimer.setEnabled(sleepTimer.isEnabled());
                 binding.alarmTiles.sleepTimer.setOnClickListener(v -> this.sleepTimerViewModel.onClick(sleepTimer));
             });
         }));
 
-        this.disposable.add(this.sleepTimerViewModel.getTileLabel().subscribeOn(AndroidSchedulers.mainThread()).subscribe(s ->
+        this.disposable.add(this.sleepTimerViewModel.getTileLabel().subscribeOn(AndroidSchedulers.mainThread()).subscribe(tileLabel ->
                 this.requireActivity().runOnUiThread(() ->
-                        binding.alarmTiles.sleepTimer.setLabel(s)
-                )
-        ));
+                        binding.alarmTiles.sleepTimer.setLabel(tileLabel))));
     }
 
-    private void alarm(final FragmentMainBinding binding) {
+    private void bindAlarm(final FragmentMainBinding binding) {
         this.alarmViewModel.getAlarm().observe(this, alarm -> {
             if (alarm == null) {
                 return;
@@ -117,7 +112,7 @@ public class MainFragment extends Fragment {
         this.alarmViewModel.getTileLabel().observe(this, binding.alarmTiles.alarm::setLabel);
     }
 
-    private void timer(final FragmentMainBinding binding) {
+    private void bindTimer(final FragmentMainBinding binding) {
         this.timerViewModel.getTimer().observe(this, timer -> {
             if (timer == null) {
                 return;
@@ -129,7 +124,7 @@ public class MainFragment extends Fragment {
         this.timerViewModel.getTileLabel().observe(this, binding.alarmTiles.timer::setLabel);
     }
 
-    private void stopwatch(final FragmentMainBinding binding) {
+    private void bindStopwatch(final FragmentMainBinding binding) {
         this.stopwatchViewModel.getStopwatch().observe(this, stopwatch -> {
             if (stopwatch == null) {
                 return;

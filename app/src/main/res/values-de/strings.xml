@@ -61,7 +61,7 @@
     <string name="dismiss">Ausschalten</string>
     <string name="alarm_tile_create">Alarm Tile erstellen</string>
     <string name="alarm_tile_edit">Alarm Tile bearbeiten</string>
-    <string name="sleep_timer">Einschlaf-Timer</string>
+    <string name="sleep_timer">Sleeptimer</string>
     <string name="main_title_alarm">Wecker</string>
     <string name="settings_title_sleep_timer">Einschlaf-Timer</string>
     <string name="main_title_snooze">Schlummern</string>
@@ -72,4 +72,9 @@
     <string name="sound_settings">Sound-Einstellungen</string>
     <string name="main_title_other">Sonstiges</string>
     <string name="stopwatch">Stoppuhr</string>
+    <string name="sleep_timer_finished_notification_content_text">Wiedergabe wurde durch Sleeptimer gestoppt</string>
+    <string name="sleep_timer_running_notification_content_text">"Tippen, um frühzeitig zu stoppen "</string>
+    <string name="sleep_timer_running_notification_content_title">Sleeptimer ist aktiviert</string>
+    <string name="sleep_timer_running_notification_sub_text">In %s</string>
+    <string name="sleep_timer_finished_notification_content_title">Sleeptimer ist fertig</string>
 </resources>

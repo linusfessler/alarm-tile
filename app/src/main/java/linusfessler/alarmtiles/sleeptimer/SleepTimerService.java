@@ -1,31 +1,180 @@
 package linusfessler.alarmtiles.sleeptimer;
 
+import android.annotation.TargetApi;
+import android.app.Application;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.Service;
+import android.content.Intent;
+import android.media.AudioManager;
+import android.os.Build;
+import android.os.IBinder;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.lifecycle.LifecycleService;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import io.reactivex.Observable;
-import lombok.AccessLevel;
-import lombok.Getter;
+import io.reactivex.disposables.CompositeDisposable;
+import linusfessler.alarmtiles.App;
+import linusfessler.alarmtiles.R;
+import linusfessler.alarmtiles.VolumeObserver;
+import linusfessler.alarmtiles.activities.MainActivity;
 
 @Singleton
-public class SleepTimerService {
+public class SleepTimerService extends LifecycleService {
 
-    private final SleepTimerWorkCoordinator workCoordinator;
+    private static final String START_ACTION = "START_ACTION";
+    private static final String CANCEL_ACTION = "CANCEL_ACTION";
+    private static final String FINISH_ACTION = "FINISH_ACTION";
 
-    @Getter(AccessLevel.PACKAGE)
-    private final Observable<SleepTimer> sleepTimer;
+    private static final String NOTIFICATION_CHANNEL_ID = SleepTimerService.class.getName();
+    private static final int NOTIFICATION_ID = 1;
 
-    @Inject
-    public SleepTimerService(final SleepTimerRepository repository, final SleepTimerWorkCoordinator workCoordinator) {
-        this.workCoordinator = workCoordinator;
-        this.sleepTimer = repository.getSleepTimer();
+    static void start(final Application application) {
+        final Intent intent = new Intent(application, SleepTimerService.class)
+                .setAction(SleepTimerService.START_ACTION);
+        application.startService(intent);
     }
 
-    void toggleSleepTimer(final SleepTimer sleepTimer) {
-        if (sleepTimer.isEnabled()) {
-            this.workCoordinator.stop();
-        } else {
-            this.workCoordinator.start();
+    static void cancel(final Application application) {
+        final Intent intent = new Intent(application, SleepTimerService.class)
+                .setAction(SleepTimerService.CANCEL_ACTION);
+        application.startService(intent);
+    }
+
+    static void finish(final Application application) {
+        final Intent intent = new Intent(application, SleepTimerService.class)
+                .setAction(SleepTimerService.FINISH_ACTION);
+        application.startService(intent);
+    }
+
+    @Inject
+    SleepTimerViewModelFactory viewModelFactory;
+
+    @Inject
+    AudioManager audioManager;
+
+    @Inject
+    NotificationManager notificationManager;
+
+    @Inject
+    SleepTimerWorker sleepTimerWorker;
+
+    private SleepTimerViewModel viewModel;
+    private VolumeObserver volumeObserver;
+
+    private final CompositeDisposable disposable = new CompositeDisposable();
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        ((App) this.getApplicationContext()).getAppComponent().inject(this);
+        this.viewModel = this.viewModelFactory.create(SleepTimerViewModel.class);
+        this.volumeObserver = new VolumeObserver(this, this.audioManager, this.getContentResolver());
+    }
+
+    @Override
+    public int onStartCommand(@NonNull final Intent intent, final int flags, final int startId) {
+        super.onStartCommand(intent, flags, startId);
+
+        if (intent.getAction() == null) {
+            return Service.START_REDELIVER_INTENT;
         }
+
+        switch (intent.getAction()) {
+            case SleepTimerService.START_ACTION:
+                return this.start();
+            case SleepTimerService.CANCEL_ACTION:
+                return this.cancel();
+            case SleepTimerService.FINISH_ACTION:
+                return this.finish();
+            default:
+                return Service.START_REDELIVER_INTENT;
+        }
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(@NonNull final Intent intent) {
+        return super.onBind(intent);
+    }
+
+    private int start() {
+        this.createNotificationChannel();
+        this.startForeground(SleepTimerService.NOTIFICATION_ID, this.buildRunningNotification(""));
+        this.sleepTimerWorker.start();
+
+        this.disposable.add(this.volumeObserver.getObservable().subscribe(volume ->
+                this.sleepTimerWorker.onVolumeChanged()));
+        this.disposable.add(this.viewModel.getTimeLeft().subscribe(timeLeft ->
+                this.notificationManager.notify(SleepTimerService.NOTIFICATION_ID, this.buildRunningNotification(timeLeft))));
+
+        return Service.START_REDELIVER_INTENT;
+    }
+
+    private int cancel() {
+        this.disposable.dispose();
+
+        this.sleepTimerWorker.cancel();
+        this.stopForeground(Service.STOP_FOREGROUND_REMOVE);
+        this.stopSelf();
+
+        return Service.START_REDELIVER_INTENT;
+    }
+
+    private int finish() {
+        this.disposable.dispose();
+
+        this.stopForeground(Service.STOP_FOREGROUND_DETACH);
+        this.notificationManager.notify(SleepTimerService.NOTIFICATION_ID, this.buildFinishedNotification());
+        this.stopSelf();
+
+        return Service.START_REDELIVER_INTENT;
+    }
+
+    private Notification buildRunningNotification(final String subText) {
+        final Intent intent = new Intent(this, SleepTimerService.class)
+                .setAction(SleepTimerService.CANCEL_ACTION);
+        final PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, 0);
+
+        return new NotificationCompat.Builder(this, SleepTimerService.NOTIFICATION_CHANNEL_ID)
+                .setContentTitle(this.getString(R.string.sleep_timer_running_notification_content_title))
+                .setContentText(this.getString(R.string.sleep_timer_running_notification_content_text))
+                .setShowWhen(false)
+                .setSubText(this.getString(R.string.sleep_timer_running_notification_sub_text, subText))
+                .setColor(this.getColor(R.color.colorPrimary))
+                .setSmallIcon(R.drawable.ic_music_off_24px)
+                .setContentIntent(pendingIntent)
+                .build();
+    }
+
+    private Notification buildFinishedNotification() {
+        final Intent intent = new Intent(this, MainActivity.class);
+        final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+        return new NotificationCompat.Builder(this, SleepTimerService.NOTIFICATION_CHANNEL_ID)
+                .setContentTitle(this.getString(R.string.sleep_timer_finished_notification_content_title))
+                .setContentText(this.getString(R.string.sleep_timer_finished_notification_content_text))
+                .setColor(this.getColor(R.color.colorPrimary))
+                .setSmallIcon(R.drawable.ic_music_off_24px)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                .build();
+    }
+
+    @TargetApi(Build.VERSION_CODES.O)
+    private void createNotificationChannel() {
+        final NotificationChannel notificationChannel = new NotificationChannel(
+                SleepTimerService.NOTIFICATION_CHANNEL_ID,
+                this.getString(R.string.sleep_timer),
+                NotificationManager.IMPORTANCE_DEFAULT);
+
+        this.notificationManager.createNotificationChannel(notificationChannel);
     }
 }

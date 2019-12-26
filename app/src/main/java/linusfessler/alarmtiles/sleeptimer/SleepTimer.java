@@ -30,7 +30,7 @@ public class SleepTimer {
         this.setOriginalVolume(originalVolume);
     }
 
-    void stop() {
+    void reset() {
         this.setEnabled(false);
         this.setStartTimestamp(null);
         this.setOriginalVolume(null);

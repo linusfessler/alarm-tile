@@ -56,7 +56,6 @@ public class SleepTimerTileService extends TileService {
             tile.setLabel(newTileLabel);
             tile.updateTile();
         }));
-
     }
 
     @Override
