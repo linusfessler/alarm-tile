@@ -1,5 +1,6 @@
 package linusfessler.alarmtiles.sleeptimer;
 
+import android.os.Build;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
@@ -8,6 +9,7 @@ import javax.inject.Singleton;
 
 import io.reactivex.disposables.CompositeDisposable;
 import linusfessler.alarmtiles.App;
+import linusfessler.alarmtiles.R;
 
 @Singleton
 public class SleepTimerTileService extends TileService {
@@ -16,6 +18,7 @@ public class SleepTimerTileService extends TileService {
     SleepTimerViewModelFactory viewModelFactory;
 
     private SleepTimerViewModel viewModel;
+    private String tileLabel;
     private SleepTimer sleepTimer;
 
     private final CompositeDisposable disposable = new CompositeDisposable();
@@ -25,6 +28,7 @@ public class SleepTimerTileService extends TileService {
         super.onCreate();
         ((App) this.getApplicationContext()).getAppComponent().inject(this);
         this.viewModel = this.viewModelFactory.create(SleepTimerViewModel.class);
+        this.tileLabel = this.getString(R.string.sleep_timer);
     }
 
     @Override
@@ -54,9 +58,9 @@ public class SleepTimerTileService extends TileService {
             tile.updateTile();
         }));
 
-        this.disposable.add(this.viewModel.getTileLabel().subscribe(newTileLabel -> {
+        this.disposable.add(this.viewModel.getTimeLeft().subscribe(newTimeLeft -> {
             final Tile tile = this.getQsTile();
-            tile.setLabel(newTileLabel);
+            this.setSubtitle(tile, this.tileLabel, newTimeLeft);
             tile.updateTile();
         }));
     }
@@ -71,5 +75,18 @@ public class SleepTimerTileService extends TileService {
     public void onDestroy() {
         this.disposable.dispose();
         super.onDestroy();
+    }
+
+    private void setSubtitle(final Tile tile, final String label, final String subtitle) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            tile.setSubtitle(subtitle);
+            return;
+        }
+
+        if (subtitle == null || subtitle.equals("")) {
+            tile.setLabel(label);
+        } else {
+            tile.setLabel(label + "\n" + subtitle);
+        }
     }
 }

@@ -92,7 +92,7 @@ public class MainFragment extends Fragment {
             binding.alarmTiles.sleepTimer.setOnClickListener(v -> this.sleepTimerViewModel.onClick(sleepTimer));
         }));
 
-        this.disposable.add(this.sleepTimerViewModel.getTileLabel().subscribe(binding.alarmTiles.sleepTimer::setLabel));
+        this.disposable.add(this.sleepTimerViewModel.getTimeLeft().subscribe(binding.alarmTiles.sleepTimer::setSubtitle));
     }
 
     private void bindAlarm(final FragmentMainBinding binding) {

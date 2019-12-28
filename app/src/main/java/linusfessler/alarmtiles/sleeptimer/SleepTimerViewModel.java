@@ -17,24 +17,21 @@ public class SleepTimerViewModel extends ViewModel {
 
     private final Application application;
     private final SleepTimerRepository repository;
-    private final String tileLabel;
     private final TimeFormatter timeFormatter;
 
     private final Observable<SleepTimer> sleepTimerObservable;
     private final Observable<String> timeLeftObservable;
-    private final Observable<String> tileLabelObservable;
 
-    public SleepTimerViewModel(final Application application, final SleepTimerRepository repository, final String tileLabel, final TimeFormatter timeFormatter) {
+    public SleepTimerViewModel(final Application application, final SleepTimerRepository repository, final TimeFormatter timeFormatter) {
         this.application = application;
         this.repository = repository;
-        this.tileLabel = tileLabel;
         this.timeFormatter = timeFormatter;
 
         // Don't emit null (only happens before database is populated at first app start)
         this.sleepTimerObservable = this.repository.getSleepTimer().switchMap(sleepTimer ->
                 sleepTimer == null ? Observable.empty() : Observable.just(sleepTimer));
 
-        final Observable<String> timeLeftOptionalObservable = this.sleepTimerObservable.switchMap(sleepTimer -> {
+        this.timeLeftObservable = this.sleepTimerObservable.switchMap(sleepTimer -> {
             if (!sleepTimer.isEnabled()) {
                 return Observable.just("");
             }
@@ -52,13 +49,6 @@ public class SleepTimerViewModel extends ViewModel {
                     .map(zeroBasedSecondsPassed ->
                             this.timeFormatter.format(1000 * (secondsLeft - zeroBasedSecondsPassed), TimeUnit.SECONDS));
         });
-
-        // Don't emit anything when sleep timer is disabled
-        this.timeLeftObservable = timeLeftOptionalObservable.switchMap(timeLeft ->
-                timeLeft.equals("") ? Observable.empty() : Observable.just(timeLeft));
-
-        this.tileLabelObservable = timeLeftOptionalObservable.switchMap(timeLeft ->
-                Observable.just(this.tileLabel + "\n" + timeLeft));
     }
 
     public Observable<SleepTimer> getSleepTimer() {
@@ -67,10 +57,6 @@ public class SleepTimerViewModel extends ViewModel {
 
     public Observable<String> getTimeLeft() {
         return this.timeLeftObservable.observeOn(AndroidSchedulers.mainThread());
-    }
-
-    public Observable<String> getTileLabel() {
-        return this.tileLabelObservable.observeOn(AndroidSchedulers.mainThread());
     }
 
     public void onClick(final SleepTimer sleepTimer) {

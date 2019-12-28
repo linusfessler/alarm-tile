@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.TimeFormatter;
 
 @Singleton
@@ -31,8 +30,7 @@ public class SleepTimerViewModelFactory implements ViewModelProvider.Factory {
     @SuppressWarnings("unchecked")
     public <T extends ViewModel> T create(@NonNull final Class<T> modelClass) {
         if (modelClass.isAssignableFrom(SleepTimerViewModel.class)) {
-            final String tileLabel = this.application.getString(R.string.sleep_timer);
-            return (T) new SleepTimerViewModel(this.application, this.sleepTimerRepository, tileLabel, this.timeFormatter);
+            return (T) new SleepTimerViewModel(this.application, this.sleepTimerRepository, this.timeFormatter);
         }
 
         throw new IllegalArgumentException(String.format("Unknown view model class: %s.", modelClass));

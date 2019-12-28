@@ -1,6 +1,5 @@
 package linusfessler.alarmtiles.sleeptimer;
 
-import android.annotation.TargetApi;
 import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -175,13 +174,14 @@ public class SleepTimerService extends LifecycleService {
                 .build();
     }
 
-    @TargetApi(Build.VERSION_CODES.O)
     private void createNotificationChannel() {
-        final NotificationChannel notificationChannel = new NotificationChannel(
-                SleepTimerService.NOTIFICATION_CHANNEL_ID,
-                this.getString(R.string.sleep_timer),
-                NotificationManager.IMPORTANCE_DEFAULT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            final NotificationChannel notificationChannel = new NotificationChannel(
+                    SleepTimerService.NOTIFICATION_CHANNEL_ID,
+                    this.getString(R.string.sleep_timer),
+                    NotificationManager.IMPORTANCE_DEFAULT);
 
-        this.notificationManager.createNotificationChannel(notificationChannel);
+            this.notificationManager.createNotificationChannel(notificationChannel);
+        }
     }
 }

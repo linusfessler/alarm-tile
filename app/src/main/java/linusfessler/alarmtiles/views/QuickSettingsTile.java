@@ -28,6 +28,7 @@ public class QuickSettingsTile extends ConstraintLayout {
     private ValueAnimator backgroundColorDisablingAnimator;
 
     private MaterialTextView labelView;
+    private MaterialTextView subtitleView;
     private ImageView iconView;
 
     public QuickSettingsTile(@NonNull final Context context) {
@@ -95,6 +96,7 @@ public class QuickSettingsTile extends ConstraintLayout {
         final View root = inflater.inflate(R.layout.quick_settings_tile, this);
 
         this.labelView = root.findViewById(R.id.label);
+        this.subtitleView = root.findViewById(R.id.subtitle);
         this.iconView = root.findViewById(R.id.icon);
     }
 
@@ -102,11 +104,13 @@ public class QuickSettingsTile extends ConstraintLayout {
         final TypedArray styledAttributes = context.obtainStyledAttributes(attrs, R.styleable.QuickSettingsTile);
         final boolean enabled = styledAttributes.getBoolean(R.styleable.QuickSettingsTile_enabled, false);
         final String label = styledAttributes.getString(R.styleable.QuickSettingsTile_label);
+        final String subtitle = styledAttributes.getString(R.styleable.QuickSettingsTile_subtitle);
         final Drawable icon = styledAttributes.getDrawable(R.styleable.QuickSettingsTile_icon);
         styledAttributes.recycle();
 
         this.setEnabled(enabled);
         this.setLabel(label);
+        this.setSubtitle(subtitle);
         this.setIcon(icon);
     }
 
@@ -123,6 +127,10 @@ public class QuickSettingsTile extends ConstraintLayout {
 
     public void setLabel(final String label) {
         this.labelView.setText(label);
+    }
+
+    public void setSubtitle(final String subtitle) {
+        this.subtitleView.setText(subtitle);
     }
 
     public void setIcon(final Drawable icon) {
