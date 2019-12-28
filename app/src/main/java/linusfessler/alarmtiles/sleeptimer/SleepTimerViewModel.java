@@ -36,9 +36,7 @@ public class SleepTimerViewModel extends ViewModel {
                 return Observable.just("");
             }
 
-            final long millisElapsed = System.currentTimeMillis() - sleepTimer.getStartTimestamp();
-            final long millisLeft = sleepTimer.getDuration() - millisElapsed;
-
+            final long millisLeft = sleepTimer.getMillisLeft();
             if (millisLeft < 0) {
                 // Shouldn't happen but could potentially prevent a crash
                 return Observable.just("");

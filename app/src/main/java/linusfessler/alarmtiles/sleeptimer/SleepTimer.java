@@ -19,8 +19,9 @@ public class SleepTimer {
     private boolean enabled;
     private long duration;
     private boolean fading;
-    private Long startTimestamp;
     private Integer originalVolume;
+    private Long startTimestamp;
+    private Long additionalTime;
 
     // TODO: Add a constructor with sensible default values
     public SleepTimer() {
@@ -30,13 +31,24 @@ public class SleepTimer {
 
     void start(final Integer originalVolume) {
         this.setEnabled(true);
-        this.setStartTimestamp(System.currentTimeMillis());
         this.setOriginalVolume(originalVolume);
+        this.setStartTimestamp(System.currentTimeMillis());
+        this.setAdditionalTime(0L);
+    }
+
+    void addAdditionalTime(final long millis) {
+        this.setAdditionalTime(this.getAdditionalTime() + millis);
     }
 
     void reset() {
         this.setEnabled(false);
-        this.setStartTimestamp(null);
         this.setOriginalVolume(null);
+        this.setStartTimestamp(null);
+        this.setAdditionalTime(null);
+    }
+
+    long getMillisLeft() {
+        final long millisElapsed = System.currentTimeMillis() - this.getStartTimestamp();
+        return this.getDuration() + this.getAdditionalTime() - millisElapsed;
     }
 }

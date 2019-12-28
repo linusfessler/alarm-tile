@@ -30,6 +30,8 @@ public class SleepTimerService extends LifecycleService {
 
     private static final String START_ACTION = "START_ACTION";
     private static final String CANCEL_ACTION = "CANCEL_ACTION";
+    private static final String ADD_1_MINUTE_ACTION = "ADD_1_MINUTE_ACTION";
+    private static final String ADD_15_MINUTES_ACTION = "ADD_15_MINUTES_ACTION";
     private static final String FINISH_ACTION = "FINISH_ACTION";
 
     private static final String NOTIFICATION_CHANNEL_ID = SleepTimerService.class.getName();
@@ -93,6 +95,10 @@ public class SleepTimerService extends LifecycleService {
                 return this.cancel();
             case SleepTimerService.FINISH_ACTION:
                 return this.finish();
+            case SleepTimerService.ADD_1_MINUTE_ACTION:
+                return this.add1Minute();
+            case SleepTimerService.ADD_15_MINUTES_ACTION:
+                return this.add15Minutes();
             default:
                 return Service.START_REDELIVER_INTENT;
         }
@@ -137,6 +143,16 @@ public class SleepTimerService extends LifecycleService {
         return Service.START_REDELIVER_INTENT;
     }
 
+    private int add1Minute() {
+        this.sleepTimerWorker.add1Minute();
+        return Service.START_REDELIVER_INTENT;
+    }
+
+    private int add15Minutes() {
+        this.sleepTimerWorker.add15Minutes();
+        return Service.START_REDELIVER_INTENT;
+    }
+
     @Override
     public void onDestroy() {
         this.disposable.dispose();
@@ -144,9 +160,17 @@ public class SleepTimerService extends LifecycleService {
     }
 
     private Notification buildRunningNotification(final String subText) {
-        final Intent intent = new Intent(this, SleepTimerService.class)
+        final Intent cancelIntent = new Intent(this, SleepTimerService.class)
                 .setAction(SleepTimerService.CANCEL_ACTION);
-        final PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, 0);
+        final PendingIntent cancelPendingIntent = PendingIntent.getService(this, 0, cancelIntent, 0);
+
+        final Intent add1MinuteIntent = new Intent(this, SleepTimerService.class)
+                .setAction(SleepTimerService.ADD_1_MINUTE_ACTION);
+        final PendingIntent add1MinutePendingIntent = PendingIntent.getService(this, 0, add1MinuteIntent, 0);
+
+        final Intent add15MinutesIntent = new Intent(this, SleepTimerService.class)
+                .setAction(SleepTimerService.ADD_15_MINUTES_ACTION);
+        final PendingIntent add15MinutesPendingIntent = PendingIntent.getService(this, 0, add15MinutesIntent, 0);
 
         return new NotificationCompat.Builder(this, SleepTimerService.NOTIFICATION_CHANNEL_ID)
                 .setContentTitle(this.getString(R.string.sleep_timer_running_notification_content_title))
@@ -156,7 +180,9 @@ public class SleepTimerService extends LifecycleService {
                 .setColor(this.getColor(R.color.colorPrimary))
                 .setColorized(true)
                 .setSmallIcon(R.drawable.ic_music_off_24px)
-                .setContentIntent(pendingIntent)
+                .setContentIntent(cancelPendingIntent)
+                .addAction(new NotificationCompat.Action(0, "+1m", add1MinutePendingIntent))
+                .addAction(new NotificationCompat.Action(0, "+15m", add15MinutesPendingIntent))
                 .build();
     }
 

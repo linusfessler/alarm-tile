@@ -51,6 +51,14 @@ class SleepTimerWorker {
         this.resetSleepTimer();
     }
 
+    void add1Minute() {
+        this.addMinutes(1);
+    }
+
+    void add15Minutes() {
+        this.addMinutes(15);
+    }
+
     private void startSleepTimer() {
         final int originalVolume = this.getVolume();
         this.sleepTimer.start(originalVolume);
@@ -63,17 +71,25 @@ class SleepTimerWorker {
         this.repository.updateSleepTimer(this.sleepTimer);
     }
 
+    private void addMinutes(final int minutes) {
+        this.sleepTimer.addAdditionalTime(minutes * 60 * 1000L);
+        this.repository.updateSleepTimer(this.sleepTimer);
+
+        this.rescheduleFade();
+        this.rescheduleFinish();
+    }
+
     private void scheduleFade() {
         final int volume = this.getVolume();
         if (this.sleepTimer.isFading() && volume > 0) {
-            final long millisLeft = this.getMillisLeft(this.sleepTimer) / volume;
-            this.handler.postDelayed(this.fadeRunnable, millisLeft);
+            final long delayMillis = this.sleepTimer.getMillisLeft() / volume;
+            this.handler.postDelayed(this.fadeRunnable, delayMillis);
         }
     }
 
     private void scheduleFinish() {
-        final long millisLeft = this.getMillisLeft(this.sleepTimer);
-        this.handler.postDelayed(this.finishRunnable, millisLeft);
+        final long delayMillis = this.sleepTimer.getMillisLeft();
+        this.handler.postDelayed(this.finishRunnable, delayMillis);
     }
 
     private void rescheduleFade() {
@@ -81,6 +97,11 @@ class SleepTimerWorker {
             this.cancelScheduledFade();
             this.scheduleFade();
         }
+    }
+
+    private void rescheduleFinish() {
+        this.cancelScheduledFinish();
+        this.scheduleFinish();
     }
 
     private void cancelScheduledFade() {
@@ -106,11 +127,6 @@ class SleepTimerWorker {
 
     private void stopMediaPlayback() {
         this.requestAudioFocus();
-    }
-
-    private long getMillisLeft(final SleepTimer sleepTimer) {
-        final long millisElapsed = System.currentTimeMillis() - sleepTimer.getStartTimestamp();
-        return sleepTimer.getDuration() - millisElapsed;
     }
 
     private int getVolume() {
