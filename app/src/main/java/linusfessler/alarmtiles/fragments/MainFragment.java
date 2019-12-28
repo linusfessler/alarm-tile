@@ -132,6 +132,12 @@ public class MainFragment extends Fragment {
     }
 
     @Override
+    public void onDestroyView() {
+        this.disposable.clear();
+        super.onDestroyView();
+    }
+
+    @Override
     public void onDestroy() {
         this.disposable.dispose();
         super.onDestroy();

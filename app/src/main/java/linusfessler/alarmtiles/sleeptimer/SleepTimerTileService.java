@@ -29,6 +29,7 @@ public class SleepTimerTileService extends TileService {
 
     @Override
     public void onClick() {
+        super.onClick();
         if (this.sleepTimer != null) {
             this.viewModel.onClick(this.sleepTimer);
         }
@@ -36,6 +37,8 @@ public class SleepTimerTileService extends TileService {
 
     @Override
     public void onStartListening() {
+        super.onStartListening();
+
         this.disposable.add(this.viewModel.getSleepTimer().subscribe(newSleepTimer -> {
             this.sleepTimer = newSleepTimer;
 
@@ -60,6 +63,13 @@ public class SleepTimerTileService extends TileService {
 
     @Override
     public void onStopListening() {
+        this.disposable.clear();
+        super.onStopListening();
+    }
+
+    @Override
+    public void onDestroy() {
         this.disposable.dispose();
+        super.onDestroy();
     }
 }

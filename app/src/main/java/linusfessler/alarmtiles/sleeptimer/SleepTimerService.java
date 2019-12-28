@@ -119,7 +119,7 @@ public class SleepTimerService extends LifecycleService {
     }
 
     private int cancel() {
-        this.disposable.dispose();
+        this.disposable.clear();
 
         this.sleepTimerWorker.cancel();
         this.stopForeground(Service.STOP_FOREGROUND_REMOVE);
@@ -129,13 +129,19 @@ public class SleepTimerService extends LifecycleService {
     }
 
     private int finish() {
-        this.disposable.dispose();
+        this.disposable.clear();
 
         this.stopForeground(Service.STOP_FOREGROUND_DETACH);
         this.notificationManager.notify(SleepTimerService.NOTIFICATION_ID, this.buildFinishedNotification());
         this.stopSelf();
 
         return Service.START_REDELIVER_INTENT;
+    }
+
+    @Override
+    public void onDestroy() {
+        this.disposable.dispose();
+        super.onDestroy();
     }
 
     private Notification buildRunningNotification(final String subText) {

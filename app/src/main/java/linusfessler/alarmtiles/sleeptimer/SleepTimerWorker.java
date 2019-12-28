@@ -46,8 +46,8 @@ class SleepTimerWorker {
     }
 
     void cancel() {
-        this.cancelScheduleFade();
-        this.cancelScheduleFinish();
+        this.cancelScheduledFade();
+        this.cancelScheduledFinish();
         this.resetSleepTimer();
     }
 
@@ -78,16 +78,16 @@ class SleepTimerWorker {
 
     private void rescheduleFade() {
         if (this.sleepTimer.isFading()) {
-            this.cancelScheduleFade();
+            this.cancelScheduledFade();
             this.scheduleFade();
         }
     }
 
-    private void cancelScheduleFade() {
+    private void cancelScheduledFade() {
         this.handler.removeCallbacks(this.fadeRunnable);
     }
 
-    private void cancelScheduleFinish() {
+    private void cancelScheduledFinish() {
         this.handler.removeCallbacks(this.finishRunnable);
     }
 
@@ -98,7 +98,7 @@ class SleepTimerWorker {
     }
 
     private void finish() {
-        this.cancelScheduleFade();
+        this.cancelScheduledFade();
         this.stopMediaPlayback();
         this.resetSleepTimer();
         SleepTimerService.finish(this.application);

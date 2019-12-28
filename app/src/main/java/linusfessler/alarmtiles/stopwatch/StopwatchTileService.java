@@ -19,8 +19,8 @@ public class StopwatchTileService extends TileService {
     private StopwatchViewModel viewModel;
     private Stopwatch stopwatch;
 
-    private final Observer<Stopwatch> stopwatchObserver = value -> {
-        this.stopwatch = value;
+    private final Observer<Stopwatch> stopwatchObserver = newStopwatch -> {
+        this.stopwatch = newStopwatch;
 
         final int state;
         if (this.stopwatch.isEnabled()) {
@@ -34,9 +34,9 @@ public class StopwatchTileService extends TileService {
         tile.updateTile();
     };
 
-    private final Observer<String> tileLabelObserver = tileLabel -> {
+    private final Observer<String> tileLabelObserver = newTileLabel -> {
         final Tile tile = this.getQsTile();
-        tile.setLabel(tileLabel);
+        tile.setLabel(newTileLabel);
         tile.updateTile();
     };
 
@@ -59,7 +59,6 @@ public class StopwatchTileService extends TileService {
     public void onStartListening() {
         this.viewModel.getStopwatch().observeForever(this.stopwatchObserver);
         this.viewModel.getTileLabel().observeForever(this.tileLabelObserver);
-
     }
 
     @Override
