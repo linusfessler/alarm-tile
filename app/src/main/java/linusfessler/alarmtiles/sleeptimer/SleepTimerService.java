@@ -23,7 +23,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import linusfessler.alarmtiles.App;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.VolumeObserver;
-import linusfessler.alarmtiles.activities.MainActivity;
 
 @Singleton
 public class SleepTimerService extends LifecycleService {
@@ -127,6 +126,7 @@ public class SleepTimerService extends LifecycleService {
         this.disposable.clear();
 
         this.sleepTimerWorker.cancel();
+
         this.stopForeground(Service.STOP_FOREGROUND_REMOVE);
         this.stopSelf();
 
@@ -136,8 +136,7 @@ public class SleepTimerService extends LifecycleService {
     private int finish() {
         this.disposable.clear();
 
-        this.stopForeground(Service.STOP_FOREGROUND_DETACH);
-        this.notificationManager.notify(SleepTimerService.NOTIFICATION_ID, this.buildFinishedNotification());
+        this.stopForeground(Service.STOP_FOREGROUND_REMOVE);
         this.stopSelf();
 
         return Service.START_REDELIVER_INTENT;
@@ -183,20 +182,6 @@ public class SleepTimerService extends LifecycleService {
                 .setContentIntent(cancelPendingIntent)
                 .addAction(new NotificationCompat.Action(0, "+1m", add1MinutePendingIntent))
                 .addAction(new NotificationCompat.Action(0, "+15m", add15MinutesPendingIntent))
-                .build();
-    }
-
-    private Notification buildFinishedNotification() {
-        final Intent intent = new Intent(this, MainActivity.class);
-        final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-
-        return new NotificationCompat.Builder(this, SleepTimerService.NOTIFICATION_CHANNEL_ID)
-                .setContentTitle(this.getString(R.string.sleep_timer_finished_notification_content_title))
-                .setContentText(this.getString(R.string.sleep_timer_finished_notification_content_text))
-                .setColor(this.getColor(R.color.colorPrimary))
-                .setSmallIcon(R.drawable.ic_music_off_24px)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true)
                 .build();
     }
 

@@ -183,10 +183,8 @@
     <string name="accessibility_alarm_tile_background">Alarm tile background</string>
     <string name="sound_settings">Sound settings</string>
     <string name="main_title_other">Other</string>
-    <string name="sleep_timer_finished_notification_content_text">Playback was stopped by sleep timer</string>
     <string name="sleep_timer_running_notification_content_title">Sleep timer is running</string>
     <string name="sleep_timer_running_notification_content_text">Tap to cancel early</string>
     <string name="sleep_timer_running_notification_sub_text">In %s</string>
-    <string name="sleep_timer_finished_notification_content_title">Sleep timer finished</string>
 
 </resources>

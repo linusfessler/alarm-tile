@@ -72,9 +72,7 @@
     <string name="sound_settings">Sound-Einstellungen</string>
     <string name="main_title_other">Sonstiges</string>
     <string name="stopwatch">Stoppuhr</string>
-    <string name="sleep_timer_finished_notification_content_text">Wiedergabe wurde durch Sleeptimer gestoppt</string>
     <string name="sleep_timer_running_notification_content_text">"Tippen, um frühzeitig zu stoppen "</string>
     <string name="sleep_timer_running_notification_content_title">Sleeptimer ist aktiviert</string>
     <string name="sleep_timer_running_notification_sub_text">In %s</string>
-    <string name="sleep_timer_finished_notification_content_title">Sleeptimer ist fertig</string>
 </resources>
