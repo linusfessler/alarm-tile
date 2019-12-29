@@ -190,7 +190,7 @@ public class SleepTimerService extends LifecycleService {
             final NotificationChannel notificationChannel = new NotificationChannel(
                     SleepTimerService.NOTIFICATION_CHANNEL_ID,
                     this.getString(R.string.sleep_timer),
-                    NotificationManager.IMPORTANCE_DEFAULT);
+                    NotificationManager.IMPORTANCE_LOW);
 
             this.notificationManager.createNotificationChannel(notificationChannel);
         }
