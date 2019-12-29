@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "62d179d473290161baee5bcf32623498",
+    "identityHash": "f1814e5c2484995631c94162899ccd0c",
     "entities": [
       {
         "tableName": "SleepTimer",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `enabled` INTEGER NOT NULL, `duration` INTEGER NOT NULL, `fading` INTEGER NOT NULL, `originalVolume` INTEGER, `startTimestamp` INTEGER, `additionalTime` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `enabled` INTEGER NOT NULL, `originalVolume` INTEGER, `startTimestamp` INTEGER, `additionalTime` INTEGER, `duration` INTEGER, `fading` INTEGER, `resettingVolume` INTEGER, `turningDeviceOff` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -17,18 +17,6 @@
           {
             "fieldPath": "enabled",
             "columnName": "enabled",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "duration",
-            "columnName": "duration",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "fading",
-            "columnName": "fading",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -47,6 +35,30 @@
           {
             "fieldPath": "additionalTime",
             "columnName": "additionalTime",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "config.duration",
+            "columnName": "duration",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "config.fading",
+            "columnName": "fading",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "config.resettingVolume",
+            "columnName": "resettingVolume",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "config.turningDeviceOff",
+            "columnName": "turningDeviceOff",
             "affinity": "INTEGER",
             "notNull": false
           }
@@ -172,7 +184,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '62d179d473290161baee5bcf32623498')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f1814e5c2484995631c94162899ccd0c')"
     ]
   }
 }

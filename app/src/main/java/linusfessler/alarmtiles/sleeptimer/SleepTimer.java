@@ -1,42 +1,65 @@
 package linusfessler.alarmtiles.sleeptimer;
 
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import linusfessler.alarmtiles.Assert;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
-@Data
 @Entity
+@Getter(AccessLevel.PACKAGE)
+@Setter(AccessLevel.PRIVATE)
 @ToString
-@EqualsAndHashCode
 public class SleepTimer {
 
     @PrimaryKey(autoGenerate = true)
     private Long id;
 
+    @Embedded
+    private SleepTimerConfig config;
+
+    @Getter(AccessLevel.PUBLIC)
     private boolean enabled;
-    private long duration;
-    private boolean fading;
+
     private Integer originalVolume;
     private Long startTimestamp;
     private Long additionalTime;
 
-    // TODO: Add a constructor with sensible default values
-    public SleepTimer() {
-        this.duration = 10000;
-        this.fading = true;
+    public static SleepTimer createDefault() {
+        final SleepTimerConfig config = SleepTimerConfig.createDefault();
+        return new SleepTimer(config, false, null, null, null);
     }
 
-    void start(final Integer originalVolume) {
-        this.setEnabled(true);
+    public SleepTimer(final Long id, final SleepTimerConfig config, final boolean enabled, final Integer originalVolume, final Long startTimestamp, final Long additionalTime) {
+        this(config, enabled, originalVolume, startTimestamp, additionalTime);
+        this.setId(id);
+    }
+
+    private SleepTimer(final SleepTimerConfig config, final boolean enabled, final Integer originalVolume, final Long startTimestamp, final Long additionalTime) {
+        this.setConfig(config);
+        this.setEnabled(enabled);
         this.setOriginalVolume(originalVolume);
+        this.setStartTimestamp(startTimestamp);
+        this.setAdditionalTime(additionalTime);
+    }
+
+    void start(final int originalVolume) {
+        this.setEnabled(true);
+        if (this.getConfig().isResettingVolume()) {
+            this.setOriginalVolume(originalVolume);
+        } else {
+            this.setOriginalVolume(null);
+        }
         this.setStartTimestamp(System.currentTimeMillis());
         this.setAdditionalTime(0L);
     }
 
     void addAdditionalTime(final long millis) {
+        Assert.isTrue(millis > 0, "Can only add a positive amount of additional time.");
         this.setAdditionalTime(this.getAdditionalTime() + millis);
     }
 
@@ -49,6 +72,11 @@ public class SleepTimer {
 
     long getMillisLeft() {
         final long millisElapsed = System.currentTimeMillis() - this.getStartTimestamp();
-        return this.getDuration() + this.getAdditionalTime() - millisElapsed;
+        return this.getConfig().getDuration() + this.getAdditionalTime() - millisElapsed;
+    }
+
+    private void setOriginalVolume(final Integer originalVolume) {
+        Assert.isTrue(originalVolume == null || originalVolume >= 0, "Original volume must be null or non-negative.");
+        this.originalVolume = originalVolume;
     }
 }

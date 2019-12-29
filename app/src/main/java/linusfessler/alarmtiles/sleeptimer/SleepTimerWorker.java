@@ -81,7 +81,7 @@ class SleepTimerWorker {
 
     private void scheduleFade() {
         final int volume = this.getVolume();
-        if (this.sleepTimer.isFading() && volume > 0) {
+        if (this.sleepTimer.getConfig().isFading() && volume > 0) {
             final long delayMillis = this.sleepTimer.getMillisLeft() / volume;
             this.handler.postDelayed(this.fadeRunnable, delayMillis);
         }
@@ -93,7 +93,7 @@ class SleepTimerWorker {
     }
 
     private void rescheduleFade() {
-        if (this.sleepTimer.isFading()) {
+        if (this.sleepTimer.getConfig().isFading()) {
             this.cancelScheduledFade();
             this.scheduleFade();
         }

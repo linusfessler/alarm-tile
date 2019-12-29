@@ -12,6 +12,14 @@ public class Assert {
         }
     }
 
+    public static void isFalse(final boolean expression, final String message) {
+        Assert.isTrue(!expression, message);
+    }
+
+    public static void isNull(final Object object, final String message) {
+        Assert.isTrue(object == null, message);
+    }
+
     public static void isNotNull(final Object object, final String message) {
         Assert.isTrue(object != null, message);
     }

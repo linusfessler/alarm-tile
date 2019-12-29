@@ -27,7 +27,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public void populate() {
         this.getWriteExecutor().submit(() -> {
             if (this.sleepTimerDao().count() == 0) {
-                this.sleepTimerDao().insert(new SleepTimer());
+                this.sleepTimerDao().insert(SleepTimer.createDefault());
             }
 
             if (this.alarmDao().count() == 0) {
