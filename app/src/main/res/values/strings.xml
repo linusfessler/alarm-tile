@@ -2,7 +2,7 @@
 
     <string name="app_name">Alarm Tiles</string>
 
-    <string name="tutorial">Your new quick settings tiles are ready to use. Long click a tile to configure it.</string>
+    <string name="tutorial">Your new quick settings tiles are ready to use. Long click a tile to configure it. Only disabled tiles are configurable.</string>
 
     <string name="sleep_timer">Sleep timer</string>
     <string name="alarm">Alarm</string>
@@ -186,5 +186,10 @@
     <string name="sleep_timer_running_notification_content_title">Sleep timer is running</string>
     <string name="sleep_timer_running_notification_content_text">Tap to cancel early</string>
     <string name="sleep_timer_running_notification_sub_text">In %s</string>
+    <string name="sleep_timer_config_duration">Duration</string>
+    <string name="sleep_timer_config_resetting_volume">Reset volume afterwards</string>
+    <string name="sleep_timer_config_fading">Gradually decrease volume</string>
+    <string name="sleep_timer_config_turning_device_off">Turn device off afterwards</string>
+    <string name="sleep_timer_config_description">The sleep timer will stop any media playback after the set duration. Optionally, you can gradually decrease the volume and reset it afterwards. When the timer expired, you can also set the device to be turned off.</string>
 
 </resources>

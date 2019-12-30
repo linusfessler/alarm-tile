@@ -9,6 +9,15 @@
         android:id="@+id/mainFragment"
         android:name="linusfessler.alarmtiles.fragments.MainFragment"
         android:label="@string/main_title"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_sleepTimerConfigFragment"
+            app:destination="@id/sleepTimerConfigFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sleepTimerConfigFragment"
+        android:name="linusfessler.alarmtiles.sleeptimer.SleepTimerConfigFragment"
+        android:label="fragment_sleep_timer_config"
+        tools:layout="@layout/fragment_sleep_timer_config" />
 
 </navigation>

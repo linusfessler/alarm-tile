@@ -35,7 +35,7 @@ public class SleepTimerTileService extends TileService {
     public void onClick() {
         super.onClick();
         if (this.sleepTimer != null) {
-            this.viewModel.onClick(this.sleepTimer);
+            this.viewModel.toggle(this.sleepTimer);
         }
     }
 

@@ -1,6 +1,7 @@
 package linusfessler.alarmtiles;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.widget.TimePicker;
 
@@ -23,6 +24,14 @@ public class DigitalTimePickerDialog {
                 .setView(this.timePicker)
                 .setCancelable(true)
                 .create();
+    }
+
+    public int getHour() {
+        return this.timePicker.getHour();
+    }
+
+    public int getMinute() {
+        return this.timePicker.getMinute();
     }
 
     public void setHour(final int hour) {
@@ -49,4 +58,11 @@ public class DigitalTimePickerDialog {
         this.alertDialog.dismiss();
     }
 
+    public void setOnCancelListener(final DialogInterface.OnCancelListener listener) {
+        this.alertDialog.setOnCancelListener(listener);
+    }
+
+    public void setOnDismissListener(final DialogInterface.OnDismissListener listener) {
+        this.alertDialog.setOnDismissListener(listener);
+    }
 }

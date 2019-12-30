@@ -56,6 +56,6 @@ public class AlarmViewModel extends ViewModel {
 
     public void toggle(final Alarm alarm) {
         alarm.toggle();
-        this.repository.updateAlarm(alarm);
+        this.repository.update(alarm);
     }
 }

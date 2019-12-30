@@ -57,11 +57,32 @@ public class SleepTimerViewModel extends ViewModel {
         return this.timeLeftObservable.observeOn(AndroidSchedulers.mainThread());
     }
 
-    public void onClick(final SleepTimer sleepTimer) {
+    public void toggle(final SleepTimer sleepTimer) {
         if (sleepTimer.isEnabled()) {
             SleepTimerService.cancel(this.application);
         } else {
             SleepTimerService.start(this.application);
         }
+    }
+
+    void setDuration(final SleepTimer sleepTimer, final int hours, final int minutes) {
+        final long duration = (hours * 60 + minutes) * 60 * 1000L;
+        sleepTimer.getConfig().setDuration(duration);
+        this.repository.update(sleepTimer);
+    }
+
+    void setFading(final SleepTimer sleepTimer, final boolean fading) {
+        sleepTimer.getConfig().setFading(fading);
+        this.repository.update(sleepTimer);
+    }
+
+    void setResettingVolume(final SleepTimer sleepTimer, final boolean resettingVolume) {
+        sleepTimer.getConfig().setResettingVolume(resettingVolume);
+        this.repository.update(sleepTimer);
+    }
+
+    void setTurningDeviceOff(final SleepTimer sleepTimer, final boolean turningDeviceOff) {
+        sleepTimer.getConfig().setTurningDeviceOff(turningDeviceOff);
+        this.repository.update(sleepTimer);
     }
 }

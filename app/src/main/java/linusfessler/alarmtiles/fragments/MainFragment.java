@@ -4,13 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import javax.inject.Inject;
 
@@ -46,6 +47,8 @@ public class MainFragment extends Fragment {
     private TimerViewModel timerViewModel;
     private StopwatchViewModel stopwatchViewModel;
 
+    private NavController navController;
+
     private final CompositeDisposable disposable = new CompositeDisposable();
 
     @Override
@@ -58,6 +61,8 @@ public class MainFragment extends Fragment {
         this.alarmViewModel = ViewModelProviders.of(this, this.alarmViewModelFactory).get(AlarmViewModel.class);
         this.timerViewModel = ViewModelProviders.of(this, this.timerViewModelFactory).get(TimerViewModel.class);
         this.stopwatchViewModel = ViewModelProviders.of(this, this.stopwatchViewModelFactory).get(StopwatchViewModel.class);
+
+        this.navController = Navigation.findNavController(this.requireActivity(), R.id.nav_host_fragment);
     }
 
     @Nullable
@@ -72,17 +77,17 @@ public class MainFragment extends Fragment {
         this.bindTimer(binding);
         this.bindStopwatch(binding);
 
-        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.requireContext(), R.array.sleep_timer_modes, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.sleepTimerModes.setAdapter(adapter);
-
         return binding.getRoot();
     }
 
     private void bindSleepTimer(final FragmentMainBinding binding) {
         this.disposable.add(this.sleepTimerViewModel.getSleepTimer().subscribe(sleepTimer -> {
             binding.alarmTiles.sleepTimer.setEnabled(sleepTimer.isEnabled());
-            binding.alarmTiles.sleepTimer.setOnClickListener(v -> this.sleepTimerViewModel.onClick(sleepTimer));
+            binding.alarmTiles.sleepTimer.setOnClickListener(v -> this.sleepTimerViewModel.toggle(sleepTimer));
+            binding.alarmTiles.sleepTimer.setOnLongClickListener(v -> {
+                this.navController.navigate(MainFragmentDirections.actionMainFragmentToSleepTimerConfigFragment());
+                return true;
+            });
         }));
 
         this.disposable.add(this.sleepTimerViewModel.getTimeLeft().subscribe(binding.alarmTiles.sleepTimer::setSubtitle));

@@ -72,6 +72,6 @@ public class StopwatchViewModel extends ViewModel {
 
     public void toggle(final Stopwatch stopwatch) {
         stopwatch.toggle();
-        this.repository.updateStopwatch(stopwatch);
+        this.repository.update(stopwatch);
     }
 }

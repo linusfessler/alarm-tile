@@ -61,7 +61,7 @@ public class TimerViewModel extends ViewModel {
                     tileLabelMutableLiveData.postValue(tileLabel);
 
                     timer.setEnabled(false);
-                    TimerViewModel.this.repository.updateTimer(timer);
+                    TimerViewModel.this.repository.update(timer);
 
                     // TODO: Trigger alarm
                 }
@@ -82,6 +82,6 @@ public class TimerViewModel extends ViewModel {
 
     public void toggle(final Timer timer) {
         timer.toggle();
-        this.repository.updateTimer(timer);
+        this.repository.update(timer);
     }
 }

@@ -62,18 +62,18 @@ class SleepTimerWorker {
     private void startSleepTimer() {
         final int originalVolume = this.getVolume();
         this.sleepTimer.start(originalVolume);
-        this.repository.updateSleepTimer(this.sleepTimer);
+        this.repository.update(this.sleepTimer);
     }
 
     private void resetSleepTimer() {
         this.setVolume(this.sleepTimer.getOriginalVolume());
         this.sleepTimer.reset();
-        this.repository.updateSleepTimer(this.sleepTimer);
+        this.repository.update(this.sleepTimer);
     }
 
     private void addMinutes(final int minutes) {
         this.sleepTimer.addAdditionalTime(minutes * 60 * 1000L);
-        this.repository.updateSleepTimer(this.sleepTimer);
+        this.repository.update(this.sleepTimer);
 
         this.rescheduleFade();
         this.rescheduleFinish();

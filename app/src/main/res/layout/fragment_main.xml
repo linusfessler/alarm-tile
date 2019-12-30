@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-
-        <!--variable
-            name="viewModel"
-            type="linusfessler.alarmtiles.viewmodel.GeneralSettingsViewModel" /-->
-
-    </data>
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -46,73 +37,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/tutorial" />
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="16dp" />
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="16dp" />
-
-                <Spinner
-                    android:id="@+id/sleep_timer_modes"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/settings_height" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/settings_height"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@color/colorOnBackground"
-                        android:drawableStart="@drawable/ic_snooze_24px"
-                        android:text="@string/main_title_snooze"
-                        style="@style/Settings" />
-
-                    <linusfessler.alarmtiles.views.TimeSettings
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:padding="6dp"
-                        app:hour="12"
-                        app:minute="30"
-                        app:timeFormat="TIME"
-                        tools:hour="12"
-                        tools:minute="30"
-                        tools:timeFormat="TIME" />
-
-                </LinearLayout>
-
-                <com.google.android.material.checkbox.MaterialCheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="@string/main_show_notification" />
-
-                <com.google.android.material.checkbox.MaterialCheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/main_vibrate" />
-                <!--
-                    android:checked="@={viewModel.vibrating}"
-                    android:enabled="@{viewModel.alarmOrTimerEnabled}"
-                -->
-
-                <com.google.android.material.checkbox.MaterialCheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/main_flashlight" />
-                <!--
-                    android:checked="@={viewModel.turningOnFlashlight}"
-                    android:enabled="@{viewModel.alarmOrTimerEnabled}"
-                -->
-
 
             </LinearLayout>
 

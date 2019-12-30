@@ -28,7 +28,7 @@ class TimerRepository {
         this.timer = this.timerDao.select();
     }
 
-    void updateTimer(final Timer timer) {
+    void update(final Timer timer) {
         this.writeExecutor.execute(() -> this.timerDao.update(timer));
     }
 }

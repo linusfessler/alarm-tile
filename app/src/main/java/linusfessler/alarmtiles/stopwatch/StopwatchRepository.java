@@ -28,7 +28,7 @@ class StopwatchRepository {
         this.stopwatch = this.stopwatchDao.select();
     }
 
-    void updateStopwatch(final Stopwatch stopwatch) {
+    void update(final Stopwatch stopwatch) {
         this.writeExecutor.execute(() -> this.stopwatchDao.update(stopwatch));
     }
 }

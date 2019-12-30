@@ -28,7 +28,7 @@ class AlarmRepository {
         this.alarm = this.alarmDao.select();
     }
 
-    void updateAlarm(final Alarm alarm) {
+    void update(final Alarm alarm) {
         this.writeExecutor.execute(() -> this.alarmDao.update(alarm));
     }
 }

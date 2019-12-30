@@ -27,7 +27,7 @@ public class SleepTimerRepository {
         this.sleepTimer = this.sleepTimerDao.select();
     }
 
-    void updateSleepTimer(final SleepTimer sleepTimer) {
+    void update(final SleepTimer sleepTimer) {
         this.writeExecutor.execute(() -> this.sleepTimerDao.update(sleepTimer));
     }
 }
