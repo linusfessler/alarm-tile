@@ -7,7 +7,7 @@
     <string name="activity_alarm_title">Wecker</string>
     <string name="activity_main_title">Alarm Tiles</string>
     <string name="activity_settings_title">Einstellungen</string>
-    <string name="tutorial">Deine neuen Quick-Settings Tiles sind bereit. Tippe lange auf ein Tile, um es zu konfigurieren. Nur deaktivierte Tiles sind konfigurierbar.</string>
+    <string name="tutorial">Deine neuen Quick-Settings Tiles sind bereit!\n\nTippe lange auf ein Tile, um es zu konfigurieren.\nNur deaktivierte Tiles sind konfigurierbar.</string>
     <string name="alarm">Wecker</string>
     <string name="bottom_navigation_fall_asleep">Einschlafen</string>
     <string name="bottom_navigation_general">Allgemein</string>
