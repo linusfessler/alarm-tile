@@ -11,7 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import javax.inject.Inject;
 
@@ -61,14 +61,14 @@ public class MainFragment extends Fragment {
         this.alarmViewModel = ViewModelProviders.of(this, this.alarmViewModelFactory).get(AlarmViewModel.class);
         this.timerViewModel = ViewModelProviders.of(this, this.timerViewModelFactory).get(TimerViewModel.class);
         this.stopwatchViewModel = ViewModelProviders.of(this, this.stopwatchViewModelFactory).get(StopwatchViewModel.class);
-
-        this.navController = Navigation.findNavController(this.requireActivity(), R.id.nav_host_fragment);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+
+        this.navController = NavHostFragment.findNavController(this);
 
         final FragmentMainBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
 
