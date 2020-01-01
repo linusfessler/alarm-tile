@@ -81,6 +81,11 @@ public class SleepTimerViewModel extends ViewModel {
         }
     }
 
+    void setUnavailable(final SleepTimer sleepTimer, final boolean unavailable) {
+        sleepTimer.setUnavailable(unavailable);
+        this.repository.update(sleepTimer);
+    }
+
     void setDuration(final SleepTimer sleepTimer, final int hours, final int minutes) {
         final long duration = (hours * 60 + minutes) * 60 * 1000L;
         sleepTimer.getConfig().setDuration(duration);

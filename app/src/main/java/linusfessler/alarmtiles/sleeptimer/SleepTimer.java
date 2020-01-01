@@ -26,24 +26,28 @@ public class SleepTimer {
     @Getter(AccessLevel.PUBLIC)
     private boolean enabled;
 
+    @Setter(AccessLevel.PACKAGE)
+    private boolean unavailable;
+
     private Integer originalVolume;
     private Long startTimestamp;
     private Long additionalTime;
 
     public static SleepTimer createDefault() {
         final SleepTimerConfig config = SleepTimerConfig.createDefault();
-        return new SleepTimer(config, false, null, null, null);
+        return new SleepTimer(config, false, false, null, null, null);
     }
 
-    public SleepTimer(final Long id, final SleepTimerConfig config, final boolean enabled, final Integer originalVolume, final Long startTimestamp, final Long additionalTime) {
-        this(config, enabled, originalVolume, startTimestamp, additionalTime);
+    public SleepTimer(final Long id, final SleepTimerConfig config, final boolean enabled, final boolean unavailable, final Integer originalVolume, final Long startTimestamp, final Long additionalTime) {
+        this(config, enabled, unavailable, originalVolume, startTimestamp, additionalTime);
         this.setId(id);
     }
 
     @Ignore
-    private SleepTimer(final SleepTimerConfig config, final boolean enabled, final Integer originalVolume, final Long startTimestamp, final Long additionalTime) {
+    private SleepTimer(final SleepTimerConfig config, final boolean enabled, final boolean unavailable, final Integer originalVolume, final Long startTimestamp, final Long additionalTime) {
         this.setConfig(config);
         this.setEnabled(enabled);
+        this.setUnavailable(unavailable);
         this.setOriginalVolume(originalVolume);
         this.setStartTimestamp(startTimestamp);
         this.setAdditionalTime(additionalTime);

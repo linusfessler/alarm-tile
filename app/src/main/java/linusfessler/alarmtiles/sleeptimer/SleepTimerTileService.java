@@ -47,7 +47,9 @@ public class SleepTimerTileService extends TileService {
             this.sleepTimer = newSleepTimer;
 
             final int state;
-            if (this.sleepTimer.isEnabled()) {
+            if (this.sleepTimer.isUnavailable()) {
+                state = Tile.STATE_UNAVAILABLE;
+            } else if (this.sleepTimer.isEnabled()) {
                 state = Tile.STATE_ACTIVE;
             } else {
                 state = Tile.STATE_INACTIVE;

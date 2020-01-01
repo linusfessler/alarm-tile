@@ -10,6 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import javax.inject.Inject;
 
@@ -25,12 +27,14 @@ public class SleepTimerConfigFragment extends Fragment {
 
     private SleepTimerViewModel viewModel;
     private FragmentSleepTimerConfigBinding binding;
+    private SleepTimer sleepTimer;
 
     private final CompositeDisposable disposable = new CompositeDisposable();
 
     @Override
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         ((App) this.requireActivity().getApplicationContext()).getAppComponent().inject(this);
         this.viewModel = ViewModelProviders.of(this, this.sleepTimerViewModelFactory).get(SleepTimerViewModel.class);
     }
@@ -42,11 +46,40 @@ public class SleepTimerConfigFragment extends Fragment {
 
         this.binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sleep_timer_config, container, false);
 
-        this.disposable.add(this.viewModel.getSleepTimer().firstElement().subscribe(this::initializeView));
-        this.disposable.add(this.viewModel.getSleepTimer().subscribe(this::registerSleepTimerListeners));
+        this.disposable.add(this.viewModel.getSleepTimer().firstElement().subscribe(newSleepTimer -> {
+            this.initializeView(newSleepTimer);
+            this.viewModel.setUnavailable(newSleepTimer, true);
+        }));
+
+        this.disposable.add(this.viewModel.getSleepTimer().subscribe(newSleepTimer -> {
+            this.registerSleepTimerListeners(newSleepTimer);
+            this.sleepTimer = newSleepTimer;
+        }));
+
         this.disposable.add(this.viewModel.isResettingVolumeEnabled().subscribe(this.binding.resettingVolume::setEnabled));
 
         return this.binding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (this.sleepTimer != null) {
+            if (this.sleepTimer.isEnabled()) {
+                final NavController navController = NavHostFragment.findNavController(this);
+                navController.navigateUp();
+            } else {
+                this.viewModel.setUnavailable(this.sleepTimer, true);
+            }
+        }
+    }
+
+    @Override
+    public void onStop() {
+        if (this.sleepTimer != null) {
+            this.viewModel.setUnavailable(this.sleepTimer, false);
+        }
+        super.onStop();
     }
 
     @Override
