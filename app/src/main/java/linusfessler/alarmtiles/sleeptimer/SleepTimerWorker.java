@@ -60,13 +60,15 @@ class SleepTimerWorker {
     }
 
     private void startSleepTimer() {
-        final int originalVolume = this.getVolume();
+        final Integer originalVolume = this.sleepTimer.getConfig().shouldResetVolume() ? this.getVolume() : null;
         this.sleepTimer.start(originalVolume);
         this.repository.update(this.sleepTimer);
     }
 
     private void resetSleepTimer() {
-        this.setVolume(this.sleepTimer.getOriginalVolume());
+        if (this.sleepTimer.getConfig().shouldResetVolume()) {
+            this.setVolume(this.sleepTimer.getOriginalVolume());
+        }
         this.sleepTimer.reset();
         this.repository.update(this.sleepTimer);
     }
@@ -80,8 +82,12 @@ class SleepTimerWorker {
     }
 
     private void scheduleFade() {
+        if (this.sleepTimer.getConfig().isFading()) {
+            return;
+        }
+
         final int volume = this.getVolume();
-        if (this.sleepTimer.getConfig().isFading() && volume > 0) {
+        if (volume > 0) {
             final long delayMillis = this.sleepTimer.getMillisLeft() / volume;
             this.handler.postDelayed(this.fadeRunnable, delayMillis);
         }

@@ -7,7 +7,7 @@
     <string name="activity_alarm_title">Wecker</string>
     <string name="activity_main_title">Alarm Tiles</string>
     <string name="activity_settings_title">Einstellungen</string>
-    <string name="tutorial">Deine neuen Quick-Settings Tiles sind bereit!\n\nTippe lange auf ein Tile, um es zu konfigurieren.\nNur deaktivierte Tiles sind konfigurierbar.</string>
+    <string name="tutorial">Deine Quick-Settings Tiles sind bereit!\n\nTippe lange auf ein Tile, um es zu konfigurieren.\nNur deaktivierte Tiles sind konfigurierbar.</string>
     <string name="alarm">Wecker</string>
     <string name="bottom_navigation_fall_asleep">Einschlafen</string>
     <string name="bottom_navigation_general">Allgemein</string>
@@ -75,9 +75,8 @@
     <string name="sleep_timer_running_notification_content_text">"Tippen, um frühzeitig zu stoppen "</string>
     <string name="sleep_timer_running_notification_content_title">Sleeptimer ist aktiviert</string>
     <string name="sleep_timer_running_notification_sub_text">In %s</string>
-    <string name="sleep_timer_config_description">Der Sleeptimer stoppt nach der eingestellten Dauer jegliche Medienwiedergabe. Optional kann auch die Lautstärke allmählich verringert werden und am Schluss wieder zurückgesetzt werden. Wenn der Timer endet, besteht außerdem die Möglichkeit, das Gerät auszuschalten.</string>
+    <string name="sleep_timer_config_description">Der Sleeptimer stoppt nach der eingestellten Dauer jegliche Medienwiedergabe. Optional kann auch die Lautstärke allmählich verringert werden und am Schluss wieder zurückgesetzt werden.</string>
     <string name="sleep_timer_config_duration">Dauer</string>
     <string name="sleep_timer_config_fading">Allmählich Lautstärke verringern</string>
     <string name="sleep_timer_config_resetting_volume">Lautstärke am Ende zurücksetzen</string>
-    <string name="sleep_timer_config_turning_device_off">Gerät am Ende ausschalten</string>
 </resources>

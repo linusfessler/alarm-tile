@@ -17,28 +17,23 @@ class SleepTimerConfig {
     private long duration;
     private boolean fading;
     private boolean resettingVolume;
-    private boolean turningDeviceOff;
 
     static SleepTimerConfig createDefault() {
-        return new SleepTimerConfig(30 * 60 * 1000L, true, true, false);
+        return new SleepTimerConfig(30 * 60 * 1000L, true, true);
     }
 
-    public SleepTimerConfig(final long duration, final boolean fading, final boolean resettingVolume, final boolean turningDeviceOff) {
+    SleepTimerConfig(final long duration, final boolean fading, final boolean resettingVolume) {
         this.setDuration(duration);
         this.setFading(fading);
         this.setResettingVolume(resettingVolume);
-        this.setTurningDeviceOff(turningDeviceOff);
     }
 
     void setDuration(final long duration) {
-        Assert.isTrue(duration >= 0, "Duration can not be non-negative.");
+        Assert.isTrue(duration >= 0, "Duration must be non-negative.");
         this.duration = duration;
     }
 
-    void setResettingVolume(final boolean resettingVolume) {
-        if (resettingVolume) {
-            Assert.isTrue(this.fading, "Resetting volume only makes sense when fading.");
-        }
-        this.resettingVolume = resettingVolume;
+    boolean shouldResetVolume() {
+        return this.isFading() && this.isResettingVolume();
     }
 }

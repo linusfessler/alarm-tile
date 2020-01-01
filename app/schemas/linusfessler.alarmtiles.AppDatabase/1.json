@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f1814e5c2484995631c94162899ccd0c",
+    "identityHash": "381a6b39d3498373607876d28e05fab3",
     "entities": [
       {
         "tableName": "SleepTimer",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `enabled` INTEGER NOT NULL, `originalVolume` INTEGER, `startTimestamp` INTEGER, `additionalTime` INTEGER, `duration` INTEGER, `fading` INTEGER, `resettingVolume` INTEGER, `turningDeviceOff` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `enabled` INTEGER NOT NULL, `originalVolume` INTEGER, `startTimestamp` INTEGER, `additionalTime` INTEGER, `duration` INTEGER, `fading` INTEGER, `resettingVolume` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -53,12 +53,6 @@
           {
             "fieldPath": "config.resettingVolume",
             "columnName": "resettingVolume",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "config.turningDeviceOff",
-            "columnName": "turningDeviceOff",
             "affinity": "INTEGER",
             "notNull": false
           }
@@ -184,7 +178,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f1814e5c2484995631c94162899ccd0c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '381a6b39d3498373607876d28e05fab3')"
     ]
   }
 }

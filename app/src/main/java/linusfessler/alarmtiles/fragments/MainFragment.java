@@ -84,13 +84,18 @@ public class MainFragment extends Fragment {
         this.disposable.add(this.sleepTimerViewModel.getSleepTimer().subscribe(sleepTimer -> {
             binding.alarmTiles.sleepTimer.setEnabled(sleepTimer.isEnabled());
             binding.alarmTiles.sleepTimer.setOnClickListener(v -> this.sleepTimerViewModel.toggle(sleepTimer));
-            binding.alarmTiles.sleepTimer.setOnLongClickListener(v -> {
-                this.navController.navigate(MainFragmentDirections.actionMainFragmentToSleepTimerConfigFragment());
-                return true;
-            });
         }));
 
         this.disposable.add(this.sleepTimerViewModel.getTimeLeft().subscribe(binding.alarmTiles.sleepTimer::setSubtitle));
+
+        this.disposable.add(this.sleepTimerViewModel.isConfigurable().subscribe(isConfigurable ->
+                binding.alarmTiles.sleepTimer.setOnLongClickListener(v -> {
+                    if (isConfigurable) {
+                        this.navController.navigate(MainFragmentDirections.actionMainFragmentToSleepTimerConfigFragment());
+                    }
+                    return true;
+                })
+        ));
     }
 
     private void bindAlarm(final FragmentMainBinding binding) {

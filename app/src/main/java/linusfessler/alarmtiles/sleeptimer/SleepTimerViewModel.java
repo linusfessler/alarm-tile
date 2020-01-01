@@ -21,8 +21,10 @@ public class SleepTimerViewModel extends ViewModel {
 
     private final Observable<SleepTimer> sleepTimerObservable;
     private final Observable<String> timeLeftObservable;
+    private final Observable<Boolean> configurableObservable;
+    private final Observable<Boolean> resettingVolumeEnabledObservable;
 
-    public SleepTimerViewModel(final Application application, final SleepTimerRepository repository, final TimeFormatter timeFormatter) {
+    SleepTimerViewModel(final Application application, final SleepTimerRepository repository, final TimeFormatter timeFormatter) {
         this.application = application;
         this.repository = repository;
         this.timeFormatter = timeFormatter;
@@ -47,6 +49,12 @@ public class SleepTimerViewModel extends ViewModel {
                     .map(zeroBasedSecondsPassed ->
                             this.timeFormatter.format(1000 * (secondsLeft - zeroBasedSecondsPassed), TimeUnit.SECONDS));
         });
+
+        this.configurableObservable = this.sleepTimerObservable.switchMap(sleepTimer ->
+                Observable.just(!sleepTimer.isEnabled()));
+
+        this.resettingVolumeEnabledObservable = this.sleepTimerObservable.switchMap(sleepTimer ->
+                Observable.just(sleepTimer.getConfig().isFading()));
     }
 
     public Observable<SleepTimer> getSleepTimer() {
@@ -55,6 +63,14 @@ public class SleepTimerViewModel extends ViewModel {
 
     public Observable<String> getTimeLeft() {
         return this.timeLeftObservable.observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<Boolean> isConfigurable() {
+        return this.configurableObservable.observeOn(AndroidSchedulers.mainThread());
+    }
+
+    Observable<Boolean> isResettingVolumeEnabled() {
+        return this.resettingVolumeEnabledObservable.observeOn(AndroidSchedulers.mainThread());
     }
 
     public void toggle(final SleepTimer sleepTimer) {
@@ -78,11 +94,6 @@ public class SleepTimerViewModel extends ViewModel {
 
     void setResettingVolume(final SleepTimer sleepTimer, final boolean resettingVolume) {
         sleepTimer.getConfig().setResettingVolume(resettingVolume);
-        this.repository.update(sleepTimer);
-    }
-
-    void setTurningDeviceOff(final SleepTimer sleepTimer, final boolean turningDeviceOff) {
-        sleepTimer.getConfig().setTurningDeviceOff(turningDeviceOff);
         this.repository.update(sleepTimer);
     }
 }

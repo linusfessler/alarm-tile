@@ -1,7 +1,6 @@
 package linusfessler.alarmtiles.sleeptimer;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,16 +42,16 @@ public class SleepTimerConfigFragment extends Fragment {
 
         this.binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sleep_timer_config, container, false);
 
-        this.disposable.add(this.viewModel.getSleepTimer().firstElement().subscribe(sleepTimer ->
-                this.initializeView(sleepTimer.getConfig())));
-        this.disposable.add(this.viewModel.getSleepTimer().subscribe(this::registerListeners));
+        this.disposable.add(this.viewModel.getSleepTimer().firstElement().subscribe(this::initializeView));
+        this.disposable.add(this.viewModel.getSleepTimer().subscribe(this::registerSleepTimerListeners));
+        this.disposable.add(this.viewModel.isResettingVolumeEnabled().subscribe(this.binding.resettingVolume::setEnabled));
 
         return this.binding.getRoot();
     }
 
     @Override
     public void onDestroyView() {
-        this.unregisterListeners();
+        this.unregisterSleepTimerListeners();
         this.disposable.clear();
         super.onDestroyView();
     }
@@ -63,36 +62,27 @@ public class SleepTimerConfigFragment extends Fragment {
         super.onDestroy();
     }
 
-    private void initializeView(final SleepTimerConfig config) {
-        Log.d("config", config.toString());
+    private void initializeView(final SleepTimer sleepTimer) {
+        final SleepTimerConfig config = sleepTimer.getConfig();
         this.binding.duration.updateTime(config.getDuration());
         this.binding.fading.setChecked(config.isFading());
         this.binding.resettingVolume.setChecked(config.isResettingVolume());
-        this.binding.turningDeviceOff.setChecked(config.isTurningDeviceOff());
     }
 
-    private void registerListeners(final SleepTimer sleepTimer) {
-        this.binding.duration.setOnTimeChangedListener((hours, minutes) -> {
-            Log.d("2", "1");
-            this.viewModel.setDuration(sleepTimer, hours, minutes);
-        });
-
-        this.binding.fading.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            Log.d("2", "2");
-            this.viewModel.setFading(sleepTimer, isChecked);
-        });
+    private void registerSleepTimerListeners(final SleepTimer sleepTimer) {
+        this.binding.duration.setOnTimeChangedListener((hours, minutes) ->
+                this.viewModel.setDuration(sleepTimer, hours, minutes));
 
         this.binding.fading.setOnCheckedChangeListener((buttonView, isChecked) ->
+                this.viewModel.setFading(sleepTimer, isChecked));
+
+        this.binding.resettingVolume.setOnCheckedChangeListener((buttonView, isChecked) ->
                 this.viewModel.setResettingVolume(sleepTimer, isChecked));
-
-        this.binding.fading.setOnCheckedChangeListener((buttonView, isChecked) ->
-                this.viewModel.setTurningDeviceOff(sleepTimer, isChecked));
     }
 
-    private void unregisterListeners() {
+    private void unregisterSleepTimerListeners() {
         this.binding.duration.setOnTimeChangedListener(null);
         this.binding.fading.setOnCheckedChangeListener(null);
         this.binding.resettingVolume.setOnCheckedChangeListener(null);
-        this.binding.turningDeviceOff.setOnCheckedChangeListener(null);
     }
 }

@@ -2,6 +2,7 @@ package linusfessler.alarmtiles.sleeptimer;
 
 import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import linusfessler.alarmtiles.Assert;
@@ -39,6 +40,7 @@ public class SleepTimer {
         this.setId(id);
     }
 
+    @Ignore
     private SleepTimer(final SleepTimerConfig config, final boolean enabled, final Integer originalVolume, final Long startTimestamp, final Long additionalTime) {
         this.setConfig(config);
         this.setEnabled(enabled);
@@ -47,19 +49,15 @@ public class SleepTimer {
         this.setAdditionalTime(additionalTime);
     }
 
-    void start(final int originalVolume) {
+    void start(final Integer originalVolume) {
         this.setEnabled(true);
-        if (this.getConfig().isResettingVolume()) {
-            this.setOriginalVolume(originalVolume);
-        } else {
-            this.setOriginalVolume(null);
-        }
+        this.setOriginalVolume(originalVolume);
         this.setStartTimestamp(System.currentTimeMillis());
         this.setAdditionalTime(0L);
     }
 
     void addAdditionalTime(final long millis) {
-        Assert.isTrue(millis > 0, "Can only add a positive amount of additional time.");
+        Assert.isTrue(millis > 0, "Additional time must be positive.");
         this.setAdditionalTime(this.getAdditionalTime() + millis);
     }
 
@@ -76,7 +74,7 @@ public class SleepTimer {
     }
 
     private void setOriginalVolume(final Integer originalVolume) {
-        Assert.isTrue(originalVolume == null || originalVolume >= 0, "Original volume must be null or non-negative.");
+        Assert.isTrue(originalVolume == null || originalVolume >= 0, "Original volume must be null or non-negative when resetting volume.");
         this.originalVolume = originalVolume;
     }
 }
