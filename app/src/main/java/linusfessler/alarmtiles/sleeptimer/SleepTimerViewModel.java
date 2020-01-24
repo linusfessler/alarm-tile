@@ -1,6 +1,7 @@
 package linusfessler.alarmtiles.sleeptimer;
 
 import android.app.Application;
+import android.content.DialogInterface;
 
 import androidx.lifecycle.ViewModel;
 
@@ -10,7 +11,9 @@ import javax.inject.Singleton;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.TimeFormatter;
+import linusfessler.alarmtiles.dialogwrapper.AlertDialogWrapper;
 
 @Singleton
 public class SleepTimerViewModel extends ViewModel {
@@ -73,11 +76,13 @@ public class SleepTimerViewModel extends ViewModel {
         return this.resettingVolumeEnabledObservable.observeOn(AndroidSchedulers.mainThread());
     }
 
-    public void toggle(final SleepTimer sleepTimer) {
+    public void toggle(final SleepTimer sleepTimer, final AlertDialogWrapper alertDialogWrapper) {
         if (sleepTimer.isEnabled()) {
             SleepTimerService.cancel(this.application);
         } else {
-            SleepTimerService.start(this.application);
+            alertDialogWrapper.getDialog().setButton(DialogInterface.BUTTON_POSITIVE, this.application.getString(R.string.dialog_ok), (dialog, which) ->
+                    SleepTimerService.start(this.application));
+            alertDialogWrapper.showDialog();
         }
     }
 

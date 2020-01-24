@@ -1,7 +1,6 @@
 package linusfessler.alarmtiles.sleeptimer;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Build;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
@@ -16,6 +15,8 @@ import io.reactivex.disposables.CompositeDisposable;
 import linusfessler.alarmtiles.App;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.dialogs.TimeInputDialogBuilder;
+import linusfessler.alarmtiles.dialogwrapper.AlertDialogWrapper;
+import linusfessler.alarmtiles.dialogwrapper.TileServiceAlertDialogWrapper;
 
 @Singleton
 public class SleepTimerTileService extends TileService {
@@ -25,7 +26,7 @@ public class SleepTimerTileService extends TileService {
 
     private SleepTimerViewModel viewModel;
     private String tileLabel;
-    private AlertDialog alertDialog;
+    private AlertDialogWrapper dialogWrapper;
 
     private SleepTimer sleepTimer;
 
@@ -41,18 +42,17 @@ public class SleepTimerTileService extends TileService {
 
         // Wrap context for compatibility between material components and tile service
         final Context context = new ContextThemeWrapper(this, R.style.AppTheme);
-        this.alertDialog = new TimeInputDialogBuilder(context)
+        final AlertDialog dialog = new TimeInputDialogBuilder(context)
                 .setTitle(R.string.sleep_timer_dialog_title)
                 .create();
+        this.dialogWrapper = new TileServiceAlertDialogWrapper(this, dialog);
     }
 
     @Override
     public void onClick() {
         super.onClick();
         if (this.sleepTimer != null) {
-            this.alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, this.getString(R.string.dialog_ok), (dialog, which) ->
-                    this.viewModel.toggle(this.sleepTimer));
-            this.showDialog(this.alertDialog);
+            this.viewModel.toggle(this.sleepTimer, this.dialogWrapper);
         }
     }
 
