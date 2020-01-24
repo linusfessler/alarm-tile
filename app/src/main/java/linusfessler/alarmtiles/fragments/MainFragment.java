@@ -114,7 +114,7 @@ public class MainFragment extends Fragment {
     }
 
     private void bindAlarm(final FragmentMainBinding binding) {
-        this.alarmViewModel.getAlarm().observe(this, alarm -> {
+        this.alarmViewModel.getAlarm().observe(this.getViewLifecycleOwner(), alarm -> {
             if (alarm == null) {
                 return;
             }
@@ -122,11 +122,11 @@ public class MainFragment extends Fragment {
             binding.alarmTiles.alarm.setOnClickListener(v -> this.alarmViewModel.toggle(alarm));
         });
 
-        this.alarmViewModel.getTileLabel().observe(this, binding.alarmTiles.alarm::setLabel);
+        this.alarmViewModel.getTileLabel().observe(this.getViewLifecycleOwner(), binding.alarmTiles.alarm::setLabel);
     }
 
     private void bindTimer(final FragmentMainBinding binding) {
-        this.timerViewModel.getTimer().observe(this, timer -> {
+        this.timerViewModel.getTimer().observe(this.getViewLifecycleOwner(), timer -> {
             if (timer == null) {
                 return;
             }
@@ -134,11 +134,11 @@ public class MainFragment extends Fragment {
             binding.alarmTiles.timer.setOnClickListener(v -> this.timerViewModel.toggle(timer));
         });
 
-        this.timerViewModel.getTileLabel().observe(this, binding.alarmTiles.timer::setLabel);
+        this.timerViewModel.getTileLabel().observe(this.getViewLifecycleOwner(), binding.alarmTiles.timer::setLabel);
     }
 
     private void bindStopwatch(final FragmentMainBinding binding) {
-        this.stopwatchViewModel.getStopwatch().observe(this, stopwatch -> {
+        this.stopwatchViewModel.getStopwatch().observe(this.getViewLifecycleOwner(), stopwatch -> {
             if (stopwatch == null) {
                 return;
             }
@@ -146,7 +146,7 @@ public class MainFragment extends Fragment {
             binding.alarmTiles.stopwatch.setOnClickListener(v -> this.stopwatchViewModel.toggle(stopwatch));
         });
 
-        this.stopwatchViewModel.getTileLabel().observe(this, binding.alarmTiles.stopwatch::setLabel);
+        this.stopwatchViewModel.getTileLabel().observe(this.getViewLifecycleOwner(), binding.alarmTiles.stopwatch::setLabel);
     }
 
     @Override
