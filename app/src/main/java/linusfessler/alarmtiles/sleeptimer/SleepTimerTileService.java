@@ -1,8 +1,13 @@
 package linusfessler.alarmtiles.sleeptimer;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.view.ContextThemeWrapper;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -10,6 +15,7 @@ import javax.inject.Singleton;
 import io.reactivex.disposables.CompositeDisposable;
 import linusfessler.alarmtiles.App;
 import linusfessler.alarmtiles.R;
+import linusfessler.alarmtiles.dialogs.TimeInputDialogBuilder;
 
 @Singleton
 public class SleepTimerTileService extends TileService {
@@ -19,6 +25,8 @@ public class SleepTimerTileService extends TileService {
 
     private SleepTimerViewModel viewModel;
     private String tileLabel;
+    private AlertDialog alertDialog;
+
     private SleepTimer sleepTimer;
 
     private final CompositeDisposable disposable = new CompositeDisposable();
@@ -27,15 +35,24 @@ public class SleepTimerTileService extends TileService {
     public void onCreate() {
         super.onCreate();
         ((App) this.getApplicationContext()).getAppComponent().inject(this);
+
         this.viewModel = this.viewModelFactory.create(SleepTimerViewModel.class);
         this.tileLabel = this.getString(R.string.sleep_timer);
+
+        // Wrap context for compatibility between material components and tile service
+        final Context context = new ContextThemeWrapper(this, R.style.AppTheme);
+        this.alertDialog = new TimeInputDialogBuilder(context)
+                .setTitle(R.string.sleep_timer_dialog_title)
+                .create();
     }
 
     @Override
     public void onClick() {
         super.onClick();
         if (this.sleepTimer != null) {
-            this.viewModel.toggle(this.sleepTimer);
+            this.alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, this.getString(R.string.dialog_ok), (dialog, which) ->
+                    this.viewModel.toggle(this.sleepTimer));
+            this.showDialog(this.alertDialog);
         }
     }
 

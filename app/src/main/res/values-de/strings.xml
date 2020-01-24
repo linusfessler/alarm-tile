@@ -86,4 +86,5 @@
         <item>Minuten</item>
         <item>Sekunden</item>
     </string-array>
+    <string name="sleep_timer_dialog_title">Dauer des Sleeptimers</string>
 </resources>
