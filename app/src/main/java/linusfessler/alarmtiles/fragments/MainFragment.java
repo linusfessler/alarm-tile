@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -61,10 +61,10 @@ public class MainFragment extends Fragment {
 
         ((App) this.requireActivity().getApplicationContext()).getAppComponent().inject(this);
 
-        this.sleepTimerViewModel = ViewModelProviders.of(this, this.sleepTimerViewModelFactory).get(SleepTimerViewModel.class);
-        this.alarmViewModel = ViewModelProviders.of(this, this.alarmViewModelFactory).get(AlarmViewModel.class);
-        this.timerViewModel = ViewModelProviders.of(this, this.timerViewModelFactory).get(TimerViewModel.class);
-        this.stopwatchViewModel = ViewModelProviders.of(this, this.stopwatchViewModelFactory).get(StopwatchViewModel.class);
+        this.sleepTimerViewModel = new ViewModelProvider(this, this.sleepTimerViewModelFactory).get(SleepTimerViewModel.class);
+        this.alarmViewModel = new ViewModelProvider(this, this.alarmViewModelFactory).get(AlarmViewModel.class);
+        this.timerViewModel = new ViewModelProvider(this, this.timerViewModelFactory).get(TimerViewModel.class);
+        this.stopwatchViewModel = new ViewModelProvider(this, this.stopwatchViewModelFactory).get(StopwatchViewModel.class);
 
         this.sleepTimerAlertDialog = new TimeInputDialogBuilder(this.requireContext())
                 .setTitle(R.string.sleep_timer_dialog_title)

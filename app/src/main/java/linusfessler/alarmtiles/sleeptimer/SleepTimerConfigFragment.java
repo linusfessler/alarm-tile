@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -36,7 +36,7 @@ public class SleepTimerConfigFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         ((App) this.requireActivity().getApplicationContext()).getAppComponent().inject(this);
-        this.viewModel = ViewModelProviders.of(this, this.sleepTimerViewModelFactory).get(SleepTimerViewModel.class);
+        this.viewModel = new ViewModelProvider(this, this.sleepTimerViewModelFactory).get(SleepTimerViewModel.class);
     }
 
     @Nullable
