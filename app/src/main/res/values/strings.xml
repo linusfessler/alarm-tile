@@ -197,6 +197,6 @@
         <item>Minutes</item>
         <item>Seconds</item>
     </string-array>
-    <string name="sleep_timer_dialog_title">Set sleep timer duration</string>
+    <string name="sleep_timer_dialog_title">Sleep timer duration</string>
 
 </resources>
