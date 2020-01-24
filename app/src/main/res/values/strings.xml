@@ -190,5 +190,12 @@
     <string name="sleep_timer_config_resetting_volume">Reset volume afterwards</string>
     <string name="sleep_timer_config_fading">Gradually decrease volume</string>
     <string name="sleep_timer_config_description">The sleep timer will stop any media playback after the set duration. Optionally, you can gradually decrease the volume and reset it afterwards.</string>
+    <string name="time_input_hint">Time</string>
+
+    <string-array name="time_input_time_units">
+        <item name="hours1" id="hours2">Hours</item>
+        <item>Minutes</item>
+        <item>Seconds</item>
+    </string-array>
 
 </resources>
