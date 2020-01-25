@@ -12,7 +12,9 @@ import androidx.appcompat.view.ContextThemeWrapper;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.subjects.PublishSubject;
 import linusfessler.alarmtiles.App;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.dialogs.TimeInputDialogBuilder;
@@ -28,8 +30,7 @@ public class SleepTimerTileService extends TileService {
     private String tileLabel;
     private AlertDialog alertDialog;
 
-    private SleepTimer sleepTimer;
-
+    private final PublishSubject<Boolean> clickSubject = PublishSubject.create();
     private final CompositeDisposable disposable = new CompositeDisposable();
 
     @Override
@@ -50,33 +51,16 @@ public class SleepTimerTileService extends TileService {
     @Override
     public void onClick() {
         super.onClick();
-        if (this.sleepTimer != null) {
-            if (this.sleepTimer.isEnabled()) {
-                this.viewModel.cancel();
-            } else {
-                this.alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, this.getString(R.string.dialog_ok), (dialog, which) -> {
-                    final TimeInput timeInput = this.alertDialog.findViewById(R.id.time_input);
-                    if (timeInput == null) {
-                        throw new IllegalArgumentException("A time input is required as the view of the alert dialog.");
-                    }
-
-                    timeInput.getMillis().firstElement().subscribe(millis -> this.viewModel.start(millis)).dispose();
-                });
-
-                this.showDialog(this.alertDialog);
-            }
-        }
+        this.clickSubject.onNext(true);
     }
 
     @Override
     public void onStartListening() {
         super.onStartListening();
 
-        this.disposable.add(this.viewModel.getSleepTimer().subscribe(newSleepTimer -> {
-            this.sleepTimer = newSleepTimer;
-
+        this.disposable.add(this.viewModel.getSleepTimer().subscribe(sleepTimer -> {
             final int state;
-            if (this.sleepTimer.isEnabled()) {
+            if (sleepTimer.isEnabled()) {
                 state = Tile.STATE_ACTIVE;
             } else {
                 state = Tile.STATE_INACTIVE;
@@ -92,7 +76,27 @@ public class SleepTimerTileService extends TileService {
             this.setSubtitle(tile, this.tileLabel, newTimeLeft);
             tile.updateTile();
         }));
+
+        final Observable<SleepTimer> clickObservable = this.clickSubject.withLatestFrom(this.viewModel.getSleepTimer(), (click, sleepTimer) -> sleepTimer);
+        this.disposable.add(clickObservable.subscribe(sleepTimer -> {
+            if (sleepTimer.isEnabled()) {
+                this.viewModel.cancel();
+            } else {
+                // TODO: Create class instead of duplicating the following code
+                this.alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, this.getString(R.string.dialog_ok), (dialog, which) -> {
+                    final TimeInput timeInput = this.alertDialog.findViewById(R.id.time_input);
+                    if (timeInput == null) {
+                        throw new IllegalArgumentException("A time input is required as the view of the alert dialog.");
+                    }
+
+                    timeInput.getMillis().firstElement().subscribe(millis -> this.viewModel.start(millis)).dispose();
+                });
+
+                this.showDialog(this.alertDialog);
+            }
+        }));
     }
+
 
     @Override
     public void onStopListening() {
