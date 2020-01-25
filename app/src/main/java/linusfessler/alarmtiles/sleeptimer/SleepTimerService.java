@@ -54,15 +54,13 @@ public class SleepTimerService extends LifecycleService {
     NotificationManager notificationManager;
 
     @Inject
-    SleepTimerRepository sleepTimerRepository;
-
-    // The following objects are injected so Dagger creates them
+    SleepTimerRepository repository;
 
     @Inject
-    SleepTimerFader sleepTimerFader;
+    SleepTimerVolumeFader volumeFader;
 
     @Inject
-    SleepTimerFinisher sleepTimerFinisher;
+    SleepTimerFinisher finisher;
 
     private SleepTimerViewModel viewModel;
 

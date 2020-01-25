@@ -97,7 +97,6 @@ public class SleepTimerTileService extends TileService {
         }));
     }
 
-
     @Override
     public void onStopListening() {
         this.disposable.clear();
