@@ -8,12 +8,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
 
 import javax.inject.Inject;
 
@@ -23,14 +20,13 @@ import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.alarm.AlarmViewModel;
 import linusfessler.alarmtiles.alarm.AlarmViewModelFactory;
 import linusfessler.alarmtiles.databinding.FragmentMainBinding;
-import linusfessler.alarmtiles.dialogs.TimeInputDialogBuilder;
+import linusfessler.alarmtiles.dialogs.TimeInputDialog;
 import linusfessler.alarmtiles.sleeptimer.SleepTimerViewModel;
 import linusfessler.alarmtiles.sleeptimer.SleepTimerViewModelFactory;
 import linusfessler.alarmtiles.stopwatch.StopwatchViewModel;
 import linusfessler.alarmtiles.stopwatch.StopwatchViewModelFactory;
 import linusfessler.alarmtiles.timer.TimerViewModel;
 import linusfessler.alarmtiles.timer.TimerViewModelFactory;
-import linusfessler.alarmtiles.views.TimeInput;
 
 public class MainFragment extends Fragment {
 
@@ -51,8 +47,7 @@ public class MainFragment extends Fragment {
     private TimerViewModel timerViewModel;
     private StopwatchViewModel stopwatchViewModel;
 
-    private AlertDialog sleepTimerAlertDialog;
-    private NavController navController;
+    private TimeInputDialog timeInputDialog;
 
     private final CompositeDisposable disposable = new CompositeDisposable();
 
@@ -66,10 +61,6 @@ public class MainFragment extends Fragment {
         this.alarmViewModel = new ViewModelProvider(this, this.alarmViewModelFactory).get(AlarmViewModel.class);
         this.timerViewModel = new ViewModelProvider(this, this.timerViewModelFactory).get(TimerViewModel.class);
         this.stopwatchViewModel = new ViewModelProvider(this, this.stopwatchViewModelFactory).get(StopwatchViewModel.class);
-
-        this.sleepTimerAlertDialog = new TimeInputDialogBuilder(this.requireContext())
-                .setTitle(R.string.sleep_timer_dialog_title)
-                .create();
     }
 
     @Nullable
@@ -77,40 +68,41 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        this.navController = NavHostFragment.findNavController(this);
-
         final FragmentMainBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
 
-        this.bindSleepTimer(binding);
-        this.bindAlarm(binding);
-        this.bindTimer(binding);
-        this.bindStopwatch(binding);
+        this.initSleepTimer(binding);
+        this.initAlarm(binding);
+        this.initTimer(binding);
+        this.initStopwatch(binding);
 
         return binding.getRoot();
     }
 
-    private void bindSleepTimer(final FragmentMainBinding binding) {
+    private void initSleepTimer(final FragmentMainBinding binding) {
+        this.timeInputDialog = new TimeInputDialog(this.requireContext());
+        this.timeInputDialog.setTitle(R.string.sleep_timer_dialog_title);
+        this.timeInputDialog.setButton(DialogInterface.BUTTON_NEGATIVE, this.getString(R.string.dialog_cancel), (dialog, which) -> {
+        });
+
         this.disposable.add(this.sleepTimerViewModel.getSleepTimer().subscribe(sleepTimer -> {
             if (sleepTimer.isEnabled()) {
-                // Dismiss the dialog in case the sleep timer was enabled through the quick settings in the mean time
-                this.sleepTimerAlertDialog.dismiss();
+                // Special case: dismiss the dialog if sleep timer was enabled through the quick settings in the mean time
+                this.timeInputDialog.dismiss();
             }
 
             binding.alarmTiles.sleepTimer.setEnabled(sleepTimer.isEnabled());
-            binding.alarmTiles.sleepTimer.setOnClickListener(v -> {
+            binding.alarmTiles.sleepTimer.setOnClickListener(view -> {
                 if (sleepTimer.isEnabled()) {
                     this.sleepTimerViewModel.cancel();
                 } else {
-                    this.sleepTimerAlertDialog.setButton(DialogInterface.BUTTON_POSITIVE, this.getString(R.string.dialog_ok), (dialog, which) -> {
-                        final TimeInput timeInput = this.sleepTimerAlertDialog.findViewById(R.id.time_input);
-                        if (timeInput == null) {
-                            throw new IllegalArgumentException("A time input is required as the view of the alert dialog.");
-                        }
-
-                        timeInput.getMillis().firstElement().subscribe(millis -> this.sleepTimerViewModel.start(millis)).dispose();
+                    this.timeInputDialog.setButton(DialogInterface.BUTTON_POSITIVE, this.getString(R.string.dialog_ok), (dialog, which) -> {
+                        final long duration = this.timeInputDialog.getMillis();
+                        this.sleepTimerViewModel.start(duration);
                     });
 
-                    this.sleepTimerAlertDialog.show();
+                    this.timeInputDialog.clear();
+
+                    this.timeInputDialog.show();
                 }
             });
         }));
@@ -118,37 +110,37 @@ public class MainFragment extends Fragment {
         this.disposable.add(this.sleepTimerViewModel.getTimeLeft().subscribe(binding.alarmTiles.sleepTimer::setSubtitle));
     }
 
-    private void bindAlarm(final FragmentMainBinding binding) {
+    private void initAlarm(final FragmentMainBinding binding) {
         this.alarmViewModel.getAlarm().observe(this.getViewLifecycleOwner(), alarm -> {
             if (alarm == null) {
                 return;
             }
             binding.alarmTiles.alarm.setEnabled(alarm.isEnabled());
-            binding.alarmTiles.alarm.setOnClickListener(v -> this.alarmViewModel.toggle(alarm));
+            binding.alarmTiles.alarm.setOnClickListener(view -> this.alarmViewModel.toggle(alarm));
         });
 
         this.alarmViewModel.getTileLabel().observe(this.getViewLifecycleOwner(), binding.alarmTiles.alarm::setLabel);
     }
 
-    private void bindTimer(final FragmentMainBinding binding) {
+    private void initTimer(final FragmentMainBinding binding) {
         this.timerViewModel.getTimer().observe(this.getViewLifecycleOwner(), timer -> {
             if (timer == null) {
                 return;
             }
             binding.alarmTiles.timer.setEnabled(timer.isEnabled());
-            binding.alarmTiles.timer.setOnClickListener(v -> this.timerViewModel.toggle(timer));
+            binding.alarmTiles.timer.setOnClickListener(view -> this.timerViewModel.toggle(timer));
         });
 
         this.timerViewModel.getTileLabel().observe(this.getViewLifecycleOwner(), binding.alarmTiles.timer::setLabel);
     }
 
-    private void bindStopwatch(final FragmentMainBinding binding) {
+    private void initStopwatch(final FragmentMainBinding binding) {
         this.stopwatchViewModel.getStopwatch().observe(this.getViewLifecycleOwner(), stopwatch -> {
             if (stopwatch == null) {
                 return;
             }
             binding.alarmTiles.stopwatch.setEnabled(stopwatch.isEnabled());
-            binding.alarmTiles.stopwatch.setOnClickListener(v -> this.stopwatchViewModel.toggle(stopwatch));
+            binding.alarmTiles.stopwatch.setOnClickListener(view -> this.stopwatchViewModel.toggle(stopwatch));
         });
 
         this.stopwatchViewModel.getTileLabel().observe(this.getViewLifecycleOwner(), binding.alarmTiles.stopwatch::setLabel);
@@ -156,7 +148,7 @@ public class MainFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        this.sleepTimerAlertDialog.dismiss();
+        this.timeInputDialog.dismiss();
         this.disposable.clear();
         super.onDestroyView();
     }

@@ -59,17 +59,17 @@ public class DrawablePickerDialog {
             final ColorStateList tint = ColorStateList.valueOf(drawableColor);
             imageView.setImageTintList(tint);
 
-            imageView.setOnClickListener(v -> {
-                for (final OnDrawablePickedListener listener : listeners) {
+            imageView.setOnClickListener(view -> {
+                for (final OnDrawablePickedListener listener : this.listeners) {
                     listener.onDrawablePicked(resourceId);
                 }
-                hide();
+                this.hide();
             });
 
             flexboxLayout.addView(imageView);
         }
 
-        alertDialog = new AlertDialog.Builder(context)
+        this.alertDialog = new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setView(flexboxLayout)
                 .setCancelable(true)
@@ -77,23 +77,23 @@ public class DrawablePickerDialog {
     }
 
     public void show() {
-        alertDialog.show();
+        this.alertDialog.show();
     }
 
     public void hide() {
-        alertDialog.cancel();
+        this.alertDialog.cancel();
     }
 
     public void dismiss() {
-        alertDialog.dismiss();
+        this.alertDialog.dismiss();
     }
 
     public void addListener(final OnDrawablePickedListener listener) {
-        listeners.add(listener);
+        this.listeners.add(listener);
     }
 
     public void removeListener(final OnDrawablePickedListener listener) {
-        listeners.remove(listener);
+        this.listeners.remove(listener);
     }
 
     public interface OnDrawablePickedListener {

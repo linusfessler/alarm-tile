@@ -83,7 +83,7 @@ public class TimeSettings extends com.google.android.material.textview.MaterialT
         this.updateTime(hour, minute);
         this.setTimeFormat(initialTimeFormat);
 
-        this.setOnClickListener(v -> {
+        this.setOnClickListener(view -> {
             if (this.timeFormat == TimeFormat.TIME) {
                 this.timePickerDialog.show();
             } else {

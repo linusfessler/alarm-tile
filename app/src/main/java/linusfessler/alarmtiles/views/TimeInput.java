@@ -24,7 +24,7 @@ public class TimeInput extends LinearLayout {
     private TextInputEditText timeView;
     private Spinner timeUnitView;
 
-    private final BehaviorSubject<Long> millisSubject = BehaviorSubject.create();
+    private final BehaviorSubject<Long> millisSubject = BehaviorSubject.createDefault(0L);
 
     public TimeInput(@NonNull final Context context) {
         super(context);
@@ -105,7 +105,18 @@ public class TimeInput extends LinearLayout {
         this.millisSubject.onNext((long) millis);
     }
 
-    public Observable<Long> getMillis() {
+    public long getMillis() {
+        return this.millisSubject.getValue();
+    }
+
+    public Observable<Long> getMillisObservable() {
         return this.millisSubject;
+    }
+
+    public void clear() {
+        if (this.timeView.getText() != null) {
+            this.timeView.getText().clear();
+        }
+        this.timeUnitView.setSelection(0);
     }
 }
