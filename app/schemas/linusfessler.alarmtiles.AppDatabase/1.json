@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "cc4c0a75926dd015b86153a03015e157",
+    "identityHash": "9d906910332fa654ce26befea0944973",
     "entities": [
       {
         "tableName": "SleepTimer",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `enabled` INTEGER NOT NULL, `unavailable` INTEGER NOT NULL, `originalVolume` INTEGER, `startTimestamp` INTEGER, `additionalTime` INTEGER, `duration` INTEGER, `fading` INTEGER, `resettingVolume` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `enabled` INTEGER NOT NULL, `startTimestamp` INTEGER, `duration` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -21,44 +21,14 @@
             "notNull": true
           },
           {
-            "fieldPath": "unavailable",
-            "columnName": "unavailable",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "originalVolume",
-            "columnName": "originalVolume",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
             "fieldPath": "startTimestamp",
             "columnName": "startTimestamp",
             "affinity": "INTEGER",
             "notNull": false
           },
           {
-            "fieldPath": "additionalTime",
-            "columnName": "additionalTime",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "config.duration",
+            "fieldPath": "duration",
             "columnName": "duration",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "config.fading",
-            "columnName": "fading",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "config.resettingVolume",
-            "columnName": "resettingVolume",
             "affinity": "INTEGER",
             "notNull": false
           }
@@ -184,7 +154,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cc4c0a75926dd015b86153a03015e157')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9d906910332fa654ce26befea0944973')"
     ]
   }
 }

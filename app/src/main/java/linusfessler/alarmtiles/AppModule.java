@@ -3,6 +3,7 @@ package linusfessler.alarmtiles;
 import android.app.AlarmManager;
 import android.app.Application;
 import android.app.NotificationManager;
+import android.content.ContentResolver;
 import android.media.AudioManager;
 
 import androidx.room.Room;
@@ -57,5 +58,11 @@ public class AppModule {
     @Singleton
     NotificationManager notificationManager() {
         return this.application.getSystemService(NotificationManager.class);
+    }
+
+    @Provides
+    @Singleton
+    ContentResolver contentResolver() {
+        return this.application.getContentResolver();
     }
 }

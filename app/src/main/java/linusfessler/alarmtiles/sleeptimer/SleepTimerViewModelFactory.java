@@ -7,11 +7,9 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import linusfessler.alarmtiles.TimeFormatter;
 
-@Singleton
 public class SleepTimerViewModelFactory implements ViewModelProvider.Factory {
 
     private final Application application;

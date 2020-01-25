@@ -1,21 +1,18 @@
 package linusfessler.alarmtiles.sleeptimer;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
-import android.content.DialogInterface;
 
 import androidx.lifecycle.ViewModel;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Singleton;
-
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.TimeFormatter;
-import linusfessler.alarmtiles.dialogwrapper.AlertDialogWrapper;
 
-@Singleton
+@SuppressLint("CheckResult")
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class SleepTimerViewModel extends ViewModel {
 
     private final Application application;
@@ -24,8 +21,6 @@ public class SleepTimerViewModel extends ViewModel {
 
     private final Observable<SleepTimer> sleepTimerObservable;
     private final Observable<String> timeLeftObservable;
-    private final Observable<Boolean> configurableObservable;
-    private final Observable<Boolean> resettingVolumeEnabledObservable;
 
     SleepTimerViewModel(final Application application, final SleepTimerRepository repository, final TimeFormatter timeFormatter) {
         this.application = application;
@@ -52,12 +47,6 @@ public class SleepTimerViewModel extends ViewModel {
                     .map(zeroBasedSecondsPassed ->
                             this.timeFormatter.format(1000 * (secondsLeft - zeroBasedSecondsPassed), TimeUnit.SECONDS));
         });
-
-        this.configurableObservable = this.sleepTimerObservable.switchMap(sleepTimer ->
-                Observable.just(!sleepTimer.isEnabled()));
-
-        this.resettingVolumeEnabledObservable = this.sleepTimerObservable.switchMap(sleepTimer ->
-                Observable.just(sleepTimer.getConfig().isFading()));
     }
 
     public Observable<SleepTimer> getSleepTimer() {
@@ -68,42 +57,25 @@ public class SleepTimerViewModel extends ViewModel {
         return this.timeLeftObservable.observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<Boolean> isConfigurable() {
-        return this.configurableObservable.observeOn(AndroidSchedulers.mainThread());
+    public void start(final long duration) {
+        this.repository.getSleepTimer()
+                .firstElement()
+                .subscribe(sleepTimer -> {
+                    sleepTimer.start(duration);
+                    this.repository.update(sleepTimer);
+
+                    SleepTimerService.start(this.application);
+                });
     }
 
-    Observable<Boolean> isResettingVolumeEnabled() {
-        return this.resettingVolumeEnabledObservable.observeOn(AndroidSchedulers.mainThread());
-    }
+    public void cancel() {
+        this.repository.getSleepTimer()
+                .firstElement()
+                .subscribe(sleepTimer -> {
+                    sleepTimer.cancel();
+                    this.repository.update(sleepTimer);
 
-    public void toggle(final SleepTimer sleepTimer, final AlertDialogWrapper alertDialogWrapper) {
-        if (sleepTimer.isEnabled()) {
-            SleepTimerService.cancel(this.application);
-        } else {
-            alertDialogWrapper.getDialog().setButton(DialogInterface.BUTTON_POSITIVE, this.application.getString(R.string.dialog_ok), (dialog, which) ->
-                    SleepTimerService.start(this.application));
-            alertDialogWrapper.showDialog();
-        }
-    }
-
-    void setUnavailable(final SleepTimer sleepTimer, final boolean unavailable) {
-        sleepTimer.setUnavailable(unavailable);
-        this.repository.update(sleepTimer);
-    }
-
-    void setDuration(final SleepTimer sleepTimer, final int hours, final int minutes) {
-        final long duration = (hours * 60 + minutes) * 60 * 1000L;
-        sleepTimer.getConfig().setDuration(duration);
-        this.repository.update(sleepTimer);
-    }
-
-    void setFading(final SleepTimer sleepTimer, final boolean fading) {
-        sleepTimer.getConfig().setFading(fading);
-        this.repository.update(sleepTimer);
-    }
-
-    void setResettingVolume(final SleepTimer sleepTimer, final boolean resettingVolume) {
-        sleepTimer.getConfig().setResettingVolume(resettingVolume);
-        this.repository.update(sleepTimer);
+                    SleepTimerService.stop(this.application);
+                });
     }
 }

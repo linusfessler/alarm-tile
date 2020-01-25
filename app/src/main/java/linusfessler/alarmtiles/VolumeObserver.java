@@ -7,8 +7,9 @@ import android.os.Handler;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.OnLifecycleEvent;
+
+import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
@@ -28,10 +29,12 @@ public class VolumeObserver implements LifecycleObserver {
         }
     };
 
-    public VolumeObserver(final LifecycleOwner lifecycleOwner, final AudioManager audioManager, final ContentResolver contentResolver) {
-        lifecycleOwner.getLifecycle().addObserver(this);
+    @Inject
+    public VolumeObserver(final AudioManager audioManager, final ContentResolver contentResolver, final Lifecycle lifecycle) {
         this.audioManager = audioManager;
         this.contentResolver = contentResolver;
+
+        lifecycle.addObserver(this);
     }
 
     public Observable<Integer> getObservable() {
@@ -39,12 +42,12 @@ public class VolumeObserver implements LifecycleObserver {
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    private void startObserving() {
+    private void onCreate() {
         this.contentResolver.registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, this.contentObserver);
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    private void stopObserving() {
+    private void onDestroy() {
         this.contentResolver.unregisterContentObserver(this.contentObserver);
     }
 }

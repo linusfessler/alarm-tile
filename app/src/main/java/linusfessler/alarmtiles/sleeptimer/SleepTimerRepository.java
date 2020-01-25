@@ -3,14 +3,12 @@ package linusfessler.alarmtiles.sleeptimer;
 import java.util.concurrent.ExecutorService;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import io.reactivex.Observable;
 import linusfessler.alarmtiles.AppDatabase;
 import lombok.AccessLevel;
 import lombok.Getter;
 
-@Singleton
 public class SleepTimerRepository {
 
     private final ExecutorService writeExecutor;

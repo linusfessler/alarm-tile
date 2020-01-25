@@ -1,6 +1,7 @@
 package linusfessler.alarmtiles.sleeptimer;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
@@ -15,8 +16,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import linusfessler.alarmtiles.App;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.dialogs.TimeInputDialogBuilder;
-import linusfessler.alarmtiles.dialogwrapper.AlertDialogWrapper;
-import linusfessler.alarmtiles.dialogwrapper.TileServiceAlertDialogWrapper;
+import linusfessler.alarmtiles.views.TimeInput;
 
 @Singleton
 public class SleepTimerTileService extends TileService {
@@ -26,7 +26,7 @@ public class SleepTimerTileService extends TileService {
 
     private SleepTimerViewModel viewModel;
     private String tileLabel;
-    private AlertDialogWrapper dialogWrapper;
+    private AlertDialog alertDialog;
 
     private SleepTimer sleepTimer;
 
@@ -42,17 +42,29 @@ public class SleepTimerTileService extends TileService {
 
         // Wrap context for compatibility between material components and tile service
         final Context context = new ContextThemeWrapper(this, R.style.AppTheme);
-        final AlertDialog dialog = new TimeInputDialogBuilder(context)
+        this.alertDialog = new TimeInputDialogBuilder(context)
                 .setTitle(R.string.sleep_timer_dialog_title)
                 .create();
-        this.dialogWrapper = new TileServiceAlertDialogWrapper(this, dialog);
     }
 
     @Override
     public void onClick() {
         super.onClick();
         if (this.sleepTimer != null) {
-            this.viewModel.toggle(this.sleepTimer, this.dialogWrapper);
+            if (this.sleepTimer.isEnabled()) {
+                this.viewModel.cancel();
+            } else {
+                this.alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, this.getString(R.string.dialog_ok), (dialog, which) -> {
+                    final TimeInput timeInput = this.alertDialog.findViewById(R.id.time_input);
+                    if (timeInput == null) {
+                        throw new IllegalArgumentException("A time input is required as the view of the alert dialog.");
+                    }
+
+                    timeInput.getMillis().firstElement().subscribe(millis -> this.viewModel.start(millis)).dispose();
+                });
+
+                this.showDialog(this.alertDialog);
+            }
         }
     }
 
@@ -64,9 +76,7 @@ public class SleepTimerTileService extends TileService {
             this.sleepTimer = newSleepTimer;
 
             final int state;
-            if (this.sleepTimer.isUnavailable()) {
-                state = Tile.STATE_UNAVAILABLE;
-            } else if (this.sleepTimer.isEnabled()) {
+            if (this.sleepTimer.isEnabled()) {
                 state = Tile.STATE_ACTIVE;
             } else {
                 state = Tile.STATE_INACTIVE;

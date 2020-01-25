@@ -22,7 +22,7 @@ public class SleepTimerJobService extends JobService {
     public static final int JOB_ID = 1001;
     private static final int NOTIFICATION_ID = 1002;
     private static final int CANCEL_REQUEST_CODE = 1003;
-    private static final String CANCEL_INTENT_EXTRA_KEY = "cancel";
+    private static final String CANCEL_INTENT_EXTRA_KEY = "stop";
 
     private static final int originalVolume = -1;
     private static final long endTime = 0;
@@ -168,7 +168,7 @@ public class SleepTimerJobService extends JobService {
 //        if (jobParameters.getJobId() == SleepTimerJobService.JOB_ID) {
 //            SleepTimerJobService.listener = this;
 //            audioManager.requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
-//            SleepTimerJobService.cancel(this);
+//            SleepTimerJobService.stop(this);
 //        } else if (jobParameters.getJobId() == SleepTimerJobService.FADE_MUSIC_OUT_JOB_ID) {
 //            final int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 //            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, currentVolume - 1, 0);

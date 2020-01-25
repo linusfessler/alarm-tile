@@ -7,102 +7,73 @@ import android.media.AudioManager;
 import android.os.Build;
 import android.os.Handler;
 
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.OnLifecycleEvent;
+
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
-/**
- * Should only be used on background threads
- */
+import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
+import linusfessler.alarmtiles.VolumeObserver;
 
-@Singleton
-class SleepTimerWorker {
+class SleepTimerWorker implements LifecycleObserver {
 
     private final Application application;
     private final SleepTimerRepository repository;
     private final AudioManager audioManager;
+    private final VolumeObserver volumeObserver;
 
-    private final SleepTimer sleepTimer;
+    // TODO: Convert handler into RxJava
+    // TODO: Create observer class that performs actions like changing volume / finish sleep timer
     private final Handler handler = new Handler();
     private final Runnable fadeRunnable = this::fade;
     private final Runnable finishRunnable = this::finish;
 
+    private SleepTimer sleepTimer;
+
+    private final CompositeDisposable disposable = new CompositeDisposable();
+
     @Inject
-    SleepTimerWorker(final Application application, final SleepTimerRepository repository, final AudioManager audioManager) {
+    SleepTimerWorker(final Application application, final SleepTimerRepository repository, final AudioManager audioManager, final VolumeObserver volumeObserver, final Lifecycle lifecycle) {
         this.application = application;
         this.repository = repository;
         this.audioManager = audioManager;
+        this.volumeObserver = volumeObserver;
 
-        this.sleepTimer = repository.getSleepTimer().blockingFirst();
+        lifecycle.addObserver(this);
     }
 
-    void start() {
-        this.startSleepTimer();
-        this.scheduleFade();
-        this.scheduleFinish();
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    private void onCreate() {
+        // Sleep timer observable that is guaranteed to start with an enabled sleep timer
+        final Observable<SleepTimer> sleepTimerObservable = this.repository.getSleepTimer()
+                .skipWhile(newSleepTimer -> !newSleepTimer.isEnabled());
+
+        this.disposable.add(sleepTimerObservable.subscribe(newSleepTimer -> {
+            this.sleepTimer = newSleepTimer;
+
+            if (this.sleepTimer.isEnabled()) {
+                this.rescheduleFade();
+                this.rescheduleFinish();
+            }
+        }));
+
+        this.disposable.add(this.volumeObserver.getObservable()
+                .skipUntil(sleepTimerObservable)
+                .subscribe(volume -> this.rescheduleFade()));
     }
 
-    void onVolumeChanged() {
-        this.rescheduleFade();
-    }
-
-    void cancel() {
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    private void onDestroy() {
         this.cancelScheduledFade();
         this.cancelScheduledFinish();
-        this.resetSleepTimer();
-    }
-
-    void add1Minute() {
-        this.addMinutes(1);
-    }
-
-    void add15Minutes() {
-        this.addMinutes(15);
-    }
-
-    private void startSleepTimer() {
-        final Integer originalVolume = this.sleepTimer.getConfig().shouldResetVolume() ? this.getVolume() : null;
-        this.sleepTimer.start(originalVolume);
-        this.repository.update(this.sleepTimer);
-    }
-
-    private void resetSleepTimer() {
-        if (this.sleepTimer.getConfig().shouldResetVolume()) {
-            this.setVolume(this.sleepTimer.getOriginalVolume());
-        }
-        this.sleepTimer.reset();
-        this.repository.update(this.sleepTimer);
-    }
-
-    private void addMinutes(final int minutes) {
-        this.sleepTimer.addAdditionalTime(minutes * 60 * 1000L);
-        this.repository.update(this.sleepTimer);
-
-        this.rescheduleFade();
-        this.rescheduleFinish();
-    }
-
-    private void scheduleFade() {
-        if (this.sleepTimer.getConfig().isFading()) {
-            return;
-        }
-
-        final int volume = this.getVolume();
-        if (volume > 0) {
-            final long delayMillis = this.sleepTimer.getMillisLeft() / volume;
-            this.handler.postDelayed(this.fadeRunnable, delayMillis);
-        }
-    }
-
-    private void scheduleFinish() {
-        final long delayMillis = this.sleepTimer.getMillisLeft();
-        this.handler.postDelayed(this.finishRunnable, delayMillis);
+        this.disposable.dispose();
     }
 
     private void rescheduleFade() {
-        if (this.sleepTimer.getConfig().isFading()) {
-            this.cancelScheduledFade();
-            this.scheduleFade();
-        }
+        this.cancelScheduledFade();
+        this.scheduleFade();
     }
 
     private void rescheduleFinish() {
@@ -118,17 +89,33 @@ class SleepTimerWorker {
         this.handler.removeCallbacks(this.finishRunnable);
     }
 
+    private void scheduleFade() {
+        final int volume = this.getVolume();
+        if (volume > 0) {
+            final long delayMillis = this.sleepTimer.getMillisLeft() / volume;
+            this.handler.postDelayed(this.fadeRunnable, delayMillis);
+        }
+    }
+
+    private void scheduleFinish() {
+        final long millisLeft = this.sleepTimer.getMillisLeft();
+        this.handler.postDelayed(this.finishRunnable, millisLeft);
+    }
+
     private void fade() {
         final int volume = this.getVolume();
         this.setVolume(volume - 1);
-        this.scheduleFade();
+        this.rescheduleFade();
     }
 
     private void finish() {
         this.cancelScheduledFade();
         this.stopMediaPlayback();
-        this.resetSleepTimer();
-        SleepTimerService.finish(this.application);
+
+        this.sleepTimer.finish();
+        this.repository.update(this.sleepTimer);
+
+        SleepTimerService.stop(this.application);
     }
 
     private void stopMediaPlayback() {
