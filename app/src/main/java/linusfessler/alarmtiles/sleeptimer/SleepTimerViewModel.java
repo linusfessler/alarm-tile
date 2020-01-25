@@ -27,10 +27,7 @@ public class SleepTimerViewModel extends ViewModel {
         this.repository = repository;
         this.timeFormatter = timeFormatter;
 
-        // Don't emit null (only happens before database is populated at first app start)
-        this.sleepTimerObservable = this.repository.getSleepTimer().switchMap(sleepTimer ->
-                sleepTimer == null ? Observable.empty() : Observable.just(sleepTimer));
-
+        this.sleepTimerObservable = this.repository.getSleepTimer();
         this.timeLeftObservable = this.sleepTimerObservable.switchMap(sleepTimer -> {
             if (!sleepTimer.isEnabled()) {
                 return Observable.just("");

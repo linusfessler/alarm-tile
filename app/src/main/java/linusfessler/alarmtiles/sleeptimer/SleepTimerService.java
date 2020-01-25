@@ -56,8 +56,13 @@ public class SleepTimerService extends LifecycleService {
     @Inject
     SleepTimerRepository sleepTimerRepository;
 
+    // The following objects are injected so Dagger creates them
+
     @Inject
-    SleepTimerWorker sleepTimerWorker; // Declare here in order to have Dagger create the object
+    SleepTimerFader sleepTimerFader;
+
+    @Inject
+    SleepTimerFinisher sleepTimerFinisher;
 
     private SleepTimerViewModel viewModel;
 

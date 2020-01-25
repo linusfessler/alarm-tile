@@ -12,33 +12,34 @@ import androidx.lifecycle.OnLifecycleEvent;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.subjects.PublishSubject;
+import io.reactivex.subjects.BehaviorSubject;
 
 public class VolumeObserver implements LifecycleObserver {
 
     private final AudioManager audioManager;
     private final ContentResolver contentResolver;
-
-    private final PublishSubject<Integer> publishSubject = PublishSubject.create();
-    private final ContentObserver contentObserver = new ContentObserver(new Handler()) {
-        @Override
-        public void onChange(final boolean selfChange) {
-            super.onChange(selfChange);
-            final int volume = VolumeObserver.this.audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-            VolumeObserver.this.publishSubject.onNext(volume);
-        }
-    };
+    private final BehaviorSubject<Integer> volumeSubject;
+    private final ContentObserver contentObserver;
 
     @Inject
     public VolumeObserver(final AudioManager audioManager, final ContentResolver contentResolver, final Lifecycle lifecycle) {
         this.audioManager = audioManager;
         this.contentResolver = contentResolver;
+        this.volumeSubject = BehaviorSubject.createDefault(this.getVolume());
+        this.contentObserver = new ContentObserver(new Handler()) {
+            @Override
+            public void onChange(final boolean selfChange) {
+                super.onChange(selfChange);
+                final int volume = VolumeObserver.this.audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                VolumeObserver.this.volumeSubject.onNext(volume);
+            }
+        };
 
         lifecycle.addObserver(this);
     }
 
     public Observable<Integer> getObservable() {
-        return this.publishSubject;
+        return this.volumeSubject;
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -49,5 +50,9 @@ public class VolumeObserver implements LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     private void onDestroy() {
         this.contentResolver.unregisterContentObserver(this.contentObserver);
+    }
+
+    private int getVolume() {
+        return this.audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
     }
 }
