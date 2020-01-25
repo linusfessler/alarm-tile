@@ -8,6 +8,8 @@ import android.service.quicksettings.TileService;
 
 import androidx.appcompat.view.ContextThemeWrapper;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -86,7 +88,7 @@ public class SleepTimerTileService extends TileService {
                     this.viewModel.start(duration);
                 });
 
-                this.timeInputDialog.clear();
+                this.timeInputDialog.clear(TimeUnit.MINUTES);
 
                 this.showDialog(this.timeInputDialog);
             }

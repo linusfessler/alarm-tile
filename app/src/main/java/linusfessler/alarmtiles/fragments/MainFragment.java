@@ -12,6 +12,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -100,7 +102,7 @@ public class MainFragment extends Fragment {
                         this.sleepTimerViewModel.start(duration);
                     });
 
-                    this.timeInputDialog.clear();
+                    this.timeInputDialog.clear(TimeUnit.MINUTES);
 
                     this.timeInputDialog.show();
                 }

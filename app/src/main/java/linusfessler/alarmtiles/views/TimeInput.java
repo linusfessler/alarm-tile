@@ -15,6 +15,8 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.concurrent.TimeUnit;
+
 import io.reactivex.Observable;
 import io.reactivex.subjects.BehaviorSubject;
 import linusfessler.alarmtiles.R;
@@ -113,10 +115,26 @@ public class TimeInput extends LinearLayout {
         return this.millisSubject;
     }
 
-    public void clear() {
+    public void clear(final TimeUnit timeUnit) {
         if (this.timeView.getText() != null) {
             this.timeView.getText().clear();
         }
-        this.timeUnitView.setSelection(0);
+
+        final int selection;
+        switch (timeUnit) {
+            case HOURS:
+                selection = 0;
+                break;
+            case MINUTES:
+                selection = 1;
+                break;
+            case SECONDS:
+                selection = 2;
+                break;
+            default:
+                throw new IllegalArgumentException("Add cases to handle new time units.");
+        }
+
+        this.timeUnitView.setSelection(selection);
     }
 }

@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
+import java.util.concurrent.TimeUnit;
+
 import io.reactivex.disposables.CompositeDisposable;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.views.TimeInput;
@@ -61,7 +63,7 @@ public class TimeInputDialog extends AlertDialog {
         return this.timeInput.getMillis();
     }
 
-    public void clear() {
-        this.timeInput.clear();
+    public void clear(final TimeUnit timeUnit) {
+        this.timeInput.clear(timeUnit);
     }
 }
