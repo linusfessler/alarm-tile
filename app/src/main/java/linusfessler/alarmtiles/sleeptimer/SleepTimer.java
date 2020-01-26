@@ -22,31 +22,35 @@ public class SleepTimer {
     private boolean enabled;
     private Long startTimestamp;
     private Long duration;
+    private boolean cancelled;
 
     public static SleepTimer createDefault() {
-        return new SleepTimer(false, null, null);
+        return new SleepTimer(false, null, null, false);
     }
 
-    public SleepTimer(final Long id, final boolean enabled, final Long startTimestamp, final Long duration) {
-        this(enabled, startTimestamp, duration);
+    public SleepTimer(final Long id, final boolean enabled, final Long startTimestamp, final Long duration, final boolean cancelled) {
+        this(enabled, startTimestamp, duration, cancelled);
         this.setId(id);
     }
 
     @Ignore
-    private SleepTimer(final boolean enabled, final Long startTimestamp, final Long duration) {
+    private SleepTimer(final boolean enabled, final Long startTimestamp, final Long duration, final boolean cancelled) {
         this.setEnabled(enabled);
         this.setStartTimestamp(startTimestamp);
         this.setDuration(duration);
+        this.setCancelled(cancelled);
     }
 
     void start(final long duration) {
         this.setEnabled(true);
         this.setStartTimestamp(System.currentTimeMillis());
         this.setDuration(duration);
+        this.setCancelled(false);
     }
 
     void cancel() {
         this.finish();
+        this.setCancelled(true);
     }
 
     void finish() {

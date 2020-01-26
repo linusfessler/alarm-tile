@@ -71,8 +71,15 @@ public class SleepTimerViewModel extends ViewModel {
                 .subscribe(sleepTimer -> {
                     sleepTimer.cancel();
                     this.repository.update(sleepTimer);
+                });
+    }
 
-                    SleepTimerService.stop(this.application);
+    public void finish() {
+        this.repository.getSleepTimer()
+                .firstElement()
+                .subscribe(sleepTimer -> {
+                    sleepTimer.finish();
+                    this.repository.update(sleepTimer);
                 });
     }
 }

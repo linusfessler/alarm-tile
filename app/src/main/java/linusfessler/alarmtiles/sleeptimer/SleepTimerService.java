@@ -26,8 +26,10 @@ import linusfessler.alarmtiles.R;
 public class SleepTimerService extends LifecycleService {
 
     private static final String START_ACTION = "START_ACTION";
-    private static final String NOTIFICATION_CANCEL_ACTION = "NOTIFICATION_CANCEL_ACTION";
     private static final String STOP_ACTION = "STOP_ACTION";
+
+    private static final String NOTIFICATION_CANCEL_ACTION = "NOTIFICATION_CANCEL_ACTION";
+    private static final String NOTIFICATION_FINISH_ACTION = "NOTIFICATION_FINISH_ACTION";
 
     private static final String NOTIFICATION_CHANNEL_ID = SleepTimerService.class.getName();
     private static final int NOTIFICATION_ID = 1;
@@ -57,10 +59,16 @@ public class SleepTimerService extends LifecycleService {
     SleepTimerRepository repository;
 
     @Inject
-    SleepTimerVolumeFader volumeFader;
+    SleepTimerFadeService fadeService;
 
     @Inject
-    SleepTimerFinisher finisher;
+    SleepTimerCancelService cancelService;
+
+    @Inject
+    SleepTimerStopService stopService;
+
+    @Inject
+    SleepTimerFinishService finishService;
 
     private SleepTimerViewModel viewModel;
 
@@ -90,11 +98,14 @@ public class SleepTimerService extends LifecycleService {
             case SleepTimerService.START_ACTION:
                 this.start();
                 break;
+            case SleepTimerService.STOP_ACTION:
+                this.stop();
+                break;
             case SleepTimerService.NOTIFICATION_CANCEL_ACTION:
                 this.cancel();
                 break;
-            case SleepTimerService.STOP_ACTION:
-                this.stop();
+            case SleepTimerService.NOTIFICATION_FINISH_ACTION:
+                this.finish();
                 break;
             default:
                 break;
@@ -117,15 +128,19 @@ public class SleepTimerService extends LifecycleService {
                 this.notificationManager.notify(SleepTimerService.NOTIFICATION_ID, this.buildRunningNotification(timeLeft))));
     }
 
-    private void cancel() {
-        this.viewModel.cancel();
-    }
-
     private void stop() {
         this.disposable.clear();
 
         this.stopForeground(Service.STOP_FOREGROUND_REMOVE);
         this.stopSelf();
+    }
+
+    private void cancel() {
+        this.viewModel.cancel();
+    }
+
+    private void finish() {
+        this.viewModel.finish();
     }
 
     @Override
@@ -139,14 +154,23 @@ public class SleepTimerService extends LifecycleService {
                 .setAction(SleepTimerService.NOTIFICATION_CANCEL_ACTION);
         final PendingIntent cancelPendingIntent = PendingIntent.getService(this, 0, cancelIntent, 0);
 
+        final Intent finishIntent = new Intent(this, SleepTimerService.class)
+                .setAction(SleepTimerService.NOTIFICATION_FINISH_ACTION);
+        final PendingIntent finishPendingIntent = PendingIntent.getService(this, 0, finishIntent, 0);
+
         return new NotificationCompat.Builder(this, SleepTimerService.NOTIFICATION_CHANNEL_ID)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setContentTitle(this.getString(R.string.sleep_timer_running_notification_content_title))
                 .setContentText(this.getString(R.string.sleep_timer_running_notification_content_text))
+                .addAction(R.drawable.ic_clear_24px, this.getString(R.string.sleep_timer_running_notification_action_cancel), cancelPendingIntent)
+                .addAction(R.drawable.ic_check_24px, this.getString(R.string.sleep_timer_running_notification_action_finish), finishPendingIntent)
+                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
+                        .setShowActionsInCompactView(0, 1))
                 .setShowWhen(false)
                 .setSubText(this.getString(R.string.sleep_timer_running_notification_sub_text, subText))
                 .setColor(this.getColor(R.color.colorPrimary))
                 .setSmallIcon(R.drawable.ic_music_off_24px)
-                .setContentIntent(cancelPendingIntent)
+                .setCategory(NotificationCompat.CATEGORY_PROGRESS)
                 .build();
     }
 

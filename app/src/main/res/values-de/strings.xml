@@ -7,7 +7,7 @@
     <string name="activity_alarm_title">Wecker</string>
     <string name="activity_main_title">Alarm Tiles</string>
     <string name="activity_settings_title">Einstellungen</string>
-    <string name="tutorial">Deine Quick-Settings Tiles sind bereit!\n\nTippe lange auf ein Tile, um es zu konfigurieren.\nNur deaktivierte Tiles sind konfigurierbar.</string>
+    <string name="tutorial">Vergiss nicht, die Tiles deinem Quick Settings Panel hinzuzufügen!</string>
     <string name="alarm">Wecker</string>
     <string name="bottom_navigation_fall_asleep">Einschlafen</string>
     <string name="bottom_navigation_general">Allgemein</string>
@@ -72,8 +72,10 @@
     <string name="sound_settings">Sound-Einstellungen</string>
     <string name="main_title_other">Sonstiges</string>
     <string name="stopwatch">Stoppuhr</string>
-    <string name="sleep_timer_running_notification_content_text">"Tippen, um frühzeitig zu stoppen "</string>
-    <string name="sleep_timer_running_notification_content_title">Sleeptimer ist aktiviert</string>
+    <string name="sleep_timer_running_notification_content_title">Sleeptimer</string>
+    <string name="sleep_timer_running_notification_content_text">Lautstärke wird allmählich reduziert</string>
+    <string name="sleep_timer_running_notification_action_finish">Jetzt beenden</string>
+    <string name="sleep_timer_running_notification_action_cancel">Abbrechen</string>
     <string name="sleep_timer_running_notification_sub_text">In %s</string>
     <string name="sleep_timer_config_description">Der Sleeptimer stoppt nach der eingestellten Dauer jegliche Medienwiedergabe. Optional kann auch die Lautstärke allmählich verringert werden und am Schluss wieder zurückgesetzt werden.</string>
     <string name="sleep_timer_config_duration">Dauer</string>

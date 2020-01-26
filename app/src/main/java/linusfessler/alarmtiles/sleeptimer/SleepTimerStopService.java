@@ -17,26 +17,30 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 
-public class SleepTimerFinisher implements LifecycleObserver {
+public class SleepTimerStopService implements LifecycleObserver {
 
     private final Application application;
-    private final SleepTimerRepository repository;
     private final AudioManager audioManager;
     private final Observable<SleepTimer> finishObservable;
     private final CompositeDisposable disposable = new CompositeDisposable();
 
     @Inject
-    public SleepTimerFinisher(final Application application, final SleepTimerRepository repository, final AudioManager audioManager, final Lifecycle lifecycle) {
+    public SleepTimerStopService(final Application application, final SleepTimerRepository repository, final AudioManager audioManager, final Lifecycle lifecycle) {
         this.application = application;
-        this.repository = repository;
         this.audioManager = audioManager;
+
         this.finishObservable = repository.getSleepTimer()
                 .switchMap(sleepTimer -> {
-                    if (!sleepTimer.isEnabled()) {
-                        return Observable.just(sleepTimer);
+                    if (sleepTimer.isEnabled()) {
+                        return Observable.timer(sleepTimer.getMillisLeft(), TimeUnit.MILLISECONDS)
+                                .map(zero -> sleepTimer);
                     }
-                    return Observable.timer(sleepTimer.getMillisLeft(), TimeUnit.MILLISECONDS)
-                            .map(zero -> sleepTimer);
+
+                    if (sleepTimer.isCancelled()) {
+                        return Observable.empty();
+                    }
+
+                    return Observable.just(sleepTimer);
                 });
 
         lifecycle.addObserver(this);
@@ -46,10 +50,6 @@ public class SleepTimerFinisher implements LifecycleObserver {
     private void onCreate() {
         this.disposable.add(this.finishObservable.subscribe(sleepTimer -> {
             this.stopMediaPlayback();
-
-            sleepTimer.finish();
-            this.repository.update(sleepTimer);
-
             SleepTimerService.stop(this.application);
         }));
     }

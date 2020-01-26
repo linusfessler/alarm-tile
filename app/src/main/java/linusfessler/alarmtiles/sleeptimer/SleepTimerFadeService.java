@@ -15,7 +15,7 @@ import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import linusfessler.alarmtiles.VolumeObserver;
 
-public class SleepTimerVolumeFader implements LifecycleObserver {
+public class SleepTimerFadeService implements LifecycleObserver {
 
     private final AudioManager audioManager;
     private final Observable<Integer> volumeFadeObservable;
@@ -23,7 +23,7 @@ public class SleepTimerVolumeFader implements LifecycleObserver {
 
     @Inject
     @SuppressWarnings({"ConstantConditions", "UnnecessaryLocalVariable"})
-    public SleepTimerVolumeFader(final SleepTimerRepository repository, final AudioManager audioManager, final VolumeObserver volumeObserver, final Lifecycle lifecycle) {
+    public SleepTimerFadeService(final SleepTimerRepository repository, final AudioManager audioManager, final VolumeObserver volumeObserver, final Lifecycle lifecycle) {
         this.audioManager = audioManager;
         final Observable<SleepTimer> sleepTimerObservable = repository.getSleepTimer();
 

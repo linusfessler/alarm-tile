@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "9d906910332fa654ce26befea0944973",
+    "identityHash": "30678e18302ea535819ffcbfb92a4e50",
     "entities": [
       {
         "tableName": "SleepTimer",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `enabled` INTEGER NOT NULL, `startTimestamp` INTEGER, `duration` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `enabled` INTEGER NOT NULL, `startTimestamp` INTEGER, `duration` INTEGER, `cancelled` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -31,6 +31,12 @@
             "columnName": "duration",
             "affinity": "INTEGER",
             "notNull": false
+          },
+          {
+            "fieldPath": "cancelled",
+            "columnName": "cancelled",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -154,7 +160,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9d906910332fa654ce26befea0944973')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '30678e18302ea535819ffcbfb92a4e50')"
     ]
   }
 }
