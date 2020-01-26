@@ -1,77 +1,60 @@
 package linusfessler.alarmtiles.stopwatch;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
+import android.annotation.SuppressLint;
+
 import androidx.lifecycle.ViewModel;
 
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Singleton;
-
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import linusfessler.alarmtiles.TimeFormatter;
 
-@Singleton
+@SuppressLint("CheckResult")
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class StopwatchViewModel extends ViewModel {
 
     private final StopwatchRepository repository;
-    private final String tileLabel;
-    private final TimeFormatter timeFormatter;
 
-    private final LiveData<Stopwatch> stopwatchLiveData;
-    private final LiveData<String> tileLabelLiveData;
+    private final Observable<Stopwatch> stopwatchObservable;
+    private final Observable<String> elapsedTimeObservable;
 
-    private Timer timer;
-
-    public StopwatchViewModel(final StopwatchRepository repository, final String tileLabel, final TimeFormatter timeFormatter) {
+    public StopwatchViewModel(final StopwatchRepository repository, final TimeFormatter timeFormatter) {
         this.repository = repository;
-        this.tileLabel = tileLabel;
-        this.timeFormatter = timeFormatter;
 
-        this.stopwatchLiveData = this.repository.getStopwatch();
+        this.stopwatchObservable = this.repository.getStopwatch();
 
-        this.tileLabelLiveData = Transformations.switchMap(this.stopwatchLiveData, stopwatch -> {
-            final MutableLiveData<String> tileLabelMutableLiveData = new MutableLiveData<>();
-
-            if (stopwatch == null) {
-                return tileLabelMutableLiveData;
-            }
-
+        this.elapsedTimeObservable = this.stopwatchObservable.switchMap(stopwatch -> {
             if (!stopwatch.isEnabled()) {
-                if (this.timer != null) {
-                    this.timer.cancel();
+                if (stopwatch.getStopTimestamp() == null) {
+                    return Observable.just("");
                 }
-                return tileLabelMutableLiveData;
+
+                final long elapsedMillis = stopwatch.getStopTimestamp() - stopwatch.getStartTimestamp();
+                return Observable.just(timeFormatter.format(elapsedMillis, TimeUnit.MILLISECONDS));
             }
 
-            this.timer = new Timer(false);
-            this.timer.scheduleAtFixedRate(new TimerTask() {
-                long elapsedMillis = System.currentTimeMillis() - stopwatch.getStartTimeStamp();
-
-                @Override
-                public void run() {
-                    final String elapsedTime = timeFormatter.format(this.elapsedMillis, TimeUnit.MILLISECONDS);
-                    tileLabelMutableLiveData.postValue(tileLabel + "\n" + elapsedTime);
-                    this.elapsedMillis += 10;
-                }
-            }, 0, 10);
-
-            return tileLabelMutableLiveData;
+            final long elapsedMillisBase = System.currentTimeMillis() - stopwatch.getStartTimestamp();
+            return Observable.interval(10, TimeUnit.MILLISECONDS)
+                    .map(elapsedHundredthsOfASecond -> elapsedMillisBase + 10 * elapsedHundredthsOfASecond)
+                    .map(elapsedMillis -> timeFormatter.format(elapsedMillis, TimeUnit.MILLISECONDS));
         });
     }
 
-    public LiveData<Stopwatch> getStopwatch() {
-        return this.stopwatchLiveData;
+    public Observable<Stopwatch> getStopwatch() {
+        return this.stopwatchObservable.observeOn(AndroidSchedulers.mainThread());
     }
 
-    public LiveData<String> getTileLabel() {
-        return this.tileLabelLiveData;
+    public Observable<String> getElapsedTime() {
+        return this.elapsedTimeObservable.observeOn(AndroidSchedulers.mainThread());
     }
 
-    public void toggle(final Stopwatch stopwatch) {
-        stopwatch.toggle();
-        this.repository.update(stopwatch);
+    public void onClick() {
+        this.repository.getStopwatch()
+                .firstElement()
+                .subscribe(stopwatch -> {
+                    stopwatch.toggle();
+                    this.repository.update(stopwatch);
+                });
     }
 }

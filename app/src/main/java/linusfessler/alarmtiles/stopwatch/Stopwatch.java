@@ -1,39 +1,60 @@
 package linusfessler.alarmtiles.stopwatch;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
-@Data
 @Entity
+@Getter(AccessLevel.PACKAGE)
+@Setter(AccessLevel.PACKAGE)
 @ToString
-@EqualsAndHashCode
 public class Stopwatch {
 
     @PrimaryKey(autoGenerate = true)
     private Long id;
 
+    @Getter(AccessLevel.PUBLIC)
     private boolean enabled;
-    private Long startTimeStamp;
+    private Long startTimestamp;
+    private Long stopTimestamp;
 
-    public void toggle() {
+    public static Stopwatch createDefault() {
+        return new Stopwatch(false, null, null);
+    }
+
+    public Stopwatch(final Long id, final boolean enabled, final Long startTimestamp, final Long stopTimestamp) {
+        this(enabled, startTimestamp, stopTimestamp);
+        this.setId(id);
+    }
+
+    @Ignore
+    private Stopwatch(final boolean enabled, final Long startTimestamp, final Long stopTimestamp) {
+        this.setEnabled(enabled);
+        this.setStartTimestamp(startTimestamp);
+        this.setStopTimestamp(stopTimestamp);
+    }
+
+    void toggle() {
         if (this.isEnabled()) {
-            this.disable();
+            this.stop();
         } else {
-            this.enable();
+            this.start();
         }
     }
 
-    private void enable() {
+    private void start() {
         this.setEnabled(true);
-        this.setStartTimeStamp(System.currentTimeMillis());
+        this.setStartTimestamp(System.currentTimeMillis());
+        this.setStopTimestamp(null);
     }
 
-    private void disable() {
+    private void stop() {
         this.setEnabled(false);
-        this.setStartTimeStamp(null);
+        this.setStopTimestamp(System.currentTimeMillis());
     }
 }

@@ -17,7 +17,6 @@ public class SleepTimerViewModel extends ViewModel {
 
     private final Application application;
     private final SleepTimerRepository repository;
-    private final TimeFormatter timeFormatter;
 
     private final Observable<SleepTimer> sleepTimerObservable;
     private final Observable<String> timeLeftObservable;
@@ -25,9 +24,9 @@ public class SleepTimerViewModel extends ViewModel {
     SleepTimerViewModel(final Application application, final SleepTimerRepository repository, final TimeFormatter timeFormatter) {
         this.application = application;
         this.repository = repository;
-        this.timeFormatter = timeFormatter;
 
         this.sleepTimerObservable = this.repository.getSleepTimer();
+
         this.timeLeftObservable = this.sleepTimerObservable.switchMap(sleepTimer -> {
             if (!sleepTimer.isEnabled()) {
                 return Observable.just("");
@@ -42,7 +41,7 @@ public class SleepTimerViewModel extends ViewModel {
             final long secondsLeft = (long) Math.ceil(millisLeft / 1000.);
             return Observable.intervalRange(0, secondsLeft, 0, 1, TimeUnit.SECONDS)
                     .map(zeroBasedSecondsPassed ->
-                            this.timeFormatter.format(1000 * (secondsLeft - zeroBasedSecondsPassed), TimeUnit.SECONDS));
+                            timeFormatter.format(1000 * (secondsLeft - zeroBasedSecondsPassed), TimeUnit.SECONDS));
         });
     }
 

@@ -1,16 +1,17 @@
 package linusfessler.alarmtiles.stopwatch;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import io.reactivex.Observable;
+
 @Dao
 public interface StopwatchDao {
 
     @Query("SELECT * FROM Stopwatch")
-    LiveData<Stopwatch> select();
+    Observable<Stopwatch> select();
 
     @Insert
     void insert(Stopwatch stopwatch);

@@ -90,30 +90,32 @@ public class MainFragment extends Fragment {
         this.timeInputDialog.setButton(DialogInterface.BUTTON_NEGATIVE, this.getString(R.string.dialog_cancel), (dialog, which) -> {
         });
 
-        this.disposable.add(this.sleepTimerViewModel.getSleepTimer().subscribe(sleepTimer -> {
-            if (sleepTimer.isEnabled()) {
-                // Special case: dismiss the dialog if sleep timer was enabled through the quick settings in the mean time
-                this.timeInputDialog.dismiss();
-            }
+        this.disposable.add(this.sleepTimerViewModel.getSleepTimer()
+                .subscribe(sleepTimer -> {
+                    if (sleepTimer.isEnabled()) {
+                        // Special case: dismiss the dialog if sleep timer was enabled through the quick settings in the mean time
+                        this.timeInputDialog.dismiss();
+                    }
 
-            binding.alarmTiles.sleepTimer.setEnabled(sleepTimer.isEnabled());
-            binding.alarmTiles.sleepTimer.setOnClickListener(view -> {
-                if (sleepTimer.isEnabled()) {
-                    this.sleepTimerViewModel.cancel();
-                } else {
-                    this.timeInputDialog.setButton(DialogInterface.BUTTON_POSITIVE, this.getString(R.string.dialog_ok), (dialog, which) -> {
-                        final long duration = this.timeInputDialog.getMillis();
-                        this.sleepTimerViewModel.start(duration);
+                    binding.alarmTiles.sleepTimer.setEnabled(sleepTimer.isEnabled());
+                    binding.alarmTiles.sleepTimer.setOnClickListener(view -> {
+                        if (sleepTimer.isEnabled()) {
+                            this.sleepTimerViewModel.cancel();
+                        } else {
+                            this.timeInputDialog.setButton(DialogInterface.BUTTON_POSITIVE, this.getString(R.string.dialog_ok), (dialog, which) -> {
+                                final long duration = this.timeInputDialog.getMillis();
+                                this.sleepTimerViewModel.start(duration);
+                            });
+
+                            this.timeInputDialog.clear(TimeUnit.MINUTES);
+
+                            this.timeInputDialog.show();
+                        }
                     });
+                }));
 
-                    this.timeInputDialog.clear(TimeUnit.MINUTES);
-
-                    this.timeInputDialog.show();
-                }
-            });
-        }));
-
-        this.disposable.add(this.sleepTimerViewModel.getTimeLeft().subscribe(binding.alarmTiles.sleepTimer::setSubtitle));
+        this.disposable.add(this.sleepTimerViewModel.getTimeLeft()
+                .subscribe(binding.alarmTiles.sleepTimer::setSubtitle));
     }
 
     private void initAlarm(final FragmentMainBinding binding) {
@@ -141,15 +143,14 @@ public class MainFragment extends Fragment {
     }
 
     private void initStopwatch(final FragmentMainBinding binding) {
-        this.stopwatchViewModel.getStopwatch().observe(this.getViewLifecycleOwner(), stopwatch -> {
-            if (stopwatch == null) {
-                return;
-            }
-            binding.alarmTiles.stopwatch.setEnabled(stopwatch.isEnabled());
-            binding.alarmTiles.stopwatch.setOnClickListener(view -> this.stopwatchViewModel.toggle(stopwatch));
-        });
+        this.disposable.add(this.stopwatchViewModel.getStopwatch()
+                .subscribe(stopwatch -> {
+                    binding.alarmTiles.stopwatch.setEnabled(stopwatch.isEnabled());
+                    binding.alarmTiles.stopwatch.setOnClickListener(view -> this.stopwatchViewModel.onClick());
+                }));
 
-        this.stopwatchViewModel.getTileLabel().observe(this.getViewLifecycleOwner(), binding.alarmTiles.stopwatch::setLabel);
+        this.disposable.add(this.stopwatchViewModel.getElapsedTime()
+                .subscribe(binding.alarmTiles.stopwatch::setSubtitle));
     }
 
     @Override

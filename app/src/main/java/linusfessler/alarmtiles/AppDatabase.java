@@ -39,7 +39,7 @@ public abstract class AppDatabase extends RoomDatabase {
             }
 
             if (this.stopwatchDao().count() == 0) {
-                this.stopwatchDao().insert(new Stopwatch());
+                this.stopwatchDao().insert(Stopwatch.createDefault());
             }
         });
     }

@@ -3,67 +3,76 @@ package linusfessler.alarmtiles.stopwatch;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
-import androidx.lifecycle.Observer;
-
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.subjects.PublishSubject;
 import linusfessler.alarmtiles.App;
+import linusfessler.alarmtiles.R;
+import linusfessler.alarmtiles.TileServiceCompat;
 
-@Singleton
 public class StopwatchTileService extends TileService {
 
     @Inject
     StopwatchViewModelFactory viewModelFactory;
 
     private StopwatchViewModel viewModel;
-    private Stopwatch stopwatch;
+    private String tileLabel;
 
-    private final Observer<Stopwatch> stopwatchObserver = newStopwatch -> {
-        this.stopwatch = newStopwatch;
-
-        final int state;
-        if (this.stopwatch.isEnabled()) {
-            state = Tile.STATE_ACTIVE;
-        } else {
-            state = Tile.STATE_INACTIVE;
-        }
-
-        final Tile tile = this.getQsTile();
-        tile.setState(state);
-        tile.updateTile();
-    };
-
-    private final Observer<String> tileLabelObserver = newTileLabel -> {
-        final Tile tile = this.getQsTile();
-        tile.setLabel(newTileLabel);
-        tile.updateTile();
-    };
+    private final PublishSubject<Boolean> clickSubject = PublishSubject.create();
+    private final CompositeDisposable disposable = new CompositeDisposable();
 
     @Override
     public void onCreate() {
         super.onCreate();
         ((App) this.getApplicationContext()).getAppComponent().inject(this);
-        this.viewModel = this.viewModelFactory.create(StopwatchViewModel.class);
-    }
 
+        this.viewModel = this.viewModelFactory.create(StopwatchViewModel.class);
+        this.tileLabel = this.getString(R.string.stopwatch);
+    }
 
     @Override
     public void onClick() {
-        if (this.stopwatch != null) {
-            this.viewModel.toggle(this.stopwatch);
-        }
+        super.onClick();
+        this.clickSubject.onNext(true);
     }
 
     @Override
     public void onStartListening() {
-        this.viewModel.getStopwatch().observeForever(this.stopwatchObserver);
-        this.viewModel.getTileLabel().observeForever(this.tileLabelObserver);
+        super.onStartListening();
+
+        this.disposable.add(this.viewModel.getStopwatch().subscribe(stopwatch -> {
+            final int state;
+            if (stopwatch.isEnabled()) {
+                state = Tile.STATE_ACTIVE;
+            } else {
+                state = Tile.STATE_INACTIVE;
+            }
+
+            final Tile tile = this.getQsTile();
+            tile.setState(state);
+            tile.updateTile();
+        }));
+
+        this.disposable.add(this.viewModel.getElapsedTime().subscribe(elapsedTime -> {
+            final Tile tile = this.getQsTile();
+            TileServiceCompat.setSubtitle(tile, this.tileLabel, elapsedTime);
+            tile.updateTile();
+        }));
+
+        this.disposable.add(this.clickSubject
+                .subscribe(click -> this.viewModel.onClick()));
     }
 
     @Override
     public void onStopListening() {
-        this.viewModel.getStopwatch().removeObserver(this.stopwatchObserver);
-        this.viewModel.getTileLabel().removeObserver(this.tileLabelObserver);
+        this.disposable.clear();
+        super.onStopListening();
+    }
+
+    @Override
+    public void onDestroy() {
+        this.disposable.dispose();
+        super.onDestroy();
     }
 }

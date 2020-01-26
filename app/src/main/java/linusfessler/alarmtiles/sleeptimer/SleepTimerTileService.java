@@ -2,7 +2,6 @@ package linusfessler.alarmtiles.sleeptimer;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Build;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 import android.view.inputmethod.InputMethodManager;
@@ -19,6 +18,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subjects.PublishSubject;
 import linusfessler.alarmtiles.App;
 import linusfessler.alarmtiles.R;
+import linusfessler.alarmtiles.TileServiceCompat;
 import linusfessler.alarmtiles.dialogs.TimeInputDialog;
 
 @Singleton
@@ -78,7 +78,7 @@ public class SleepTimerTileService extends TileService {
 
         this.disposable.add(this.viewModel.getTimeLeft().subscribe(timeLeft -> {
             final Tile tile = this.getQsTile();
-            this.setSubtitle(tile, this.tileLabel, timeLeft);
+            TileServiceCompat.setSubtitle(tile, this.tileLabel, timeLeft);
             tile.updateTile();
         }));
 
@@ -109,18 +109,5 @@ public class SleepTimerTileService extends TileService {
     public void onDestroy() {
         this.disposable.dispose();
         super.onDestroy();
-    }
-
-    private void setSubtitle(final Tile tile, final String label, final String subtitle) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            tile.setSubtitle(subtitle);
-            return;
-        }
-
-        if (subtitle == null || subtitle.equals("")) {
-            tile.setLabel(label);
-        } else {
-            tile.setLabel(label + "\n" + subtitle);
-        }
     }
 }
