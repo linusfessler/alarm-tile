@@ -4,12 +4,14 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
 import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 import linusfessler.alarmtiles.R;
@@ -17,30 +19,23 @@ import linusfessler.alarmtiles.views.TimeInput;
 
 public class TimeInputDialog extends AlertDialog {
 
-    private TimeInput timeInput;
+    private final TimeInput timeInput;
 
     private final CompositeDisposable disposable = new CompositeDisposable();
 
+    @SuppressLint("InflateParams")
     public TimeInputDialog(@NonNull final Context context) {
         super(context);
-        this.init();
-    }
 
-    public TimeInputDialog(@NonNull final Context context, final int themeResId) {
-        super(context, themeResId);
-        this.init();
-    }
-
-    public TimeInputDialog(@NonNull final Context context, final boolean cancelable, @Nullable final OnCancelListener cancelListener) {
-        super(context, cancelable, cancelListener);
-        this.init();
-    }
-
-    @SuppressLint("InflateParams")
-    private void init() {
         final View view = this.getLayoutInflater().inflate(R.layout.dialog_time_input, null);
         this.setView(view);
         this.timeInput = view.findViewById(R.id.time_input);
+    }
+
+    @Inject
+    public TimeInputDialog(@NonNull final Context context, final InputMethodManager inputMethodManager) {
+        this(context);
+        this.setOnShowListener(dialog -> TimeInputDialog.this.timeInput.showKeyboard(inputMethodManager));
     }
 
     @Override

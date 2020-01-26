@@ -5,6 +5,7 @@ import android.app.Application;
 import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.media.AudioManager;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.room.Room;
 import androidx.work.WorkManager;
@@ -58,6 +59,12 @@ public class AppModule {
     @Singleton
     NotificationManager notificationManager() {
         return this.application.getSystemService(NotificationManager.class);
+    }
+
+    @Provides
+    @Singleton
+    InputMethodManager inputMethodManager() {
+        return this.application.getSystemService(InputMethodManager.class);
     }
 
     @Provides

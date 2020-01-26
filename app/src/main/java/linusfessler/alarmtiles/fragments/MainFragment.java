@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,6 +45,9 @@ public class MainFragment extends Fragment {
     @Inject
     StopwatchViewModelFactory stopwatchViewModelFactory;
 
+    @Inject
+    InputMethodManager inputMethodManager;
+
     private SleepTimerViewModel sleepTimerViewModel;
     private AlarmViewModel alarmViewModel;
     private TimerViewModel timerViewModel;
@@ -81,7 +85,7 @@ public class MainFragment extends Fragment {
     }
 
     private void initSleepTimer(final FragmentMainBinding binding) {
-        this.timeInputDialog = new TimeInputDialog(this.requireContext());
+        this.timeInputDialog = new TimeInputDialog(this.requireContext(), this.inputMethodManager);
         this.timeInputDialog.setTitle(R.string.sleep_timer_dialog_title);
         this.timeInputDialog.setButton(DialogInterface.BUTTON_NEGATIVE, this.getString(R.string.dialog_cancel), (dialog, which) -> {
         });

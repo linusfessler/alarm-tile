@@ -6,6 +6,7 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -136,5 +137,12 @@ public class TimeInput extends LinearLayout {
         }
 
         this.timeUnitView.setSelection(selection);
+    }
+
+    public void showKeyboard(final InputMethodManager inputMethodManager) {
+        if (this.timeView.requestFocus()) {
+            this.timeView.post(() ->
+                    inputMethodManager.showSoftInput(this.timeView, 0));
+        }
     }
 }

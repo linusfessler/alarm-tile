@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Build;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.appcompat.view.ContextThemeWrapper;
 
@@ -26,6 +27,9 @@ public class SleepTimerTileService extends TileService {
     @Inject
     SleepTimerViewModelFactory viewModelFactory;
 
+    @Inject
+    InputMethodManager inputMethodManager;
+
     private SleepTimerViewModel viewModel;
     private String tileLabel;
     private TimeInputDialog timeInputDialog;
@@ -43,7 +47,7 @@ public class SleepTimerTileService extends TileService {
 
         // Wrap context for compatibility between material components and tile service
         final Context context = new ContextThemeWrapper(this, R.style.AppTheme);
-        this.timeInputDialog = new TimeInputDialog(context);
+        this.timeInputDialog = new TimeInputDialog(context, this.inputMethodManager);
         this.timeInputDialog.setTitle(R.string.sleep_timer_dialog_title);
         this.timeInputDialog.setButton(DialogInterface.BUTTON_NEGATIVE, this.getString(R.string.dialog_cancel), (dialog, which) -> {
         });
