@@ -7,7 +7,7 @@
     <string name="activity_alarm_title">Wecker</string>
     <string name="activity_main_title">Alarm Tiles</string>
     <string name="activity_settings_title">Einstellungen</string>
-    <string name="tutorial">Vergiss nicht, die Tiles deinem Quick Settings Panel hinzuzufügen!</string>
+    <string name="user_message">Vergiss nicht, die Tiles deinem Quick Settings Panel hinzuzufügen</string>
     <string name="alarm">Wecker</string>
     <string name="bottom_navigation_fall_asleep">Einschlafen</string>
     <string name="bottom_navigation_general">Allgemein</string>
