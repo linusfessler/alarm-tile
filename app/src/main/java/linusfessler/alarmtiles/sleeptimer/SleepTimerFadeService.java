@@ -40,8 +40,12 @@ public class SleepTimerFadeService implements LifecycleObserver {
                     final SleepTimer sleepTimer = sleepTimerVolumePair.first;
                     final int volume = sleepTimerVolumePair.second;
 
-                    if (!sleepTimer.isEnabled() || volume == 0) {
+                    if (sleepTimer.isCancelled() || volume == 0) {
                         return Observable.empty();
+                    }
+
+                    if (!sleepTimer.isEnabled()) {
+                        return Observable.just(0);
                     }
 
                     final int steps = volume;
