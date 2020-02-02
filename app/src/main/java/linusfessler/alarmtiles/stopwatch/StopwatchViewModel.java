@@ -16,15 +16,18 @@ public class StopwatchViewModel extends ViewModel {
 
     private final StopwatchRepository repository;
 
-    private final Observable<Stopwatch> stopwatchObservable;
+    private final Observable<Boolean> enabledObservable;
     private final Observable<String> elapsedTimeObservable;
 
     public StopwatchViewModel(final StopwatchRepository repository, final TimeFormatter timeFormatter) {
         this.repository = repository;
 
-        this.stopwatchObservable = this.repository.getStopwatch();
+        final Observable<Stopwatch> stopwatchObservable = this.repository.getStopwatch();
 
-        this.elapsedTimeObservable = this.stopwatchObservable.switchMap(stopwatch -> {
+        this.enabledObservable = stopwatchObservable
+                .map(Stopwatch::isEnabled);
+
+        this.elapsedTimeObservable = stopwatchObservable.switchMap(stopwatch -> {
             if (!stopwatch.isEnabled()) {
                 if (stopwatch.getStopTimestamp() == null) {
                     return Observable.just("");
@@ -41,8 +44,8 @@ public class StopwatchViewModel extends ViewModel {
         });
     }
 
-    public Observable<Stopwatch> getStopwatch() {
-        return this.stopwatchObservable.observeOn(AndroidSchedulers.mainThread());
+    public Observable<Boolean> isEnabled() {
+        return this.enabledObservable.observeOn(AndroidSchedulers.mainThread());
     }
 
     public Observable<String> getElapsedTime() {

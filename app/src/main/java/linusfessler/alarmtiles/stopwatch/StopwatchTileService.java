@@ -41,24 +41,26 @@ public class StopwatchTileService extends TileService {
     public void onStartListening() {
         super.onStartListening();
 
-        this.disposable.add(this.viewModel.getStopwatch().subscribe(stopwatch -> {
-            final int state;
-            if (stopwatch.isEnabled()) {
-                state = Tile.STATE_ACTIVE;
-            } else {
-                state = Tile.STATE_INACTIVE;
-            }
+        this.disposable.add(this.viewModel.isEnabled()
+                .subscribe(enabled -> {
+                    final int state;
+                    if (enabled) {
+                        state = Tile.STATE_ACTIVE;
+                    } else {
+                        state = Tile.STATE_INACTIVE;
+                    }
 
-            final Tile tile = this.getQsTile();
-            tile.setState(state);
-            tile.updateTile();
-        }));
+                    final Tile tile = this.getQsTile();
+                    tile.setState(state);
+                    tile.updateTile();
+                }));
 
-        this.disposable.add(this.viewModel.getElapsedTime().subscribe(elapsedTime -> {
-            final Tile tile = this.getQsTile();
-            TileServiceCompat.setSubtitle(tile, this.tileLabel, elapsedTime);
-            tile.updateTile();
-        }));
+        this.disposable.add(this.viewModel.getElapsedTime()
+                .subscribe(elapsedTime -> {
+                    final Tile tile = this.getQsTile();
+                    TileServiceCompat.setSubtitle(tile, this.tileLabel, elapsedTime);
+                    tile.updateTile();
+                }));
 
         this.disposable.add(this.clickSubject
                 .subscribe(click -> this.viewModel.onClick()));

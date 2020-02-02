@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -35,37 +34,35 @@
                     android:layout_height="wrap_content"
                     android:text="@string/sleep_timer_config_description" />
 
-                <LinearLayout
+                <Space
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/settings_height"
-                    android:orientation="horizontal">
+                    android:layout_height="@dimen/fragment_padding" />
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@color/colorOnBackground"
-                        android:text="@string/sleep_timer_config_duration"
-                        style="@style/Settings" />
+                <linusfessler.alarmtiles.views.QuickSettingsTile
+                    android:id="@+id/sleep_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    app:enabled="false"
+                    app:icon="@drawable/ic_music_off_24px"
+                    app:label="@string/sleep_timer" />
 
-                    <linusfessler.alarmtiles.views.TimeSettings
-                        android:id="@+id/duration"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:padding="6dp"
-                        app:hour="12"
-                        app:minute="30"
-                        app:timeFormat="TIME"
-                        tools:hour="12"
-                        tools:minute="30"
-                        tools:timeFormat="TIME" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/fragment_padding" />
 
-                </LinearLayout>
+                <linusfessler.alarmtiles.views.TimeInput
+                    android:id="@+id/duration"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:hint="@string/sleep_timer_config_duration" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/fragment_padding" />
 
                 <com.google.android.material.checkbox.MaterialCheckBox
-                    android:id="@+id/fading"
+                    android:id="@+id/fading_volume"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/sleep_timer_config_fading" />

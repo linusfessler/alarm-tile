@@ -1,6 +1,5 @@
 package linusfessler.alarmtiles.sleeptimer;
 
-
 import androidx.lifecycle.Lifecycle;
 
 import dagger.Module;
@@ -9,14 +8,14 @@ import dagger.Provides;
 @Module
 public class SleepTimerServiceModule {
 
-    private final SleepTimerService sleepTimerService;
+    private final SleepTimerNotificationService sleepTimerService;
 
-    public SleepTimerServiceModule(final SleepTimerService sleepTimerService) {
+    public SleepTimerServiceModule(final SleepTimerNotificationService sleepTimerService) {
         this.sleepTimerService = sleepTimerService;
     }
 
     @Provides
-    SleepTimerService sleepTimerService() {
+    SleepTimerNotificationService sleepTimerService() {
         return this.sleepTimerService;
     }
 

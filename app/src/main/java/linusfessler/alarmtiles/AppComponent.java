@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 import linusfessler.alarmtiles.alarm.AlarmTileService;
 import linusfessler.alarmtiles.fragments.MainFragment;
+import linusfessler.alarmtiles.sleeptimer.SleepTimerConfigFragment;
 import linusfessler.alarmtiles.sleeptimer.SleepTimerServiceComponent;
 import linusfessler.alarmtiles.sleeptimer.SleepTimerServiceModule;
 import linusfessler.alarmtiles.sleeptimer.SleepTimerTileService;
@@ -18,6 +19,8 @@ public interface AppComponent {
     SleepTimerServiceComponent sleepTimerServiceComponent(SleepTimerServiceModule sleepTimerServiceModule);
 
     void inject(MainFragment mainFragment);
+
+    void inject(SleepTimerConfigFragment sleepTimerConfigFragment);
 
     void inject(SleepTimerTileService sleepTimerTileService);
 

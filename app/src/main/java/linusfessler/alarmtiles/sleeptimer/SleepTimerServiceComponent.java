@@ -6,5 +6,5 @@ import dagger.Subcomponent;
 @Subcomponent(modules = {SleepTimerServiceModule.class})
 public interface SleepTimerServiceComponent {
 
-    void inject(SleepTimerService sleepTimerService);
+    void inject(SleepTimerNotificationService sleepTimerService);
 }

@@ -7,7 +7,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
-import android.media.AudioManager;
 import android.os.Build;
 import android.os.IBinder;
 
@@ -20,10 +19,11 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 import linusfessler.alarmtiles.App;
-import linusfessler.alarmtiles.AppComponent;
 import linusfessler.alarmtiles.R;
+import linusfessler.alarmtiles.sleeptimer.services.SleepTimerFadeService;
+import linusfessler.alarmtiles.sleeptimer.services.SleepTimerFinishService;
 
-public class SleepTimerService extends LifecycleService {
+public class SleepTimerNotificationService extends LifecycleService {
 
     private static final String START_ACTION = "START_ACTION";
     private static final String STOP_ACTION = "STOP_ACTION";
@@ -31,18 +31,18 @@ public class SleepTimerService extends LifecycleService {
     private static final String NOTIFICATION_CANCEL_ACTION = "NOTIFICATION_CANCEL_ACTION";
     private static final String NOTIFICATION_FINISH_ACTION = "NOTIFICATION_FINISH_ACTION";
 
-    private static final String NOTIFICATION_CHANNEL_ID = SleepTimerService.class.getName();
+    private static final String NOTIFICATION_CHANNEL_ID = SleepTimerNotificationService.class.getName();
     private static final int NOTIFICATION_ID = 1;
 
-    static void start(final Application application) {
-        final Intent intent = new Intent(application, SleepTimerService.class)
-                .setAction(SleepTimerService.START_ACTION);
+    public static void start(final Application application) {
+        final Intent intent = new Intent(application, SleepTimerNotificationService.class)
+                .setAction(SleepTimerNotificationService.START_ACTION);
         application.startService(intent);
     }
 
-    static void stop(final Application application) {
-        final Intent intent = new Intent(application, SleepTimerService.class)
-                .setAction(SleepTimerService.STOP_ACTION);
+    public static void stop(final Application application) {
+        final Intent intent = new Intent(application, SleepTimerNotificationService.class)
+                .setAction(SleepTimerNotificationService.STOP_ACTION);
         application.startService(intent);
     }
 
@@ -50,22 +50,10 @@ public class SleepTimerService extends LifecycleService {
     SleepTimerViewModelFactory viewModelFactory;
 
     @Inject
-    AudioManager audioManager;
-
-    @Inject
     NotificationManager notificationManager;
 
     @Inject
-    SleepTimerRepository repository;
-
-    @Inject
     SleepTimerFadeService fadeService;
-
-    @Inject
-    SleepTimerCancelService cancelService;
-
-    @Inject
-    SleepTimerStopService stopService;
 
     @Inject
     SleepTimerFinishService finishService;
@@ -78,9 +66,10 @@ public class SleepTimerService extends LifecycleService {
     public void onCreate() {
         super.onCreate();
 
-        final AppComponent appComponent = ((App) this.getApplicationContext()).getAppComponent();
-        final SleepTimerServiceComponent sleepTimerServiceComponent = appComponent.sleepTimerServiceComponent(new SleepTimerServiceModule(this));
-        sleepTimerServiceComponent.inject(this);
+        ((App) this.getApplicationContext())
+                .getAppComponent()
+                .sleepTimerServiceComponent(new SleepTimerServiceModule(this))
+                .inject(this);
 
         this.viewModel = this.viewModelFactory.create(SleepTimerViewModel.class);
     }
@@ -95,17 +84,17 @@ public class SleepTimerService extends LifecycleService {
         }
 
         switch (intent.getAction()) {
-            case SleepTimerService.START_ACTION:
+            case SleepTimerNotificationService.START_ACTION:
                 this.start();
                 break;
-            case SleepTimerService.STOP_ACTION:
+            case SleepTimerNotificationService.STOP_ACTION:
                 this.stop();
                 break;
-            case SleepTimerService.NOTIFICATION_CANCEL_ACTION:
-                this.cancel();
+            case SleepTimerNotificationService.NOTIFICATION_CANCEL_ACTION:
+                this.cancelFromNotification();
                 break;
-            case SleepTimerService.NOTIFICATION_FINISH_ACTION:
-                this.finish();
+            case SleepTimerNotificationService.NOTIFICATION_FINISH_ACTION:
+                this.finishFromNotification();
                 break;
             default:
                 break;
@@ -122,10 +111,10 @@ public class SleepTimerService extends LifecycleService {
 
     private void start() {
         this.createNotificationChannel();
-        this.startForeground(SleepTimerService.NOTIFICATION_ID, this.buildRunningNotification(""));
+        this.startForeground(SleepTimerNotificationService.NOTIFICATION_ID, this.buildRunningNotification(""));
 
-        this.disposable.add(this.viewModel.getTimeLeft().subscribe(timeLeft ->
-                this.notificationManager.notify(SleepTimerService.NOTIFICATION_ID, this.buildRunningNotification(timeLeft))));
+        this.disposable.add(this.viewModel.getTimeLeft()
+                .subscribe(timeLeft -> this.notificationManager.notify(SleepTimerNotificationService.NOTIFICATION_ID, this.buildRunningNotification(timeLeft))));
     }
 
     private void stop() {
@@ -135,11 +124,11 @@ public class SleepTimerService extends LifecycleService {
         this.stopSelf();
     }
 
-    private void cancel() {
+    private void cancelFromNotification() {
         this.viewModel.cancel();
     }
 
-    private void finish() {
+    private void finishFromNotification() {
         this.viewModel.finish();
     }
 
@@ -150,15 +139,15 @@ public class SleepTimerService extends LifecycleService {
     }
 
     private Notification buildRunningNotification(final String subText) {
-        final Intent cancelIntent = new Intent(this, SleepTimerService.class)
-                .setAction(SleepTimerService.NOTIFICATION_CANCEL_ACTION);
+        final Intent cancelIntent = new Intent(this, SleepTimerNotificationService.class)
+                .setAction(SleepTimerNotificationService.NOTIFICATION_CANCEL_ACTION);
         final PendingIntent cancelPendingIntent = PendingIntent.getService(this, 0, cancelIntent, 0);
 
-        final Intent finishIntent = new Intent(this, SleepTimerService.class)
-                .setAction(SleepTimerService.NOTIFICATION_FINISH_ACTION);
+        final Intent finishIntent = new Intent(this, SleepTimerNotificationService.class)
+                .setAction(SleepTimerNotificationService.NOTIFICATION_FINISH_ACTION);
         final PendingIntent finishPendingIntent = PendingIntent.getService(this, 0, finishIntent, 0);
 
-        return new NotificationCompat.Builder(this, SleepTimerService.NOTIFICATION_CHANNEL_ID)
+        return new NotificationCompat.Builder(this, SleepTimerNotificationService.NOTIFICATION_CHANNEL_ID)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setContentTitle(this.getString(R.string.sleep_timer_running_notification_content_title))
                 .setContentText(this.getString(R.string.sleep_timer_running_notification_content_text))
@@ -177,7 +166,7 @@ public class SleepTimerService extends LifecycleService {
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             final NotificationChannel notificationChannel = new NotificationChannel(
-                    SleepTimerService.NOTIFICATION_CHANNEL_ID,
+                    SleepTimerNotificationService.NOTIFICATION_CHANNEL_ID,
                     this.getString(R.string.sleep_timer),
                     NotificationManager.IMPORTANCE_LOW);
 

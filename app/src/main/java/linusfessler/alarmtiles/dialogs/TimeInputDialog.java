@@ -9,8 +9,6 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
-import java.util.concurrent.TimeUnit;
-
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -56,9 +54,5 @@ public class TimeInputDialog extends AlertDialog {
 
     public long getMillis() {
         return this.timeInput.getMillis();
-    }
-
-    public void clear(final TimeUnit timeUnit) {
-        this.timeInput.clear(timeUnit);
     }
 }

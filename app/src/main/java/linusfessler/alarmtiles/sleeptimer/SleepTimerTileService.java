@@ -1,14 +1,8 @@
 package linusfessler.alarmtiles.sleeptimer;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 import android.view.inputmethod.InputMethodManager;
-
-import androidx.appcompat.view.ContextThemeWrapper;
-
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -19,7 +13,7 @@ import io.reactivex.subjects.PublishSubject;
 import linusfessler.alarmtiles.App;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.TileServiceCompat;
-import linusfessler.alarmtiles.dialogs.TimeInputDialog;
+import linusfessler.alarmtiles.sleeptimer.model.SleepTimer;
 
 @Singleton
 public class SleepTimerTileService extends TileService {
@@ -32,7 +26,6 @@ public class SleepTimerTileService extends TileService {
 
     private SleepTimerViewModel viewModel;
     private String tileLabel;
-    private TimeInputDialog timeInputDialog;
 
     private final PublishSubject<Boolean> clickSubject = PublishSubject.create();
     private final CompositeDisposable disposable = new CompositeDisposable();
@@ -44,13 +37,6 @@ public class SleepTimerTileService extends TileService {
 
         this.viewModel = this.viewModelFactory.create(SleepTimerViewModel.class);
         this.tileLabel = this.getString(R.string.sleep_timer);
-
-        // Wrap context for compatibility between material components and tile service
-        final Context context = new ContextThemeWrapper(this, R.style.AppTheme);
-        this.timeInputDialog = new TimeInputDialog(context, this.inputMethodManager);
-        this.timeInputDialog.setTitle(R.string.sleep_timer_dialog_title);
-        this.timeInputDialog.setButton(DialogInterface.BUTTON_NEGATIVE, this.getString(R.string.dialog_cancel), (dialog, which) -> {
-        });
     }
 
     @Override
@@ -63,40 +49,31 @@ public class SleepTimerTileService extends TileService {
     public void onStartListening() {
         super.onStartListening();
 
-        this.disposable.add(this.viewModel.getSleepTimer().subscribe(sleepTimer -> {
-            final int state;
-            if (sleepTimer.isEnabled()) {
-                state = Tile.STATE_ACTIVE;
-            } else {
-                state = Tile.STATE_INACTIVE;
-            }
+        this.disposable.add(this.viewModel.getSleepTimer()
+                .subscribe(sleepTimer -> {
+                    final int state;
+                    if (sleepTimer.getState() == SleepTimerState.RUNNING) {
+                        state = Tile.STATE_ACTIVE;
+                    } else {
+                        state = Tile.STATE_INACTIVE;
+                    }
 
-            final Tile tile = this.getQsTile();
-            tile.setState(state);
-            tile.updateTile();
-        }));
+                    final Tile tile = this.getQsTile();
+                    tile.setState(state);
+                    tile.updateTile();
+                }));
 
-        this.disposable.add(this.viewModel.getTimeLeft().subscribe(timeLeft -> {
-            final Tile tile = this.getQsTile();
-            TileServiceCompat.setSubtitle(tile, this.tileLabel, timeLeft);
-            tile.updateTile();
-        }));
+        this.disposable.add(this.viewModel.getTimeLeft()
+                .subscribe(timeLeft -> {
+                    final Tile tile = this.getQsTile();
+                    TileServiceCompat.setSubtitle(tile, this.tileLabel, timeLeft);
+                    tile.updateTile();
+                }));
 
         final Observable<SleepTimer> clickObservable = this.clickSubject.withLatestFrom(this.viewModel.getSleepTimer(), (click, sleepTimer) -> sleepTimer);
-        this.disposable.add(clickObservable.subscribe(sleepTimer -> {
-            if (sleepTimer.isEnabled()) {
-                this.viewModel.cancel();
-            } else {
-                this.timeInputDialog.setButton(DialogInterface.BUTTON_POSITIVE, this.getString(R.string.dialog_ok), (dialog, which) -> {
-                    final long duration = this.timeInputDialog.getMillis();
-                    this.viewModel.start(duration);
-                });
 
-                this.timeInputDialog.clear(TimeUnit.MINUTES);
-
-                this.showDialog(this.timeInputDialog);
-            }
-        }));
+        this.disposable.add(clickObservable
+                .subscribe(sleepTimer -> this.viewModel.onClick()));
     }
 
     @Override

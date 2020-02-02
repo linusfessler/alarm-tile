@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import linusfessler.alarmtiles.AppDatabase;
+import linusfessler.alarmtiles.sleeptimer.model.SleepTimer;
 
 public class SleepTimerRepository {
 
@@ -15,7 +16,7 @@ public class SleepTimerRepository {
     private final Observable<SleepTimer> sleepTimerObservable;
 
     @Inject
-    SleepTimerRepository(final AppDatabase appDatabase) {
+    public SleepTimerRepository(final AppDatabase appDatabase) {
         this.writeExecutor = appDatabase.getWriteExecutor();
         this.sleepTimerDao = appDatabase.sleepTimerDao();
 
@@ -23,11 +24,11 @@ public class SleepTimerRepository {
         this.sleepTimerObservable = this.sleepTimerDao.select().skipWhile(Objects::isNull);
     }
 
-    void update(final SleepTimer sleepTimer) {
+    public void update(final SleepTimer sleepTimer) {
         this.writeExecutor.execute(() -> this.sleepTimerDao.update(sleepTimer));
     }
 
-    Observable<SleepTimer> getSleepTimer() {
+    public Observable<SleepTimer> getSleepTimer() {
         return this.sleepTimerObservable;
     }
 }

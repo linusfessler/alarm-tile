@@ -7,5 +7,5 @@ import javax.inject.Scope;
 
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
-@interface SleepTimerServiceScope {
+public @interface SleepTimerServiceScope {
 }

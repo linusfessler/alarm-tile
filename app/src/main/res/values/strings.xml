@@ -2,7 +2,7 @@
 
     <string name="app_name">Alarm Tiles</string>
 
-    <string name="user_message">Don\'t forget to add the tiles to your quick settings panel</string>
+    <string name="user_message">Long click on a tile to configure it.</string>
 
     <string name="sleep_timer">Sleep timer</string>
     <string name="alarm">Alarm</string>
@@ -184,14 +184,14 @@
     <string name="sound_settings">Sound settings</string>
     <string name="main_title_other">Other</string>
     <string name="sleep_timer_running_notification_content_title">Sleep timer</string>
-    <string name="sleep_timer_running_notification_content_text">Gradually decreasing volume</string>
+    <string name="sleep_timer_running_notification_content_text">Running</string>
     <string name="sleep_timer_running_notification_sub_text">In %s</string>
     <string name="sleep_timer_running_notification_action_finish">Stop now</string>
     <string name="sleep_timer_running_notification_action_cancel">Cancel</string>
     <string name="sleep_timer_config_duration">Duration</string>
-    <string name="sleep_timer_config_resetting_volume">Reset volume afterwards</string>
-    <string name="sleep_timer_config_fading">Gradually decrease volume</string>
-    <string name="sleep_timer_config_description">The sleep timer will stop any media playback after the set duration. Optionally, you can gradually decrease the volume and reset it afterwards.</string>
+    <string name="sleep_timer_config_resetting_volume">Reset volume when timer finished</string>
+    <string name="sleep_timer_config_fading">Gradually decrease volume during timer</string>
+    <string name="sleep_timer_config_description">The sleep timer will stop any media playback after the set duration.</string>
     <string name="time_input_hint">Time</string>
 
     <string-array name="time_input_time_units">

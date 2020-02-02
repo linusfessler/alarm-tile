@@ -2,7 +2,6 @@ package linusfessler.alarmtiles;
 
 import android.content.ContentResolver;
 import android.database.ContentObserver;
-import android.media.AudioManager;
 import android.os.Handler;
 
 import androidx.lifecycle.Lifecycle;
@@ -16,21 +15,19 @@ import io.reactivex.subjects.BehaviorSubject;
 
 public class VolumeObserver implements LifecycleObserver {
 
-    private final AudioManager audioManager;
     private final ContentResolver contentResolver;
     private final BehaviorSubject<Integer> volumeSubject;
     private final ContentObserver contentObserver;
 
     @Inject
-    public VolumeObserver(final AudioManager audioManager, final ContentResolver contentResolver, final Lifecycle lifecycle) {
-        this.audioManager = audioManager;
+    public VolumeObserver(final MediaVolumeManager mediaVolumeManager, final ContentResolver contentResolver, final Lifecycle lifecycle) {
         this.contentResolver = contentResolver;
-        this.volumeSubject = BehaviorSubject.createDefault(this.getVolume());
+        this.volumeSubject = BehaviorSubject.createDefault(mediaVolumeManager.getVolume());
         this.contentObserver = new ContentObserver(new Handler()) {
             @Override
             public void onChange(final boolean selfChange) {
                 super.onChange(selfChange);
-                final int volume = VolumeObserver.this.audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                final int volume = mediaVolumeManager.getVolume();
                 VolumeObserver.this.volumeSubject.onNext(volume);
             }
         };
@@ -50,9 +47,5 @@ public class VolumeObserver implements LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     private void onDestroy() {
         this.contentResolver.unregisterContentObserver(this.contentObserver);
-    }
-
-    private int getVolume() {
-        return this.audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
     }
 }

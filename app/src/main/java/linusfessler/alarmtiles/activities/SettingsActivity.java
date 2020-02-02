@@ -24,7 +24,7 @@ public class SettingsActivity extends Activity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getFragmentManager().beginTransaction().replace(android.R.id.content, new SettingsFragment()).commit();
+        this.getFragmentManager().beginTransaction().replace(android.R.id.content, new SettingsFragment()).commit();
         Schedulers.getInstance(this).resume();
     }
 
@@ -32,30 +32,30 @@ public class SettingsActivity extends Activity {
 
         private SharedPreferences preferences;
 
-        private Preference.OnPreferenceChangeListener vibrationDurationListener = new Preference.OnPreferenceChangeListener() {
+        private final Preference.OnPreferenceChangeListener vibrationDurationListener = new Preference.OnPreferenceChangeListener() {
             @Override
-            public boolean onPreferenceChange(Preference preference, Object o) {
-                long millis = Long.parseLong((String) o);
+            public boolean onPreferenceChange(final Preference preference, final Object o) {
+                final long millis = Long.parseLong((String) o);
                 return millis > 0;
             }
         };
 
-        private Preference.OnPreferenceChangeListener dndEnterListener = new Preference.OnPreferenceChangeListener() {
+        private final Preference.OnPreferenceChangeListener dndEnterListener = new Preference.OnPreferenceChangeListener() {
             @Override
-            public boolean onPreferenceChange(Preference preference, Object o) {
-                boolean dndEnter = (boolean) o;
-                if (dndEnter && !checkNotificationPolicyAccess()) {
+            public boolean onPreferenceChange(final Preference preference, final Object o) {
+                final boolean dndEnter = (boolean) o;
+                if (dndEnter && !SettingsFragment.this.checkNotificationPolicyAccess()) {
                     return false;
                 }
 
-                if (Schedulers.getInstance(getContext()).isScheduled()) {
+                if (Schedulers.getInstance(SettingsFragment.this.getContext()).isScheduled()) {
                     if (dndEnter) {
-                        boolean dndPriority = preferences.getBoolean(getContext().getString(R.string.pref_dnd_priority_key), false);
-                        DoNotDisturb.getInstance(getContext()).turnOn(dndPriority);
+                        final boolean dndPriority = SettingsFragment.this.preferences.getBoolean(SettingsFragment.this.getContext().getString(R.string.pref_dnd_priority_key), false);
+                        DoNotDisturb.getInstance(SettingsFragment.this.getContext()).turnOn(dndPriority);
                     } else {
-                        boolean dndExit = preferences.getBoolean(getContext().getString(R.string.pref_dnd_exit_key), false);
+                        final boolean dndExit = SettingsFragment.this.preferences.getBoolean(SettingsFragment.this.getContext().getString(R.string.pref_dnd_exit_key), false);
                         if (dndExit) {
-                            DoNotDisturb.getInstance(getContext()).turnOff();
+                            DoNotDisturb.getInstance(SettingsFragment.this.getContext()).turnOff();
                         }
                     }
                 }
@@ -63,32 +63,32 @@ public class SettingsActivity extends Activity {
             }
         };
 
-        private Preference.OnPreferenceChangeListener dndPriorityListener = new Preference.OnPreferenceChangeListener() {
+        private final Preference.OnPreferenceChangeListener dndPriorityListener = new Preference.OnPreferenceChangeListener() {
             @Override
-            public boolean onPreferenceChange(Preference preference, Object o) {
-                boolean dndPriority = (boolean) o;
-                if (dndPriority && !checkNotificationPolicyAccess()) {
+            public boolean onPreferenceChange(final Preference preference, final Object o) {
+                final boolean dndPriority = (boolean) o;
+                if (dndPriority && !SettingsFragment.this.checkNotificationPolicyAccess()) {
                     return false;
                 }
 
-                if (Schedulers.getInstance(getContext()).isScheduled()) {
-                    boolean dndEnter = preferences.getBoolean(getContext().getString(R.string.pref_dnd_enter_key), false);
+                if (Schedulers.getInstance(SettingsFragment.this.getContext()).isScheduled()) {
+                    final boolean dndEnter = SettingsFragment.this.preferences.getBoolean(SettingsFragment.this.getContext().getString(R.string.pref_dnd_enter_key), false);
                     if (dndEnter) {
-                        DoNotDisturb.getInstance(getContext()).turnOn(dndPriority);
+                        DoNotDisturb.getInstance(SettingsFragment.this.getContext()).turnOn(dndPriority);
                     }
                 }
                 return true;
             }
         };
 
-        private Preference.OnPreferenceChangeListener hideLauncherIconListener = new Preference.OnPreferenceChangeListener() {
+        private final Preference.OnPreferenceChangeListener hideLauncherIconListener = new Preference.OnPreferenceChangeListener() {
             @Override
-            public boolean onPreferenceChange(Preference preference, Object o) {
-                boolean enabled = (boolean) o;
+            public boolean onPreferenceChange(final Preference preference, final Object o) {
+                final boolean enabled = (boolean) o;
                 if (enabled) {
-                    Components.disable(getContext(), LauncherActivity.class);
+                    Components.disable(SettingsFragment.this.getContext(), LauncherActivity.class);
                 } else {
-                    Components.enable(getContext(), LauncherActivity.class);
+                    Components.enable(SettingsFragment.this.getContext(), LauncherActivity.class);
                 }
                 return true;
             }
@@ -97,45 +97,45 @@ public class SettingsActivity extends Activity {
         @Override
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.preferences);
+            this.addPreferencesFromResource(R.xml.preferences);
 
-            preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+            this.preferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
 
-            findPreference(getString(R.string.pref_vibration_duration_key)).setOnPreferenceChangeListener(vibrationDurationListener);
-            findPreference(getString(R.string.pref_dnd_enter_key)).setOnPreferenceChangeListener(dndEnterListener);
-            findPreference(getString(R.string.pref_dnd_priority_key)).setOnPreferenceChangeListener(dndPriorityListener);
-            findPreference(getString(R.string.pref_hide_launcher_icon_key)).setOnPreferenceChangeListener(hideLauncherIconListener);
+            this.findPreference(this.getString(R.string.pref_vibration_duration_key)).setOnPreferenceChangeListener(this.vibrationDurationListener);
+            this.findPreference(this.getString(R.string.pref_dnd_enter_key)).setOnPreferenceChangeListener(this.dndEnterListener);
+            this.findPreference(this.getString(R.string.pref_dnd_priority_key)).setOnPreferenceChangeListener(this.dndPriorityListener);
+            this.findPreference(this.getString(R.string.pref_hide_launcher_icon_key)).setOnPreferenceChangeListener(this.hideLauncherIconListener);
 
             // remove option for flashlight if camera flash not available
-            if (!getContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
-                PreferenceCategory flashlightCategory = (PreferenceCategory) findPreference(getString(R.string.pref_category_flashlight_key));
-                getPreferenceScreen().removePreference(flashlightCategory);
+            if (!this.getContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
+                final PreferenceCategory flashlightCategory = (PreferenceCategory) this.findPreference(this.getString(R.string.pref_category_flashlight_key));
+                this.getPreferenceScreen().removePreference(flashlightCategory);
             }
 
             // for devices running Android versions < N ...
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                 // ... remove option to show notification of time left until music is going to stop
-                PreferenceCategory music = (PreferenceCategory) findPreference(getString(R.string.pref_category_music_key));
-                music.removePreference(findPreference(getString(R.string.pref_show_music_notification_key)));
+                final PreferenceCategory music = (PreferenceCategory) this.findPreference(this.getString(R.string.pref_category_music_key));
+                music.removePreference(this.findPreference(this.getString(R.string.pref_show_music_notification_key)));
                 // ... remove option to hide launcher icon
-                PreferenceCategory launcherCategory = (PreferenceCategory) findPreference(getString(R.string.pref_category_launcher_key));
-                getPreferenceScreen().removePreference(launcherCategory);
+                final PreferenceCategory launcherCategory = (PreferenceCategory) this.findPreference(this.getString(R.string.pref_category_launcher_key));
+                this.getPreferenceScreen().removePreference(launcherCategory);
             }
         }
 
         private boolean checkNotificationPolicyAccess() {
-            if (Permissions.isNotificationPolicyAccessGranted(getContext())) {
+            if (Permissions.isNotificationPolicyAccessGranted(this.getContext())) {
                 return true;
             }
 
-            new AlertDialog.Builder(getContext())
-                    .setTitle(getString(R.string.dialog_dnd_title))
-                    .setMessage(getString(R.string.dialog_dnd_message))
+            new AlertDialog.Builder(this.getContext())
+                    .setTitle(this.getString(R.string.dialog_dnd_title))
+                    .setMessage(this.getString(R.string.dialog_dnd_message))
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
-                            getActivity().startActivity(intent);
+                        public void onClick(final DialogInterface dialogInterface, final int i) {
+                            final Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                            SettingsFragment.this.getActivity().startActivity(intent);
                         }
                     })
                     .create()

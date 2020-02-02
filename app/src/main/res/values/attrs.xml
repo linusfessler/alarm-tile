@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <attr name="icon" format="reference" />
+
     <declare-styleable name="TitleSummaryView">
         <attr name="title" format="string" />
         <attr name="summary" format="string" />
@@ -10,7 +12,7 @@
         <attr name="enabled" format="boolean" />
         <attr name="label" format="string" />
         <attr name="subtitle" format="string" />
-        <attr name="icon" format="reference" />
+        <attr name="icon" />
     </declare-styleable>
 
     <declare-styleable name="TimeSettings">
@@ -20,6 +22,11 @@
             <enum name="TIME" value="0" />
             <enum name="TIME_OF_DAY" value="1" />
         </attr>
+    </declare-styleable>
+
+    <declare-styleable name="TimeInput">
+        <attr name="hint" format="string" />
+        <attr name="icon" />
     </declare-styleable>
 
 </resources>

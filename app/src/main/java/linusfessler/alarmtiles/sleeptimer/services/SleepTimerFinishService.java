@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.sleeptimer;
+package linusfessler.alarmtiles.sleeptimer.services;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
@@ -10,7 +10,13 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
+import linusfessler.alarmtiles.sleeptimer.SleepTimerServiceScope;
+import linusfessler.alarmtiles.sleeptimer.SleepTimerState;
+import linusfessler.alarmtiles.sleeptimer.SleepTimerViewModel;
+import linusfessler.alarmtiles.sleeptimer.SleepTimerViewModelFactory;
+import linusfessler.alarmtiles.sleeptimer.model.SleepTimer;
 
+@SleepTimerServiceScope
 public class SleepTimerFinishService implements LifecycleObserver {
 
     private final SleepTimerViewModel viewModel;
@@ -23,11 +29,10 @@ public class SleepTimerFinishService implements LifecycleObserver {
 
         this.finishObservable = this.viewModel.getSleepTimer()
                 .switchMap(sleepTimer -> {
-                    if (sleepTimer.isEnabled()) {
+                    if (sleepTimer.getState() == SleepTimerState.RUNNING) {
                         return Observable.timer(sleepTimer.getMillisLeft(), TimeUnit.MILLISECONDS)
                                 .map(zero -> sleepTimer);
                     }
-
                     return Observable.empty();
                 });
 
@@ -36,7 +41,8 @@ public class SleepTimerFinishService implements LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     private void onCreate() {
-        this.disposable.add(this.finishObservable.subscribe(sleepTimer -> this.viewModel.finish()));
+        this.disposable.add(this.finishObservable
+                .subscribe(sleepTimer -> this.viewModel.finish()));
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
