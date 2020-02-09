@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import linusfessler.alarmtiles.App;
+import linusfessler.alarmtiles.core.App;
 
 @Singleton
 public class AlarmTileService extends TileService {
@@ -20,22 +20,22 @@ public class AlarmTileService extends TileService {
     private Alarm alarm;
 
     private final Observer<Alarm> alarmObserver = value -> {
-        this.alarm = value;
+        alarm = value;
 
         final int state;
-        if (this.alarm.isEnabled()) {
+        if (alarm.isEnabled()) {
             state = Tile.STATE_ACTIVE;
         } else {
             state = Tile.STATE_INACTIVE;
         }
 
-        final Tile tile = this.getQsTile();
+        final Tile tile = getQsTile();
         tile.setState(state);
         tile.updateTile();
     };
 
     private final Observer<String> tileLabelObserver = tileLabel -> {
-        final Tile tile = this.getQsTile();
+        final Tile tile = getQsTile();
         tile.setLabel(tileLabel);
         tile.updateTile();
     };
@@ -43,28 +43,30 @@ public class AlarmTileService extends TileService {
     @Override
     public void onCreate() {
         super.onCreate();
-        ((App) this.getApplicationContext()).getAppComponent().inject(this);
-        this.viewModel = this.viewModelFactory.create(AlarmViewModel.class);
+        ((App) getApplicationContext())
+                .getAppComponent()
+                .inject(this);
+        viewModel = viewModelFactory.create(AlarmViewModel.class);
     }
 
 
     @Override
     public void onClick() {
-        if (this.alarm != null) {
-            this.viewModel.toggle(this.alarm);
+        if (alarm != null) {
+            viewModel.toggle(alarm);
         }
     }
 
     @Override
     public void onStartListening() {
-        this.viewModel.getAlarm().observeForever(this.alarmObserver);
-        this.viewModel.getTileLabel().observeForever(this.tileLabelObserver);
+        viewModel.getAlarm().observeForever(alarmObserver);
+        viewModel.getTileLabel().observeForever(tileLabelObserver);
 
     }
 
     @Override
     public void onStopListening() {
-        this.viewModel.getAlarm().removeObserver(this.alarmObserver);
-        this.viewModel.getTileLabel().removeObserver(this.tileLabelObserver);
+        viewModel.getAlarm().removeObserver(alarmObserver);
+        viewModel.getTileLabel().removeObserver(tileLabelObserver);
     }
 }

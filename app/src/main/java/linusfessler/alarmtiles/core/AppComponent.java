@@ -1,13 +1,11 @@
-package linusfessler.alarmtiles;
+package linusfessler.alarmtiles.core;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
 import linusfessler.alarmtiles.alarm.AlarmTileService;
-import linusfessler.alarmtiles.fragments.MainFragment;
 import linusfessler.alarmtiles.sleeptimer.SleepTimerConfigFragment;
-import linusfessler.alarmtiles.sleeptimer.SleepTimerServiceComponent;
-import linusfessler.alarmtiles.sleeptimer.SleepTimerServiceModule;
+import linusfessler.alarmtiles.sleeptimer.SleepTimerNotificationService;
 import linusfessler.alarmtiles.sleeptimer.SleepTimerTileService;
 import linusfessler.alarmtiles.stopwatch.StopwatchTileService;
 import linusfessler.alarmtiles.timer.TimerTileService;
@@ -16,13 +14,13 @@ import linusfessler.alarmtiles.timer.TimerTileService;
 @Component(modules = AppModule.class)
 public interface AppComponent {
 
-    SleepTimerServiceComponent sleepTimerServiceComponent(SleepTimerServiceModule sleepTimerServiceModule);
-
     void inject(MainFragment mainFragment);
 
     void inject(SleepTimerConfigFragment sleepTimerConfigFragment);
 
     void inject(SleepTimerTileService sleepTimerTileService);
+
+    void inject(SleepTimerNotificationService sleepTimerNotificationService);
 
     void inject(AlarmTileService alarmTileService);
 

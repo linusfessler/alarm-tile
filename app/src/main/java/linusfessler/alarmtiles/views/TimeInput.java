@@ -25,6 +25,10 @@ import io.reactivex.Observable;
 import io.reactivex.subjects.BehaviorSubject;
 import linusfessler.alarmtiles.R;
 
+import static java.util.concurrent.TimeUnit.HOURS;
+import static java.util.concurrent.TimeUnit.MINUTES;
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 public class TimeInput extends LinearLayout {
 
     private static final String ILLEGAL_TIME_UNIT_ERROR_MESSAGE = "Add cases to handle new time units.";
@@ -33,33 +37,33 @@ public class TimeInput extends LinearLayout {
     private TextInputEditText timeInputEditText;
     private Spinner timeUnitSpinner;
 
-    private final BehaviorSubject<Long> millisSubject = BehaviorSubject.createDefault(0L);
-    private final BehaviorSubject<TimeUnit> timeUnitSubject = BehaviorSubject.createDefault(TimeUnit.MINUTES);
+    private final BehaviorSubject<Double> timeSubject = BehaviorSubject.createDefault(0d);
+    private final BehaviorSubject<TimeUnit> timeUnitSubject = BehaviorSubject.createDefault(MINUTES);
 
     public TimeInput(@NonNull final Context context) {
         super(context);
-        this.init(context, null);
+        init(context, null);
     }
 
     public TimeInput(@NonNull final Context context, @Nullable final AttributeSet attrs) {
         super(context, attrs);
-        this.init(context, attrs);
+        init(context, attrs);
     }
 
     public TimeInput(@NonNull final Context context, @Nullable final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.init(context, attrs);
+        init(context, attrs);
     }
 
     private void init(@NonNull final Context context, @Nullable final AttributeSet attrs) {
         final LayoutInflater inflater = LayoutInflater.from(context);
         final View root = inflater.inflate(R.layout.time_input, this);
 
-        this.timeInputLayout = root.findViewById(R.id.time_input_layout);
-        this.timeInputEditText = root.findViewById(R.id.time_input_edit_text);
-        this.timeUnitSpinner = root.findViewById(R.id.time_unit_input);
+        timeInputLayout = root.findViewById(R.id.time_input_layout);
+        timeInputEditText = root.findViewById(R.id.time_input_edit_text);
+        timeUnitSpinner = root.findViewById(R.id.time_unit_input);
 
-        this.timeInputEditText.addTextChangedListener(new TextWatcher() {
+        timeInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {
                 // Not needed for simple change detection
@@ -67,7 +71,15 @@ public class TimeInput extends LinearLayout {
 
             @Override
             public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
-                TimeInput.this.onTimeUpdated();
+                if (timeInputEditText.getText() == null || timeInputEditText.getText().length() == 0) {
+                    timeSubject.onNext(0d);
+                    return;
+                }
+
+                final double time = Double.parseDouble(timeInputEditText.getText().toString());
+                if (time != getTime()) {
+                    timeSubject.onNext(time);
+                }
             }
 
             @Override
@@ -76,10 +88,27 @@ public class TimeInput extends LinearLayout {
             }
         });
 
-        this.timeUnitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        timeUnitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long id) {
-                TimeInput.this.onTimeUnitUpdated();
+                final TimeUnit timeUnit;
+                switch (position) {
+                    case 0:
+                        timeUnit = HOURS;
+                        break;
+                    case 1:
+                        timeUnit = MINUTES;
+                        break;
+                    case 2:
+                        timeUnit = SECONDS;
+                        break;
+                    default:
+                        throw new IllegalStateException(TimeInput.ILLEGAL_TIME_UNIT_ERROR_MESSAGE);
+                }
+
+                if (timeUnit != getTimeUnit()) {
+                    timeUnitSubject.onNext(timeUnit);
+                }
             }
 
             @Override
@@ -89,7 +118,7 @@ public class TimeInput extends LinearLayout {
         });
 
         if (attrs != null) {
-            this.initWithAttrs(context, attrs);
+            initWithAttrs(context, attrs);
         }
     }
 
@@ -98,100 +127,39 @@ public class TimeInput extends LinearLayout {
 
         final Drawable icon = styledAttributes.getDrawable(R.styleable.QuickSettingsTile_icon);
         if (icon != null) {
-            this.setIcon(icon);
+            setIcon(icon);
         }
 
         final String hint = styledAttributes.getString(R.styleable.TimeInput_hint);
-        this.setHint(hint);
+        setHint(hint);
 
         styledAttributes.recycle();
     }
 
-    private void onTimeUpdated() {
-        if (this.timeInputEditText.getText() == null || this.timeInputEditText.getText().length() == 0) {
-            this.millisSubject.onNext(0L);
-            return;
-        }
-
-        final double time = Double.parseDouble(this.timeInputEditText.getText().toString());
-        final TimeUnit timeUnit = this.timeUnitSubject.getValue();
-
-        final double millis;
-        switch (timeUnit) {
-            case HOURS:
-                millis = time * 60 * 60 * 1000;
-                break;
-            case MINUTES:
-                millis = time * 60 * 1000;
-                break;
-            case SECONDS:
-                millis = time * 1000;
-                break;
-            default:
-                throw new IllegalStateException(TimeInput.ILLEGAL_TIME_UNIT_ERROR_MESSAGE);
-        }
-
-        this.millisSubject.onNext((long) millis);
+    public double getTime() {
+        return timeSubject.getValue();
     }
 
-    private void onTimeUnitUpdated() {
-        final int position = this.timeUnitSpinner.getSelectedItemPosition();
+    public Observable<Double> getTimeObservable() {
+        return timeSubject.hide();
+    }
 
-        final TimeUnit timeUnit;
-        switch (position) {
-            case 0:
-                timeUnit = TimeUnit.HOURS;
-                break;
-            case 1:
-                timeUnit = TimeUnit.MINUTES;
-                break;
-            case 2:
-                timeUnit = TimeUnit.SECONDS;
-                break;
-            default:
-                throw new IllegalStateException(TimeInput.ILLEGAL_TIME_UNIT_ERROR_MESSAGE);
+    public void setTime(final double time) {
+        final String timeString;
+        if (time % 1 == 0) {
+            timeString = String.valueOf((long) time);
+        } else {
+            timeString = String.valueOf(time);
         }
-
-        this.timeUnitSubject.onNext(timeUnit);
-
-        this.onTimeUpdated();
-    }
-
-    public long getMillis() {
-        return this.millisSubject.getValue();
-    }
-
-    public Observable<Long> getMillisObservable() {
-        return this.millisSubject;
-    }
-
-    public void setMillis(final long millis) {
-        final TimeUnit timeUnit = this.timeUnitSubject.getValue();
-
-        final long time;
-        switch (timeUnit) {
-            case HOURS:
-                time = millis / (1000 * 60 * 60);
-                break;
-            case MINUTES:
-                time = millis / (1000 * 60);
-                break;
-            case SECONDS:
-                time = millis / 1000;
-                break;
-            default:
-                throw new IllegalStateException(TimeInput.ILLEGAL_TIME_UNIT_ERROR_MESSAGE);
-        }
-
-        this.timeInputEditText.setText(String.valueOf(time));
+        timeInputEditText.setText(timeString);
     }
 
     public TimeUnit getTimeUnit() {
-        return this.timeUnitSubject.getValue();
+        return timeUnitSubject.getValue();
     }
 
     public Observable<TimeUnit> getTimeUnitObservable() {
-        return this.timeUnitSubject;
+        return timeUnitSubject.hide();
     }
 
     public void setTimeUnit(final TimeUnit timeUnit) {
@@ -210,30 +178,30 @@ public class TimeInput extends LinearLayout {
                 throw new IllegalStateException(TimeInput.ILLEGAL_TIME_UNIT_ERROR_MESSAGE);
         }
 
-        this.timeUnitSpinner.setSelection(position);
+        timeUnitSpinner.setSelection(position);
     }
 
     public void setIcon(final Drawable icon) {
-        this.timeInputLayout.setStartIconDrawable(icon);
+        timeInputLayout.setStartIconDrawable(icon);
     }
 
     public void setIcon(final int iconResourceId) {
-        this.timeInputLayout.setStartIconDrawable(iconResourceId);
+        timeInputLayout.setStartIconDrawable(iconResourceId);
     }
 
     public void setHint(final String hint) {
-        this.timeInputLayout.setHint(hint);
+        timeInputLayout.setHint(hint);
     }
 
     public void setHint(final int hintResourceId) {
-        final String hint = this.getContext().getString(hintResourceId);
-        this.timeInputLayout.setHint(hint);
+        final String hint = getContext().getString(hintResourceId);
+        timeInputLayout.setHint(hint);
     }
 
     public void showKeyboard(final InputMethodManager inputMethodManager) {
-        if (this.timeInputEditText.requestFocus()) {
-            this.timeInputEditText.post(() ->
-                    inputMethodManager.showSoftInput(this.timeInputEditText, 0));
+        if (timeInputEditText.requestFocus()) {
+            timeInputEditText.post(() ->
+                    inputMethodManager.showSoftInput(timeInputEditText, 0));
         }
     }
 }

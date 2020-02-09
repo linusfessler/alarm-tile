@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles;
+package linusfessler.alarmtiles.core;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
@@ -9,9 +9,8 @@ import java.util.concurrent.Executors;
 
 import linusfessler.alarmtiles.alarm.Alarm;
 import linusfessler.alarmtiles.alarm.AlarmDao;
-import linusfessler.alarmtiles.shared.Converters;
+import linusfessler.alarmtiles.sleeptimer.SleepTimer;
 import linusfessler.alarmtiles.sleeptimer.SleepTimerDao;
-import linusfessler.alarmtiles.sleeptimer.model.SleepTimer;
 import linusfessler.alarmtiles.stopwatch.Stopwatch;
 import linusfessler.alarmtiles.stopwatch.StopwatchDao;
 import linusfessler.alarmtiles.timer.Timer;
@@ -27,24 +26,26 @@ public abstract class AppDatabase extends RoomDatabase {
     @Getter
     private final ExecutorService writeExecutor = Executors.newFixedThreadPool(AppDatabase.NUMBER_OF_THREADS);
 
-    public void populate() {
-        this.getWriteExecutor().submit(() -> {
-            if (this.sleepTimerDao().count() == 0) {
-                this.sleepTimerDao().insert(SleepTimer.createDefault());
+    public AppDatabase populate() {
+        getWriteExecutor().submit(() -> {
+            if (sleepTimerDao().count() == 0) {
+                sleepTimerDao().insert(SleepTimer.createDefault());
             }
 
-            if (this.alarmDao().count() == 0) {
-                this.alarmDao().insert(new Alarm());
+            if (alarmDao().count() == 0) {
+                alarmDao().insert(new Alarm());
             }
 
-            if (this.timerDao().count() == 0) {
-                this.timerDao().insert(new Timer());
+            if (timerDao().count() == 0) {
+                timerDao().insert(new Timer());
             }
 
-            if (this.stopwatchDao().count() == 0) {
-                this.stopwatchDao().insert(Stopwatch.createDefault());
+            if (stopwatchDao().count() == 0) {
+                stopwatchDao().insert(Stopwatch.createDefault());
             }
         });
+
+        return this;
     }
 
     public abstract SleepTimerDao sleepTimerDao();

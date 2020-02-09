@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles;
+package linusfessler.alarmtiles.shared;
 
 import android.media.AudioAttributes;
 import android.media.AudioFocusRequest;
@@ -19,7 +19,7 @@ public class MediaPlaybackManager {
     }
 
     public void stopMediaPlayback() {
-        this.requestAudioFocus();
+        requestAudioFocus();
     }
 
     @SuppressWarnings("squid:CallToDeprecatedMethod")
@@ -33,9 +33,9 @@ public class MediaPlaybackManager {
                     .setAudioAttributes(audioAttributes)
                     .build();
 
-            this.audioManager.requestAudioFocus(audioFocusRequest);
+            audioManager.requestAudioFocus(audioFocusRequest);
         } else {
-            this.audioManager.requestAudioFocus(null, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
+            audioManager.requestAudioFocus(null, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
         }
     }
 }

@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles;
+package linusfessler.alarmtiles.shared;
 
 import android.os.Build;
 import android.service.quicksettings.Tile;

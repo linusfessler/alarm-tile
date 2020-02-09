@@ -9,22 +9,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
-import linusfessler.alarmtiles.App;
 import linusfessler.alarmtiles.R;
+import linusfessler.alarmtiles.core.App;
 import linusfessler.alarmtiles.databinding.FragmentSleepTimerConfigBinding;
-import linusfessler.alarmtiles.sleeptimer.model.SleepTimerConfig;
+
+import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.setFadingVolume;
+import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.setResettingVolume;
+import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.setTime;
+import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.setTimeUnit;
+import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.toggle;
 
 public class SleepTimerConfigFragment extends Fragment {
 
     @Inject
-    SleepTimerViewModelFactory sleepTimerViewModelFactory;
+    SleepTimerViewModel viewModel;
 
-    private SleepTimerViewModel viewModel;
     private FragmentSleepTimerConfigBinding binding;
 
     private final CompositeDisposable disposable = new CompositeDisposable();
@@ -33,11 +36,9 @@ public class SleepTimerConfigFragment extends Fragment {
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ((App) this.requireActivity().getApplicationContext())
+        ((App) requireActivity().getApplicationContext())
                 .getAppComponent()
                 .inject(this);
-
-        this.viewModel = new ViewModelProvider(this, this.sleepTimerViewModelFactory).get(SleepTimerViewModel.class);
     }
 
     @Nullable
@@ -45,54 +46,58 @@ public class SleepTimerConfigFragment extends Fragment {
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        this.binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sleep_timer_config, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sleep_timer_config, container, false);
 
-        this.disposable.add(this.viewModel.getSleepTimer()
+        disposable.add(viewModel.getSleepTimer()
                 .firstElement()
                 .subscribe(sleepTimer -> {
-                    final SleepTimerConfig config = sleepTimer.getConfig();
-                    this.binding.duration.setMillis(config.getDuration());
-                    this.binding.duration.setTimeUnit(config.getTimeUnit());
-                    this.binding.fadingVolume.setChecked(config.isFadingVolume());
-                    this.binding.resettingVolume.setChecked(config.isResettingVolume());
+                    binding.duration.setTime(sleepTimer.getTime());
+                    binding.duration.setTimeUnit(sleepTimer.getTimeUnit());
+                    binding.fadingVolume.setChecked(sleepTimer.isFadingVolume());
+                    binding.resettingVolume.setChecked(sleepTimer.isResettingVolume());
+
+                    disposable.add(binding.duration.getTimeObservable()
+                            .skip(1) // Skip first value (which is the one we just set)
+                            .filter(time -> time > 0)
+                            .subscribe(time -> viewModel.dispatch(setTime(time))));
+
+                    disposable.add(binding.duration.getTimeUnitObservable()
+                            .skip(1) // Skip first value (which is the one we just set)
+                            .subscribe(timeUnit -> viewModel.dispatch(setTimeUnit(timeUnit))));
+
+                    binding.fadingVolume.setOnCheckedChangeListener((buttonView, isChecked) ->
+                            viewModel.dispatch(setFadingVolume(isChecked)));
+
+                    binding.resettingVolume.setOnCheckedChangeListener((buttonView, isChecked) ->
+                            viewModel.dispatch(setResettingVolume(isChecked)));
                 }));
 
-        this.binding.sleepTimer.setOnClickListener(view -> this.viewModel.onClick());
+        binding.sleepTimer.setOnClickListener(view -> viewModel.dispatch(toggle()));
 
-        this.disposable.add(this.viewModel.getSleepTimer()
-                .subscribe(sleepTimer -> this.binding.sleepTimer.setEnabled(sleepTimer.getState() == SleepTimerState.RUNNING)));
+        disposable.add(viewModel.getSleepTimer()
+                .subscribe(sleepTimer -> {
+                    binding.sleepTimer.setEnabled(sleepTimer.isEnabled());
+                    binding.resettingVolume.setEnabled(sleepTimer.isFadingVolume());
+                }));
 
-        this.disposable.add(this.viewModel.getTimeLeft()
-                .subscribe(this.binding.sleepTimer::setSubtitle));
+        disposable.add(viewModel.getTimeLeft()
+                .subscribe(binding.sleepTimer::setSubtitle));
 
-        this.disposable.add(this.binding.duration.getMillisObservable()
-                .subscribe(this.viewModel::setDuration));
-
-        this.disposable.add(this.binding.duration.getTimeUnitObservable()
-                .subscribe(this.viewModel::setTimeUnit));
-
-        this.binding.fadingVolume.setOnCheckedChangeListener((buttonView, isChecked) ->
-                this.viewModel.setFadingVolume(isChecked));
-
-        this.binding.resettingVolume.setOnCheckedChangeListener((buttonView, isChecked) ->
-                this.viewModel.setResettingVolume(isChecked));
-
-        return this.binding.getRoot();
+        return binding.getRoot();
     }
 
     @Override
     public void onDestroyView() {
-        this.disposable.clear();
-
-        this.binding.fadingVolume.setOnCheckedChangeListener(null);
-        this.binding.resettingVolume.setOnCheckedChangeListener(null);
-
+        disposable.clear();
+        binding.sleepTimer.setOnClickListener(null);
+        binding.fadingVolume.setOnCheckedChangeListener(null);
+        binding.resettingVolume.setOnCheckedChangeListener(null);
         super.onDestroyView();
     }
 
     @Override
     public void onDestroy() {
-        this.disposable.dispose();
+        disposable.dispose();
         super.onDestroy();
     }
 }

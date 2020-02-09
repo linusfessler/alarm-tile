@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel;
 
 import javax.inject.Singleton;
 
-import linusfessler.alarmtiles.TimeOfDayFormatter;
+import linusfessler.alarmtiles.shared.TimeOfDayFormatter;
 
 @Singleton
 public class AlarmViewModel extends ViewModel {
@@ -26,9 +26,9 @@ public class AlarmViewModel extends ViewModel {
         this.timeOfDayFormatter = timeOfDayFormatter;
         this.is24Hours = is24Hours;
 
-        this.alarmLiveData = this.repository.getAlarm();
+        alarmLiveData = this.repository.getAlarm();
 
-        this.tileLabelLiveData = Transformations.switchMap(this.alarmLiveData, alarm -> {
+        tileLabelLiveData = Transformations.switchMap(alarmLiveData, alarm -> {
             final MutableLiveData<String> tileLabelMutableLiveData = new MutableLiveData<>();
 
             if (alarm == null) {
@@ -47,15 +47,15 @@ public class AlarmViewModel extends ViewModel {
     }
 
     public LiveData<Alarm> getAlarm() {
-        return this.alarmLiveData;
+        return alarmLiveData;
     }
 
     public LiveData<String> getTileLabel() {
-        return this.tileLabelLiveData;
+        return tileLabelLiveData;
     }
 
     public void toggle(final Alarm alarm) {
         alarm.toggle();
-        this.repository.update(alarm);
+        repository.update(alarm);
     }
 }

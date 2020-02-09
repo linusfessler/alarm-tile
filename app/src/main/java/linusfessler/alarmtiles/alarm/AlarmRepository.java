@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutorService;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import linusfessler.alarmtiles.AppDatabase;
+import linusfessler.alarmtiles.core.AppDatabase;
 import lombok.AccessLevel;
 import lombok.Getter;
 
@@ -22,13 +22,13 @@ class AlarmRepository {
 
     @Inject
     AlarmRepository(final AppDatabase appDatabase) {
-        this.writeExecutor = appDatabase.getWriteExecutor();
-        this.alarmDao = appDatabase.alarmDao();
+        writeExecutor = appDatabase.getWriteExecutor();
+        alarmDao = appDatabase.alarmDao();
 
-        this.alarm = this.alarmDao.select();
+        alarm = alarmDao.select();
     }
 
     void update(final Alarm alarm) {
-        this.writeExecutor.execute(() -> this.alarmDao.update(alarm));
+        writeExecutor.execute(() -> alarmDao.update(alarm));
     }
 }

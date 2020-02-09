@@ -13,8 +13,8 @@ import androidx.annotation.Nullable;
 
 import linusfessler.alarmtiles.DigitalTimePickerDialog;
 import linusfessler.alarmtiles.R;
-import linusfessler.alarmtiles.TimeFormatter;
-import linusfessler.alarmtiles.TimeOfDayFormatter;
+import linusfessler.alarmtiles.shared.TimeFormatter;
+import linusfessler.alarmtiles.shared.TimeOfDayFormatter;
 import lombok.Setter;
 
 public class TimeSettings extends com.google.android.material.textview.MaterialTextView {
@@ -38,38 +38,38 @@ public class TimeSettings extends com.google.android.material.textview.MaterialT
 
     public TimeSettings(@NonNull final Context context) {
         super(context);
-        this.init(context, null);
+        init(context, null);
     }
 
     public TimeSettings(@NonNull final Context context, @Nullable final AttributeSet attrs) {
         super(context, attrs);
-        this.init(context, attrs);
+        init(context, attrs);
     }
 
     public TimeSettings(@NonNull final Context context, @Nullable final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.init(context, attrs);
+        init(context, attrs);
     }
 
     private void init(@NonNull final Context context, @Nullable final AttributeSet attrs) {
-        this.initSelf(context);
-        this.initTimeOfDayPickerDialog(context);
-        this.initTimePickerDialog(context);
-        this.initWithAttrs(context, attrs);
+        initSelf(context);
+        initTimeOfDayPickerDialog(context);
+        initTimePickerDialog(context);
+        initWithAttrs(context, attrs);
     }
 
     private void initSelf(@NonNull final Context context) {
-        this.timeOfDayFormatter = new TimeOfDayFormatter();
-        this.timeFormatter = new TimeFormatter();
+        timeOfDayFormatter = new TimeOfDayFormatter();
+        timeFormatter = new TimeFormatter();
 
-        this.setClickable(true);
-        this.setFocusable(true);
+        setClickable(true);
+        setFocusable(true);
 
         final TypedValue typedValue = new TypedValue();
         context.getTheme().resolveAttribute(android.R.attr.selectableItemBackground, typedValue, true);
         final Drawable selectableItemBackground = context.getResources().getDrawable(typedValue.resourceId, context.getTheme());
 
-        this.setBackgroundDrawable(selectableItemBackground);
+        setBackgroundDrawable(selectableItemBackground);
     }
 
     private void initWithAttrs(@NonNull final Context context, @Nullable final AttributeSet attrs) {
@@ -80,14 +80,14 @@ public class TimeSettings extends com.google.android.material.textview.MaterialT
         final TimeFormat initialTimeFormat = TimeFormat.values()[timeFormatOrdinal];
         styledAttributes.recycle();
 
-        this.updateTime(hour, minute);
-        this.setTimeFormat(initialTimeFormat);
+        updateTime(hour, minute);
+        setTimeFormat(initialTimeFormat);
 
-        this.setOnClickListener(view -> {
-            if (this.timeFormat == TimeFormat.TIME) {
-                this.timePickerDialog.show();
+        setOnClickListener(view -> {
+            if (timeFormat == TimeFormat.TIME) {
+                timePickerDialog.show();
             } else {
-                this.timeOfDayPickerDialog.show();
+                timeOfDayPickerDialog.show();
             }
         });
     }
@@ -95,33 +95,33 @@ public class TimeSettings extends com.google.android.material.textview.MaterialT
     private void initTimeOfDayPickerDialog(@NonNull final Context context) {
         final boolean is24Hours = DateFormat.is24HourFormat(context);
         final TimePickerDialog.OnTimeSetListener listener = (view, newHourOfDay, newMinuteOfHour) -> {
-            this.setText(this.timeOfDayFormatter.format(newHourOfDay, newMinuteOfHour, is24Hours));
-            this.onTimeChangedListener.onTimeChanged(newHourOfDay, newMinuteOfHour);
+            setText(timeOfDayFormatter.format(newHourOfDay, newMinuteOfHour, is24Hours));
+            onTimeChangedListener.onTimeChanged(newHourOfDay, newMinuteOfHour);
         };
-        this.timeOfDayPickerDialog = new TimePickerDialog(context, listener, 0, 0, is24Hours);
+        timeOfDayPickerDialog = new TimePickerDialog(context, listener, 0, 0, is24Hours);
     }
 
     private void initTimePickerDialog(@NonNull final Context context) {
-        this.timePickerDialog = new DigitalTimePickerDialog(context, (view, hourOfDay, minute) -> {
+        timePickerDialog = new DigitalTimePickerDialog(context, (view, hourOfDay, minute) -> {
             // TODO: Called while scrolling through digits... Is there no cancel listener?
         }, 0, 0, true);
 
-        final int hour = this.timePickerDialog.getHour();
-        final int minute = this.timePickerDialog.getMinute();
-        this.setText(this.timeFormatter.format(hour, minute));
-        this.timePickerDialog.setOnCancelListener(dialog -> this.onTimeChangedListener.onTimeChanged(hour, minute));
+        final int hour = timePickerDialog.getHour();
+        final int minute = timePickerDialog.getMinute();
+        setText(timeFormatter.format(hour, minute));
+        timePickerDialog.setOnCancelListener(dialog -> onTimeChangedListener.onTimeChanged(hour, minute));
     }
 
     public void updateTime(final long millis) {
         final long seconds = millis / 1000;
         final int minutes = (int) (seconds / 60);
-        this.updateTime(minutes / 60, minutes % 60);
+        updateTime(minutes / 60, minutes % 60);
     }
 
     public void updateTime(final int hour, final int minute) {
-        this.timeOfDayPickerDialog.updateTime(hour, minute);
-        this.timePickerDialog.setHour(hour);
-        this.timePickerDialog.setMinute(minute);
+        timeOfDayPickerDialog.updateTime(hour, minute);
+        timePickerDialog.setHour(hour);
+        timePickerDialog.setMinute(minute);
     }
 
     public void setTimeFormat(final TimeFormat timeFormat) {

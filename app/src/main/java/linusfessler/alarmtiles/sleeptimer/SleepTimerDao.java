@@ -6,7 +6,6 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import io.reactivex.Observable;
-import linusfessler.alarmtiles.sleeptimer.model.SleepTimer;
 
 @Dao
 public interface SleepTimerDao {

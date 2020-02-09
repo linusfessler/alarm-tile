@@ -7,9 +7,9 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subjects.PublishSubject;
-import linusfessler.alarmtiles.App;
 import linusfessler.alarmtiles.R;
-import linusfessler.alarmtiles.TileServiceCompat;
+import linusfessler.alarmtiles.core.App;
+import linusfessler.alarmtiles.shared.TileServiceCompat;
 
 public class StopwatchTileService extends TileService {
 
@@ -25,23 +25,24 @@ public class StopwatchTileService extends TileService {
     @Override
     public void onCreate() {
         super.onCreate();
-        ((App) this.getApplicationContext()).getAppComponent().inject(this);
-
-        this.viewModel = this.viewModelFactory.create(StopwatchViewModel.class);
-        this.tileLabel = this.getString(R.string.stopwatch);
+        ((App) getApplicationContext())
+                .getAppComponent()
+                .inject(this);
+        viewModel = viewModelFactory.create(StopwatchViewModel.class);
+        tileLabel = getString(R.string.stopwatch);
     }
 
     @Override
     public void onClick() {
         super.onClick();
-        this.clickSubject.onNext(true);
+        clickSubject.onNext(true);
     }
 
     @Override
     public void onStartListening() {
         super.onStartListening();
 
-        this.disposable.add(this.viewModel.isEnabled()
+        disposable.add(viewModel.isEnabled()
                 .subscribe(enabled -> {
                     final int state;
                     if (enabled) {
@@ -50,31 +51,31 @@ public class StopwatchTileService extends TileService {
                         state = Tile.STATE_INACTIVE;
                     }
 
-                    final Tile tile = this.getQsTile();
+                    final Tile tile = getQsTile();
                     tile.setState(state);
                     tile.updateTile();
                 }));
 
-        this.disposable.add(this.viewModel.getElapsedTime()
+        disposable.add(viewModel.getElapsedTime()
                 .subscribe(elapsedTime -> {
-                    final Tile tile = this.getQsTile();
-                    TileServiceCompat.setSubtitle(tile, this.tileLabel, elapsedTime);
+                    final Tile tile = getQsTile();
+                    TileServiceCompat.setSubtitle(tile, tileLabel, elapsedTime);
                     tile.updateTile();
                 }));
 
-        this.disposable.add(this.clickSubject
-                .subscribe(click -> this.viewModel.onClick()));
+        disposable.add(clickSubject
+                .subscribe(click -> viewModel.onClick()));
     }
 
     @Override
     public void onStopListening() {
-        this.disposable.clear();
+        disposable.clear();
         super.onStopListening();
     }
 
     @Override
     public void onDestroy() {
-        this.disposable.dispose();
+        disposable.dispose();
         super.onDestroy();
     }
 }

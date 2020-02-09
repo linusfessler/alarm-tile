@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import linusfessler.alarmtiles.R;
-import linusfessler.alarmtiles.TimeOfDayFormatter;
+import linusfessler.alarmtiles.shared.TimeOfDayFormatter;
 
 @Singleton
 public class AlarmViewModelFactory implements ViewModelProvider.Factory {
@@ -32,9 +32,9 @@ public class AlarmViewModelFactory implements ViewModelProvider.Factory {
     @SuppressWarnings("unchecked")
     public <T extends ViewModel> T create(@NonNull final Class<T> modelClass) {
         if (modelClass.isAssignableFrom(AlarmViewModel.class)) {
-            final String tileLabel = this.application.getString(R.string.alarm);
-            final boolean is24Hours = DateFormat.is24HourFormat(this.application);
-            return (T) new AlarmViewModel(this.alarmRepository, tileLabel, this.timeOfDayFormatter, is24Hours);
+            final String tileLabel = application.getString(R.string.alarm);
+            final boolean is24Hours = DateFormat.is24HourFormat(application);
+            return (T) new AlarmViewModel(alarmRepository, tileLabel, timeOfDayFormatter, is24Hours);
         }
 
         throw new IllegalArgumentException(String.format("Unknown view model class: %s.", modelClass));

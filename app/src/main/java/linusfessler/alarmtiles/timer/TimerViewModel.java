@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 
-import linusfessler.alarmtiles.TimeFormatter;
+import linusfessler.alarmtiles.shared.TimeFormatter;
 
 @Singleton
 public class TimerViewModel extends ViewModel {
@@ -30,9 +30,9 @@ public class TimerViewModel extends ViewModel {
         this.tileLabel = tileLabel;
         this.timeFormatter = timeFormatter;
 
-        this.timerLiveData = this.repository.getTimer();
+        timerLiveData = this.repository.getTimer();
 
-        this.tileLabelLiveData = Transformations.switchMap(this.timerLiveData, timer -> {
+        tileLabelLiveData = Transformations.switchMap(timerLiveData, timer -> {
             final MutableLiveData<String> tileLabelMutableLiveData = new MutableLiveData<>();
 
             if (timer == null) {
@@ -40,8 +40,8 @@ public class TimerViewModel extends ViewModel {
             }
 
             if (!timer.isEnabled()) {
-                if (this.countdown != null) {
-                    this.countdown.cancel();
+                if (countdown != null) {
+                    countdown.cancel();
                     tileLabelMutableLiveData.postValue(tileLabel);
                 }
                 return tileLabelMutableLiveData;
@@ -49,7 +49,7 @@ public class TimerViewModel extends ViewModel {
 
             final long millisElapsed = System.currentTimeMillis() - timer.getStartTimeStamp();
             final long millisLeft = timer.getDuration() - millisElapsed;
-            this.countdown = new CountDownTimer(millisLeft, 1000) {
+            countdown = new CountDownTimer(millisLeft, 1000) {
                 @Override
                 public void onTick(final long millisUntilFinished) {
                     final String formattedTimeLeft = timeFormatter.format(millisUntilFinished, TimeUnit.SECONDS);
@@ -66,22 +66,22 @@ public class TimerViewModel extends ViewModel {
                     // TODO: Trigger alarm
                 }
             };
-            this.countdown.start();
+            countdown.start();
 
             return tileLabelMutableLiveData;
         });
     }
 
     public LiveData<Timer> getTimer() {
-        return this.timerLiveData;
+        return timerLiveData;
     }
 
     public LiveData<String> getTileLabel() {
-        return this.tileLabelLiveData;
+        return tileLabelLiveData;
     }
 
     public void toggle(final Timer timer) {
         timer.toggle();
-        this.repository.update(timer);
+        repository.update(timer);
     }
 }

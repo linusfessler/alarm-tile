@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import linusfessler.alarmtiles.R;
-import linusfessler.alarmtiles.TimeFormatter;
+import linusfessler.alarmtiles.shared.TimeFormatter;
 
 @Singleton
 public class TimerViewModelFactory implements ViewModelProvider.Factory {
@@ -31,8 +31,8 @@ public class TimerViewModelFactory implements ViewModelProvider.Factory {
     @SuppressWarnings("unchecked")
     public <T extends ViewModel> T create(@NonNull final Class<T> modelClass) {
         if (modelClass.isAssignableFrom(TimerViewModel.class)) {
-            final String tileLabel = this.application.getString(R.string.timer);
-            return (T) new TimerViewModel(this.timerRepository, tileLabel, this.timeFormatter);
+            final String tileLabel = application.getString(R.string.timer);
+            return (T) new TimerViewModel(timerRepository, tileLabel, timeFormatter);
         }
 
         throw new IllegalArgumentException(String.format("Unknown view model class: %s.", modelClass));

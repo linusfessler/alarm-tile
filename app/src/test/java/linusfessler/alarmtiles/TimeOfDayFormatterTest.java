@@ -3,6 +3,8 @@ package linusfessler.alarmtiles;
 import org.junit.Assert;
 import org.junit.Test;
 
+import linusfessler.alarmtiles.shared.TimeOfDayFormatter;
+
 public class TimeOfDayFormatterTest {
 
     private final TimeOfDayFormatter timeOfDayFormatter = new TimeOfDayFormatter();
@@ -15,7 +17,7 @@ public class TimeOfDayFormatterTest {
         final boolean is24Hours = true;
         final String expected = "4:45";
         // WHEN
-        final String actual = this.timeOfDayFormatter.format(hourOfDay, minutesOfHour, is24Hours);
+        final String actual = timeOfDayFormatter.format(hourOfDay, minutesOfHour, is24Hours);
         // THEN
         Assert.assertEquals(expected, actual);
     }
@@ -28,7 +30,7 @@ public class TimeOfDayFormatterTest {
         final boolean is24Hours = true;
         final String expected = "16:45";
         // WHEN
-        final String actual = this.timeOfDayFormatter.format(hourOfDay, minutesOfHour, is24Hours);
+        final String actual = timeOfDayFormatter.format(hourOfDay, minutesOfHour, is24Hours);
         // THEN
         Assert.assertEquals(expected, actual);
     }
@@ -41,7 +43,7 @@ public class TimeOfDayFormatterTest {
         final boolean is24Hours = false;
         final String expected = "4:45 AM";
         // WHEN
-        final String actual = this.timeOfDayFormatter.format(hourOfDay, minutesOfHour, is24Hours);
+        final String actual = timeOfDayFormatter.format(hourOfDay, minutesOfHour, is24Hours);
         // THEN
         Assert.assertEquals(expected, actual);
     }
@@ -54,7 +56,7 @@ public class TimeOfDayFormatterTest {
         final boolean is24Hours = false;
         final String expected = "4:45 PM";
         // WHEN
-        final String actual = this.timeOfDayFormatter.format(hourOfDay, minutesOfHour, is24Hours);
+        final String actual = timeOfDayFormatter.format(hourOfDay, minutesOfHour, is24Hours);
         // THEN
         Assert.assertEquals(expected, actual);
     }
@@ -67,7 +69,7 @@ public class TimeOfDayFormatterTest {
         final boolean is24Hours = true;
         final String expected = "22:59";
         // WHEN
-        final String actual = this.timeOfDayFormatter.format(hourOfDay, minutesOfHour, is24Hours);
+        final String actual = timeOfDayFormatter.format(hourOfDay, minutesOfHour, is24Hours);
         // THEN
         Assert.assertEquals(expected, actual);
     }
@@ -80,7 +82,7 @@ public class TimeOfDayFormatterTest {
         final boolean is24Hours = true;
         final String expected = "1:01";
         // WHEN
-        final String actual = this.timeOfDayFormatter.format(hourOfDay, minutesOfHour, is24Hours);
+        final String actual = timeOfDayFormatter.format(hourOfDay, minutesOfHour, is24Hours);
         // THEN
         Assert.assertEquals(expected, actual);
     }
@@ -93,7 +95,7 @@ public class TimeOfDayFormatterTest {
         final boolean is24Hours = false;
         final String expected = "12:00 AM";
         // WHEN
-        final String actual = this.timeOfDayFormatter.format(hourOfDay, minutesOfHour, is24Hours);
+        final String actual = timeOfDayFormatter.format(hourOfDay, minutesOfHour, is24Hours);
         // THEN
         Assert.assertEquals(expected, actual);
     }
@@ -106,7 +108,7 @@ public class TimeOfDayFormatterTest {
         final boolean is24Hours = false;
         final String expected = "12:00 PM";
         // WHEN
-        final String actual = this.timeOfDayFormatter.format(hourOfDay, minutesOfHour, is24Hours);
+        final String actual = timeOfDayFormatter.format(hourOfDay, minutesOfHour, is24Hours);
         // THEN
         Assert.assertEquals(expected, actual);
     }

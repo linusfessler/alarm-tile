@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles;
+package linusfessler.alarmtiles.shared;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -20,7 +20,7 @@ public class TimeOfDayFormatter {
     public String format(final int hourOfDay, final int minutesOfHour, final boolean is24Hours) {
         final Calendar calendar = new GregorianCalendar(0, 0, 0, hourOfDay, minutesOfHour);
         final Date timeOfDay = calendar.getTime();
-        final SimpleDateFormat displayFormat = this.getFormat(is24Hours);
+        final SimpleDateFormat displayFormat = getFormat(is24Hours);
         return displayFormat.format(timeOfDay);
     }
 

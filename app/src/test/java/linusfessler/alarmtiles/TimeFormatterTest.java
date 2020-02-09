@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
+import linusfessler.alarmtiles.shared.TimeFormatter;
+
 public class TimeFormatterTest {
 
     private final TimeFormatter timeFormatter = new TimeFormatter();
@@ -16,7 +18,7 @@ public class TimeFormatterTest {
         final TimeUnit precision = TimeUnit.MILLISECONDS;
         final String expected = "34h 17m 36s 78";
         // WHEN
-        final String actual = this.timeFormatter.format(millis, precision);
+        final String actual = timeFormatter.format(millis, precision);
         // THEN
         Assert.assertEquals(expected, actual);
     }
@@ -28,7 +30,7 @@ public class TimeFormatterTest {
         final TimeUnit precision = TimeUnit.SECONDS;
         final String expected = "34h 17m 36s";
         // WHEN
-        final String actual = this.timeFormatter.format(millis, precision);
+        final String actual = timeFormatter.format(millis, precision);
         // THEN
         Assert.assertEquals(expected, actual);
     }
@@ -40,7 +42,7 @@ public class TimeFormatterTest {
         final TimeUnit precision = TimeUnit.MINUTES;
         final String expected = "34h 17m";
         // WHEN
-        final String actual = this.timeFormatter.format(millis, precision);
+        final String actual = timeFormatter.format(millis, precision);
         // THEN
         Assert.assertEquals(expected, actual);
     }
@@ -52,7 +54,7 @@ public class TimeFormatterTest {
         final TimeUnit precision = TimeUnit.HOURS;
         final String expected = "34h";
         // WHEN
-        final String actual = this.timeFormatter.format(millis, precision);
+        final String actual = timeFormatter.format(millis, precision);
         // THEN
         Assert.assertEquals(expected, actual);
     }
@@ -66,7 +68,7 @@ public class TimeFormatterTest {
         final int millis = 450;
         final String expected = "4h 15m 30s 45";
         // WHEN
-        final String actual = this.timeFormatter.format(hours, minutes, seconds, millis);
+        final String actual = timeFormatter.format(hours, minutes, seconds, millis);
         // THEN
         Assert.assertEquals(expected, actual);
     }
@@ -79,7 +81,7 @@ public class TimeFormatterTest {
         final int seconds = 30;
         final String expected = "4h 15m 30s";
         // WHEN
-        final String actual = this.timeFormatter.format(hours, minutes, seconds);
+        final String actual = timeFormatter.format(hours, minutes, seconds);
         // THEN
         Assert.assertEquals(expected, actual);
     }
@@ -91,7 +93,7 @@ public class TimeFormatterTest {
         final int minutes = 15;
         final String expected = "4h 15m";
         // WHEN
-        final String actual = this.timeFormatter.format(hours, minutes);
+        final String actual = timeFormatter.format(hours, minutes);
         // THEN
         Assert.assertEquals(expected, actual);
     }
@@ -105,7 +107,7 @@ public class TimeFormatterTest {
         final int millis = 0;
         final String expected = "4h 0m 0s 00";
         // WHEN
-        final String actual = this.timeFormatter.format(hours, minutes, seconds, millis);
+        final String actual = timeFormatter.format(hours, minutes, seconds, millis);
         // THEN
         Assert.assertEquals(expected, actual);
     }
@@ -119,7 +121,7 @@ public class TimeFormatterTest {
         final int millis = 0;
         final String expected = "15m 0s 00";
         // WHEN
-        final String actual = this.timeFormatter.format(hours, minutes, seconds, millis);
+        final String actual = timeFormatter.format(hours, minutes, seconds, millis);
         // THEN
         Assert.assertEquals(expected, actual);
     }
@@ -133,7 +135,7 @@ public class TimeFormatterTest {
         final int millis = 0;
         final String expected = "30s 00";
         // WHEN
-        final String actual = this.timeFormatter.format(hours, minutes, seconds, millis);
+        final String actual = timeFormatter.format(hours, minutes, seconds, millis);
         // THEN
         Assert.assertEquals(expected, actual);
     }
@@ -147,7 +149,7 @@ public class TimeFormatterTest {
         final int millis = 450;
         final String expected = "45";
         // WHEN
-        final String actual = this.timeFormatter.format(hours, minutes, seconds, millis);
+        final String actual = timeFormatter.format(hours, minutes, seconds, millis);
         // THEN
         Assert.assertEquals(expected, actual);
     }
@@ -161,7 +163,7 @@ public class TimeFormatterTest {
         final int millis = 0;
         final String expected = "00";
         // WHEN
-        final String actual = this.timeFormatter.format(hours, minutes, seconds, millis);
+        final String actual = timeFormatter.format(hours, minutes, seconds, millis);
         // THEN
         Assert.assertEquals(expected, actual);
     }
@@ -174,7 +176,7 @@ public class TimeFormatterTest {
         final int seconds = 0;
         final String expected = "0s";
         // WHEN
-        final String actual = this.timeFormatter.format(hours, minutes, seconds);
+        final String actual = timeFormatter.format(hours, minutes, seconds);
         // THEN
         Assert.assertEquals(expected, actual);
     }
@@ -186,7 +188,7 @@ public class TimeFormatterTest {
         final int minutes = 0;
         final String expected = "0m";
         // WHEN
-        final String actual = this.timeFormatter.format(hours, minutes);
+        final String actual = timeFormatter.format(hours, minutes);
         // THEN
         Assert.assertEquals(expected, actual);
     }
@@ -197,7 +199,7 @@ public class TimeFormatterTest {
         final int hours = 0;
         final String expected = "0h";
         // WHEN
-        final String actual = this.timeFormatter.formatHours(hours);
+        final String actual = timeFormatter.formatHours(hours);
         // THEN
         Assert.assertEquals(expected, actual);
     }

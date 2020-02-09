@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutorService;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import linusfessler.alarmtiles.AppDatabase;
+import linusfessler.alarmtiles.core.AppDatabase;
 import lombok.AccessLevel;
 import lombok.Getter;
 
@@ -22,13 +22,13 @@ class TimerRepository {
 
     @Inject
     TimerRepository(final AppDatabase appDatabase) {
-        this.writeExecutor = appDatabase.getWriteExecutor();
-        this.timerDao = appDatabase.timerDao();
+        writeExecutor = appDatabase.getWriteExecutor();
+        timerDao = appDatabase.timerDao();
 
-        this.timer = this.timerDao.select();
+        timer = timerDao.select();
     }
 
     void update(final Timer timer) {
-        this.writeExecutor.execute(() -> this.timerDao.update(timer));
+        writeExecutor.execute(() -> timerDao.update(timer));
     }
 }

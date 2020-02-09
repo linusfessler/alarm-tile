@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import javax.inject.Inject;
 
-import linusfessler.alarmtiles.TimeFormatter;
+import linusfessler.alarmtiles.shared.TimeFormatter;
 
 public class StopwatchViewModelFactory implements ViewModelProvider.Factory {
 
@@ -24,7 +24,7 @@ public class StopwatchViewModelFactory implements ViewModelProvider.Factory {
     @SuppressWarnings("unchecked")
     public <T extends ViewModel> T create(@NonNull final Class<T> modelClass) {
         if (modelClass.isAssignableFrom(StopwatchViewModel.class)) {
-            return (T) new StopwatchViewModel(this.stopwatchRepository, this.timeFormatter);
+            return (T) new StopwatchViewModel(stopwatchRepository, timeFormatter);
         }
 
         throw new IllegalArgumentException(String.format("Unknown view model class: %s.", modelClass));

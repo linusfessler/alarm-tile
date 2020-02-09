@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import linusfessler.alarmtiles.App;
+import linusfessler.alarmtiles.core.App;
 
 @Singleton
 public class TimerTileService extends TileService {
@@ -20,22 +20,22 @@ public class TimerTileService extends TileService {
     private Timer timer;
 
     private final Observer<Timer> timerObserver = value -> {
-        this.timer = value;
+        timer = value;
 
         final int state;
-        if (this.timer.isEnabled()) {
+        if (timer.isEnabled()) {
             state = Tile.STATE_ACTIVE;
         } else {
             state = Tile.STATE_INACTIVE;
         }
 
-        final Tile tile = this.getQsTile();
+        final Tile tile = getQsTile();
         tile.setState(state);
         tile.updateTile();
     };
 
     private final Observer<String> tileLabelObserver = tileLabel -> {
-        final Tile tile = this.getQsTile();
+        final Tile tile = getQsTile();
         tile.setLabel(tileLabel);
         tile.updateTile();
     };
@@ -43,28 +43,30 @@ public class TimerTileService extends TileService {
     @Override
     public void onCreate() {
         super.onCreate();
-        ((App) this.getApplicationContext()).getAppComponent().inject(this);
-        this.viewModel = this.viewModelFactory.create(TimerViewModel.class);
+        ((App) getApplicationContext())
+                .getAppComponent()
+                .inject(this);
+        viewModel = viewModelFactory.create(TimerViewModel.class);
     }
 
 
     @Override
     public void onClick() {
-        if (this.timer != null) {
-            this.viewModel.toggle(this.timer);
+        if (timer != null) {
+            viewModel.toggle(timer);
         }
     }
 
     @Override
     public void onStartListening() {
-        this.viewModel.getTimer().observeForever(this.timerObserver);
-        this.viewModel.getTileLabel().observeForever(this.tileLabelObserver);
+        viewModel.getTimer().observeForever(timerObserver);
+        viewModel.getTileLabel().observeForever(tileLabelObserver);
 
     }
 
     @Override
     public void onStopListening() {
-        this.viewModel.getTimer().removeObserver(this.timerObserver);
-        this.viewModel.getTileLabel().removeObserver(this.tileLabelObserver);
+        viewModel.getTimer().removeObserver(timerObserver);
+        viewModel.getTileLabel().removeObserver(tileLabelObserver);
     }
 }

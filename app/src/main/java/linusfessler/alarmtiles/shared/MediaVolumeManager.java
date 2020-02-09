@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles;
+package linusfessler.alarmtiles.shared;
 
 import android.media.AudioManager;
 
@@ -19,7 +19,7 @@ public class MediaVolumeManager {
         return audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
     }
 
-    public void setVolume(int volume) {
+    public void setVolume(final int volume) {
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
     }
 }

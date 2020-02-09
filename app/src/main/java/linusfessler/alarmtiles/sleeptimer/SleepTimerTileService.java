@@ -2,29 +2,23 @@ package linusfessler.alarmtiles.sleeptimer;
 
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
-import android.view.inputmethod.InputMethodManager;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subjects.PublishSubject;
-import linusfessler.alarmtiles.App;
 import linusfessler.alarmtiles.R;
-import linusfessler.alarmtiles.TileServiceCompat;
-import linusfessler.alarmtiles.sleeptimer.model.SleepTimer;
+import linusfessler.alarmtiles.core.App;
+import linusfessler.alarmtiles.shared.TileServiceCompat;
 
-@Singleton
+import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.toggle;
+
 public class SleepTimerTileService extends TileService {
 
     @Inject
-    SleepTimerViewModelFactory viewModelFactory;
+    SleepTimerViewModel viewModel;
 
-    @Inject
-    InputMethodManager inputMethodManager;
-
-    private SleepTimerViewModel viewModel;
     private String tileLabel;
 
     private final PublishSubject<Boolean> clickSubject = PublishSubject.create();
@@ -33,58 +27,59 @@ public class SleepTimerTileService extends TileService {
     @Override
     public void onCreate() {
         super.onCreate();
-        ((App) this.getApplicationContext()).getAppComponent().inject(this);
-
-        this.viewModel = this.viewModelFactory.create(SleepTimerViewModel.class);
-        this.tileLabel = this.getString(R.string.sleep_timer);
+        ((App) getApplicationContext())
+                .getAppComponent()
+                .inject(this);
+        tileLabel = getString(R.string.sleep_timer);
     }
 
     @Override
     public void onClick() {
         super.onClick();
-        this.clickSubject.onNext(true);
+        clickSubject.onNext(true);
     }
 
     @Override
     public void onStartListening() {
         super.onStartListening();
 
-        this.disposable.add(this.viewModel.getSleepTimer()
+        disposable.add(viewModel.getSleepTimer()
                 .subscribe(sleepTimer -> {
                     final int state;
-                    if (sleepTimer.getState() == SleepTimerState.RUNNING) {
+                    if (sleepTimer.isEnabled()) {
                         state = Tile.STATE_ACTIVE;
                     } else {
                         state = Tile.STATE_INACTIVE;
                     }
 
-                    final Tile tile = this.getQsTile();
+                    final Tile tile = getQsTile();
                     tile.setState(state);
                     tile.updateTile();
                 }));
 
-        this.disposable.add(this.viewModel.getTimeLeft()
+        disposable.add(viewModel.getTimeLeft()
                 .subscribe(timeLeft -> {
-                    final Tile tile = this.getQsTile();
-                    TileServiceCompat.setSubtitle(tile, this.tileLabel, timeLeft);
+                    final Tile tile = getQsTile();
+                    TileServiceCompat.setSubtitle(tile, tileLabel, timeLeft);
                     tile.updateTile();
                 }));
 
-        final Observable<SleepTimer> clickObservable = this.clickSubject.withLatestFrom(this.viewModel.getSleepTimer(), (click, sleepTimer) -> sleepTimer);
+        final Observable<SleepTimer> clickObservable = clickSubject
+                .withLatestFrom(viewModel.getSleepTimer(), (click, sleepTimer) -> sleepTimer);
 
-        this.disposable.add(clickObservable
-                .subscribe(sleepTimer -> this.viewModel.onClick()));
+        disposable.add(clickObservable
+                .subscribe(sleepTimer -> viewModel.dispatch(toggle())));
     }
 
     @Override
     public void onStopListening() {
-        this.disposable.clear();
+        disposable.clear();
         super.onStopListening();
     }
 
     @Override
     public void onDestroy() {
-        this.disposable.dispose();
+        disposable.dispose();
         super.onDestroy();
     }
 }

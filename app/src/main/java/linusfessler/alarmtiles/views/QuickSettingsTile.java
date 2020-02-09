@@ -31,32 +31,34 @@ public class QuickSettingsTile extends ConstraintLayout {
     private MaterialTextView subtitleView;
     private ImageView iconView;
 
+    private boolean enabled;
+
     public QuickSettingsTile(@NonNull final Context context) {
         super(context);
-        this.init(context, null);
+        init(context, null);
     }
 
     public QuickSettingsTile(@NonNull final Context context, @Nullable final AttributeSet attrs) {
         super(context, attrs);
-        this.init(context, attrs);
+        init(context, attrs);
     }
 
     public QuickSettingsTile(@NonNull final Context context, @Nullable final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.init(context, attrs);
+        init(context, attrs);
     }
 
     private void init(@NonNull final Context context, @Nullable final AttributeSet attrs) {
-        this.inflateView(context);
-        this.initSelf(context);
+        inflateView(context);
+        initSelf(context);
         if (attrs != null) {
-            this.initWithAttrs(context, attrs);
+            initWithAttrs(context, attrs);
         }
     }
 
     private void initSelf(@NonNull final Context context) {
-        this.setClickable(true);
-        this.setFocusable(true);
+        setClickable(true);
+        setFocusable(true);
 
         final ArgbEvaluator argbEvaluator = new ArgbEvaluator();
         final Resources resources = context.getResources();
@@ -68,72 +70,83 @@ public class QuickSettingsTile extends ConstraintLayout {
         final int quickSettingsBackgroundEnabledColor = resources.getColor(R.color.quickSettingsBackgroundEnabled, theme);
         final int quickSettingsBackgroundDisabledColor = resources.getColor(R.color.quickSettingsBackgroundDisabled, theme);
 
-        this.iconColorEnablingAnimator = ValueAnimator.ofObject(argbEvaluator, quickSettingsIconDisabledColor, quickSettingsIconEnabledColor);
-        this.iconColorDisablingAnimator = ValueAnimator.ofObject(argbEvaluator, quickSettingsIconEnabledColor, quickSettingsIconDisabledColor);
+        iconColorEnablingAnimator = ValueAnimator.ofObject(argbEvaluator, quickSettingsIconDisabledColor, quickSettingsIconEnabledColor);
+        iconColorDisablingAnimator = ValueAnimator.ofObject(argbEvaluator, quickSettingsIconEnabledColor, quickSettingsIconDisabledColor);
 
         final ValueAnimator.AnimatorUpdateListener iconColorAnimatorUpdateListener = animator -> {
             final int iconColor = (int) animator.getAnimatedValue();
-            this.iconView.setImageTintList(ColorStateList.valueOf(iconColor));
+            iconView.setImageTintList(ColorStateList.valueOf(iconColor));
         };
 
-        this.iconColorEnablingAnimator.addUpdateListener(iconColorAnimatorUpdateListener);
-        this.iconColorDisablingAnimator.addUpdateListener(iconColorAnimatorUpdateListener);
+        iconColorEnablingAnimator.addUpdateListener(iconColorAnimatorUpdateListener);
+        iconColorDisablingAnimator.addUpdateListener(iconColorAnimatorUpdateListener);
 
-        this.backgroundColorEnablingAnimator = ValueAnimator.ofObject(argbEvaluator, quickSettingsBackgroundDisabledColor, quickSettingsBackgroundEnabledColor);
-        this.backgroundColorDisablingAnimator = ValueAnimator.ofObject(argbEvaluator, quickSettingsBackgroundEnabledColor, quickSettingsBackgroundDisabledColor);
+        backgroundColorEnablingAnimator = ValueAnimator.ofObject(argbEvaluator, quickSettingsBackgroundDisabledColor, quickSettingsBackgroundEnabledColor);
+        backgroundColorDisablingAnimator = ValueAnimator.ofObject(argbEvaluator, quickSettingsBackgroundEnabledColor, quickSettingsBackgroundDisabledColor);
 
         final ValueAnimator.AnimatorUpdateListener backgroundColorAnimatorUpdateListener = animator -> {
             final int backgroundColor = (int) animator.getAnimatedValue();
-            this.iconView.setBackgroundTintList(ColorStateList.valueOf(backgroundColor));
+            iconView.setBackgroundTintList(ColorStateList.valueOf(backgroundColor));
         };
 
-        this.backgroundColorEnablingAnimator.addUpdateListener(backgroundColorAnimatorUpdateListener);
-        this.backgroundColorDisablingAnimator.addUpdateListener(backgroundColorAnimatorUpdateListener);
+        backgroundColorEnablingAnimator.addUpdateListener(backgroundColorAnimatorUpdateListener);
+        backgroundColorDisablingAnimator.addUpdateListener(backgroundColorAnimatorUpdateListener);
     }
 
     private void inflateView(@NonNull final Context context) {
         final LayoutInflater inflater = LayoutInflater.from(context);
         final View root = inflater.inflate(R.layout.quick_settings_tile, this);
 
-        this.labelView = root.findViewById(R.id.label);
-        this.subtitleView = root.findViewById(R.id.subtitle);
-        this.iconView = root.findViewById(R.id.icon);
+        labelView = root.findViewById(R.id.label);
+        subtitleView = root.findViewById(R.id.subtitle);
+        iconView = root.findViewById(R.id.icon);
     }
 
     private void initWithAttrs(@NonNull final Context context, @Nullable final AttributeSet attrs) {
         final TypedArray styledAttributes = context.obtainStyledAttributes(attrs, R.styleable.QuickSettingsTile);
-        final boolean enabled = styledAttributes.getBoolean(R.styleable.QuickSettingsTile_enabled, false);
-        final String label = styledAttributes.getString(R.styleable.QuickSettingsTile_label);
-        final String subtitle = styledAttributes.getString(R.styleable.QuickSettingsTile_subtitle);
-        final Drawable icon = styledAttributes.getDrawable(R.styleable.QuickSettingsTile_icon);
+        final boolean initialEnabled = styledAttributes.getBoolean(R.styleable.QuickSettingsTile_enabled, false);
+        final String initialLabel = styledAttributes.getString(R.styleable.QuickSettingsTile_label);
+        final String initialSubtitle = styledAttributes.getString(R.styleable.QuickSettingsTile_subtitle);
+        final Drawable initialIcon = styledAttributes.getDrawable(R.styleable.QuickSettingsTile_icon);
         styledAttributes.recycle();
 
-        this.setEnabled(enabled);
-        this.setLabel(label);
-        this.setSubtitle(subtitle);
-        this.setIcon(icon);
+        setEnabled(initialEnabled);
+        setLabel(initialLabel);
+        setSubtitle(initialSubtitle);
+        setIcon(initialIcon);
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
     }
 
     @Override
     public void setEnabled(final boolean enabled) {
-        if (enabled) {
-            this.iconColorEnablingAnimator.start();
-            this.backgroundColorEnablingAnimator.start();
-        } else {
-            this.iconColorDisablingAnimator.start();
-            this.backgroundColorDisablingAnimator.start();
+        if (enabled == isEnabled()) {
+            return;
         }
+
+        if (enabled) {
+            iconColorEnablingAnimator.start();
+            backgroundColorEnablingAnimator.start();
+        } else {
+            iconColorDisablingAnimator.start();
+            backgroundColorDisablingAnimator.start();
+        }
+
+        this.enabled = enabled;
     }
 
     public void setLabel(final String label) {
-        this.labelView.setText(label);
+        labelView.setText(label);
     }
 
     public void setSubtitle(final String subtitle) {
-        this.subtitleView.setText(subtitle);
+        subtitleView.setText(subtitle);
     }
 
     public void setIcon(final Drawable icon) {
-        this.iconView.setImageDrawable(icon);
+        iconView.setImageDrawable(icon);
     }
 }

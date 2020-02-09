@@ -1,10 +1,12 @@
-package linusfessler.alarmtiles;
+package linusfessler.alarmtiles.shared;
 
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
+@Singleton
 public class TimeFormatter {
 
     @Inject
@@ -19,25 +21,25 @@ public class TimeFormatter {
         millisLeft -= TimeUnit.HOURS.toMillis(hours);
 
         if (precision == TimeUnit.HOURS) {
-            return this.formatHours(hours);
+            return formatHours(hours);
         }
 
         final long minutes = TimeUnit.MILLISECONDS.toMinutes(millisLeft);
         millisLeft -= TimeUnit.MINUTES.toMillis(minutes);
 
         if (precision == TimeUnit.MINUTES) {
-            return this.format(hours, minutes);
+            return format(hours, minutes);
         }
 
         final long seconds = TimeUnit.MILLISECONDS.toSeconds(millisLeft);
         millisLeft -= TimeUnit.SECONDS.toMillis(seconds);
 
         if (precision == TimeUnit.SECONDS) {
-            return this.format(hours, minutes, seconds);
+            return format(hours, minutes, seconds);
         }
 
         if (precision == TimeUnit.MILLISECONDS) {
-            return this.format(hours, minutes, seconds, millisLeft);
+            return format(hours, minutes, seconds, millisLeft);
         }
 
         throw new IllegalArgumentException(String.format("Precision %s is not supported.", precision));
@@ -45,38 +47,38 @@ public class TimeFormatter {
 
     public String format(final long hours, final long minutes, final long seconds, final long millis) {
         if (hours == 0 && minutes == 0 && seconds == 0) {
-            return this.formatMillis(millis);
+            return formatMillis(millis);
         }
 
         if (hours == 0 && minutes == 0) {
-            return this.formatSeconds(seconds) + " " + this.formatMillis(millis);
+            return formatSeconds(seconds) + " " + formatMillis(millis);
         }
 
         if (hours == 0) {
-            return this.formatMinutes(minutes) + " " + this.formatSeconds(seconds) + " " + this.formatMillis(millis);
+            return formatMinutes(minutes) + " " + formatSeconds(seconds) + " " + formatMillis(millis);
         }
 
-        return this.formatHours(hours) + " " + this.formatMinutes(minutes) + " " + this.formatSeconds(seconds) + " " + this.formatMillis(millis);
+        return formatHours(hours) + " " + formatMinutes(minutes) + " " + formatSeconds(seconds) + " " + formatMillis(millis);
     }
 
     public String format(final long hours, final long minutes, final long seconds) {
         if (hours == 0 && minutes == 0) {
-            return this.formatSeconds(seconds);
+            return formatSeconds(seconds);
         }
 
         if (hours == 0) {
-            return this.formatMinutes(minutes) + " " + this.formatSeconds(seconds);
+            return formatMinutes(minutes) + " " + formatSeconds(seconds);
         }
 
-        return this.formatHours(hours) + " " + this.formatMinutes(minutes) + " " + this.formatSeconds(seconds);
+        return formatHours(hours) + " " + formatMinutes(minutes) + " " + formatSeconds(seconds);
     }
 
     public String format(final long hours, final long minutes) {
         if (hours == 0) {
-            return this.formatMinutes(minutes);
+            return formatMinutes(minutes);
         }
 
-        return this.formatHours(hours) + " " + this.formatMinutes(minutes);
+        return formatHours(hours) + " " + formatMinutes(minutes);
     }
 
     public String formatHours(final long hours) {

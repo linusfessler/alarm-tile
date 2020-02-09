@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import linusfessler.alarmtiles.TimeFormatter;
+import linusfessler.alarmtiles.shared.TimeFormatter;
 
 @SuppressLint("CheckResult")
 @SuppressWarnings("ResultOfMethodCallIgnored")
@@ -24,10 +24,10 @@ public class StopwatchViewModel extends ViewModel {
 
         final Observable<Stopwatch> stopwatchObservable = this.repository.getStopwatch();
 
-        this.enabledObservable = stopwatchObservable
+        enabledObservable = stopwatchObservable
                 .map(Stopwatch::isEnabled);
 
-        this.elapsedTimeObservable = stopwatchObservable.switchMap(stopwatch -> {
+        elapsedTimeObservable = stopwatchObservable.switchMap(stopwatch -> {
             if (!stopwatch.isEnabled()) {
                 if (stopwatch.getStopTimestamp() == null) {
                     return Observable.just("");
@@ -45,19 +45,19 @@ public class StopwatchViewModel extends ViewModel {
     }
 
     public Observable<Boolean> isEnabled() {
-        return this.enabledObservable.observeOn(AndroidSchedulers.mainThread());
+        return enabledObservable.observeOn(AndroidSchedulers.mainThread());
     }
 
     public Observable<String> getElapsedTime() {
-        return this.elapsedTimeObservable.observeOn(AndroidSchedulers.mainThread());
+        return elapsedTimeObservable.observeOn(AndroidSchedulers.mainThread());
     }
 
     public void onClick() {
-        this.repository.getStopwatch()
+        repository.getStopwatch()
                 .firstElement()
                 .subscribe(stopwatch -> {
                     stopwatch.toggle();
-                    this.repository.update(stopwatch);
+                    repository.update(stopwatch);
                 });
     }
 }
