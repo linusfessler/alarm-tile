@@ -19,7 +19,7 @@ public class SleepTimer {
     private final Integer originalVolume;
     private final double time;
     private final TimeUnit timeUnit;
-    private final boolean fadingVolume;
+    private final boolean decreasingVolume;
     private final boolean resettingVolume;
 
     @Ignore
@@ -36,14 +36,14 @@ public class SleepTimer {
         );
     }
 
-    public SleepTimer(final long id, final boolean enabled, final Long startTimestamp, final Integer originalVolume, final double time, final TimeUnit timeUnit, final boolean fadingVolume, final boolean resettingVolume) {
+    public SleepTimer(final long id, final boolean enabled, final Long startTimestamp, final Integer originalVolume, final double time, final TimeUnit timeUnit, final boolean decreasingVolume, final boolean resettingVolume) {
         this.id = id;
         this.enabled = enabled;
         this.startTimestamp = startTimestamp;
         this.originalVolume = originalVolume;
         this.time = time;
         this.timeUnit = timeUnit;
-        this.fadingVolume = fadingVolume;
+        this.decreasingVolume = decreasingVolume;
         this.resettingVolume = resettingVolume;
     }
 
@@ -55,7 +55,7 @@ public class SleepTimer {
                 originalVolume,
                 getTime(),
                 getTimeUnit(),
-                isFadingVolume(),
+                isDecreasingVolume(),
                 isResettingVolume()
         );
     }
@@ -68,7 +68,7 @@ public class SleepTimer {
                 getOriginalVolume(),
                 getTime(),
                 getTimeUnit(),
-                isFadingVolume(),
+                isDecreasingVolume(),
                 isResettingVolume()
         );
     }
@@ -81,7 +81,7 @@ public class SleepTimer {
                 null,
                 getTime(),
                 getTimeUnit(),
-                isFadingVolume(),
+                isDecreasingVolume(),
                 isResettingVolume()
         );
     }
@@ -94,7 +94,7 @@ public class SleepTimer {
                 getOriginalVolume(),
                 time,
                 getTimeUnit(),
-                isFadingVolume(),
+                isDecreasingVolume(),
                 isResettingVolume()
         );
     }
@@ -107,12 +107,12 @@ public class SleepTimer {
                 getOriginalVolume(),
                 getTime(),
                 timeUnit,
-                isFadingVolume(),
+                isDecreasingVolume(),
                 isResettingVolume()
         );
     }
 
-    public SleepTimer setFadingVolume(final boolean fadingVolume) {
+    public SleepTimer setDecreasingVolume(final boolean decreasingVolume) {
         return new SleepTimer(
                 getId(),
                 isEnabled(),
@@ -120,7 +120,7 @@ public class SleepTimer {
                 getOriginalVolume(),
                 getTime(),
                 getTimeUnit(),
-                fadingVolume,
+                decreasingVolume,
                 isResettingVolume()
         );
     }
@@ -133,7 +133,7 @@ public class SleepTimer {
                 getOriginalVolume(),
                 getTime(),
                 getTimeUnit(),
-                isFadingVolume(),
+                isDecreasingVolume(),
                 resettingVolume
         );
     }
@@ -157,6 +157,6 @@ public class SleepTimer {
     }
 
     public boolean shouldResetVolume() {
-        return isFadingVolume() && isResettingVolume();
+        return isDecreasingVolume() && isResettingVolume();
     }
 }

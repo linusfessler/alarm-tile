@@ -24,7 +24,7 @@ interface SleepTimerEvent_dataenum {
 
     dataenum_case SetTimeUnit(TimeUnit timeUnit);
 
-    dataenum_case SetFadingVolume(boolean fadingVolume);
+    dataenum_case SetDecreasingVolume(boolean decreasingVolume);
 
     dataenum_case SetResettingVolume(boolean resettingVolume);
 

@@ -62,7 +62,7 @@ public class SleepTimerEventHandler implements Update<SleepTimer, SleepTimerEven
                             scheduleFinish(startedSleepTimer.getMillisLeft())));
                 },
 
-                volumeChanged -> sleepTimer.isEnabled() && sleepTimer.isFadingVolume()
+                volumeChanged -> sleepTimer.isEnabled() && sleepTimer.isDecreasingVolume()
                         ? dispatch(effects(startDecreasingVolume(sleepTimer.getMillisLeft())))
                         : noChange(),
 
@@ -94,14 +94,14 @@ public class SleepTimerEventHandler implements Update<SleepTimer, SleepTimerEven
                     }
                 },
 
-                setFadingVolume -> {
-                    final SleepTimer updatedSleepTimer = sleepTimer.setFadingVolume(setFadingVolume.fadingVolume());
+                setDecreasingVolume -> {
+                    final SleepTimer updatedSleepTimer = sleepTimer.setDecreasingVolume(setDecreasingVolume.decreasingVolume());
 
                     final Set<SleepTimerEffect> effects = new LinkedHashSet<>();
                     effects.add(saveToDatabase(updatedSleepTimer));
 
                     if (updatedSleepTimer.isEnabled()) {
-                        if (updatedSleepTimer.isFadingVolume()) {
+                        if (updatedSleepTimer.isDecreasingVolume()) {
                             effects.add(startDecreasingVolume(updatedSleepTimer.getMillisLeft()));
                         } else {
                             effects.add(stopDecreasingVolume());
@@ -144,7 +144,7 @@ public class SleepTimerEventHandler implements Update<SleepTimer, SleepTimerEven
                     effects.add(stopMediaPlayback());
                     if (stoppedSleepTimer.shouldResetVolume()) {
                         effects.add(resetVolume(finishWith.sleepTimer().getOriginalVolume()));
-                    } else if (stoppedSleepTimer.isFadingVolume()) {
+                    } else if (stoppedSleepTimer.isDecreasingVolume()) {
                         effects.add(setVolumeToZero());
                     }
 

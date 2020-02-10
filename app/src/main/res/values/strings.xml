@@ -190,7 +190,7 @@
     <string name="sleep_timer_running_notification_action_cancel">Cancel</string>
     <string name="sleep_timer_config_duration">Duration</string>
     <string name="sleep_timer_config_resetting_volume">Reset volume when timer finished</string>
-    <string name="sleep_timer_config_fading">Gradually decrease volume during timer</string>
+    <string name="sleep_timer_config_decrease_volume">Gradually decrease volume</string>
     <string name="sleep_timer_config_description">The sleep timer will stop any media playback after the set duration.</string>
     <string name="time_input_hint">Time</string>
 

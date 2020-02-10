@@ -62,10 +62,10 @@
                     android:layout_height="@dimen/fragment_padding" />
 
                 <com.google.android.material.checkbox.MaterialCheckBox
-                    android:id="@+id/fading_volume"
+                    android:id="@+id/decreasing_volume"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/sleep_timer_config_fading" />
+                    android:text="@string/sleep_timer_config_decrease_volume" />
 
                 <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/resetting_volume"

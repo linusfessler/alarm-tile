@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.transition.TransitionInflater;
 
 import javax.inject.Inject;
 
@@ -17,7 +18,7 @@ import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.core.App;
 import linusfessler.alarmtiles.databinding.FragmentSleepTimerConfigBinding;
 
-import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.setFadingVolume;
+import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.setDecreasingVolume;
 import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.setResettingVolume;
 import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.setTime;
 import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.setTimeUnit;
@@ -39,6 +40,10 @@ public class SleepTimerConfigFragment extends Fragment {
         ((App) requireActivity().getApplicationContext())
                 .getAppComponent()
                 .inject(this);
+
+        setSharedElementEnterTransition(TransitionInflater
+                .from(requireContext())
+                .inflateTransition(android.R.transition.move));
     }
 
     @Nullable
@@ -53,7 +58,7 @@ public class SleepTimerConfigFragment extends Fragment {
                 .subscribe(sleepTimer -> {
                     binding.duration.setTime(sleepTimer.getTime());
                     binding.duration.setTimeUnit(sleepTimer.getTimeUnit());
-                    binding.fadingVolume.setChecked(sleepTimer.isFadingVolume());
+                    binding.decreasingVolume.setChecked(sleepTimer.isDecreasingVolume());
                     binding.resettingVolume.setChecked(sleepTimer.isResettingVolume());
 
                     disposable.add(binding.duration.getTimeObservable()
@@ -64,8 +69,8 @@ public class SleepTimerConfigFragment extends Fragment {
                             .skip(1) // Skip first value (which is the one we just set)
                             .subscribe(timeUnit -> viewModel.dispatch(setTimeUnit(timeUnit))));
 
-                    binding.fadingVolume.setOnCheckedChangeListener((buttonView, isChecked) ->
-                            viewModel.dispatch(setFadingVolume(isChecked)));
+                    binding.decreasingVolume.setOnCheckedChangeListener((buttonView, isChecked) ->
+                            viewModel.dispatch(setDecreasingVolume(isChecked)));
 
                     binding.resettingVolume.setOnCheckedChangeListener((buttonView, isChecked) ->
                             viewModel.dispatch(setResettingVolume(isChecked)));
@@ -76,7 +81,7 @@ public class SleepTimerConfigFragment extends Fragment {
         disposable.add(viewModel.getSleepTimer()
                 .subscribe(sleepTimer -> {
                     binding.sleepTimer.setEnabled(sleepTimer.isEnabled());
-                    binding.resettingVolume.setEnabled(sleepTimer.isFadingVolume());
+                    binding.resettingVolume.setEnabled(sleepTimer.isDecreasingVolume());
                 }));
 
         disposable.add(viewModel.getTimeLeft()
@@ -89,7 +94,7 @@ public class SleepTimerConfigFragment extends Fragment {
     public void onDestroyView() {
         disposable.clear();
         binding.sleepTimer.setOnClickListener(null);
-        binding.fadingVolume.setOnCheckedChangeListener(null);
+        binding.decreasingVolume.setOnCheckedChangeListener(null);
         binding.resettingVolume.setOnCheckedChangeListener(null);
         super.onDestroyView();
     }
