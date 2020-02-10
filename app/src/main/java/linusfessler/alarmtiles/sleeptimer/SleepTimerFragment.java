@@ -60,7 +60,7 @@ public class SleepTimerFragment extends Fragment {
 
             final NavDirections directions = MainFragmentDirections.actionMainFragmentToSleepTimerConfigFragment();
             final FragmentNavigator.Extras navigatorExtras = new FragmentNavigator.Extras.Builder()
-                    .addSharedElement(binding.sleepTimer, binding.sleepTimer.getTransitionName())
+                    .addSharedElement(binding.sleepTimer, "sleep_timer_transition_end")
                     .build();
             navController.navigate(directions, navigatorExtras);
 

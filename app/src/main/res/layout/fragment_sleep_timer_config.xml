@@ -43,6 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:transitionName="sleep_timer_transition_end"
                     app:enabled="false"
                     app:icon="@drawable/ic_music_off_24px"
                     app:label="@string/sleep_timer" />
