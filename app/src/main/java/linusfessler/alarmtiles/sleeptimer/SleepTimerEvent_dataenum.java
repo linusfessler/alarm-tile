@@ -26,8 +26,6 @@ interface SleepTimerEvent_dataenum {
 
     dataenum_case SetDecreasingVolume(boolean decreasingVolume);
 
-    dataenum_case SetResettingVolume(boolean resettingVolume);
-
     dataenum_case Cancel();
 
     dataenum_case Finish();

@@ -80,7 +80,6 @@
     <string name="sleep_timer_config_description">Der Sleeptimer stoppt nach der eingestellten Dauer jegliche Medienwiedergabe.</string>
     <string name="sleep_timer_config_duration">Dauer</string>
     <string name="sleep_timer_config_decrease_volume">Allmählich Lautstärke verringern</string>
-    <string name="sleep_timer_config_resetting_volume">Lautstärke am Ende zurücksetzen</string>
     <string name="time_input_hint">Zeit</string>
 
     <string-array name="time_input_time_units">

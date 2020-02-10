@@ -16,11 +16,9 @@ public class SleepTimer {
     private final long id;
     private final boolean enabled;
     private final Long startTimestamp;
-    private final Integer originalVolume;
     private final double time;
     private final TimeUnit timeUnit;
     private final boolean decreasingVolume;
-    private final boolean resettingVolume;
 
     @Ignore
     public static SleepTimer createDefault() {
@@ -28,35 +26,29 @@ public class SleepTimer {
                 0,
                 false,
                 null,
-                null,
                 30,
                 TimeUnit.MINUTES,
-                true,
-                false
+                true
         );
     }
 
-    public SleepTimer(final long id, final boolean enabled, final Long startTimestamp, final Integer originalVolume, final double time, final TimeUnit timeUnit, final boolean decreasingVolume, final boolean resettingVolume) {
+    public SleepTimer(final long id, final boolean enabled, final Long startTimestamp, final double time, final TimeUnit timeUnit, final boolean decreasingVolume) {
         this.id = id;
         this.enabled = enabled;
         this.startTimestamp = startTimestamp;
-        this.originalVolume = originalVolume;
         this.time = time;
         this.timeUnit = timeUnit;
         this.decreasingVolume = decreasingVolume;
-        this.resettingVolume = resettingVolume;
     }
 
-    public SleepTimer prepareForStart(final long startTimestamp, final int originalVolume) {
+    public SleepTimer prepareForStart(final long startTimestamp) {
         return new SleepTimer(
                 getId(),
                 isEnabled(),
                 startTimestamp,
-                originalVolume,
                 getTime(),
                 getTimeUnit(),
-                isDecreasingVolume(),
-                isResettingVolume()
+                isDecreasingVolume()
         );
     }
 
@@ -65,11 +57,9 @@ public class SleepTimer {
                 getId(),
                 true,
                 getStartTimestamp(),
-                getOriginalVolume(),
                 getTime(),
                 getTimeUnit(),
-                isDecreasingVolume(),
-                isResettingVolume()
+                isDecreasingVolume()
         );
     }
 
@@ -78,11 +68,9 @@ public class SleepTimer {
                 getId(),
                 false,
                 null,
-                null,
                 getTime(),
                 getTimeUnit(),
-                isDecreasingVolume(),
-                isResettingVolume()
+                isDecreasingVolume()
         );
     }
 
@@ -91,11 +79,9 @@ public class SleepTimer {
                 getId(),
                 isEnabled(),
                 getStartTimestamp(),
-                getOriginalVolume(),
                 time,
                 getTimeUnit(),
-                isDecreasingVolume(),
-                isResettingVolume()
+                isDecreasingVolume()
         );
     }
 
@@ -104,11 +90,9 @@ public class SleepTimer {
                 getId(),
                 isEnabled(),
                 getStartTimestamp(),
-                getOriginalVolume(),
                 getTime(),
                 timeUnit,
-                isDecreasingVolume(),
-                isResettingVolume()
+                isDecreasingVolume()
         );
     }
 
@@ -117,24 +101,9 @@ public class SleepTimer {
                 getId(),
                 isEnabled(),
                 getStartTimestamp(),
-                getOriginalVolume(),
                 getTime(),
                 getTimeUnit(),
-                decreasingVolume,
-                isResettingVolume()
-        );
-    }
-
-    public SleepTimer setResettingVolume(final boolean resettingVolume) {
-        return new SleepTimer(
-                getId(),
-                isEnabled(),
-                getStartTimestamp(),
-                getOriginalVolume(),
-                getTime(),
-                getTimeUnit(),
-                isDecreasingVolume(),
-                resettingVolume
+                decreasingVolume
         );
     }
 
@@ -154,9 +123,5 @@ public class SleepTimer {
     public long getMillisLeft() {
         final long millisElapsed = System.currentTimeMillis() - getStartTimestamp();
         return getDurationMillis() - millisElapsed;
-    }
-
-    public boolean shouldResetVolume() {
-        return isDecreasingVolume() && isResettingVolume();
     }
 }

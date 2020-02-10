@@ -68,7 +68,7 @@ public class SleepTimerEffectHandler implements Connectable<SleepTimerEffect, Sl
                         cancel -> eventConsumer.accept(cancel()),
 
                         startWith -> {
-                            final SleepTimer preparedSleepTimer = startWith.sleepTimer().prepareForStart(System.currentTimeMillis(), mediaVolumeManager.getVolume());
+                            final SleepTimer preparedSleepTimer = startWith.sleepTimer().prepareForStart(System.currentTimeMillis());
                             eventConsumer.accept(startWith(preparedSleepTimer));
                         },
 
@@ -98,8 +98,6 @@ public class SleepTimerEffectHandler implements Connectable<SleepTimerEffect, Sl
                         unscheduleFinish -> finishDisposable.clear(),
 
                         setVolumeToZero -> mediaVolumeManager.setVolume(0),
-
-                        resetVolume -> mediaVolumeManager.setVolume(resetVolume.originalVolume()),
 
                         stopMediaPlay -> mediaPlaybackManager.stopMediaPlayback(),
 

@@ -28,8 +28,6 @@ interface SleepTimerEffect_dataenum {
 
     dataenum_case SetVolumeToZero();
 
-    dataenum_case ResetVolume(int originalVolume);
-
     dataenum_case StopMediaPlayback();
 
     dataenum_case ShowNotification();

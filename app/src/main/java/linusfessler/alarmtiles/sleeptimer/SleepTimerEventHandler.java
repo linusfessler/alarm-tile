@@ -19,7 +19,6 @@ import static linusfessler.alarmtiles.sleeptimer.SleepTimerEffect.cancel;
 import static linusfessler.alarmtiles.sleeptimer.SleepTimerEffect.finishWith;
 import static linusfessler.alarmtiles.sleeptimer.SleepTimerEffect.hideNotification;
 import static linusfessler.alarmtiles.sleeptimer.SleepTimerEffect.loadFromDatabase;
-import static linusfessler.alarmtiles.sleeptimer.SleepTimerEffect.resetVolume;
 import static linusfessler.alarmtiles.sleeptimer.SleepTimerEffect.saveToDatabase;
 import static linusfessler.alarmtiles.sleeptimer.SleepTimerEffect.scheduleFinish;
 import static linusfessler.alarmtiles.sleeptimer.SleepTimerEffect.setVolumeToZero;
@@ -111,11 +110,6 @@ public class SleepTimerEventHandler implements Update<SleepTimer, SleepTimerEven
                     return next(updatedSleepTimer, effects);
                 },
 
-                setResettingVolume -> {
-                    final SleepTimer updatedSleepTimer = sleepTimer.setResettingVolume(setResettingVolume.resettingVolume());
-                    return next(updatedSleepTimer, effects(saveToDatabase(updatedSleepTimer)));
-                },
-
                 cancel -> {
                     final SleepTimer stoppedSleepTimer = sleepTimer.stop();
                     final Set<SleepTimerEffect> effects = new LinkedHashSet<>();
@@ -124,9 +118,6 @@ public class SleepTimerEventHandler implements Update<SleepTimer, SleepTimerEven
                     effects.add(hideNotification());
                     effects.add(stopDecreasingVolume());
                     effects.add(unscheduleFinish());
-                    if (stoppedSleepTimer.shouldResetVolume()) {
-                        effects.add(resetVolume(sleepTimer.getOriginalVolume()));
-                    }
 
                     return next(stoppedSleepTimer, effects);
                 },
@@ -142,9 +133,7 @@ public class SleepTimerEventHandler implements Update<SleepTimer, SleepTimerEven
                     effects.add(stopDecreasingVolume());
                     effects.add(unscheduleFinish());
                     effects.add(stopMediaPlayback());
-                    if (stoppedSleepTimer.shouldResetVolume()) {
-                        effects.add(resetVolume(finishWith.sleepTimer().getOriginalVolume()));
-                    } else if (stoppedSleepTimer.isDecreasingVolume()) {
+                    if (stoppedSleepTimer.isDecreasingVolume()) {
                         effects.add(setVolumeToZero());
                     }
 

@@ -19,7 +19,6 @@ import linusfessler.alarmtiles.core.App;
 import linusfessler.alarmtiles.databinding.FragmentSleepTimerConfigBinding;
 
 import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.setDecreasingVolume;
-import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.setResettingVolume;
 import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.setTime;
 import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.setTimeUnit;
 import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.toggle;
@@ -59,7 +58,6 @@ public class SleepTimerConfigFragment extends Fragment {
                     binding.duration.setTime(sleepTimer.getTime());
                     binding.duration.setTimeUnit(sleepTimer.getTimeUnit());
                     binding.decreasingVolume.setChecked(sleepTimer.isDecreasingVolume());
-                    binding.resettingVolume.setChecked(sleepTimer.isResettingVolume());
 
                     disposable.add(binding.duration.getTimeObservable()
                             .skip(1) // Skip first value (which is the one we just set)
@@ -71,18 +69,12 @@ public class SleepTimerConfigFragment extends Fragment {
 
                     binding.decreasingVolume.setOnCheckedChangeListener((buttonView, isChecked) ->
                             viewModel.dispatch(setDecreasingVolume(isChecked)));
-
-                    binding.resettingVolume.setOnCheckedChangeListener((buttonView, isChecked) ->
-                            viewModel.dispatch(setResettingVolume(isChecked)));
                 }));
 
         binding.sleepTimer.setOnClickListener(view -> viewModel.dispatch(toggle()));
 
         disposable.add(viewModel.getSleepTimer()
-                .subscribe(sleepTimer -> {
-                    binding.sleepTimer.setEnabled(sleepTimer.isEnabled());
-                    binding.resettingVolume.setEnabled(sleepTimer.isDecreasingVolume());
-                }));
+                .subscribe(sleepTimer -> binding.sleepTimer.setEnabled(sleepTimer.isEnabled())));
 
         disposable.add(viewModel.getTimeLeft()
                 .subscribe(binding.sleepTimer::setSubtitle));
@@ -95,7 +87,6 @@ public class SleepTimerConfigFragment extends Fragment {
         disposable.clear();
         binding.sleepTimer.setOnClickListener(null);
         binding.decreasingVolume.setOnCheckedChangeListener(null);
-        binding.resettingVolume.setOnCheckedChangeListener(null);
         super.onDestroyView();
     }
 
