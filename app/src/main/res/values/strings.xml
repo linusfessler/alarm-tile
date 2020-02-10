@@ -180,7 +180,7 @@
     <string name="accessibility_volume_down">Volume down</string>
     <string name="accessibility_volume_up">Volume up</string>
     <string name="accessibility_alarm_tile_icon">Alarm tile icon</string>
-    <string name="accessibility_alarm_tile_background">Alarm tile background</string>
+    <string name="accessibility_alarm_tile_ripple">Alarm tile ripple</string>
     <string name="sound_settings">Sound settings</string>
     <string name="main_title_other">Other</string>
     <string name="sleep_timer_running_notification_content_title">Sleep timer</string>

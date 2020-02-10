@@ -2,7 +2,6 @@
     <dimen name="fragment_padding">16dp</dimen>
     <dimen name="settings_height">48dp</dimen>
     <dimen name="settings_margin_start">32dp</dimen>
-    <dimen name="alarm_tile_height">72dp</dimen>
     <dimen name="alarm_tile_size">40dp</dimen>
     <dimen name="alarm_tile_padding">8dp</dimen>
     <dimen name="icon_size">24dp</dimen>

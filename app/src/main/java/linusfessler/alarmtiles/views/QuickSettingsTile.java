@@ -9,18 +9,18 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.vectordrawable.graphics.drawable.ArgbEvaluator;
 
 import com.google.android.material.textview.MaterialTextView;
 
 import linusfessler.alarmtiles.R;
 
-public class QuickSettingsTile extends ConstraintLayout {
+public class QuickSettingsTile extends FrameLayout {
 
     private ValueAnimator iconColorEnablingAnimator;
     private ValueAnimator iconColorDisablingAnimator;
@@ -57,9 +57,6 @@ public class QuickSettingsTile extends ConstraintLayout {
     }
 
     private void initSelf(@NonNull final Context context) {
-        setClickable(true);
-        setFocusable(true);
-
         final ArgbEvaluator argbEvaluator = new ArgbEvaluator();
         final Resources resources = context.getResources();
         final Resources.Theme theme = context.getTheme();

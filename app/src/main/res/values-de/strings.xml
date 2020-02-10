@@ -65,7 +65,7 @@
     <string name="main_title_alarm">Wecker</string>
     <string name="settings_title_sleep_timer">Einschlaf-Timer</string>
     <string name="main_title_snooze">Schlummern</string>
-    <string name="accessibility_alarm_tile_background">Alarm Tile Hintergrund</string>
+    <string name="accessibility_alarm_tile_ripple">Alarm Tile Effekt</string>
     <string name="accessibility_alarm_tile_icon">Alarm Tile Icon</string>
     <string name="accessibility_volume_down">Leiser</string>
     <string name="accessibility_volume_up">Lauter</string>

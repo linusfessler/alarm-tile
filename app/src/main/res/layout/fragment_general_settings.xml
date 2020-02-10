@@ -23,7 +23,7 @@
                 android:layout_marginTop="12.5dp"
                 android:padding="@dimen/alarm_tile_padding"
                 android:tint="@color/colorOnPrimary"
-                android:background="@drawable/bg_round_ripple"
+                android:background="@drawable/circle"
                 tools:src="@drawable/ic_alarm_24px" />
 
             <Space

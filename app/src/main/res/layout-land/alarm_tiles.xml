@@ -3,58 +3,33 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <GridLayout
-        android:orientation="horizontal"
+    <com.google.android.flexbox.FlexboxLayout
         android:layout_width="560dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:columnCount="4"
-        android:rowCount="1">
+        app:flexDirection="row"
+        app:flexWrap="wrap"
+        app:justifyContent="space_between">
 
-        <linusfessler.alarmtiles.views.QuickSettingsTile
-            android:id="@+id/sleep_timer"
+        <FrameLayout
+            android:id="@+id/sleep_timer_fragment_container"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_columnWeight="1"
-            android:layout_marginBottom="24dp"
-            app:enabled="false"
-            app:icon="@drawable/ic_music_off_24px"
-            app:label="@string/sleep_timer" />
+            android:layout_height="wrap_content" />
 
-        <linusfessler.alarmtiles.views.QuickSettingsTile
-            android:id="@+id/alarm"
+        <FrameLayout
+            android:id="@+id/alarm_fragment_container"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_columnWeight="1"
-            android:layout_marginBottom="24dp"
-            app:enabled="false"
-            app:icon="@drawable/ic_alarm_24px"
-            app:label="@string/alarm" />
+            android:layout_height="wrap_content" />
 
-        <linusfessler.alarmtiles.views.QuickSettingsTile
-            android:id="@+id/timer"
+        <FrameLayout
+            android:id="@+id/timer_fragment_container"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_columnWeight="1"
-            android:layout_marginBottom="24dp"
-            app:enabled="false"
-            app:icon="@drawable/ic_hourglass_empty_24px"
-            app:label="@string/timer" />
+            android:layout_height="wrap_content" />
 
-        <linusfessler.alarmtiles.views.QuickSettingsTile
-            android:id="@+id/stopwatch"
+        <FrameLayout
+            android:id="@+id/stopwatch_fragment_container"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_columnWeight="1"
-            android:layout_marginBottom="24dp"
-            app:enabled="false"
-            app:icon="@drawable/ic_timer_24px"
-            app:label="@string/stopwatch" />
+            android:layout_height="wrap_content" />
 
-    </GridLayout>
+    </com.google.android.flexbox.FlexboxLayout>
 
 </layout>
