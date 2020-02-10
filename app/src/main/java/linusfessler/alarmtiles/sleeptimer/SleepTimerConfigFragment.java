@@ -58,7 +58,6 @@ public class SleepTimerConfigFragment extends Fragment {
 
                     disposable.add(binding.duration.getTimeObservable()
                             .skip(1) // Skip first value (which is the one we just set)
-                            .filter(time -> time > 0)
                             .subscribe(time -> viewModel.dispatch(setTime(time))));
 
                     disposable.add(binding.duration.getTimeUnitObservable()
