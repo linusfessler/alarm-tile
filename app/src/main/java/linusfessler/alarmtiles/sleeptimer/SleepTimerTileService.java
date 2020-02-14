@@ -12,8 +12,6 @@ import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.core.App;
 import linusfessler.alarmtiles.shared.TileServiceCompat;
 
-import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.toggle;
-
 public class SleepTimerTileService extends TileService {
 
     @Inject
@@ -68,7 +66,7 @@ public class SleepTimerTileService extends TileService {
                 .withLatestFrom(viewModel.getSleepTimer(), (click, sleepTimer) -> sleepTimer);
 
         disposable.add(clickObservable
-                .subscribe(sleepTimer -> viewModel.dispatch(toggle())));
+                .subscribe(sleepTimer -> viewModel.dispatch(new SleepTimerEvent.Toggle())));
     }
 
     @Override

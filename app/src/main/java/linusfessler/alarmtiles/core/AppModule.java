@@ -31,8 +31,6 @@ import linusfessler.alarmtiles.sleeptimer.SleepTimerEffectHandler;
 import linusfessler.alarmtiles.sleeptimer.SleepTimerEvent;
 import linusfessler.alarmtiles.sleeptimer.SleepTimerEventHandler;
 
-import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.load;
-
 @Module
 public class AppModule {
 
@@ -61,11 +59,11 @@ public class AppModule {
     MobiusLoop<SleepTimer, SleepTimerEvent, SleepTimerEffect> sleepTimerLoop(final SleepTimerEventHandler sleepTimerEventHandler, final SleepTimerEffectHandler sleepTimerEffectHandler, final Observable<Integer> volumeObservable) {
         final MobiusLoop<SleepTimer, SleepTimerEvent, SleepTimerEffect> sleepTimerLoop = Mobius.loop(sleepTimerEventHandler, sleepTimerEffectHandler)
                 .eventSource(RxEventSources.fromObservables(volumeObservable
-                        .map(SleepTimerEvent::volumeChanged)))
+                        .map(SleepTimerEvent.VolumeChanged::new)))
                 .logger(AndroidLogger.tag(application.getString(R.string.app_name)))
-                .startFrom(SleepTimer.createDefault());
+                .startFrom(SleepTimer.Companion.createDefault());
 
-        sleepTimerLoop.dispatchEvent(load());
+        sleepTimerLoop.dispatchEvent(new SleepTimerEvent.Load());
         return sleepTimerLoop;
     }
 

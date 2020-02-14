@@ -40,7 +40,7 @@ public class MainActivity extends FragmentActivity {
     }
 
     private void handleTileServiceIntent(final Intent intent) {
-        final ComponentName componentName = intent.getParcelableExtra(MainActivity.EXTRA_COMPONENT_NAME);
+        final ComponentName componentName = intent.getParcelableExtra(EXTRA_COMPONENT_NAME);
 
         if (componentName == null || navController.getCurrentDestination() == null) {
             return;

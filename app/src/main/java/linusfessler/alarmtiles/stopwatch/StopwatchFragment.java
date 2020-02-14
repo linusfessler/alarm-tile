@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import javax.inject.Inject;
 
@@ -24,7 +23,7 @@ public class StopwatchFragment extends Fragment {
     StopwatchViewModelFactory viewModelFactory;
 
     private StopwatchViewModel viewModel;
-    private FragmentStopwatchBinding binding;
+
     private final CompositeDisposable disposable = new CompositeDisposable();
 
     @Override
@@ -36,7 +35,7 @@ public class StopwatchFragment extends Fragment {
                 .getAppComponent()
                 .inject(this);
 
-        viewModel = new ViewModelProvider(this, viewModelFactory).get(StopwatchViewModel.class);
+        viewModel = viewModelFactory.create(StopwatchViewModel.class);
     }
 
     @Nullable
@@ -44,7 +43,7 @@ public class StopwatchFragment extends Fragment {
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_stopwatch, container, false);
+        final FragmentStopwatchBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_stopwatch, container, false);
 
         binding.stopwatch.setOnClickListener(view -> viewModel.onClick());
 
