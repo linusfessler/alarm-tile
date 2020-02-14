@@ -11,7 +11,6 @@ import javax.inject.Singleton;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import linusfessler.alarmtiles.shared.TimeFormatter;
-import linusfessler.alarmtiles.sleeptimer.events.SleepTimerEvent;
 
 /**
  * Wraps the Mobius loop and prepares the model for the view

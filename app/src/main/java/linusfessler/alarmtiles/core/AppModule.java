@@ -28,10 +28,10 @@ import linusfessler.alarmtiles.shared.MediaVolumeManager;
 import linusfessler.alarmtiles.sleeptimer.SleepTimer;
 import linusfessler.alarmtiles.sleeptimer.SleepTimerEffect;
 import linusfessler.alarmtiles.sleeptimer.SleepTimerEffectHandler;
+import linusfessler.alarmtiles.sleeptimer.SleepTimerEvent;
 import linusfessler.alarmtiles.sleeptimer.SleepTimerEventHandler;
-import linusfessler.alarmtiles.sleeptimer.events.LoadSleepTimerEvent;
-import linusfessler.alarmtiles.sleeptimer.events.SleepTimerEvent;
-import linusfessler.alarmtiles.sleeptimer.events.VolumeChangedEvent;
+
+import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.load;
 
 @Module
 public class AppModule {
@@ -61,11 +61,11 @@ public class AppModule {
     MobiusLoop<SleepTimer, SleepTimerEvent, SleepTimerEffect> sleepTimerLoop(final SleepTimerEventHandler sleepTimerEventHandler, final SleepTimerEffectHandler sleepTimerEffectHandler, final Observable<Integer> volumeObservable) {
         final MobiusLoop<SleepTimer, SleepTimerEvent, SleepTimerEffect> sleepTimerLoop = Mobius.loop(sleepTimerEventHandler, sleepTimerEffectHandler)
                 .eventSource(RxEventSources.fromObservables(volumeObservable
-                        .map(VolumeChangedEvent::new)))
+                        .map(SleepTimerEvent::volumeChanged)))
                 .logger(AndroidLogger.tag(application.getString(R.string.app_name)))
                 .startFrom(SleepTimer.createDefault());
 
-        sleepTimerLoop.dispatchEvent(new LoadSleepTimerEvent());
+        sleepTimerLoop.dispatchEvent(load());
         return sleepTimerLoop;
     }
 

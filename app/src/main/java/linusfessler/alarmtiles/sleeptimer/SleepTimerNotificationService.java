@@ -21,9 +21,9 @@ import io.reactivex.disposables.CompositeDisposable;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.core.App;
 import linusfessler.alarmtiles.core.MainActivity;
-import linusfessler.alarmtiles.sleeptimer.events.CancelSleepTimerEvent;
-import linusfessler.alarmtiles.sleeptimer.events.FinishSleepTimerEvent;
 
+import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.cancel;
+import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.finish;
 
 /**
  * The purpose of this service is to show a sticky notification so the application can live on in the background.
@@ -118,11 +118,11 @@ public class SleepTimerNotificationService extends LifecycleService {
     }
 
     private void cancelFromNotification() {
-        viewModel.dispatch(new CancelSleepTimerEvent());
+        viewModel.dispatch(cancel());
     }
 
     private void finishFromNotification() {
-        viewModel.dispatch(new FinishSleepTimerEvent());
+        viewModel.dispatch(finish());
     }
 
     @Override
