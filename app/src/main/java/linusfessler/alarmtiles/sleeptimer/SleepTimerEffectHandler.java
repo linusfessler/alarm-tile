@@ -17,13 +17,13 @@ import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import linusfessler.alarmtiles.shared.MediaPlaybackManager;
 import linusfessler.alarmtiles.shared.MediaVolumeManager;
-
-import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.cancel;
-import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.finish;
-import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.finishWith;
-import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.loaded;
-import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.start;
-import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.startWith;
+import linusfessler.alarmtiles.sleeptimer.events.CancelSleepTimerEvent;
+import linusfessler.alarmtiles.sleeptimer.events.FinishSleepTimerEvent;
+import linusfessler.alarmtiles.sleeptimer.events.FinishWithSleepTimerEvent;
+import linusfessler.alarmtiles.sleeptimer.events.SleepTimerEvent;
+import linusfessler.alarmtiles.sleeptimer.events.SleepTimerLoadedEvent;
+import linusfessler.alarmtiles.sleeptimer.events.StartSleepTimerEvent;
+import linusfessler.alarmtiles.sleeptimer.events.StartWithSleepTimerEvent;
 
 @Singleton
 public class SleepTimerEffectHandler implements Connectable<SleepTimerEffect, SleepTimerEvent> {
@@ -58,21 +58,21 @@ public class SleepTimerEffectHandler implements Connectable<SleepTimerEffect, Sl
                                 .take(1)
                                 .subscribe(sleepTimer ->
                                         eventConsumer.accept(sleepTimer.isEnabled() && sleepTimer.getMillisLeft() <= 0
-                                                ? finishWith(sleepTimer)
-                                                : loaded(sleepTimer)))),
+                                                ? new FinishWithSleepTimerEvent(sleepTimer)
+                                                : new SleepTimerLoadedEvent(sleepTimer)))),
 
                         saveToDatabase -> repository.update(saveToDatabase.sleepTimer()),
 
-                        start -> eventConsumer.accept(start()),
+                        start -> eventConsumer.accept(new StartSleepTimerEvent()),
 
-                        cancel -> eventConsumer.accept(cancel()),
+                        cancel -> eventConsumer.accept(new CancelSleepTimerEvent()),
 
                         startWith -> {
                             final SleepTimer preparedSleepTimer = startWith.sleepTimer().prepareForStart(System.currentTimeMillis());
-                            eventConsumer.accept(startWith(preparedSleepTimer));
+                            eventConsumer.accept(new StartWithSleepTimerEvent(preparedSleepTimer));
                         },
 
-                        finishWith -> eventConsumer.accept(finishWith(finishWith.sleepTimer())),
+                        finishWith -> eventConsumer.accept(new FinishWithSleepTimerEvent(finishWith.sleepTimer())),
 
                         startDecreasingVolume -> {
                             final int volume = mediaVolumeManager.getVolume();
@@ -92,7 +92,7 @@ public class SleepTimerEffectHandler implements Connectable<SleepTimerEffect, Sl
                             finishDisposable.clear();
                             finishDisposable.add(Observable
                                     .timer(scheduleFinish.millisLeft(), TimeUnit.MILLISECONDS)
-                                    .subscribe(zero -> eventConsumer.accept(finish())));
+                                    .subscribe(zero -> eventConsumer.accept(new FinishSleepTimerEvent())));
                         },
 
                         unscheduleFinish -> finishDisposable.clear(),

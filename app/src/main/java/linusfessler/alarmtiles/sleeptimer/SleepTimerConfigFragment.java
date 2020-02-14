@@ -17,11 +17,10 @@ import io.reactivex.disposables.CompositeDisposable;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.core.App;
 import linusfessler.alarmtiles.databinding.FragmentSleepTimerConfigBinding;
-
-import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.setDecreasingVolume;
-import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.setTime;
-import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.setTimeUnit;
-import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.toggle;
+import linusfessler.alarmtiles.sleeptimer.events.SetSleepTimerDecreasingVolumeEvent;
+import linusfessler.alarmtiles.sleeptimer.events.SetSleepTimerTimeEvent;
+import linusfessler.alarmtiles.sleeptimer.events.SetSleepTimerTimeUnitEvent;
+import linusfessler.alarmtiles.sleeptimer.events.ToggleSleepTimerEvent;
 
 public class SleepTimerConfigFragment extends Fragment {
 
@@ -61,17 +60,17 @@ public class SleepTimerConfigFragment extends Fragment {
 
                     disposable.add(binding.duration.getTimeObservable()
                             .skip(1) // Skip first value (which is the one we just set)
-                            .subscribe(time -> viewModel.dispatch(setTime(time))));
+                            .subscribe(time -> viewModel.dispatch(new SetSleepTimerTimeEvent(time))));
 
                     disposable.add(binding.duration.getTimeUnitObservable()
                             .skip(1) // Skip first value (which is the one we just set)
-                            .subscribe(timeUnit -> viewModel.dispatch(setTimeUnit(timeUnit))));
+                            .subscribe(timeUnit -> viewModel.dispatch(new SetSleepTimerTimeUnitEvent(timeUnit))));
 
                     binding.decreasingVolume.setOnCheckedChangeListener((buttonView, isChecked) ->
-                            viewModel.dispatch(setDecreasingVolume(isChecked)));
+                            viewModel.dispatch(new SetSleepTimerDecreasingVolumeEvent(isChecked)));
                 }));
 
-        binding.sleepTimer.setOnClickListener(view -> viewModel.dispatch(toggle()));
+        binding.sleepTimer.setOnClickListener(view -> viewModel.dispatch(new ToggleSleepTimerEvent()));
 
         disposable.add(viewModel.getSleepTimer()
                 .subscribe(sleepTimer -> binding.sleepTimer.setEnabled(sleepTimer.isEnabled())));

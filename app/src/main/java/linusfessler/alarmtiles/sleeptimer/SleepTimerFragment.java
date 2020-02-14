@@ -22,8 +22,7 @@ import linusfessler.alarmtiles.core.App;
 import linusfessler.alarmtiles.core.MainFragmentDirections;
 import linusfessler.alarmtiles.databinding.FragmentSleepTimerBinding;
 import linusfessler.alarmtiles.shared.VibrationManager;
-
-import static linusfessler.alarmtiles.sleeptimer.SleepTimerEvent.toggle;
+import linusfessler.alarmtiles.sleeptimer.events.ToggleSleepTimerEvent;
 
 public class SleepTimerFragment extends Fragment {
 
@@ -54,7 +53,7 @@ public class SleepTimerFragment extends Fragment {
         final NavController navController = NavHostFragment.findNavController(this);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sleep_timer, container, false);
 
-        binding.sleepTimer.setOnClickListener(view -> viewModel.dispatch(toggle()));
+        binding.sleepTimer.setOnClickListener(view -> viewModel.dispatch(new ToggleSleepTimerEvent()));
         binding.sleepTimer.setOnLongClickListener(view -> {
             vibrationManager.vibrate();
 
