@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Projects-alarm-tiles.iml" filepath="$PROJECT_DIR$/Projects-alarm-tiles.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Projects-alarm-tiles.iml" filepath="$PROJECT_DIR$/Projects-alarm-tiles.iml" group="alarm-tiles" />
       <module fileurl="file://$PROJECT_DIR$/alarm-tiles.iml" filepath="$PROJECT_DIR$/alarm-tiles.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="alarm-tiles/app" />
     </modules>
   </component>
 </project>
