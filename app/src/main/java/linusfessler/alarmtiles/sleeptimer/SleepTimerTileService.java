@@ -44,7 +44,15 @@ public class SleepTimerTileService extends TileService {
     @Override
     public void onClick() {
         super.onClick();
-        showDialog(startDialog);
+        disposable.add(viewModel.getSleepTimer()
+                .firstElement()
+                .subscribe(sleepTimer -> {
+                    if (sleepTimer.isEnabled()) {
+                        viewModel.dispatch(new SleepTimerEvent.Cancel());
+                    } else {
+                        showDialog(startDialog);
+                    }
+                }));
     }
 
     @Override

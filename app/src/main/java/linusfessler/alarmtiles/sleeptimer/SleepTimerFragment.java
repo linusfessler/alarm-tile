@@ -17,7 +17,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.core.App;
 import linusfessler.alarmtiles.databinding.FragmentSleepTimerBinding;
-import linusfessler.alarmtiles.shared.VibrationManager;
 
 public class SleepTimerFragment extends Fragment {
 
@@ -26,9 +25,6 @@ public class SleepTimerFragment extends Fragment {
 
     @Inject
     InputMethodManager inputMethodManager;
-
-    @Inject
-    VibrationManager vibrationManager;
 
     private FragmentSleepTimerBinding binding;
     private SleepTimerStartDialog startDialog;
@@ -71,7 +67,6 @@ public class SleepTimerFragment extends Fragment {
                         })));
 
         binding.sleepTimer.setOnLongClickListener(view -> {
-            vibrationManager.vibrate();
             descriptionDialog.show();
             return true;
         });
