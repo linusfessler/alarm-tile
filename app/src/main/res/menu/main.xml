@@ -5,13 +5,7 @@
     tools:context=".core.MainActivity">
 
     <item
-        android:id="@+id/menu_settings"
-        android:title="@string/menu_settings"
-        android:icon="@drawable/ic_settings"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/menu_about"
+        android:id="@+id/menu_open_source_licenses"
         android:title="@string/menu_about"
         app:showAsAction="never" />
 

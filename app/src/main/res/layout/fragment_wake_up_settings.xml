@@ -1,166 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/fragment_padding">
 
-    <data>
-
-        <import type="android.view.View" />
-
-    </data>
-
-    <LinearLayout
+    <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/fragment_padding">
+        android:text="@string/wake_up_settings_title"
+        style="@style/Title" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/wake_up_settings_title"
-            style="@style/Title" />
+    <com.google.android.material.textview.MaterialTextView
+        android:text="@string/wake_up_settings_both_timer_and_alarm_info"
+        style="@style/Info" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:text="@string/wake_up_settings_both_timer_and_alarm_info"
-            style="@style/Info" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/settings_height">
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/wake_up_settings_alarm" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/alarm_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:padding="@dimen/time_padding"
-                android:background="?attr/selectableItemBackground"
-                tools:text="08:00"
-                tools:enabled="false" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/settings_height">
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/wake_up_settings_timer" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/timer_duration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:padding="@dimen/time_padding"
-                android:background="?attr/selectableItemBackground"
-                tools:text="8 hours"
-                tools:enabled="false" />
-
-        </LinearLayout>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:text="@string/wake_up_settings_button_info"
-            style="@style/Info" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/settings_height">
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/main_snooze_duration" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/snooze_duration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:padding="@dimen/time_padding"
-                android:background="?attr/selectableItemBackground"
-                tools:text="15 minutes"
-                tools:enabled="false" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/settings_height">
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/main_volume_timer" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/volume_timer_duration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:padding="@dimen/time_padding"
-                android:background="?attr/selectableItemBackground"
-                tools:text="5 minutes"
-                tools:enabled="false" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/settings_height">
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/main_dismiss_timer" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/dismiss_timer_duration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:padding="@dimen/time_padding"
-                android:background="?attr/selectableItemBackground"
-                tools:text="10 minutes"
-                tools:enabled="false" />
-
-        </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/settings_height">
 
         <com.google.android.material.checkbox.MaterialCheckBox
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/main_vibrate" />
-
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/main_flashlight" />
-
-        <!--com.google.android.material.slider.Slider
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" /-->
+            android:layout_weight="1"
+            android:text="@string/wake_up_settings_alarm" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:text="@string/revert_info"
-            style="@style/Info" />
+            android:id="@+id/alarm_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/time_padding"
+            android:background="?attr/selectableItemBackground"
+            tools:text="08:00"
+            tools:enabled="false" />
 
     </LinearLayout>
 
-</layout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/settings_height">
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/wake_up_settings_timer" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/timer_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/time_padding"
+            android:background="?attr/selectableItemBackground"
+            tools:text="8 hours"
+            tools:enabled="false" />
+
+    </LinearLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:text="@string/wake_up_settings_button_info"
+        style="@style/Info" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/settings_height">
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/main_snooze_duration" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/snooze_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/time_padding"
+            android:background="?attr/selectableItemBackground"
+            tools:text="15 minutes"
+            tools:enabled="false" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/settings_height">
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/main_volume_timer" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/volume_timer_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/time_padding"
+            android:background="?attr/selectableItemBackground"
+            tools:text="5 minutes"
+            tools:enabled="false" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/settings_height">
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/main_dismiss_timer" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/dismiss_timer_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/time_padding"
+            android:background="?attr/selectableItemBackground"
+            tools:text="10 minutes"
+            tools:enabled="false" />
+
+    </LinearLayout>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/main_vibrate" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/main_flashlight" />
+
+    <!--com.google.android.material.slider.Slider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" /-->
+
+    <com.google.android.material.textview.MaterialTextView
+        android:text="@string/revert_info"
+        style="@style/Info" />
+
+</LinearLayout>

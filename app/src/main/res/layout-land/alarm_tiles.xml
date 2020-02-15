@@ -1,35 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
+<com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="560dp"
+    android:layout_height="wrap_content"
+    app:flexDirection="row"
+    app:flexWrap="wrap"
+    app:justifyContent="space_between">
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout
+        android:id="@+id/sleep_timer_fragment_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-    <com.google.android.flexbox.FlexboxLayout
-        android:layout_width="560dp"
-        android:layout_height="wrap_content"
-        app:flexDirection="row"
-        app:flexWrap="wrap"
-        app:justifyContent="space_between">
+    <FrameLayout
+        android:id="@+id/alarm_fragment_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-        <FrameLayout
-            android:id="@+id/sleep_timer_fragment_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    <FrameLayout
+        android:id="@+id/timer_fragment_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-        <FrameLayout
-            android:id="@+id/alarm_fragment_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    <FrameLayout
+        android:id="@+id/stopwatch_fragment_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-        <FrameLayout
-            android:id="@+id/timer_fragment_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <FrameLayout
-            android:id="@+id/stopwatch_fragment_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </com.google.android.flexbox.FlexboxLayout>
-
-</layout>
+</com.google.android.flexbox.FlexboxLayout>

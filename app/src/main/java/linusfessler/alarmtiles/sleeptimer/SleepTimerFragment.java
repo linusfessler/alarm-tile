@@ -9,7 +9,6 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import javax.inject.Inject;
@@ -52,7 +51,7 @@ public class SleepTimerFragment extends Fragment {
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sleep_timer, container, false);
+        binding = FragmentSleepTimerBinding.inflate(inflater, container, false);
         startDialog = new SleepTimerStartDialog(requireContext(), inputMethodManager, viewModel);
         descriptionDialog = new AlertDialog.Builder(requireContext())
                 .setTitle(R.string.sleep_timer)

@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="@string/sleep_timer"
+        style="@style/Title" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/sleep_timer"
-            style="@style/Title" />
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/decrease_volume"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sleep_timer_config_decrease_volume" />
 
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/decrease_volume"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/sleep_timer_config_decrease_volume" />
-
-    </LinearLayout>
-
-</layout>
+</LinearLayout>

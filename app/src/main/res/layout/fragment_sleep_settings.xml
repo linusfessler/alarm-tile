@@ -1,60 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/fragment_padding">
 
-    <data>
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sleep_settings_title"
+        style="@style/Title" />
 
-        <import type="android.view.View" />
+    <com.google.android.material.textview.MaterialTextView
+        android:text="@string/sleep_settings_do_not_disturb_info"
+        style="@style/Info" />
 
-    </data>
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/do_not_disturb" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/fragment_padding">
-
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/sleep_settings_title"
-            style="@style/Title" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:text="@string/sleep_settings_do_not_disturb_info"
-            style="@style/Info" />
+        android:orientation="horizontal">
 
         <com.google.android.material.checkbox.MaterialCheckBox
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/settings_height"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/sleep_settings_allow_priority_notifications"
+            tools:enabled="false" />
+
+        <Space
+            android:layout_width="6dp"
+            android:layout_height="match_parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/open_settings_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/do_not_disturb" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:layout_width="0dp"
-                android:layout_height="@dimen/settings_height"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="@string/sleep_settings_allow_priority_notifications"
-                tools:enabled="false" />
-
-            <Space
-                android:layout_width="6dp"
-                android:layout_height="match_parent" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/open_settings_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sleep_settings_open_settings"
-                tools:enabled="false" />
-
-        </LinearLayout>
+            android:text="@string/sleep_settings_open_settings"
+            tools:enabled="false" />
 
     </LinearLayout>
 
-</layout>
+</LinearLayout>

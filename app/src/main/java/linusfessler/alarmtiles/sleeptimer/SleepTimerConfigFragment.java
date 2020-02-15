@@ -7,13 +7,11 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
-import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.core.App;
 import linusfessler.alarmtiles.databinding.FragmentSleepTimerConfigBinding;
 
@@ -40,7 +38,7 @@ public class SleepTimerConfigFragment extends Fragment {
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sleep_timer_config, container, false);
+        binding = FragmentSleepTimerConfigBinding.inflate(inflater, container, false);
 
         disposable.add(viewModel.getSleepTimer()
                 // Initialize view, afterwards it matches the user input already

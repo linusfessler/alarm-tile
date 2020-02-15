@@ -7,13 +7,11 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
-import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.core.App;
 import linusfessler.alarmtiles.databinding.FragmentStopwatchBinding;
 
@@ -43,7 +41,7 @@ public class StopwatchFragment extends Fragment {
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        final FragmentStopwatchBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_stopwatch, container, false);
+        final FragmentStopwatchBinding binding = FragmentStopwatchBinding.inflate(inflater, container, false);
 
         binding.stopwatch.setOnClickListener(view -> viewModel.onClick());
 

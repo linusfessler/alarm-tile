@@ -19,8 +19,6 @@ import java.util.concurrent.Executors;
 
 import linusfessler.alarmtiles.Flashlight;
 import linusfessler.alarmtiles.R;
-import linusfessler.alarmtiles.schedulers.Schedulers;
-import linusfessler.alarmtiles.schedulers.SnoozeScheduler;
 import linusfessler.alarmtiles.services.AlarmService;
 import linusfessler.alarmtiles.utility.TimeFormatter;
 
@@ -65,7 +63,7 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
 
         rippleDrawable = (findViewById(R.id.ripple)).getBackground();
 
-        Schedulers.getInstance(this).getCurrentScheduler().notifyAlarmIsActive();
+//        Schedulers.getInstance(this).getCurrentScheduler().notifyAlarmIsActive();
 
         startService(new Intent(this, AlarmService.class));
 
@@ -121,7 +119,7 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
 
     private void snooze() {
         dismiss();
-        SnoozeScheduler.getInstance(this).schedule();
+//        SnoozeScheduler.getInstance(this).schedule();
     }
 
     private void dismiss() {
@@ -129,7 +127,7 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
             flashlight.turnOff();
         }
         finished = true;
-        Schedulers.getInstance(this).getCurrentScheduler().dismiss();
+//        Schedulers.getInstance(this).getCurrentScheduler().dismiss();
         stopService(new Intent(this, AlarmService.class));
         finishAndRemoveTask();
     }
