@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.views;
+package linusfessler.alarmtiles.shared.views;
 
 import android.app.TimePickerDialog;
 import android.content.Context;

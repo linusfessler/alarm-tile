@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.alarm.AlarmFragment;
 import linusfessler.alarmtiles.databinding.FragmentMainBinding;
+import linusfessler.alarmtiles.sleeptimer.SleepTimerConfigFragment;
 import linusfessler.alarmtiles.sleeptimer.SleepTimerFragment;
 import linusfessler.alarmtiles.stopwatch.StopwatchFragment;
 import linusfessler.alarmtiles.timer.TimerFragment;
@@ -26,6 +27,7 @@ public class MainFragment extends Fragment {
         getChildFragmentManager()
                 .beginTransaction()
                 .replace(R.id.sleep_timer_fragment_container, new SleepTimerFragment())
+                .replace(R.id.sleep_timer_config_fragment_container, new SleepTimerConfigFragment())
                 .replace(R.id.alarm_fragment_container, new AlarmFragment())
                 .replace(R.id.timer_fragment_container, new TimerFragment())
                 .replace(R.id.stopwatch_fragment_container, new StopwatchFragment())

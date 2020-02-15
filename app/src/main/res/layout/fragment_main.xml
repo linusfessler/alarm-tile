@@ -24,12 +24,6 @@
                 android:gravity="center_horizontal"
                 android:padding="@dimen/fragment_padding">
 
-                <include layout="@layout/alarm_tiles" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/fragment_padding" />
-
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -37,6 +31,21 @@
                     android:text="@string/user_message"
                     android:textAlignment="center"
                     android:lineSpacingMultiplier="1.25" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/fragment_padding" />
+
+                <include layout="@layout/alarm_tiles" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/fragment_padding" />
+
+                <FrameLayout
+                    android:id="@+id/sleep_timer_config_fragment_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 

@@ -2,7 +2,7 @@
 
     <string name="app_name">Alarm Tiles</string>
 
-    <string name="user_message">Long click on a tile to configure it.</string>
+    <string name="user_message">Long click on a tile for more information.</string>
 
     <string name="sleep_timer">Sleep timer</string>
     <string name="alarm">Alarm</string>
@@ -54,6 +54,7 @@
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_never">Never</string>
+    <string name="dialog_start">Start</string>
     <string name="dialog_back_title">Go back?</string>
     <string name="dialog_back_message">Your current changes will be discarded.</string>
     <string name="dialog_context_message">Select an action for this alarm tile.</string>
@@ -190,7 +191,7 @@
     <string name="sleep_timer_running_notification_action_cancel">Cancel</string>
     <string name="sleep_timer_config_duration">Duration</string>
     <string name="sleep_timer_config_decrease_volume">Gradually decrease volume</string>
-    <string name="sleep_timer_config_description">The sleep timer will stop any media playback after the set duration.</string>
+    <string name="sleep_timer_description">The sleep timer will stop any media playback after the set duration.</string>
     <string name="time_input_hint">Time</string>
 
     <string-array name="time_input_time_units">

@@ -7,7 +7,7 @@
     <string name="activity_alarm_title">Wecker</string>
     <string name="activity_main_title">Alarm Tiles</string>
     <string name="activity_settings_title">Einstellungen</string>
-    <string name="user_message">Tippe lange auf ein Tile, um es zu konfigurieren.</string>
+    <string name="user_message">Tippe lange auf ein Tile, um mehr darüber zu erfahren.</string>
     <string name="alarm">Wecker</string>
     <string name="bottom_navigation_fall_asleep">Einschlafen</string>
     <string name="bottom_navigation_general">Allgemein</string>
@@ -20,6 +20,7 @@
     <string name="dialog_back_message">Deine aktuellen Änderungen werden verworfen werden.</string>
     <string name="dialog_back_title">Zurückgehen?</string>
     <string name="dialog_cancel">Abbrechen</string>
+    <string name="dialog_start">Starten</string>
     <string name="dialog_context_delete">Löschen</string>
     <string name="dialog_context_duplicate">Duplizieren</string>
     <string name="dialog_context_edit">Bearbeiten</string>
@@ -77,7 +78,7 @@
     <string name="sleep_timer_running_notification_action_finish">Jetzt beenden</string>
     <string name="sleep_timer_running_notification_action_cancel">Abbrechen</string>
     <string name="sleep_timer_running_notification_sub_text">In %s</string>
-    <string name="sleep_timer_config_description">Der Sleeptimer stoppt nach der eingestellten Dauer jegliche Medienwiedergabe.</string>
+    <string name="sleep_timer_description">Der Sleeptimer stoppt nach der eingestellten Dauer jegliche Medienwiedergabe.</string>
     <string name="sleep_timer_config_duration">Dauer</string>
     <string name="sleep_timer_config_decrease_volume">Allmählich Lautstärke verringern</string>
     <string name="time_input_hint">Zeit</string>

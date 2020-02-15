@@ -1,13 +1,15 @@
 package linusfessler.alarmtiles.sleeptimer;
 
+import android.content.Context;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
+import android.view.inputmethod.InputMethodManager;
+
+import androidx.appcompat.view.ContextThemeWrapper;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.subjects.PublishSubject;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.core.App;
 import linusfessler.alarmtiles.shared.TileServiceCompat;
@@ -17,24 +19,32 @@ public class SleepTimerTileService extends TileService {
     @Inject
     SleepTimerViewModel viewModel;
 
+    @Inject
+    InputMethodManager inputMethodManager;
+
+    private SleepTimerStartDialog startDialog;
     private String tileLabel;
 
-    private final PublishSubject<Boolean> clickSubject = PublishSubject.create();
     private final CompositeDisposable disposable = new CompositeDisposable();
 
     @Override
     public void onCreate() {
         super.onCreate();
+
         ((App) getApplicationContext())
                 .getAppComponent()
                 .inject(this);
+
+        // Wrap context for compatibility between material components and tile service
+        final Context context = new ContextThemeWrapper(this, R.style.AppTheme);
+        startDialog = new SleepTimerStartDialog(context, inputMethodManager, viewModel);
         tileLabel = getString(R.string.sleep_timer);
     }
 
     @Override
     public void onClick() {
         super.onClick();
-        clickSubject.onNext(true);
+        showDialog(startDialog);
     }
 
     @Override
@@ -61,23 +71,18 @@ public class SleepTimerTileService extends TileService {
                     TileServiceCompat.setSubtitle(tile, tileLabel, timeLeft);
                     tile.updateTile();
                 }));
-
-        final Observable<SleepTimer> clickObservable = clickSubject
-                .withLatestFrom(viewModel.getSleepTimer(), (click, sleepTimer) -> sleepTimer);
-
-        disposable.add(clickObservable
-                .subscribe(sleepTimer -> viewModel.dispatch(new SleepTimerEvent.Toggle())));
     }
 
     @Override
     public void onStopListening() {
-        disposable.clear();
         super.onStopListening();
+        disposable.clear();
     }
 
     @Override
     public void onDestroy() {
-        disposable.dispose();
         super.onDestroy();
+        disposable.dispose();
+        startDialog.dismiss();
     }
 }

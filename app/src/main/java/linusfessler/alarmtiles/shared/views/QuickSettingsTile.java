@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.views;
+package linusfessler.alarmtiles.shared.views;
 
 import android.animation.ValueAnimator;
 import android.content.Context;

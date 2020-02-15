@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.transition.TransitionInflater;
 
 import javax.inject.Inject;
 
@@ -34,10 +33,6 @@ public class SleepTimerConfigFragment extends Fragment {
         ((App) requireActivity().getApplicationContext())
                 .getAppComponent()
                 .inject(this);
-
-        setSharedElementEnterTransition(TransitionInflater
-                .from(requireContext())
-                .inflateTransition(android.R.transition.move));
     }
 
     @Nullable
@@ -48,46 +43,27 @@ public class SleepTimerConfigFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sleep_timer_config, container, false);
 
         disposable.add(viewModel.getSleepTimer()
+                // Initialize view, afterwards it matches the user input already
                 .firstElement()
                 .subscribe(sleepTimer -> {
-                    binding.duration.setTime(sleepTimer.getTime());
-                    binding.duration.setTimeUnit(sleepTimer.getTimeUnit());
-                    binding.decreasingVolume.setChecked(sleepTimer.isDecreasingVolume());
-
-                    disposable.add(binding.duration.getTimeObservable()
-                            .skip(1) // Skip first value (which is the one we just set)
-                            .subscribe(time -> viewModel.dispatch(new SleepTimerEvent.SetTime(time))));
-
-                    disposable.add(binding.duration.getTimeUnitObservable()
-                            .skip(1) // Skip first value (which is the one we just set)
-                            .subscribe(timeUnit -> viewModel.dispatch(new SleepTimerEvent.SetTimeUnit(timeUnit))));
-
-                    binding.decreasingVolume.setOnCheckedChangeListener((buttonView, isChecked) ->
+                    binding.decreaseVolume.setChecked(sleepTimer.isDecreasingVolume());
+                    binding.decreaseVolume.setOnCheckedChangeListener((buttonView, isChecked) ->
                             viewModel.dispatch(new SleepTimerEvent.SetDecreasingVolume(isChecked)));
                 }));
-
-        binding.sleepTimer.setOnClickListener(view -> viewModel.dispatch(new SleepTimerEvent.Toggle()));
-
-        disposable.add(viewModel.getSleepTimer()
-                .subscribe(sleepTimer -> binding.sleepTimer.setEnabled(sleepTimer.isEnabled())));
-
-        disposable.add(viewModel.getTimeLeft()
-                .subscribe(binding.sleepTimer::setSubtitle));
 
         return binding.getRoot();
     }
 
     @Override
     public void onDestroyView() {
-        disposable.clear();
-        binding.sleepTimer.setOnClickListener(null);
-        binding.decreasingVolume.setOnCheckedChangeListener(null);
         super.onDestroyView();
+        disposable.clear();
+        binding.decreaseVolume.setOnCheckedChangeListener(null);
     }
 
     @Override
     public void onDestroy() {
-        disposable.dispose();
         super.onDestroy();
+        disposable.dispose();
     }
 }

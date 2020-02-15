@@ -24,23 +24,23 @@ constructor() : Update<SleepTimer, SleepTimerEvent, SleepTimerEffect> {
                             effects()
                 )
 
-            is SleepTimerEvent.Toggle -> return dispatch(effects(
-                    if (sleepTimer.isEnabled)
-                        SleepTimerEffect.Cancel()
-                    else
-                        SleepTimerEffect.Start()))
-
-            is SleepTimerEvent.Start -> return dispatch(effects(SleepTimerEffect.StartWith(sleepTimer)))
+            is SleepTimerEvent.Start -> {
+                return dispatch(effects(SleepTimerEffect.StartWith(event.time, event.timeUnit)))
+            }
 
             is SleepTimerEvent.StartWith -> {
-                val startedSleepTimer = event.sleepTimer.start()
+                val startedSleepTimer = sleepTimer.start(event.startTimestamp, event.time, event.timeUnit)
                 val millisLeft = startedSleepTimer.millisLeft
+
                 val effects = effects(
                         SleepTimerEffect.SaveToDatabase(startedSleepTimer),
                         SleepTimerEffect.ShowNotification(),
-                        SleepTimerEffect.ScheduleVolumeDecrease(millisLeft),
                         SleepTimerEffect.ScheduleFinish(millisLeft)
                 )
+                if (sleepTimer.isDecreasingVolume) {
+                    effects.add(SleepTimerEffect.ScheduleVolumeDecrease(millisLeft))
+                }
+
                 return next(startedSleepTimer, effects)
             }
 
@@ -49,30 +49,6 @@ constructor() : Update<SleepTimer, SleepTimerEvent, SleepTimerEffect> {
                     dispatch(effects(SleepTimerEffect.ScheduleVolumeDecrease(sleepTimer.millisLeft)))
                 else
                     noChange()
-            }
-
-            is SleepTimerEvent.SetTime -> {
-                val updatedSleepTimer = sleepTimer.setTime(event.time)
-                val effects: MutableSet<SleepTimerEffect> = effects(SleepTimerEffect.SaveToDatabase(updatedSleepTimer))
-
-                return if (updatedSleepTimer.isEnabled) {
-                    effects.add(SleepTimerEffect.StartWith(updatedSleepTimer))
-                    dispatch(effects)
-                } else {
-                    next(updatedSleepTimer, effects)
-                }
-            }
-
-            is SleepTimerEvent.SetTimeUnit -> {
-                val updatedSleepTimer = sleepTimer.setTimeUnit(event.timeUnit)
-                val effects: MutableSet<SleepTimerEffect> = effects(SleepTimerEffect.SaveToDatabase(updatedSleepTimer))
-
-                return if (updatedSleepTimer.isEnabled) {
-                    effects.add(SleepTimerEffect.StartWith(updatedSleepTimer))
-                    dispatch(effects)
-                } else {
-                    next(updatedSleepTimer, effects)
-                }
             }
 
             is SleepTimerEvent.SetDecreasingVolume -> {

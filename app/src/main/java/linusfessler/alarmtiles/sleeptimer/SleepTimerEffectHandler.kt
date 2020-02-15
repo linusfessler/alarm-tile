@@ -35,6 +35,7 @@ constructor(
                             .take(1)
                             .subscribe { sleepTimer ->
                                 eventConsumer.accept(
+                                        // Can't use Finish event since we don't want this invalid sleep timer to become our state
                                         if (sleepTimer.isEnabled && sleepTimer.millisLeft <= 0)
                                             SleepTimerEvent.FinishWith(sleepTimer)
                                         else
@@ -43,13 +44,9 @@ constructor(
 
                     is SleepTimerEffect.SaveToDatabase -> repository.update(effect.sleepTimer)
 
-                    is SleepTimerEffect.Start -> eventConsumer.accept(SleepTimerEvent.Start())
-
-                    is SleepTimerEffect.Cancel -> eventConsumer.accept(SleepTimerEvent.Cancel())
-
                     is SleepTimerEffect.StartWith -> {
-                        val preparedSleepTimer = effect.sleepTimer.prepareForStart(System.currentTimeMillis())
-                        eventConsumer.accept(SleepTimerEvent.StartWith(preparedSleepTimer))
+                        val startTimestamp = System.currentTimeMillis()
+                        eventConsumer.accept(SleepTimerEvent.StartWith(startTimestamp, effect.time, effect.timeUnit))
                     }
 
                     is SleepTimerEffect.FinishWith -> eventConsumer.accept(SleepTimerEvent.FinishWith(effect.sleepTimer))

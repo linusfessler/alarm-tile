@@ -24,24 +24,16 @@ data class SleepTimer(@field:PrimaryKey val id: Long, val isEnabled: Boolean, va
             }
         }
 
-    fun prepareForStart(startTimestamp: Long): SleepTimer {
-        return copy(startTimestamp = startTimestamp)
-    }
-
-    fun start(): SleepTimer {
-        return copy(isEnabled = true)
+    fun start(startTimestamp: Long, time: Double, timeUnit: TimeUnit): SleepTimer {
+        return copy(
+                isEnabled = true,
+                startTimestamp = startTimestamp,
+                time = time,
+                timeUnit = timeUnit)
     }
 
     fun stop(): SleepTimer {
         return copy(isEnabled = false, startTimestamp = null)
-    }
-
-    fun setTime(time: Double): SleepTimer {
-        return copy(time = time)
-    }
-
-    fun setTimeUnit(timeUnit: TimeUnit): SleepTimer {
-        return copy(timeUnit = timeUnit)
     }
 
     fun setDecreasingVolume(isDecreasingVolume: Boolean): SleepTimer {

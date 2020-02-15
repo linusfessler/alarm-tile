@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.views;
+package linusfessler.alarmtiles.shared.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -152,6 +152,7 @@ public class TimeInput extends LinearLayout {
             timeString = String.valueOf(time);
         }
         timeInputEditText.setText(timeString);
+        timeInputEditText.setSelection(timeString.length());
     }
 
     public TimeUnit getTimeUnit() {

@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.views;
+package linusfessler.alarmtiles.shared.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -38,8 +38,8 @@ public class TitleSummaryView extends LinearLayout {
         final LayoutInflater inflater = LayoutInflater.from(context);
         final View root = inflater.inflate(R.layout.title_summary_view, this);
 
-        this.titleTextView = root.findViewById(R.id.title);
-        this.summaryTextView = root.findViewById(R.id.summary);
+        titleTextView = root.findViewById(R.id.title);
+        summaryTextView = root.findViewById(R.id.summary);
 
         if (attrs == null) {
             return;
@@ -55,10 +55,10 @@ public class TitleSummaryView extends LinearLayout {
     }
 
     public void setTitle(final String title) {
-        this.titleTextView.setText(title);
+        titleTextView.setText(title);
     }
 
     public void setSummary(final String summary) {
-        this.summaryTextView.setText(summary);
+        summaryTextView.setText(summary);
     }
 }
