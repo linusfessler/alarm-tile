@@ -39,7 +39,7 @@ constructor(
                                         if (sleepTimer.isEnabled && sleepTimer.millisLeft <= 0)
                                             SleepTimerEvent.FinishWith(sleepTimer)
                                         else
-                                            SleepTimerEvent.Loaded(sleepTimer))
+                                            SleepTimerEvent.Initialized(sleepTimer))
                             })
 
                     is SleepTimerEffect.SaveToDatabase -> repository.update(effect.sleepTimer)

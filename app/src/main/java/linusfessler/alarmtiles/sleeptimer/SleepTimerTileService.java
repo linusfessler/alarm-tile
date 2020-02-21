@@ -32,7 +32,7 @@ public class SleepTimerTileService extends TileService {
         super.onCreate();
 
         ((App) getApplicationContext())
-                .getAppComponent()
+                .getSleepTimerComponent()
                 .inject(this);
 
         // Wrap context for compatibility between material components and tile service

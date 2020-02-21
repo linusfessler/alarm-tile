@@ -25,9 +25,11 @@ public class StopwatchTileService extends TileService {
     @Override
     public void onCreate() {
         super.onCreate();
+
         ((App) getApplicationContext())
-                .getAppComponent()
+                .getStopwatchComponent()
                 .inject(this);
+
         viewModel = viewModelFactory.create(StopwatchViewModel.class);
         tileLabel = getString(R.string.stopwatch);
     }

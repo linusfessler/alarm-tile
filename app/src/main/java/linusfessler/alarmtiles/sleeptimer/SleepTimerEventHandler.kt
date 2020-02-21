@@ -14,9 +14,9 @@ constructor() : Update<SleepTimer, SleepTimerEvent, SleepTimerEffect> {
 
     override fun update(sleepTimer: SleepTimer, event: SleepTimerEvent): Next<SleepTimer, SleepTimerEffect> {
         when (event) {
-            is SleepTimerEvent.Load -> return dispatch<SleepTimer, SleepTimerEffect>(effects(SleepTimerEffect.LoadFromDatabase()))
+            is SleepTimerEvent.Initialize -> return dispatch(effects(SleepTimerEffect.LoadFromDatabase()))
 
-            is SleepTimerEvent.Loaded ->
+            is SleepTimerEvent.Initialized ->
                 return next(event.sleepTimer,
                         if (event.sleepTimer.isEnabled)
                             effects(SleepTimerEffect.ShowNotification())

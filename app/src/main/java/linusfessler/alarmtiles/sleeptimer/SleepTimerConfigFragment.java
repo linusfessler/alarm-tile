@@ -29,7 +29,7 @@ public class SleepTimerConfigFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         ((App) requireActivity().getApplicationContext())
-                .getAppComponent()
+                .getSleepTimerComponent()
                 .inject(this);
     }
 

@@ -29,9 +29,8 @@ public class TimerFragment extends Fragment {
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ((App) requireActivity()
-                .getApplicationContext())
-                .getAppComponent()
+        ((App) requireActivity().getApplicationContext())
+                .getTimerComponent()
                 .inject(this);
 
         viewModel = new ViewModelProvider(this, viewModelFactory).get(TimerViewModel.class);

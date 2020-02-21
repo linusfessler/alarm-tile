@@ -5,9 +5,9 @@ import java.util.concurrent.TimeUnit
 interface SleepTimerEvent {
     data class VolumeChanged(val volume: Int) : SleepTimerEvent
 
-    class Load : SleepTimerEvent
+    class Initialize : SleepTimerEvent
 
-    data class Loaded(val sleepTimer: SleepTimer) : SleepTimerEvent
+    data class Initialized(val sleepTimer: SleepTimer) : SleepTimerEvent
 
     data class Start(val time: Double, val timeUnit: TimeUnit) : SleepTimerEvent
 

@@ -60,7 +60,7 @@ public class SleepTimerNotificationService extends LifecycleService {
     public void onCreate() {
         super.onCreate();
         ((App) getApplicationContext())
-                .getAppComponent()
+                .getSleepTimerComponent()
                 .inject(this);
     }
 

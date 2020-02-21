@@ -16,17 +16,21 @@ import com.google.android.flexbox.JustifyContent;
 import java.util.HashSet;
 import java.util.Set;
 
-import lombok.Getter;
-import lombok.Setter;
-
 public class DrawablePickerDialog {
 
-    @Getter
-    @Setter
-    private int[] resourceIds;
 
     private final AlertDialog alertDialog;
     private final Set<OnDrawablePickedListener> listeners = new HashSet<>();
+
+    private int[] resourceIds;
+
+    public int[] getResourceIds() {
+        return resourceIds;
+    }
+
+    public void setResourceIds(final int[] resourceIds) {
+        this.resourceIds = resourceIds;
+    }
 
     public DrawablePickerDialog(@NonNull final Context context, @NonNull final String title, @NonNull final int[] resourceIds,
                                 final int drawableWidth, final int drawableHeight, final int drawableColor) {
@@ -60,16 +64,16 @@ public class DrawablePickerDialog {
             imageView.setImageTintList(tint);
 
             imageView.setOnClickListener(view -> {
-                for (final OnDrawablePickedListener listener : this.listeners) {
+                for (final OnDrawablePickedListener listener : listeners) {
                     listener.onDrawablePicked(resourceId);
                 }
-                this.hide();
+                hide();
             });
 
             flexboxLayout.addView(imageView);
         }
 
-        this.alertDialog = new AlertDialog.Builder(context)
+        alertDialog = new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setView(flexboxLayout)
                 .setCancelable(true)
@@ -77,23 +81,23 @@ public class DrawablePickerDialog {
     }
 
     public void show() {
-        this.alertDialog.show();
+        alertDialog.show();
     }
 
     public void hide() {
-        this.alertDialog.cancel();
+        alertDialog.cancel();
     }
 
     public void dismiss() {
-        this.alertDialog.dismiss();
+        alertDialog.dismiss();
     }
 
     public void addListener(final OnDrawablePickedListener listener) {
-        this.listeners.add(listener);
+        listeners.add(listener);
     }
 
     public void removeListener(final OnDrawablePickedListener listener) {
-        this.listeners.remove(listener);
+        listeners.remove(listener);
     }
 
     public interface OnDrawablePickedListener {

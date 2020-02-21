@@ -15,7 +15,6 @@ import linusfessler.alarmtiles.DigitalTimePickerDialog;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.shared.TimeFormatter;
 import linusfessler.alarmtiles.shared.TimeOfDayFormatter;
-import lombok.Setter;
 
 public class TimeSettings extends com.google.android.material.textview.MaterialTextView {
 
@@ -33,8 +32,11 @@ public class TimeSettings extends com.google.android.material.textview.MaterialT
 
     private TimeFormat timeFormat;
 
-    @Setter
     private OnTimeChangedListener onTimeChangedListener;
+
+    public void setOnTimeChangedListener(final OnTimeChangedListener onTimeChangedListener) {
+        this.onTimeChangedListener = onTimeChangedListener;
+    }
 
     public TimeSettings(@NonNull final Context context) {
         super(context);

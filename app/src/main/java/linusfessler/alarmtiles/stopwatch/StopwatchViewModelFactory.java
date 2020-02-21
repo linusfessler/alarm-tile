@@ -5,9 +5,11 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import linusfessler.alarmtiles.shared.TimeFormatter;
 
+@Singleton
 public class StopwatchViewModelFactory implements ViewModelProvider.Factory {
 
     private final StopwatchRepository stopwatchRepository;

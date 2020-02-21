@@ -1,13 +1,18 @@
 package linusfessler.alarmtiles.sleeptimer
 
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import java.util.concurrent.TimeUnit
 
 @Entity
-data class SleepTimer(@field:PrimaryKey val id: Long, val isEnabled: Boolean, val startTimestamp: Long?, val time: Double, val timeUnit: TimeUnit, val isDecreasingVolume: Boolean) {
-
+data class SleepTimer(
+        @field:PrimaryKey val id: Long = 0,
+        val isEnabled: Boolean = false,
+        val startTimestamp: Long? = null,
+        val time: Double = 30.0,
+        val timeUnit: TimeUnit = TimeUnit.MINUTES,
+        val isDecreasingVolume: Boolean = true
+) {
     val millisLeft: Long
         get() {
             val millisElapsed = System.currentTimeMillis() - startTimestamp!!
@@ -38,19 +43,5 @@ data class SleepTimer(@field:PrimaryKey val id: Long, val isEnabled: Boolean, va
 
     fun setDecreasingVolume(isDecreasingVolume: Boolean): SleepTimer {
         return copy(isDecreasingVolume = isDecreasingVolume)
-    }
-
-    companion object {
-        @Ignore
-        fun createDefault(): SleepTimer {
-            return SleepTimer(
-                    0,
-                    false,
-                    null,
-                    30.0,
-                    TimeUnit.MINUTES,
-                    true
-            )
-        }
     }
 }

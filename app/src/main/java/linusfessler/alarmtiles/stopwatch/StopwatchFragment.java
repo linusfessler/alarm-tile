@@ -28,9 +28,8 @@ public class StopwatchFragment extends Fragment {
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ((App) requireActivity()
-                .getApplicationContext())
-                .getAppComponent()
+        ((App) requireActivity().getApplicationContext())
+                .getStopwatchComponent()
                 .inject(this);
 
         viewModel = viewModelFactory.create(StopwatchViewModel.class);

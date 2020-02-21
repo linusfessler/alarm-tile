@@ -9,11 +9,8 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Singleton;
-
 import linusfessler.alarmtiles.shared.TimeFormatter;
 
-@Singleton
 public class TimerViewModel extends ViewModel {
 
     private final TimerRepository repository;
@@ -60,7 +57,7 @@ public class TimerViewModel extends ViewModel {
                 public void onFinish() {
                     tileLabelMutableLiveData.postValue(tileLabel);
 
-                    timer.setEnabled(false);
+                    timer.disable();
                     TimerViewModel.this.repository.update(timer);
 
                     // TODO: Trigger alarm

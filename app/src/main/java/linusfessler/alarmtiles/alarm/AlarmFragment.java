@@ -29,9 +29,8 @@ public class AlarmFragment extends Fragment {
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ((App) requireActivity()
-                .getApplicationContext())
-                .getAppComponent()
+        ((App) requireActivity().getApplicationContext())
+                .getAlarmComponent()
                 .inject(this);
 
         viewModel = new ViewModelProvider(this, viewModelFactory).get(AlarmViewModel.class);

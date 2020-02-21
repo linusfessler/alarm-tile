@@ -17,10 +17,9 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.concurrent.Executors;
 
-import linusfessler.alarmtiles.Flashlight;
+import linusfessler.alarmtiles.FlashlightManager;
 import linusfessler.alarmtiles.R;
 import linusfessler.alarmtiles.services.AlarmService;
-import linusfessler.alarmtiles.utility.TimeFormatter;
 
 public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeListener {
 
@@ -31,7 +30,7 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
 
     private boolean volumeButtons;
     private boolean useFlashlight;
-    private Flashlight flashlight;
+    private FlashlightManager flashlightManager;
 
     private boolean finished = false;
 
@@ -51,7 +50,7 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
 
         final Calendar calendar = Calendar.getInstance();
         final TextView time = findViewById(R.id.alarm_time);
-        time.setText(TimeFormatter.format(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
+//        time.setText(timeFormatter.format(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
 
         snoozeImage = findViewById(R.id.image_snooze);
         alarmImage = findViewById(R.id.image_alarm);
@@ -72,8 +71,8 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
         volumeButtons = preferences.getBoolean(getString(R.string.pref_volume_buttons_key), false);
         useFlashlight = preferences.getBoolean(getString(R.string.pref_flashlight_key), false);
         if (useFlashlight) {
-            flashlight = new Flashlight(this);
-            flashlight.turnOn();
+//            flashlightManager = new FlashlightManager(this);
+//            flashlightManager.turnOn();
         }
 
         final long vibrationPause = Long.parseLong(preferences.getString(getString(R.string.pref_pause_duration_key), String.valueOf(AlarmService.DEFAULT_VIBRATION_PATTERN[0])));
@@ -124,7 +123,7 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
 
     private void dismiss() {
         if (useFlashlight) {
-            flashlight.turnOff();
+            flashlightManager.turnOff();
         }
         finished = true;
 //        Schedulers.getInstance(this).getCurrentScheduler().dismiss();
