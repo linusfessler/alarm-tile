@@ -192,6 +192,8 @@
     <string name="sleep_timer_config_duration">Duration</string>
     <string name="sleep_timer_config_decrease_volume">Gradually decrease volume</string>
     <string name="sleep_timer_description">The sleep timer will stop any media playback after the set duration.</string>
+    <string name="alarm_description">This ordinary alarm will go off at the set time.</string>
+    <string name="alarm_timer_description">This alarm will go off after the specified duration.</string>
     <string name="time_input_hint">Time</string>
 
     <string-array name="time_input_time_units">
@@ -200,5 +202,6 @@
         <item>Seconds</item>
     </string-array>
     <string name="sleep_timer_dialog_title">Sleep timer duration</string>
+    <string name="stopwatch_description">The stopwatch measures the time that elapsed between its activation and deactivation.</string>
 
 </resources>

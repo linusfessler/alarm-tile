@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="sleep_timer_modes">
-        <item>Interrupt</item>
-        <item>Fade</item>
-    </string-array>
-</resources>

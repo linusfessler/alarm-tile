@@ -79,6 +79,8 @@
     <string name="sleep_timer_running_notification_action_cancel">Abbrechen</string>
     <string name="sleep_timer_running_notification_sub_text">In %s</string>
     <string name="sleep_timer_description">Der Sleeptimer stoppt nach der eingestellten Dauer jegliche Medienwiedergabe.</string>
+    <string name="alarm_description">Dieser gewöhnlicher Alarm wird zur eingestellten Uhrzeit erklingen.</string>
+    <string name="alarm_timer_description">Dieser Alarm wird nach der eingestellten Dauer erklingen.</string>
     <string name="sleep_timer_config_duration">Dauer</string>
     <string name="sleep_timer_config_decrease_volume">Allmählich Lautstärke verringern</string>
     <string name="time_input_hint">Zeit</string>
@@ -89,4 +91,6 @@
         <item>Sekunden</item>
     </string-array>
     <string name="sleep_timer_dialog_title">Dauer des Sleeptimers</string>
+
+    <string name="stopwatch_description">Die Stoppuhr misst die verstrichene Zeit zwischen ihrem Start und Ende.</string>
 </resources>
