@@ -10,19 +10,11 @@ data class Stopwatch(
         val startTimestamp: Long? = null,
         val stopTimestamp: Long? = null
 ) {
-    fun toggle(): Stopwatch {
-        return if (isEnabled) {
-            stop()
-        } else {
-            start()
-        }
+    fun start(startTimestamp: Long): Stopwatch {
+        return copy(isEnabled = true, startTimestamp = startTimestamp, stopTimestamp = null)
     }
 
-    private fun start(): Stopwatch {
-        return copy(isEnabled = true, startTimestamp = System.currentTimeMillis(), stopTimestamp = null)
-    }
-
-    private fun stop(): Stopwatch {
-        return copy(isEnabled = true, stopTimestamp = System.currentTimeMillis())
+    fun stop(stopTimestamp: Long): Stopwatch {
+        return copy(isEnabled = false, stopTimestamp = stopTimestamp)
     }
 }

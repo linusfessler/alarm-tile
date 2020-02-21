@@ -8,20 +8,18 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SleepTimerEventHandler
-@Inject
-constructor() : Update<SleepTimer, SleepTimerEvent, SleepTimerEffect> {
-
+class SleepTimerEventHandler @Inject constructor() : Update<SleepTimer, SleepTimerEvent, SleepTimerEffect> {
     override fun update(sleepTimer: SleepTimer, event: SleepTimerEvent): Next<SleepTimer, SleepTimerEffect> {
         when (event) {
             is SleepTimerEvent.Initialize -> return dispatch(effects(SleepTimerEffect.LoadFromDatabase()))
 
             is SleepTimerEvent.Initialized ->
                 return next(event.sleepTimer,
-                        if (event.sleepTimer.isEnabled)
+                        if (event.sleepTimer.isEnabled) {
                             effects(SleepTimerEffect.ShowNotification())
-                        else
+                        } else {
                             effects()
+                        }
                 )
 
             is SleepTimerEvent.Start -> {

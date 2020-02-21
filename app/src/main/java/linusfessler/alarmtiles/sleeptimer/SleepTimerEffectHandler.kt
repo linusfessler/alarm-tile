@@ -13,18 +13,14 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SleepTimerEffectHandler
-@Inject
-constructor(
+class SleepTimerEffectHandler @Inject constructor(
         private val application: Application,
         private val repository: SleepTimerRepository,
         private val mediaVolumeManager: MediaVolumeManager,
         private val mediaPlaybackManager: MediaPlaybackManager
 ) : Connectable<SleepTimerEffect, SleepTimerEvent> {
-
     override fun connect(eventConsumer: Consumer<SleepTimerEvent>): Connection<SleepTimerEffect> {
         return object : Connection<SleepTimerEffect> {
-
             private val disposable = CompositeDisposable()
             private val volumeDisposable = CompositeDisposable()
             private val finishDisposable = CompositeDisposable()

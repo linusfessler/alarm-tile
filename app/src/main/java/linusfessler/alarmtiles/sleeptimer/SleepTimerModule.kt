@@ -28,7 +28,7 @@ class SleepTimerModule {
 
     @Provides
     @Singleton
-    fun sleepTimerLoop(application: Application, sleepTimerEventHandler: SleepTimerEventHandler, sleepTimerEffectHandler: SleepTimerEffectHandler, volumeObservable: Observable<Int>): MobiusLoop<SleepTimer, SleepTimerEvent, SleepTimerEffect> {
+    fun mobiusLoop(application: Application, sleepTimerEventHandler: SleepTimerEventHandler, sleepTimerEffectHandler: SleepTimerEffectHandler, volumeObservable: Observable<Int>): MobiusLoop<SleepTimer, SleepTimerEvent, SleepTimerEffect> {
         val volumeChangedEventObservable: Observable<SleepTimerEvent> = volumeObservable
                 .map {
                     SleepTimerEvent.VolumeChanged(it)
@@ -37,14 +37,14 @@ class SleepTimerModule {
         val volumeEventSource: EventSource<SleepTimerEvent> = RxEventSources
                 .fromObservables(volumeChangedEventObservable)
 
-        val sleepTimerLoop = Mobius
+        val mobiusLoop = Mobius
                 .loop(sleepTimerEventHandler, sleepTimerEffectHandler)
                 .eventSource(volumeEventSource)
                 .logger(AndroidLogger.tag(application.getString(R.string.sleep_timer)))
                 .startFrom(SleepTimer())
 
-        sleepTimerLoop.dispatchEvent(Initialize())
+        mobiusLoop.dispatchEvent(Initialize())
 
-        return sleepTimerLoop
+        return mobiusLoop
     }
 }

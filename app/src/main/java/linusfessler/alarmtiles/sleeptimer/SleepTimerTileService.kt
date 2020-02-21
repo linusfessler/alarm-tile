@@ -64,9 +64,8 @@ class SleepTimerTileService : TileService() {
 
         disposable.add(viewModel.timeLeft
                 .subscribe {
-                    val tile = qsTile
-                    TileServiceCompat.setSubtitle(tile, tileLabel, it)
-                    tile.updateTile()
+                    TileServiceCompat.setSubtitle(qsTile, tileLabel, it)
+                    qsTile.updateTile()
                 })
     }
 

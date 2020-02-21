@@ -28,11 +28,11 @@ class SleepTimerViewModel @Inject constructor(
     }.observeOn(AndroidSchedulers.mainThread())
 
     val timeLeft: Observable<String> = sleepTimer
-            .switchMap { sleepTimer: SleepTimer ->
-                if (!sleepTimer.isEnabled) {
+            .switchMap {
+                if (!it.isEnabled) {
                     return@switchMap Observable.just("")
                 }
-                val millisLeft = sleepTimer.millisLeft
+                val millisLeft = it.millisLeft
                 val secondsLeft = ceil(millisLeft / 1000.0).toLong()
                 Observable
                         .intervalRange(0, secondsLeft, 0, 1, TimeUnit.SECONDS)

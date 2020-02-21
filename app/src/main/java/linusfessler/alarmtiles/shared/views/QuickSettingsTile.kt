@@ -23,7 +23,7 @@ class QuickSettingsTile : FrameLayout {
     private lateinit var subtitleView: MaterialTextView
     private lateinit var iconView: ImageView
 
-    private var enabled: Boolean = false
+    private var isEnabled: Boolean = false
 
     constructor(context: Context) : super(context) {
         init(context, null)
@@ -85,13 +85,13 @@ class QuickSettingsTile : FrameLayout {
 
     private fun initWithAttrs(context: Context, attrs: AttributeSet?) {
         val styledAttributes = context.obtainStyledAttributes(attrs, R.styleable.QuickSettingsTile)
-        val enabled = styledAttributes.getBoolean(R.styleable.QuickSettingsTile_enabled, false)
+        val isEnabled = styledAttributes.getBoolean(R.styleable.QuickSettingsTile_enabled, false)
         val label = styledAttributes.getString(R.styleable.QuickSettingsTile_label)
         val subtitle = styledAttributes.getString(R.styleable.QuickSettingsTile_subtitle)
         val icon = styledAttributes.getDrawable(R.styleable.QuickSettingsTile_icon)
         styledAttributes.recycle()
 
-        isEnabled = enabled
+        this.isEnabled = isEnabled
 
         label?.let {
             setLabel(it)
@@ -106,7 +106,7 @@ class QuickSettingsTile : FrameLayout {
         }
     }
 
-    override fun isEnabled() = enabled
+    override fun isEnabled() = isEnabled
 
     override fun setEnabled(enabled: Boolean) {
         if (enabled == isEnabled) {
@@ -121,7 +121,7 @@ class QuickSettingsTile : FrameLayout {
             backgroundColorDisablingAnimator.start()
         }
 
-        this.enabled = enabled
+        this.isEnabled = enabled
     }
 
     fun setLabel(label: String) {
