@@ -18,7 +18,8 @@ class SleepTimerTileService : TileService() {
     lateinit var inputMethodManager: InputMethodManager
 
     private lateinit var startDialog: SleepTimerStartDialog
-    private val tileLabel = getString(R.string.sleep_timer)
+    private lateinit var tileLabel: String
+
     private val disposable = CompositeDisposable()
 
     override fun onCreate() {
@@ -31,6 +32,8 @@ class SleepTimerTileService : TileService() {
         // Wrap context for compatibility between material components and tile service
         val context = ContextThemeWrapper(this, R.style.AppTheme)
         startDialog = SleepTimerStartDialog(context, inputMethodManager, viewModel)
+
+        tileLabel = getString(R.string.sleep_timer)
     }
 
     override fun onClick() {

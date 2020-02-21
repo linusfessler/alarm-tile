@@ -61,7 +61,7 @@ public class StopwatchTileService extends TileService {
         disposable.add(viewModel.getElapsedTime()
                 .subscribe(elapsedTime -> {
                     final Tile tile = getQsTile();
-                    TileServiceCompat.setSubtitle(tile, tileLabel, elapsedTime);
+                    TileServiceCompat.Companion.setSubtitle(tile, tileLabel, elapsedTime);
                     tile.updateTile();
                 }));
 

@@ -4,10 +4,7 @@ import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
 import javax.inject.Inject
 
-class FlashlightManager
-@Inject
-constructor(private val cameraManager: CameraManager) {
-
+class FlashlightManager @Inject constructor(private val cameraManager: CameraManager) {
     private data class Camera(val id: String)
 
     private var camera: Camera? = null
@@ -17,22 +14,26 @@ constructor(private val cameraManager: CameraManager) {
     }
 
     fun turnOn() {
-        if (camera != null) {
-            cameraManager.setTorchMode(camera!!.id, true)
-        }
+        setTorchMode(true)
     }
 
     fun turnOff() {
-        if (camera != null) {
-            cameraManager.setTorchMode(camera!!.id, false)
-        }
+        setTorchMode(false)
     }
 
-    private fun findCamera() = cameraManager.cameraIdList.forEach {
-        if (cameraManager.getCameraCharacteristics(it)
-                        .get(CameraCharacteristics.FLASH_INFO_AVAILABLE) != null) {
-            camera = Camera(it)
-            return@forEach
+    private fun findCamera() = cameraManager.cameraIdList.forEach { id ->
+        cameraManager.getCameraCharacteristics(id)
+                .get(CameraCharacteristics.FLASH_INFO_AVAILABLE)?.let { flashInfoAvailable ->
+                    flashInfoAvailable.let {
+                        camera = Camera(id)
+                        return@forEach
+                    }
+                }
+    }
+
+    private fun setTorchMode(enabled: Boolean) {
+        camera?.let {
+            cameraManager.setTorchMode(it.id, enabled)
         }
     }
 }

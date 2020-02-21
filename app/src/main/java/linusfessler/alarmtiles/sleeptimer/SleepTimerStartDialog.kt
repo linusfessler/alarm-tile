@@ -18,8 +18,10 @@ class SleepTimerStartDialog(
         super.onStart()
         disposable = viewModel.sleepTimer
                 .subscribe {
-                    timeInput.time = it.time
-                    timeInput.timeUnit = it.timeUnit
+                    timeInput.apply {
+                        time = it.time
+                        timeUnit = it.timeUnit
+                    }
                 }
     }
 
@@ -31,9 +33,9 @@ class SleepTimerStartDialog(
     init {
         setTitle(R.string.sleep_timer)
         setButton(DialogInterface.BUTTON_POSITIVE, context.getString(R.string.dialog_ok)) { _, _ ->
-            val time = timeInput.time
-            val timeUnit = timeInput.timeUnit
-            viewModel.dispatch(SleepTimerEvent.Start(time, timeUnit))
+            timeInput.apply {
+                viewModel.dispatch(SleepTimerEvent.Start(time, timeUnit))
+            }
         }
         setButton(DialogInterface.BUTTON_NEGATIVE, context.getString(R.string.dialog_cancel)) { _, _ -> }
     }

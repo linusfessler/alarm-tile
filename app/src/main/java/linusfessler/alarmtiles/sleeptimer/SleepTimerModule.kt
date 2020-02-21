@@ -21,7 +21,7 @@ class SleepTimerModule {
     @Singleton
     fun sleepTimerDatabase(application: Application): SleepTimerDatabase {
         return Room
-                .databaseBuilder(application, SleepTimerDatabase::class.java, "sleeptimer-database")
+                .databaseBuilder(application, SleepTimerDatabase::class.java, "sleep-timer-database")
                 .build()
                 .populate()
     }
@@ -30,14 +30,17 @@ class SleepTimerModule {
     @Singleton
     fun sleepTimerLoop(application: Application, sleepTimerEventHandler: SleepTimerEventHandler, sleepTimerEffectHandler: SleepTimerEffectHandler, volumeObservable: Observable<Int>): MobiusLoop<SleepTimer, SleepTimerEvent, SleepTimerEffect> {
         val volumeChangedEventObservable: Observable<SleepTimerEvent> = volumeObservable
-                .map { SleepTimerEvent.VolumeChanged(it) }
+                .map {
+                    SleepTimerEvent.VolumeChanged(it)
+                }
 
         val volumeEventSource: EventSource<SleepTimerEvent> = RxEventSources
                 .fromObservables(volumeChangedEventObservable)
 
-        val sleepTimerLoop = Mobius.loop(sleepTimerEventHandler, sleepTimerEffectHandler)
+        val sleepTimerLoop = Mobius
+                .loop(sleepTimerEventHandler, sleepTimerEffectHandler)
                 .eventSource(volumeEventSource)
-                .logger(AndroidLogger.tag(application.getString(R.string.app_name)))
+                .logger(AndroidLogger.tag(application.getString(R.string.sleep_timer)))
                 .startFrom(SleepTimer())
 
         sleepTimerLoop.dispatchEvent(Initialize())
