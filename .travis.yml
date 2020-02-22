@@ -1,5 +1,5 @@
 language: android
-jdk: oraclejdk8
+jdk: openjdk8
 os: linux
 
 before_install:
@@ -11,7 +11,17 @@ android:
     - platform-tools
     - build-tools-29.0.2
     - android-29
-    - extra-android-m2repository
+
+stages:
+  - lint
+  - test
+
+jobs:
+  include:
+    - stage: lint
+      script: ./gradlew clean lint
+    - stage: test
+      script: ./gradlew clean test
 
 after_success:
   - ./gradlew jacocoTestReportDebug coveralls
