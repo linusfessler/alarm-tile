@@ -17,14 +17,16 @@ class StopwatchViewModel @Inject constructor(
         private val loop: MobiusLoop<Stopwatch, StopwatchEvent, StopwatchEffect>,
         private val timeFormatter: TimeFormatter
 ) {
-    val stopwatch: Observable<Stopwatch> = Observable.create { emitter: ObservableEmitter<Stopwatch> ->
-        val mobiusDisposable = loop.observe {
-            emitter.onNext(it)
-        }
-        emitter.setCancellable {
-            mobiusDisposable.dispose()
-        }
-    }.observeOn(AndroidSchedulers.mainThread())
+    val stopwatch: Observable<Stopwatch> = Observable
+            .create { emitter: ObservableEmitter<Stopwatch> ->
+                val mobiusDisposable = loop.observe {
+                    emitter.onNext(it)
+                }
+                emitter.setCancellable {
+                    mobiusDisposable.dispose()
+                }
+            }
+            .observeOn(AndroidSchedulers.mainThread())
 
     val elapsedTime: Observable<String> = stopwatch
             .switchMap {
@@ -42,7 +44,8 @@ class StopwatchViewModel @Inject constructor(
                 Observable.interval(10, TimeUnit.MILLISECONDS)
                         .map { elapsedHundredthsOfASecond: Long -> elapsedMillisBase + 10 * elapsedHundredthsOfASecond }
                         .map { elapsedMillis: Long -> timeFormatter.format(elapsedMillis, TimeUnit.MILLISECONDS) }
-            }.observeOn(AndroidSchedulers.mainThread())
+            }
+            .observeOn(AndroidSchedulers.mainThread())
 
     fun dispatch(event: StopwatchEvent) {
         loop.dispatchEvent(event)

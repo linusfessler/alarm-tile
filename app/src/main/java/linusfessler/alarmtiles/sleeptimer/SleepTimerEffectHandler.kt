@@ -29,13 +29,14 @@ class SleepTimerEffectHandler @Inject constructor(
                 when (effect) {
                     is SleepTimerEffect.LoadFromDatabase -> disposable.add(repository.sleepTimer
                             .take(1)
-                            .subscribe { sleepTimer ->
+                            .subscribe {
                                 eventConsumer.accept(
-                                        // Can't use Finish event since we don't want this invalid sleep timer to become our state
-                                        if (sleepTimer.isEnabled && sleepTimer.millisLeft <= 0)
-                                            SleepTimerEvent.FinishWith(sleepTimer)
-                                        else
-                                            SleepTimerEvent.Initialized(sleepTimer))
+                                        if (it.isEnabled && it.millisLeft <= 0) {
+                                            // Can't use Finish event since we don't want this invalid sleep timer to become our state
+                                            SleepTimerEvent.FinishWith(it)
+                                        } else {
+                                            SleepTimerEvent.Initialized(it)
+                                        })
                             })
 
                     is SleepTimerEffect.SaveToDatabase -> repository.update(effect.sleepTimer)

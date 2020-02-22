@@ -1,27 +1,23 @@
-package linusfessler.alarmtiles.sleeptimer
+package linusfessler.alarmtiles.alarm
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import io.reactivex.disposables.CompositeDisposable
 import linusfessler.alarmtiles.R
 import linusfessler.alarmtiles.core.App
-import linusfessler.alarmtiles.databinding.FragmentSleepTimerBinding
+import linusfessler.alarmtiles.databinding.FragmentAlarmBinding
 import javax.inject.Inject
 
-class SleepTimerFragment : Fragment() {
+class AlarmFragment : Fragment() {
     @Inject
-    lateinit var viewModel: SleepTimerViewModel
+    lateinit var viewModel: AlarmViewModel
 
-    @Inject
-    lateinit var inputMethodManager: InputMethodManager
-
-    private lateinit var binding: FragmentSleepTimerBinding
-    private lateinit var startDialog: SleepTimerStartDialog
+    private lateinit var binding: FragmentAlarmBinding
+    //    private lateinit var startDialog: AlarmStartDialog
     private lateinit var descriptionDialog: AlertDialog
 
     private val disposable = CompositeDisposable()
@@ -29,49 +25,50 @@ class SleepTimerFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (requireActivity().applicationContext as App)
-                .sleepTimerComponent
+                .alarmComponent
                 .inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        binding = FragmentSleepTimerBinding.inflate(inflater, container, false)
-        startDialog = SleepTimerStartDialog(requireContext(), inputMethodManager, viewModel)
+        binding = FragmentAlarmBinding.inflate(inflater, container, false)
+//        startDialog = AlarmStartDialog(requireContext(), inputMethodManager, viewModel)
         descriptionDialog = AlertDialog.Builder(requireContext())
-                .setTitle(R.string.sleep_timer)
-                .setMessage(R.string.sleep_timer_description)
+                .setTitle(R.string.alarm)
+                .setMessage(R.string.alarm_description)
                 .setCancelable(true)
                 .create()
 
-        binding.sleepTimer.setOnClickListener {
-            disposable.add(viewModel.sleepTimer
+        binding.alarm.setOnClickListener {
+            disposable.add(viewModel.alarm
                     .firstElement()
                     .subscribe {
                         if (it.isEnabled) {
-                            viewModel.dispatch(SleepTimerEvent.Cancel())
+                            viewModel.dispatch(AlarmEvent.Disable())
                         } else {
-                            startDialog.show()
+                            viewModel.dispatch(AlarmEvent.Enable(8, 0))
+//                            startDialog.show()
                         }
                     })
         }
 
-        binding.sleepTimer.setOnLongClickListener {
+        binding.alarm.setOnLongClickListener {
             descriptionDialog.show()
             true
         }
 
-        disposable.add(viewModel.sleepTimer
+        disposable.add(viewModel.alarm
                 .subscribe {
                     if (it.isEnabled) {
-                        // It's possible that the sleep timer was enabled through the quick settings while the start dialog is shown, dismiss it in this case
-                        startDialog.dismiss()
+                        // It's possible that the alarm was set through the quick settings while the start dialog is shown, dismiss it in this case
+//                        startDialog.dismiss()
                     }
-                    binding.sleepTimer.isEnabled = it.isEnabled
+                    binding.alarm.isEnabled = it.isEnabled
                 })
 
         disposable.add(viewModel.timeLeft
                 .subscribe {
-                    binding.sleepTimer.setSubtitle(it)
+                    binding.alarm.setSubtitle(it)
                 })
 
         return binding.root
@@ -80,14 +77,14 @@ class SleepTimerFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         disposable.clear()
-        binding.sleepTimer.setOnClickListener(null)
-        binding.sleepTimer.setOnLongClickListener(null)
+        binding.alarm.setOnClickListener(null)
+        binding.alarm.setOnLongClickListener(null)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         disposable.dispose()
-        startDialog.dismiss()
+//        startDialog.dismiss()
         descriptionDialog.dismiss()
     }
 }

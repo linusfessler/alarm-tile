@@ -23,9 +23,15 @@ class StopwatchEventHandler @Inject constructor() : Update<Stopwatch, StopwatchE
                         StopwatchEffect.Start()
                     }))
 
-            is StopwatchEvent.Start -> next(stopwatch.start(event.startTimestamp))
+            is StopwatchEvent.Start -> {
+                val startedStopwatch = stopwatch.start(event.startTimestamp)
+                next(startedStopwatch, effects(StopwatchEffect.SaveToDatabase(startedStopwatch)))
+            }
 
-            is StopwatchEvent.Stop -> next(stopwatch.stop(event.stopTimestamp))
+            is StopwatchEvent.Stop -> {
+                val stoppedStopwatch = stopwatch.stop(event.stopTimestamp)
+                next(stoppedStopwatch, effects(StopwatchEffect.SaveToDatabase(stoppedStopwatch)))
+            }
 
             else -> throw IllegalStateException("Unhandled event $event")
         }

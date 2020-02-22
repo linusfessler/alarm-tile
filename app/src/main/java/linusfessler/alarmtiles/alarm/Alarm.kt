@@ -8,20 +8,14 @@ data class Alarm(
         @field:PrimaryKey val id: Long = 0,
         val isEnabled: Boolean = false,
         val hourOfDay: Int = 7,
-        val minuteOfHour: Int = 0
+        val minuteOfHour: Int = 0,
+        val triggerTimestamp: Long? = null
 ) {
-    fun toggle(): Alarm {
-        return if (isEnabled)
-            disable()
-        else
-            enable()
+    fun enable(hourOfDay: Int, minuteOfHour: Int, triggerTimestamp: Long): Alarm {
+        return copy(isEnabled = true, hourOfDay = hourOfDay, minuteOfHour = minuteOfHour, triggerTimestamp = triggerTimestamp)
     }
 
-    private fun enable(): Alarm {
-        return copy(isEnabled = true)
-    }
-
-    private fun disable(): Alarm {
-        return copy(isEnabled = false)
+    fun disable(): Alarm {
+        return copy(isEnabled = false, triggerTimestamp = null)
     }
 }

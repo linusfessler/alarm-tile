@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "76e4389d26be64ce9ac620b2003237dc",
+    "identityHash": "45946290421d35303aceb60c895cd0f9",
     "entities": [
       {
         "tableName": "Alarm",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `isEnabled` INTEGER NOT NULL, `hourOfDay` INTEGER NOT NULL, `minuteOfHour` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `isEnabled` INTEGER NOT NULL, `hourOfDay` INTEGER NOT NULL, `minuteOfHour` INTEGER NOT NULL, `triggerTimestamp` INTEGER, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -31,6 +31,12 @@
             "columnName": "minuteOfHour",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "triggerTimestamp",
+            "columnName": "triggerTimestamp",
+            "affinity": "INTEGER",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -46,7 +52,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '76e4389d26be64ce9ac620b2003237dc')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '45946290421d35303aceb60c895cd0f9')"
     ]
   }
 }

@@ -1,15 +1,15 @@
 package linusfessler.alarmtiles.alarm
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import io.reactivex.Observable
 
 @Dao
 interface AlarmDao {
     @Query("SELECT * FROM Alarm")
-    fun select(): LiveData<Alarm>
+    fun select(): Observable<Alarm>
 
     @Insert
     fun insert(alarm: Alarm)

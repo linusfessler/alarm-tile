@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.sleeptimer
+package linusfessler.alarmtiles.alarm
 
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
@@ -10,14 +10,14 @@ import linusfessler.alarmtiles.core.App
 import linusfessler.alarmtiles.shared.TileServiceCompat
 import javax.inject.Inject
 
-class SleepTimerTileService : TileService() {
+class AlarmTileService : TileService() {
     @Inject
-    lateinit var viewModel: SleepTimerViewModel
+    lateinit var viewModel: AlarmViewModel
 
     @Inject
     lateinit var inputMethodManager: InputMethodManager
 
-    private lateinit var startDialog: SleepTimerStartDialog
+    //    private lateinit var startDialog: AlarmStartDialog
     private lateinit var tileLabel: String
 
     private val disposable = CompositeDisposable()
@@ -26,25 +26,26 @@ class SleepTimerTileService : TileService() {
         super.onCreate()
 
         (applicationContext as App)
-                .sleepTimerComponent
+                .alarmComponent
                 .inject(this)
 
         // Wrap context for compatibility between material components and tile service
         val context = ContextThemeWrapper(this, R.style.AppTheme)
-        startDialog = SleepTimerStartDialog(context, inputMethodManager, viewModel)
+//        startDialog = TimePickerDialog(context)
 
         tileLabel = getString(R.string.sleep_timer)
     }
 
     override fun onClick() {
         super.onClick()
-        disposable.add(viewModel.sleepTimer
+        disposable.add(viewModel.alarm
                 .firstElement()
                 .subscribe {
                     if (it.isEnabled) {
-                        viewModel.dispatch(SleepTimerEvent.Cancel())
+                        viewModel.dispatch(AlarmEvent.Disable())
                     } else {
-                        showDialog(startDialog)
+                        viewModel.dispatch(AlarmEvent.Enable(8, 0))
+//                        showDialog(startDialog)
                     }
                 })
     }
@@ -52,14 +53,13 @@ class SleepTimerTileService : TileService() {
     override fun onStartListening() {
         super.onStartListening()
 
-        disposable.add(viewModel.sleepTimer
+        disposable.add(viewModel.alarm
                 .subscribe {
-                    qsTile.state =
-                            if (it.isEnabled) {
-                                Tile.STATE_ACTIVE
-                            } else {
-                                Tile.STATE_INACTIVE
-                            }
+                    qsTile.state = if (it.isEnabled) {
+                        Tile.STATE_ACTIVE
+                    } else {
+                        Tile.STATE_INACTIVE
+                    }
                     qsTile.updateTile()
                 })
 
@@ -78,6 +78,6 @@ class SleepTimerTileService : TileService() {
     override fun onDestroy() {
         super.onDestroy()
         disposable.dispose()
-        startDialog.dismiss()
+//        startDialog.dismiss()
     }
 }

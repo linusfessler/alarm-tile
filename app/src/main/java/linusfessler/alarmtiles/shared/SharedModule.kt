@@ -10,12 +10,14 @@ import android.media.AudioManager
 import android.os.Handler
 import android.os.Vibrator
 import android.provider.Settings
+import android.text.format.DateFormat
 import android.view.inputmethod.InputMethodManager
 import androidx.work.WorkManager
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -93,4 +95,10 @@ class SharedModule(private val application: Application) {
         }
     }
 
+    @Provides
+    @Named("is24Hours")
+    @Singleton
+    fun is24Hours(application: Application): Boolean {
+        return DateFormat.is24HourFormat(application)
+    }
 }

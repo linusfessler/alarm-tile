@@ -34,20 +34,21 @@ class StopwatchTileService : TileService() {
 
     override fun onStartListening() {
         super.onStartListening()
-        
+
         disposable.add(viewModel.stopwatch
-                .subscribe { (_, isEnabled) ->
-                    qsTile.state = if (isEnabled) {
-                        Tile.STATE_ACTIVE
-                    } else {
-                        Tile.STATE_INACTIVE
-                    }
+                .subscribe {
+                    qsTile.state =
+                            if (it.isEnabled) {
+                                Tile.STATE_ACTIVE
+                            } else {
+                                Tile.STATE_INACTIVE
+                            }
                     qsTile.updateTile()
                 })
 
         disposable.add(viewModel.elapsedTime
-                .subscribe { elapsedTime: String ->
-                    setSubtitle(qsTile, tileLabel, elapsedTime)
+                .subscribe {
+                    setSubtitle(qsTile, tileLabel, it)
                     qsTile.updateTile()
                 })
     }

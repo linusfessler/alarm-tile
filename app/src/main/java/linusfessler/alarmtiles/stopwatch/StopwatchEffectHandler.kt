@@ -19,8 +19,8 @@ class StopwatchEffectHandler @Inject constructor(
                 when (effect) {
                     is StopwatchEffect.LoadFromDatabase -> disposable.add(repository.stopwatch
                             .take(1)
-                            .subscribe { sleepTimer ->
-                                eventConsumer.accept(StopwatchEvent.Initialized(sleepTimer))
+                            .subscribe {
+                                eventConsumer.accept(StopwatchEvent.Initialized(it))
                             })
 
                     is StopwatchEffect.SaveToDatabase -> repository.update(effect.stopwatch)
