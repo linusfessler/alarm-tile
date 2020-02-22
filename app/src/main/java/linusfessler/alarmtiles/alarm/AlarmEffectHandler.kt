@@ -24,7 +24,7 @@ class AlarmEffectHandler @Inject constructor(
                             .take(1)
                             .subscribe {
                                 eventConsumer.accept(
-                                        if (it.isEnabled && it.triggerTimestamp!! >= System.currentTimeMillis()) {
+                                        if (it.isEnabled && it.triggerTimestamp!! <= System.currentTimeMillis()) {
                                             // TODO: Show notification that the alarm was missed
                                             AlarmEvent.Disable()
                                         } else {
