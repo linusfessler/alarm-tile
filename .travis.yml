@@ -1,0 +1,17 @@
+language: android
+jdk: oraclejdk8
+os: linux
+
+before_install:
+  - chmod +x gradlew
+
+android:
+  components:
+    - tools
+    - platform-tools
+    - build-tools-29.0.2
+    - android-29
+    - extra-android-m2repository
+
+after_success:
+  - ./gradlew jacocoTestReportDebug coveralls

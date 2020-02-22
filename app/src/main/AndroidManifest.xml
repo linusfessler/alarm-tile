@@ -5,8 +5,10 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
+        android:name=".core.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -15,31 +17,19 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".activities.LauncherActivity"
+            android:name=".core.MainActivity"
+            android:label="@string/activity_main_title"
             android:launchMode="singleTask"
-            android:theme="@android:style/Theme.NoDisplay"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.MainActivity"
-            android:label="@string/activity_main_title"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"
-            android:theme="@style/MainTheme">
-            <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".activities.SettingsActivity"
-            android:label="@string/activity_settings_title">
-        </activity>
-        <activity android:name=".activities.AboutActivity" />
+
         <activity
             android:name=".activities.AlarmActivity"
             android:label="@string/activity_alarm_title"
@@ -49,44 +39,56 @@
             android:theme="@style/AlarmTheme" />
 
         <service
-            android:name=".services.tile.AlarmTileService"
-            android:icon="@drawable/ic_tile_alarm"
+            android:name=".sleeptimer.SleepTimerTileService"
+            android:icon="@drawable/ic_music_off_24px"
+            android:label="@string/sleep_timer"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".alarm.AlarmTileService"
+            android:icon="@drawable/ic_alarm_24px"
             android:label="@string/alarm"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
         </service>
+
         <service
-            android:name=".services.tile.TimerTileService"
-            android:icon="@drawable/ic_tile_timer"
+            android:name=".timer.TimerTileService"
+            android:icon="@drawable/ic_hourglass_empty_24px"
             android:label="@string/timer"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
         </service>
+
         <service
-            android:name=".services.tile.SnoozeTileService"
-            android:icon="@drawable/ic_tile_snooze"
-            android:label="@string/snooze"
+            android:name=".stopwatch.StopwatchTileService"
+            android:icon="@drawable/ic_timer_24px"
+            android:label="@string/stopwatch"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
         </service>
-        <service android:name=".services.AlarmService" />
-        <service
-            android:name=".services.MusicSchedulerService"
-            android:label="Music Scheduler Service"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
 
-        <receiver
-            android:name=".receivers.AlarmResumeReceiver"
-            android:enabled="false">
+        <service android:name=".services.AlarmService" />
+
+        <service android:name=".sleeptimer.SleepTimerNotificationService" />
+
+        <receiver android:name=".shared.AlarmBroadcastReceiver" />
+
+        <receiver android:name=".core.ResumeBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.ACTION_MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.ACTION_MY_PACKAGE_UNSUSPENDED" />
             </intent-filter>
         </receiver>
 

@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#101010</color>
-    <color name="colorPrimaryDark">#080808</color>
-    <color name="colorAccent">#5e97f6</color>
-    <color name="windowBackground">#181818</color>
+    <color name="blue">@color/quickSettingsBackgroundEnabled</color>
+    <color name="red">#CF6679</color>
+    <color name="white">#FFFFFF</color>
+    <color name="grey">#1F1F1F</color>
+    <color name="darkGrey">#121212</color>
+    <color name="black">#000000</color>
+
+    <color name="quickSettingsIconEnabled">#2E2E2E</color>
+    <color name="quickSettingsIconDisabled">#C3C3C3</color>
+    <color name="quickSettingsBackgroundEnabled">#8AB4F8</color>
+    <color name="quickSettingsBackgroundDisabled">#353535</color>
+    <color name="quickSettingsBackground">@color/black</color>
+    <color name="quickSettingsIndicatorEnabled">@color/quickSettingsBackgroundEnabled</color>
+    <color name="quickSettingsIndicatorDisabled">#3A4C67</color>
+
+    <color name="colorPrimary">@color/blue</color>
+    <color name="colorOnPrimary">@color/black</color>
+    <color name="colorSecondary">@color/colorPrimary</color>
+    <color name="colorOnSecondary">@color/colorOnPrimary</color>
+    <color name="colorBackground">@color/black</color>
+    <color name="colorOnBackground">@color/white</color>
+    <color name="colorSurface">@color/darkGrey</color>
+    <color name="colorOnSurface">@color/white</color>
+    <color name="colorError">@color/red</color>
+    <color name="colorOnError">@color/white</color>
 </resources>

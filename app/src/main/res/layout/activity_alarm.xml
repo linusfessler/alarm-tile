@@ -1,4 +1,4 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,29 +6,30 @@
     tools:context=".activities.AlarmActivity">
 
     <TextView
-        android:id="@+id/time"
+        android:id="@+id/alarm_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
+        android:textColor="@color/colorOnBackground"
         android:textSize="72sp"
         app:layout_constraintBottom_toTopOf="@id/alarm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.110000014"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="08:00" />
 
     <TextView
         android:id="@+id/alarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/activity_alarm_title"
-        android:textColor="@android:color/white"
+        android:textColor="@color/colorOnBackground"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/time"
+        app:layout_constraintTop_toBottomOf="@id/alarm_time"
         app:layout_constraintVertical_bias="0.55" />
 
     <RelativeLayout
@@ -59,20 +60,26 @@
             android:layout_above="@id/image_alarm"
             android:layout_marginBottom="50dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_snooze"
-            android:scaleType="center"
+            android:padding="12dp"
+            android:src="@drawable/ic_snooze_24px"
+            android:tint="@color/colorOnPrimary"
+            android:scaleType="fitCenter"
             android:background="@drawable/circle"
-            android:backgroundTint="@color/colorAccent" />
+            android:backgroundTint="@color/colorPrimary"
+            android:contentDescription="@string/snooze" />
 
         <ImageView
             android:id="@+id/image_alarm"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/ic_alarm"
-            android:scaleType="center"
+            android:padding="12dp"
+            android:src="@drawable/ic_alarm_24px"
+            android:tint="@color/colorOnPrimary"
+            android:scaleType="fitCenter"
             android:background="@drawable/circle"
-            android:backgroundTint="@color/colorAccent" />
+            android:backgroundTint="@color/colorPrimary"
+            android:contentDescription="@string/alarm" />
 
         <View
             android:id="@+id/ripple"
@@ -88,11 +95,14 @@
             android:layout_below="@id/image_alarm"
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_dismiss"
-            android:scaleType="center"
+            android:padding="12dp"
+            android:src="@drawable/ic_alarm_off_24px"
+            android:tint="@color/colorOnPrimary"
+            android:scaleType="fitCenter"
             android:background="@drawable/circle"
-            android:backgroundTint="@color/colorAccent" />
+            android:backgroundTint="@color/colorPrimary"
+            android:contentDescription="@string/dismiss" />
 
     </RelativeLayout>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

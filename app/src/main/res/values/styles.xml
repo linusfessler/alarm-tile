@@ -1,23 +1,103 @@
 <resources>
 
-    <style name="MainTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents">
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:colorBackground">@color/windowBackground</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="colorOnBackground">@color/colorOnBackground</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="colorError">@color/colorError</item>
+        <item name="colorOnError">@color/colorOnError</item>
+
+        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="android:timePickerStyle">@style/TimePickerStyle</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:colorBackground">@color/windowBackground</item>
-        <!--item name="android:listDivider">@null</item-->
-    </style>
-
-    <style name="AlarmTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="AlarmTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:windowBackground">@android:color/black</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <item name="android:colorBackground">@color/darkGrey</item>
+        <item name="colorOnBackground">@color/colorOnBackground</item>
+        <item name="colorSurface">@color/grey</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="colorError">@color/colorError</item>
+        <item name="colorOnError">@color/colorOnError</item>
+    </style>
+
+    <style name="TimePickerStyle" parent="android:Widget.Material.TimePicker">
+        <item name="android:background">@color/colorSurface</item>
+        <item name="android:headerBackground">@color/grey</item>
+        <item name="android:numbersBackgroundColor">@color/grey</item>
+    </style>
+
+    <style name="Title">
+        <item name="android:layout_height">@dimen/settings_height</item>
+        <item name="android:layout_marginTop">@dimen/fragment_padding</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="cornerRadius">0dp</item>
+    </style>
+
+    <style name="Info">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+    </style>
+
+    <style name="Settings">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/settings_height</item>
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:drawableTint">@color/colorOnBackground</item>
+        <item name="android:drawablePadding">4dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/colorOnBackground</item>
+    </style>
+
+    <style name="Time">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">24dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:textColor">@color/colorOnBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+
+    <style name="HorizontalLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:background">@color/colorOnBackground</item>
+    </style>
+
+    <style name="VerticalLine">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/colorOnBackground</item>
     </style>
 
 </resources>

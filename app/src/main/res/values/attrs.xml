@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="icon" format="reference" />
+
+    <declare-styleable name="TitleSummaryView">
+        <attr name="title" format="string" />
+        <attr name="summary" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="QuickSettingsTile">
+        <attr name="enabled" format="boolean" />
+        <attr name="label" format="string" />
+        <attr name="subtitle" format="string" />
+        <attr name="icon" />
+    </declare-styleable>
+
+    <declare-styleable name="TimeSettings">
+        <attr name="hour" format="integer" />
+        <attr name="minute" format="integer" />
+        <attr name="timeFormat" format="enum">
+            <enum name="TIME" value="0" />
+            <enum name="TIME_OF_DAY" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="TimeInput">
+        <attr name="hint" format="string" />
+        <attr name="icon" />
+    </declare-styleable>
+
+</resources>
