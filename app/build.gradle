@@ -1,8 +1,11 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'androidx.navigation.safeargs'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id 'com.vanniktech.android.junit.jacoco'
+    id 'com.github.kt3k.coveralls' version '2.8.4'
+}
 
 android {
     compileSdkVersion 29
@@ -15,9 +18,10 @@ android {
         versionName '3.0'
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         versionCode 14
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = ['room.schemaLocation': '$projectDir/schemas'.toString()]
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas".toString())
             }
         }
     }
@@ -27,7 +31,7 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        
+
         debug {
             testCoverageEnabled true
         }
