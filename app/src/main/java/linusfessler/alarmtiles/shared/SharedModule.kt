@@ -12,7 +12,6 @@ import android.os.Vibrator
 import android.provider.Settings
 import android.text.format.DateFormat
 import android.view.inputmethod.InputMethodManager
-import androidx.work.WorkManager
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Observable
@@ -25,12 +24,6 @@ class SharedModule(private val application: Application) {
     @Provides
     fun application(): Application {
         return application
-    }
-
-    @Provides
-    @Singleton
-    fun workManager(): WorkManager {
-        return WorkManager.getInstance(application)
     }
 
     @Provides

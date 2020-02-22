@@ -68,28 +68,28 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
 
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        volumeButtons = preferences.getBoolean(getString(R.string.pref_volume_buttons_key), false);
-        useFlashlight = preferences.getBoolean(getString(R.string.pref_flashlight_key), false);
+//        volumeButtons = preferences.getBoolean(getString(R.string.pref_volume_buttons_key), false);
+//        useFlashlight = preferences.getBoolean(getString(R.string.pref_flashlight_key), false);
         if (useFlashlight) {
 //            flashlightManager = new FlashlightManager(this);
 //            flashlightManager.turnOn();
         }
 
-        final long vibrationPause = Long.parseLong(preferences.getString(getString(R.string.pref_pause_duration_key), String.valueOf(AlarmService.DEFAULT_VIBRATION_PATTERN[0])));
-        final long vibrationDuration = Long.parseLong(preferences.getString(getString(R.string.pref_vibration_duration_key), String.valueOf(AlarmService.DEFAULT_VIBRATION_PATTERN[1])));
+//        final long vibrationPause = Long.parseLong(preferences.getString(getString(R.string.pref_pause_duration_key), String.valueOf(AlarmService.DEFAULT_VIBRATION_PATTERN[0])));
+//        final long vibrationDuration = Long.parseLong(preferences.getString(getString(R.string.pref_vibration_duration_key), String.valueOf(AlarmService.DEFAULT_VIBRATION_PATTERN[1])));
 
         Executors.newFixedThreadPool(1).submit(new Runnable() {
             @Override
             public void run() {
                 while (!finished) {
-                    try {
-                        Thread.sleep(vibrationPause);
-                    } catch (final InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    if (finished) {
-                        break;
-                    }
+//                    try {
+//                        Thread.sleep(vibrationPause);
+//                    } catch (final InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                    if (finished) {
+//                        break;
+//                    }
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -97,11 +97,11 @@ public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeLi
                         }
                     });
 
-                    try {
-                        Thread.sleep(vibrationDuration);
-                    } catch (final InterruptedException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        Thread.sleep(vibrationDuration);
+//                    } catch (final InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
                     if (finished) {
                         break;
                     }
