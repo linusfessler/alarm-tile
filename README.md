@@ -1,0 +1,1 @@
+# Alarm Tiles [![Build Status](https://travis-ci.com/linusfessler/alarm-tiles.svg?branch=3.0)](https://travis-ci.com/linusfessler/alarm-tiles)
