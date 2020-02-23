@@ -12,14 +12,12 @@ android:
 before_install:
   - chmod +x gradlew
 
-
-
 jobs:
   include:
     - stage: "Lint"
       script: ./gradlew lint
     - stage: "Test"
-    script: ./gradlew test
+      script: ./gradlew test
 
 after_success:
   - ./gradlew jacoco coveralls
