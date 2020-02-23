@@ -1,117 +1,114 @@
 package linusfessler.alarmtiles.stopwatch
 
 import com.spotify.mobius.Effects
-import org.junit.jupiter.api.Assertions.*
+import com.spotify.mobius.test.UpdateSpec
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import java.util.*
 
-internal class StopwatchEventHandlerTest {
-    private var yesterdayTimestamp = GregorianCalendar(2000, 1, 1).timeInMillis
-    private var currentTimestamp = GregorianCalendar(2000, 1, 2).timeInMillis
-    private var tomorrowTimestamp = GregorianCalendar(2000, 1, 3).timeInMillis
 
-    private val stopwatchEventHandler = StopwatchEventHandler()
+internal class StopwatchEventHandlerTest {
+    private val timestamp1 = GregorianCalendar(2000, 1, 1).timeInMillis
+    private val timestamp2 = GregorianCalendar(2000, 1, 2).timeInMillis
+    private val timestamp3 = GregorianCalendar(2000, 1, 3).timeInMillis
+
+    private val updateSpec = UpdateSpec(StopwatchEventHandler())
 
     @Test
     internal fun initialize() {
-        // GIVEN
-        val model = Stopwatch()
-        val event = StopwatchEvent.Initialize()
-        // WHEN
-        val next = stopwatchEventHandler.update(model, event)
-        // THEN
-        assertFalse(next.hasModel())
-        assertTrue(next.effects() == Effects.effects(StopwatchEffect.LoadFromDatabase()))
+        val stopwatch = Stopwatch()
+        updateSpec
+                .given(stopwatch)
+                .whenEvent(StopwatchEvent.Initialize())
+                .then {
+                    assertEquals(stopwatch, it.model())
+                    assertEquals(Effects.effects(StopwatchEffect.LoadFromDatabase()), it.lastNext().effects())
+                }
     }
 
     @Test
     internal fun initialized() {
-        // GIVEN
-        val model = Stopwatch()
-        val loadedStopwatch = Stopwatch().start(yesterdayTimestamp)
-        val event = StopwatchEvent.Initialized(loadedStopwatch)
-        // WHEN
-        val next = stopwatchEventHandler.update(model, event)
-        // THEN
-        assertEquals(loadedStopwatch, next.modelUnsafe())
+        val stopwatch = Stopwatch()
+        val initializedStopwatch = Stopwatch().start(timestamp1)
+        updateSpec
+                .given(stopwatch)
+                .whenEvent(StopwatchEvent.Initialized(initializedStopwatch))
+                .then {
+                    assertEquals(initializedStopwatch, it.model())
+                    assertTrue(it.lastNext().effects().isEmpty())
+                }
     }
 
     @Test
     internal fun toggleStarted() {
-        // GIVEN
-        val model = Stopwatch().start(yesterdayTimestamp)
-        val event = StopwatchEvent.Toggle()
-        // WHEN
-        val next = stopwatchEventHandler.update(model, event)
-        // THEN
-        assertFalse(next.hasModel())
-        assertTrue(next.effects() == Effects.effects(StopwatchEffect.Stop()))
+        val startedStopwatch = Stopwatch().start(timestamp1)
+        updateSpec
+                .given(startedStopwatch)
+                .whenEvent(StopwatchEvent.Toggle())
+                .then {
+                    assertEquals(startedStopwatch, it.model())
+                    assertEquals(Effects.effects(StopwatchEffect.Stop()), it.lastNext().effects())
+                }
     }
 
     @Test
     internal fun toggleStopped() {
-        // GIVEN
-        val model = Stopwatch().start(yesterdayTimestamp).stop(currentTimestamp)
-        val event = StopwatchEvent.Toggle()
-        // WHEN
-        val next = stopwatchEventHandler.update(model, event)
-        // THEN
-        assertFalse(next.hasModel())
-        assertTrue(next.effects() == Effects.effects(StopwatchEffect.Start()))
+        val stoppedStopwatch = Stopwatch().start(timestamp1).stop(timestamp2)
+        updateSpec
+                .given(stoppedStopwatch)
+                .whenEvent(StopwatchEvent.Toggle())
+                .then {
+                    assertEquals(stoppedStopwatch, it.model())
+                    assertEquals(Effects.effects(StopwatchEffect.Start()), it.lastNext().effects())
+                }
     }
 
     @Test
     internal fun start() {
-        // GIVEN
-        val startTimestamp = currentTimestamp
-        val model = Stopwatch().stop(yesterdayTimestamp)
-        val event = StopwatchEvent.Start(startTimestamp)
-        // WHEN
-        val next = stopwatchEventHandler.update(model, event)
-        // THEN
-        val startedStopwatch = model.start(startTimestamp)
-        assertEquals(startedStopwatch, next.modelUnsafe())
-        assertTrue(next.effects() == Effects.effects(StopwatchEffect.SaveToDatabase(startedStopwatch)))
+        val stoppedStopwatch = Stopwatch().start(timestamp1).stop(timestamp2)
+        val startedStopwatch = Stopwatch().start(timestamp3)
+        updateSpec
+                .given(stoppedStopwatch)
+                .whenEvent(StopwatchEvent.Start(timestamp3))
+                .then {
+                    assertEquals(startedStopwatch, it.model())
+                    assertEquals(Effects.effects(StopwatchEffect.SaveToDatabase(startedStopwatch)), it.lastNext().effects())
+                }
     }
 
     @Test
     internal fun startAlreadyStarted() {
-        // GIVEN
-        val model = Stopwatch().start(yesterdayTimestamp)
-        val event = StopwatchEvent.Start(currentTimestamp)
-        // WHEN
-        val exception = assertThrows<IllegalStateException> {
-            stopwatchEventHandler.update(model, event)
-        }
-        // THEN
-        assertEquals("Can't start stopwatch, it is already started", exception.message)
+        val startedStopwatch = Stopwatch().start(timestamp1)
+        updateSpec
+                .given(startedStopwatch)
+                .whenEvent(StopwatchEvent.Start(timestamp2))
+                .thenError {
+                    assertEquals("Can't start stopwatch, it is already started", it.message)
+                }
     }
 
     @Test
     internal fun stop() {
-        // GIVEN
-        val stopTimestamp = currentTimestamp
-        val model = Stopwatch().start(yesterdayTimestamp)
-        val event = StopwatchEvent.Stop(stopTimestamp)
-        // WHEN
-        val next = stopwatchEventHandler.update(model, event)
-        // THEN
-        val stoppedStopwatch = model.stop(stopTimestamp)
-        assertEquals(stoppedStopwatch, next.modelUnsafe())
-        assertTrue(next.effects() == Effects.effects(StopwatchEffect.SaveToDatabase(stoppedStopwatch)))
+        val startedStopwatch = Stopwatch().start(timestamp1)
+        val stoppedStopwatch = startedStopwatch.stop(timestamp2)
+        updateSpec
+                .given(startedStopwatch)
+                .whenEvent(StopwatchEvent.Stop(timestamp2))
+                .then {
+                    assertEquals(stoppedStopwatch, it.model())
+                    assertEquals(Effects.effects(StopwatchEffect.SaveToDatabase(stoppedStopwatch)), it.lastNext().effects())
+                }
     }
 
     @Test
     internal fun stopAlreadyStopped() {
-        // GIVEN
-        val model = Stopwatch().stop(yesterdayTimestamp)
-        val event = StopwatchEvent.Stop(currentTimestamp)
-        // WHEN
-        val exception = assertThrows<IllegalStateException> {
-            stopwatchEventHandler.update(model, event)
-        }
-        // THEN
-        assertEquals("Can't stop stopwatch, it is already stopped", exception.message)
+        val stoppedStopwatch = Stopwatch().start(timestamp1).stop(timestamp2)
+        updateSpec
+                .given(stoppedStopwatch)
+                .whenEvent(StopwatchEvent.Stop(timestamp3))
+                .thenError {
+                    assertEquals("Can't stop stopwatch, it is already stopped", it.message)
+                }
     }
 }
