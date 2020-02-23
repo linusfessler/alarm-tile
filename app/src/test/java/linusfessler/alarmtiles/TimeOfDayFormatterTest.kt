@@ -1,8 +1,8 @@
 package linusfessler.alarmtiles
 
 import linusfessler.alarmtiles.shared.TimeOfDayFormatter
-import org.junit.Assert
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 
 class TimeOfDayFormatterTest {
     private val timeOfDayFormatter12 = TimeOfDayFormatter(false)
@@ -17,7 +17,7 @@ class TimeOfDayFormatterTest {
         // WHEN
         val actual = timeOfDayFormatter24.format(hourOfDay, minutesOfHour)
         // THEN
-        Assert.assertEquals(expected, actual)
+        Assertions.assertEquals(expected, actual)
     }
 
     @Test
@@ -29,7 +29,7 @@ class TimeOfDayFormatterTest {
         // WHEN
         val actual = timeOfDayFormatter24.format(hourOfDay, minutesOfHour)
         // THEN
-        Assert.assertEquals(expected, actual)
+        Assertions.assertEquals(expected, actual)
     }
 
     @Test
@@ -41,7 +41,7 @@ class TimeOfDayFormatterTest {
         // WHEN
         val actual = timeOfDayFormatter12.format(hourOfDay, minutesOfHour)
         // THEN
-        Assert.assertEquals(expected, actual)
+        Assertions.assertEquals(expected, actual)
     }
 
     @Test
@@ -53,7 +53,7 @@ class TimeOfDayFormatterTest {
         // WHEN
         val actual = timeOfDayFormatter12.format(hourOfDay, minutesOfHour)
         // THEN
-        Assert.assertEquals(expected, actual)
+        Assertions.assertEquals(expected, actual)
     }
 
     @Test
@@ -65,7 +65,7 @@ class TimeOfDayFormatterTest {
         // WHEN
         val actual = timeOfDayFormatter24.format(hourOfDay, minutesOfHour)
         // THEN
-        Assert.assertEquals(expected, actual)
+        Assertions.assertEquals(expected, actual)
     }
 
     @Test
@@ -77,7 +77,7 @@ class TimeOfDayFormatterTest {
         // WHEN
         val actual = timeOfDayFormatter24.format(hourOfDay, minutesOfHour)
         // THEN
-        Assert.assertEquals(expected, actual)
+        Assertions.assertEquals(expected, actual)
     }
 
     @Test
@@ -89,7 +89,7 @@ class TimeOfDayFormatterTest {
         // WHEN
         val actual = timeOfDayFormatter12.format(hourOfDay, minutesOfHour)
         // THEN
-        Assert.assertEquals(expected, actual)
+        Assertions.assertEquals(expected, actual)
     }
 
     @Test
@@ -101,6 +101,6 @@ class TimeOfDayFormatterTest {
         // WHEN
         val actual = timeOfDayFormatter12.format(hourOfDay, minutesOfHour)
         // THEN
-        Assert.assertEquals(expected, actual)
+        Assertions.assertEquals(expected, actual)
     }
 }

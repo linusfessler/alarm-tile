@@ -1,8 +1,8 @@
 package linusfessler.alarmtiles
 
 import linusfessler.alarmtiles.shared.TimeFormatter
-import org.junit.Assert
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 import java.util.concurrent.TimeUnit
 
 class TimeFormatterTest {
@@ -17,7 +17,7 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(millis.toLong(), precision)
         // THEN
-        Assert.assertEquals(expected, actual)
+        Assertions.assertEquals(expected, actual)
     }
 
     @Test
@@ -29,7 +29,7 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(millis.toLong(), precision)
         // THEN
-        Assert.assertEquals(expected, actual)
+        Assertions.assertEquals(expected, actual)
     }
 
     @Test
@@ -41,7 +41,7 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(millis.toLong(), precision)
         // THEN
-        Assert.assertEquals(expected, actual)
+        Assertions.assertEquals(expected, actual)
     }
 
     @Test
@@ -53,7 +53,7 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(millis.toLong(), precision)
         // THEN
-        Assert.assertEquals(expected, actual)
+        Assertions.assertEquals(expected, actual)
     }
 
     @Test
@@ -67,7 +67,7 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(hours.toLong(), minutes.toLong(), seconds.toLong(), millis.toLong())
         // THEN
-        Assert.assertEquals(expected, actual)
+        Assertions.assertEquals(expected, actual)
     }
 
     @Test
@@ -80,7 +80,7 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(hours.toLong(), minutes.toLong(), seconds.toLong())
         // THEN
-        Assert.assertEquals(expected, actual)
+        Assertions.assertEquals(expected, actual)
     }
 
     @Test
@@ -92,7 +92,7 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(hours.toLong(), minutes.toLong())
         // THEN
-        Assert.assertEquals(expected, actual)
+        Assertions.assertEquals(expected, actual)
     }
 
     @Test
@@ -106,7 +106,7 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(hours.toLong(), minutes.toLong(), seconds.toLong(), millis.toLong())
         // THEN
-        Assert.assertEquals(expected, actual)
+        Assertions.assertEquals(expected, actual)
     }
 
     @Test
@@ -120,7 +120,7 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(hours.toLong(), minutes.toLong(), seconds.toLong(), millis.toLong())
         // THEN
-        Assert.assertEquals(expected, actual)
+        Assertions.assertEquals(expected, actual)
     }
 
     @Test
@@ -134,7 +134,7 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(hours.toLong(), minutes.toLong(), seconds.toLong(), millis.toLong())
         // THEN
-        Assert.assertEquals(expected, actual)
+        Assertions.assertEquals(expected, actual)
     }
 
     @Test
@@ -148,7 +148,7 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(hours.toLong(), minutes.toLong(), seconds.toLong(), millis.toLong())
         // THEN
-        Assert.assertEquals(expected, actual)
+        Assertions.assertEquals(expected, actual)
     }
 
     @Test
@@ -162,7 +162,7 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(hours.toLong(), minutes.toLong(), seconds.toLong(), millis.toLong())
         // THEN
-        Assert.assertEquals(expected, actual)
+        Assertions.assertEquals(expected, actual)
     }
 
     @Test
@@ -175,7 +175,7 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(hours.toLong(), minutes.toLong(), seconds.toLong())
         // THEN
-        Assert.assertEquals(expected, actual)
+        Assertions.assertEquals(expected, actual)
     }
 
     @Test
@@ -187,7 +187,7 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(hours.toLong(), minutes.toLong())
         // THEN
-        Assert.assertEquals(expected, actual)
+        Assertions.assertEquals(expected, actual)
     }
 
     @Test
@@ -198,6 +198,6 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.formatHours(hours.toLong())
         // THEN
-        Assert.assertEquals(expected, actual)
+        Assertions.assertEquals(expected, actual)
     }
 }
