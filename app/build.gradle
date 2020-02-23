@@ -3,12 +3,8 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
-    id 'com.vanniktech.android.junit.jacoco' version '0.15.0'
+    id 'jacoco'
     id 'com.github.kt3k.coveralls' version '2.10.0'
-}
-
-coveralls {
-    jacocoReportPath 'build/reports/jacoco/debug/jacoco.xml'
 }
 
 android {
