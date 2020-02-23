@@ -26,7 +26,6 @@ android {
         kapt {
             arguments {
                 arg("room.schemaLocation", "$projectDir/schemas")
-                arg("room.incremental", true)
             }
         }
     }
@@ -53,11 +52,6 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
-    }
-
-    lintOptions {
-        //warningsAsErrors true
-        abortOnError false
     }
 }
 
