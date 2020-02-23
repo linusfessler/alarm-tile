@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/github/license/linusfessler/alarm-tiles)](LICENSE)
 
 Alarm Tiles is an Android app that adds the following quick settings tiles: sleep timer, alarm, alarm timer, and stopwatch.
-By providing quick settings tiles, it allows the user to effortlessly enable an alarm or sleep timer without leaving the context of their current app.
+By providing quick settings tiles, it allows the user to effortlessly enable an alarm or sleep timer or use a stopwatch without leaving the context of their current app.
 
 ## Main technologies and libraries
 * [Kotlin](https://kotlinlang.org)
