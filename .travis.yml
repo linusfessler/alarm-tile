@@ -9,10 +9,6 @@ android:
     - build-tools-29.0.2
     - android-29
 
-env:
-  - COVERALLS_REPO_TOKEN=12ebf32f5a3702432c23fe15640b5b6361baf0d9
-  - CI_NAME=travis-ci
-
 before_install:
   - chmod +x gradlew
 
