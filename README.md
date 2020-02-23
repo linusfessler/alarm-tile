@@ -21,9 +21,10 @@ Currently translated in English (default) and German.
 If you want to contribute to the translation, add/edit the strings.xml in the app/src/main/res/values folder corresponding to the language.
 
 ## CI
-This project uses [Travis CI](https://travis-ci.com) to lint and test. After the test stage, it uses
+This project uses [Travis CI](https://travis-ci.com) to lint and test, and to send the coverage reports to Coveralls.
+Unit tests are run with JUnit 5 ([android-junit5](https://github.com/mannodermaus/android-junit5) enables test coverage report).
+After the test stage, it uses
 [Jacoco](https://github.com/jacoco/jacoco)
-([Jacoco Gradle plugin](https://github.com/vanniktech/gradle-android-junit-jacoco-plugin))
 to report the test coverage and send it to
 [Coveralls](https://coveralls.io)
 ([Coveralls Gradle plugin](https://github.com/kt3k/coveralls-gradle-plugin)).

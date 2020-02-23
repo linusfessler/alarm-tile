@@ -20,4 +20,4 @@ jobs:
       script: ./gradlew test
 
 after_success:
-  - ./gradlew jacoco coveralls
+  - ./gradlew jacocoTestReport coveralls
