@@ -22,7 +22,9 @@ If you want to contribute to the translation, add/edit the strings.xml in the ap
 
 ## CI
 This project uses [Travis CI](https://travis-ci.com) to lint and test, and to send the coverage reports to Coveralls.
-Unit tests are run with JUnit 5 ([android-junit5](https://github.com/mannodermaus/android-junit5) enables test coverage report).
+Unit tests are run with
+[JUnit 5](https://github.com/junit-team/junit5)
+([Android JUnit 5 Gradle plugin](https://github.com/mannodermaus/android-junit5)).
 After the test stage, it uses
 [Jacoco](https://github.com/jacoco/jacoco)
 to report the test coverage and send it to
