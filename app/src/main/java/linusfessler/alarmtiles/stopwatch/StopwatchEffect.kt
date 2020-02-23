@@ -1,11 +1,11 @@
 package linusfessler.alarmtiles.stopwatch
 
 interface StopwatchEffect {
-    class LoadFromDatabase : StopwatchEffect
+    data class LoadFromDatabase(val unused: Byte = 0) : StopwatchEffect
 
     data class SaveToDatabase(val stopwatch: Stopwatch) : StopwatchEffect
 
-    class Start : StopwatchEffect
+    data class Start(val unused: Byte = 0) : StopwatchEffect
 
-    class Stop : StopwatchEffect
+    data class Stop(val unused: Byte = 0) : StopwatchEffect
 }

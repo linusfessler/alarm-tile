@@ -1,15 +1,15 @@
 package linusfessler.alarmtiles.alarm
 
 interface AlarmEffect {
-    class LoadFromDatabase : AlarmEffect
+    data class LoadFromDatabase(val unused: Byte = 0) : AlarmEffect
 
     data class SaveToDatabase(val alarm: Alarm) : AlarmEffect
 
-    class Enable(val hourOfDay: Int, val minuteOfHour: Int) : AlarmEffect
+    data class Enable(val hourOfDay: Int, val minuteOfHour: Int) : AlarmEffect
 
-    class Disable : AlarmEffect
+    data class Disable(val unused: Byte = 0) : AlarmEffect
 
     data class SetAlarm(val triggerTimestamp: Long) : AlarmEffect
 
-    class CancelAlarm : AlarmEffect
+    data class CancelAlarm(val unused: Byte = 0) : AlarmEffect
 }

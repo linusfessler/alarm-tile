@@ -24,11 +24,19 @@ class StopwatchEventHandler @Inject constructor() : Update<Stopwatch, StopwatchE
                     }))
 
             is StopwatchEvent.Start -> {
+                if (stopwatch.isEnabled) {
+                    throw IllegalStateException("Can't start stopwatch, it is already started")
+                }
+
                 val startedStopwatch = stopwatch.start(event.startTimestamp)
                 next(startedStopwatch, effects(StopwatchEffect.SaveToDatabase(startedStopwatch)))
             }
 
             is StopwatchEvent.Stop -> {
+                if (!stopwatch.isEnabled) {
+                    throw IllegalStateException("Can't stop stopwatch, it is already stopped")
+                }
+
                 val stoppedStopwatch = stopwatch.stop(event.stopTimestamp)
                 next(stoppedStopwatch, effects(StopwatchEffect.SaveToDatabase(stoppedStopwatch)))
             }

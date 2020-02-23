@@ -1,15 +1,14 @@
-package linusfessler.alarmtiles
+package linusfessler.alarmtiles.shared
 
-import linusfessler.alarmtiles.shared.TimeFormatter
-import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.util.concurrent.TimeUnit
 
-class TimeFormatterTest {
+internal class TimeFormatterTest {
     private val timeFormatter = TimeFormatter()
 
     @Test
-    fun formatMillisWithPrecisionMilliseconds() {
+    internal fun formatMillisWithPrecisionMilliseconds() {
         // GIVEN
         val millis = 123456789
         val precision = TimeUnit.MILLISECONDS
@@ -17,11 +16,11 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(millis.toLong(), precision)
         // THEN
-        Assertions.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
-    fun formatMillisWithPrecisionSeconds() {
+    internal fun formatMillisWithPrecisionSeconds() {
         // GIVEN
         val millis = 123456789
         val precision = TimeUnit.SECONDS
@@ -29,11 +28,11 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(millis.toLong(), precision)
         // THEN
-        Assertions.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
-    fun formatMillisWithPrecisionMinutes() {
+    internal fun formatMillisWithPrecisionMinutes() {
         // GIVEN
         val millis = 123456789
         val precision = TimeUnit.MINUTES
@@ -41,11 +40,11 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(millis.toLong(), precision)
         // THEN
-        Assertions.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
-    fun formatMillisWithPrecisionHours() {
+    internal fun formatMillisWithPrecisionHours() {
         // GIVEN
         val millis = 123456789
         val precision = TimeUnit.HOURS
@@ -53,11 +52,11 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(millis.toLong(), precision)
         // THEN
-        Assertions.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
-    fun formatHoursMinutesSecondsMillis() {
+    internal fun formatHoursMinutesSecondsMillis() {
         // GIVEN
         val hours = 4
         val minutes = 15
@@ -67,11 +66,11 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(hours.toLong(), minutes.toLong(), seconds.toLong(), millis.toLong())
         // THEN
-        Assertions.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
-    fun formatHoursMinutesSeconds() {
+    internal fun formatHoursMinutesSeconds() {
         // GIVEN
         val hours = 4
         val minutes = 15
@@ -80,11 +79,11 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(hours.toLong(), minutes.toLong(), seconds.toLong())
         // THEN
-        Assertions.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
-    fun formatHoursMinutes() {
+    internal fun formatHoursMinutes() {
         // GIVEN
         val hours = 4
         val minutes = 15
@@ -92,11 +91,11 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(hours.toLong(), minutes.toLong())
         // THEN
-        Assertions.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
-    fun formatHours() {
+    internal fun formatHours() {
         // GIVEN
         val hours = 4
         val minutes = 0
@@ -106,11 +105,11 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(hours.toLong(), minutes.toLong(), seconds.toLong(), millis.toLong())
         // THEN
-        Assertions.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
-    fun formatMinutes() {
+    internal fun formatMinutes() {
         // GIVEN
         val hours = 0
         val minutes = 15
@@ -120,11 +119,11 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(hours.toLong(), minutes.toLong(), seconds.toLong(), millis.toLong())
         // THEN
-        Assertions.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
-    fun formatSeconds() {
+    internal fun formatSeconds() {
         // GIVEN
         val hours = 0
         val minutes = 0
@@ -134,11 +133,11 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(hours.toLong(), minutes.toLong(), seconds.toLong(), millis.toLong())
         // THEN
-        Assertions.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
-    fun formatMillis() {
+    internal fun formatMillis() {
         // GIVEN
         val hours = 0
         val minutes = 0
@@ -148,11 +147,11 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(hours.toLong(), minutes.toLong(), seconds.toLong(), millis.toLong())
         // THEN
-        Assertions.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
-    fun formatZeroMillis() {
+    internal fun formatZeroMillis() {
         // GIVEN
         val hours = 0
         val minutes = 0
@@ -162,11 +161,11 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(hours.toLong(), minutes.toLong(), seconds.toLong(), millis.toLong())
         // THEN
-        Assertions.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
-    fun formatZeroSeconds() {
+    internal fun formatZeroSeconds() {
         // GIVEN
         val hours = 0
         val minutes = 0
@@ -175,11 +174,11 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(hours.toLong(), minutes.toLong(), seconds.toLong())
         // THEN
-        Assertions.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
-    fun formatZeroMinutes() {
+    internal fun formatZeroMinutes() {
         // GIVEN
         val hours = 0
         val minutes = 0
@@ -187,17 +186,17 @@ class TimeFormatterTest {
         // WHEN
         val actual = timeFormatter.format(hours.toLong(), minutes.toLong())
         // THEN
-        Assertions.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 
     @Test
-    fun formatZeroHours() {
+    internal fun formatZeroHours() {
         // GIVEN
         val hours = 0
         val expected = "0h"
         // WHEN
         val actual = timeFormatter.formatHours(hours.toLong())
         // THEN
-        Assertions.assertEquals(expected, actual)
+        assertEquals(expected, actual)
     }
 }

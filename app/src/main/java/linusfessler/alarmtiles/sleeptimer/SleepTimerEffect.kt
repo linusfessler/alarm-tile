@@ -3,7 +3,7 @@ package linusfessler.alarmtiles.sleeptimer
 import java.util.concurrent.TimeUnit
 
 interface SleepTimerEffect {
-    class LoadFromDatabase : SleepTimerEffect
+    data class LoadFromDatabase(val unused: Byte = 0) : SleepTimerEffect
 
     data class SaveToDatabase(val sleepTimer: SleepTimer) : SleepTimerEffect
 
@@ -13,17 +13,17 @@ interface SleepTimerEffect {
 
     data class ScheduleVolumeDecrease(val millisLeft: Long) : SleepTimerEffect
 
-    class UnscheduleVolumeDecrease : SleepTimerEffect
+    data class UnscheduleVolumeDecrease(val unused: Byte = 0) : SleepTimerEffect
 
     data class ScheduleFinish(val millisLeft: Long) : SleepTimerEffect
 
-    class UnscheduleFinish : SleepTimerEffect
+    data class UnscheduleFinish(val unused: Byte = 0) : SleepTimerEffect
 
-    class SetVolumeToZero : SleepTimerEffect
+    data class SetVolumeToZero(val unused: Byte = 0) : SleepTimerEffect
 
-    class StopMediaPlayback : SleepTimerEffect
+    data class StopMediaPlayback(val unused: Byte = 0) : SleepTimerEffect
 
-    class ShowNotification : SleepTimerEffect
+    data class ShowNotification(val unused: Byte = 0) : SleepTimerEffect
 
-    class HideNotification : SleepTimerEffect
+    data class HideNotification(val unused: Byte = 0) : SleepTimerEffect
 }
