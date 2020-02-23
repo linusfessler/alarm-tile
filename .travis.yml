@@ -2,10 +2,6 @@ language: android
 jdk: openjdk8
 os: linux
 
-#env:
-#  - COVERALLS_REPO_TOKEN=06b802f66dc26de3643433909bb17519d7b19e01
-#  - CI_NAME=travis-ci
-
 android:
   components:
     - tools
@@ -13,16 +9,10 @@ android:
     - build-tools-29.0.2
     - android-29
 
-before_install:
-  - chmod +x gradlew
-
 jobs:
   include:
-    - stage: "Lint, test, coverage report"
-      name: "Lint"
-      script: ./gradlew lint
-    - name: "Test and coverage report"
-      script: ./gradlew jacocoTestReportDebug
+    - stage: "Lint, test and coverage report"
+      script: ./gradlew lint jacocoTestReportDebug
 
 after_success:
   - ./gradlew coveralls
