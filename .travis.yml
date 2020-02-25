@@ -14,10 +14,15 @@ before_install:
 
 jobs:
   include:
-    - stage: "Lint"
-      script: ./gradlew lint
-    - stage: "Test"
-      script: ./gradlew test
+    - stage: build
+      script:
+        - ./gradlew build
+    - stage: lint
+      script:
+        - ./gradlew lint
+    - stage: test
+      script:
+        - ./gradlew test
 
 after_success:
   - ./gradlew jacocoTestReport coveralls
