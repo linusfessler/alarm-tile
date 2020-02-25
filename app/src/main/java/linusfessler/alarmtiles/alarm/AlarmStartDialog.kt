@@ -7,7 +7,7 @@ import io.reactivex.disposables.CompositeDisposable
 import linusfessler.alarmtiles.R
 import linusfessler.alarmtiles.shared.views.TimeOfDayInputDialog
 
-class AlarmStartDialog constructor(context: Context, private val viewModel: AlarmViewModel) : TimeOfDayInputDialog(context) {
+class AlarmStartDialog constructor(context: Context, private val viewModel: AlarmViewModel, is24Hours: Boolean) : TimeOfDayInputDialog(context, is24Hours) {
     private val disposable = CompositeDisposable()
 
     private var hourOfDay = 0

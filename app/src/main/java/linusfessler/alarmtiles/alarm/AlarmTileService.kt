@@ -8,10 +8,15 @@ import linusfessler.alarmtiles.R
 import linusfessler.alarmtiles.core.App
 import linusfessler.alarmtiles.shared.TileServiceCompat
 import javax.inject.Inject
+import javax.inject.Named
 
 class AlarmTileService : TileService() {
     @Inject
     lateinit var viewModel: AlarmViewModel
+
+    @JvmField
+    @field:[Inject Named("is24Hours")]
+    var is24Hours = false
 
     private lateinit var startDialog: AlarmStartDialog
     private lateinit var tileLabel: String
@@ -27,7 +32,7 @@ class AlarmTileService : TileService() {
 
         // Wrap context for compatibility between material components and tile service
         val context = ContextThemeWrapper(this, R.style.AppTheme)
-        startDialog = AlarmStartDialog(context, viewModel)
+        startDialog = AlarmStartDialog(context, viewModel, is24Hours)
         tileLabel = getString(R.string.sleep_timer)
     }
 

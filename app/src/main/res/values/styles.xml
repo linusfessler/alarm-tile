@@ -13,7 +13,6 @@
         <item name="colorOnError">@color/colorOnError</item>
 
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
-        <item name="android:timePickerStyle">@style/TimePickerStyle</item>
     </style>
 
     <style name="AlarmTheme" parent="Theme.MaterialComponents.NoActionBar">
@@ -32,12 +31,6 @@
         <item name="colorOnSurface">@color/colorOnSurface</item>
         <item name="colorError">@color/colorError</item>
         <item name="colorOnError">@color/colorOnError</item>
-    </style>
-
-    <style name="TimePickerStyle" parent="android:Widget.Material.TimePicker">
-        <item name="android:background">@color/colorSurface</item>
-        <item name="android:headerBackground">@color/grey</item>
-        <item name="android:numbersBackgroundColor">@color/grey</item>
     </style>
 
     <style name="Title">

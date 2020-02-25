@@ -11,10 +11,15 @@ import linusfessler.alarmtiles.R
 import linusfessler.alarmtiles.core.App
 import linusfessler.alarmtiles.databinding.FragmentAlarmBinding
 import javax.inject.Inject
+import javax.inject.Named
 
 class AlarmFragment : Fragment() {
     @Inject
     lateinit var viewModel: AlarmViewModel
+
+    @JvmField
+    @field:[Inject Named("is24Hours")]
+    var is24Hours = false
 
     private lateinit var binding: FragmentAlarmBinding
     private lateinit var startDialog: AlarmStartDialog
@@ -32,7 +37,7 @@ class AlarmFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentAlarmBinding.inflate(inflater, container, false)
-        startDialog = AlarmStartDialog(requireContext(), viewModel)
+        startDialog = AlarmStartDialog(requireContext(), viewModel, is24Hours)
         descriptionDialog = AlertDialog.Builder(requireContext())
                 .setTitle(R.string.alarm)
                 .setMessage(R.string.alarm_description)
