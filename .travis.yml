@@ -15,14 +15,7 @@ before_install:
 jobs:
   include:
     - stage: build
-      script:
-        - ./gradlew build
-    - stage: lint
-      script:
-        - ./gradlew lint
-    - stage: test
-      script:
-        - ./gradlew test
+      script: ./gradlew build
 
 after_success:
   - ./gradlew jacocoTestReport coveralls
