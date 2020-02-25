@@ -62,10 +62,6 @@ class SleepTimerFragment : Fragment() {
 
         disposable.add(viewModel.sleepTimer
                 .subscribe {
-                    if (it.isEnabled) {
-                        // It's possible that the sleep timer was enabled through the quick settings while the start dialog is shown, dismiss it in this case
-                        startDialog.dismiss()
-                    }
                     binding.sleepTimer.isEnabled = it.isEnabled
                 })
 

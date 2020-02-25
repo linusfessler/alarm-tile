@@ -19,6 +19,13 @@ open class TimeInputDialog constructor(context: Context) : AlertDialog(context) 
         }
     }
 
+    init {
+        @SuppressLint("InflateParams")
+        val view = layoutInflater.inflate(R.layout.dialog_time_input, null)
+        this.setView(view)
+        timeInput = view.findViewById(R.id.time_input)
+    }
+
     override fun onStart() {
         super.onStart()
         disposable.add(timeInput.timeObservable
@@ -30,12 +37,5 @@ open class TimeInputDialog constructor(context: Context) : AlertDialog(context) 
     override fun onStop() {
         super.onStop()
         disposable.clear()
-    }
-
-    init {
-        @SuppressLint("InflateParams")
-        val view = layoutInflater.inflate(R.layout.dialog_time_input, null)
-        this.setView(view)
-        timeInput = view.findViewById(R.id.time_input)
     }
 }

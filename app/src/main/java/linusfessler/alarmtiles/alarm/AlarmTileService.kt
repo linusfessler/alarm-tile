@@ -2,7 +2,6 @@ package linusfessler.alarmtiles.alarm
 
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.view.ContextThemeWrapper
 import io.reactivex.disposables.CompositeDisposable
 import linusfessler.alarmtiles.R
@@ -14,10 +13,7 @@ class AlarmTileService : TileService() {
     @Inject
     lateinit var viewModel: AlarmViewModel
 
-    @Inject
-    lateinit var inputMethodManager: InputMethodManager
-
-    //    private lateinit var startDialog: AlarmStartDialog
+    private lateinit var startDialog: AlarmStartDialog
     private lateinit var tileLabel: String
 
     private val disposable = CompositeDisposable()
@@ -31,8 +27,7 @@ class AlarmTileService : TileService() {
 
         // Wrap context for compatibility between material components and tile service
         val context = ContextThemeWrapper(this, R.style.AppTheme)
-//        startDialog = TimePickerDialog(context)
-
+        startDialog = AlarmStartDialog(context, viewModel)
         tileLabel = getString(R.string.sleep_timer)
     }
 
@@ -44,8 +39,7 @@ class AlarmTileService : TileService() {
                     if (it.isEnabled) {
                         viewModel.dispatch(AlarmEvent.Disable())
                     } else {
-                        viewModel.dispatch(AlarmEvent.Enable(8, 0))
-//                        showDialog(startDialog)
+                        showDialog(startDialog)
                     }
                 })
     }
@@ -78,6 +72,6 @@ class AlarmTileService : TileService() {
     override fun onDestroy() {
         super.onDestroy()
         disposable.dispose()
-//        startDialog.dismiss()
+        startDialog.dismiss()
     }
 }
