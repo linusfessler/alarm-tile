@@ -48,6 +48,8 @@ class AlarmEffectHandler @Inject constructor(
                         calendar.timeInMillis = currentTimestamp
                         calendar.set(Calendar.HOUR_OF_DAY, effect.hourOfDay)
                         calendar.set(Calendar.MINUTE, effect.minuteOfHour)
+                        calendar.set(Calendar.SECOND, 0)
+                        calendar.set(Calendar.MILLISECOND, 0)
                         if (calendar.timeInMillis <= currentTimestamp) {
                             calendar.add(Calendar.DAY_OF_MONTH, 1)
                         }
