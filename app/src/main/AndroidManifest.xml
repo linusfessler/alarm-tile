@@ -82,7 +82,7 @@
 
         <service android:name=".sleeptimer.SleepTimerNotificationService" />
 
-        <receiver android:name=".shared.AlarmBroadcastReceiver" />
+        <receiver android:name=".alarm.AlarmBroadcastReceiver" />
 
         <receiver android:name=".core.ResumeBroadcastReceiver">
             <intent-filter>

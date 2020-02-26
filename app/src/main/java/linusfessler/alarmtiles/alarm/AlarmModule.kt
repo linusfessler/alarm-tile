@@ -1,5 +1,6 @@
 package linusfessler.alarmtiles.alarm
 
+import android.app.AlarmManager
 import android.app.Application
 import androidx.room.Room
 import com.spotify.mobius.Mobius
@@ -8,6 +9,8 @@ import com.spotify.mobius.android.AndroidLogger
 import dagger.Module
 import dagger.Provides
 import linusfessler.alarmtiles.R
+import linusfessler.alarmtiles.core.MainActivity
+import linusfessler.alarmtiles.shared.AlarmClockManager
 import linusfessler.alarmtiles.shared.SharedModule
 import javax.inject.Singleton
 
@@ -31,5 +34,15 @@ class AlarmModule {
                 .startFrom(Alarm())
         mobiusLoop.dispatchEvent(AlarmEvent.Initialize())
         return mobiusLoop
+    }
+
+    @Provides
+    @Singleton
+    fun alarmClockManager(alarmManager: AlarmManager, application: Application): AlarmClockManager<MainActivity, AlarmBroadcastReceiver> {
+        return AlarmClockManager(alarmManager, application, ALARM_CLOCK_REQUEST_CODE, MainActivity::class.java, AlarmBroadcastReceiver::class.java)
+    }
+
+    companion object {
+        const val ALARM_CLOCK_REQUEST_CODE = 548279
     }
 }

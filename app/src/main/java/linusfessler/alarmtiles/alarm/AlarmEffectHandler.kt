@@ -4,6 +4,7 @@ import com.spotify.mobius.Connectable
 import com.spotify.mobius.Connection
 import com.spotify.mobius.functions.Consumer
 import io.reactivex.disposables.CompositeDisposable
+import linusfessler.alarmtiles.core.MainActivity
 import linusfessler.alarmtiles.shared.AlarmClockManager
 import java.util.*
 import javax.inject.Inject
@@ -12,7 +13,7 @@ import javax.inject.Singleton
 @Singleton
 class AlarmEffectHandler @Inject constructor(
         private val repository: AlarmRepository,
-        private val alarmClockManager: AlarmClockManager
+        private val alarmClockManager: AlarmClockManager<MainActivity, AlarmBroadcastReceiver>
 ) : Connectable<AlarmEffect, AlarmEvent> {
     override fun connect(eventConsumer: Consumer<AlarmEvent>): Connection<AlarmEffect> {
         return object : Connection<AlarmEffect> {
@@ -59,9 +60,9 @@ class AlarmEffectHandler @Inject constructor(
 
                     is AlarmEffect.Disable -> eventConsumer.accept(AlarmEvent.Disable())
 
-                    is AlarmEffect.SetAlarm -> alarmClockManager.setAlarm(effect.triggerTimestamp, ALARM_CLOCK_REQUEST_CODE)
+                    is AlarmEffect.SetAlarm -> alarmClockManager.setAlarm(effect.triggerTimestamp)
 
-                    is AlarmEffect.CancelAlarm -> alarmClockManager.cancelAlarm(ALARM_CLOCK_REQUEST_CODE)
+                    is AlarmEffect.CancelAlarm -> alarmClockManager.cancelAlarm()
                 }
             }
 
@@ -69,9 +70,5 @@ class AlarmEffectHandler @Inject constructor(
                 disposable.dispose()
             }
         }
-    }
-
-    companion object {
-        const val ALARM_CLOCK_REQUEST_CODE = 548279
     }
 }
