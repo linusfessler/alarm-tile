@@ -11,8 +11,9 @@
         <item name="colorOnSurface">@color/colorOnSurface</item>
         <item name="colorError">@color/colorError</item>
         <item name="colorOnError">@color/colorOnError</item>
-        <item name="android:statusBarColor">@color/statusBarColor</item>
 
+        <item name="android:textColorSecondary">@color/toolbarDotsColor</item>
+        <item name="android:statusBarColor">@color/statusBarColor</item>
         <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
         <item name="alertDialogTheme">@style/Theme.App.Dialog.Alert</item>
     </style>

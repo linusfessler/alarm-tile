@@ -49,6 +49,8 @@
     <string name="sleep_settings_title">Schlafen</string>
     <string name="snooze">Schlummern</string>
     <string name="timer">Timer</string>
+    <string name="menu_theme">Theme umschalten</string>
+    <string name="menu_open_source_licenses">Open Source Lizenzen</string>
     <string name="wake_up_settings_alarm">Wecker</string>
     <string name="main_volume_timer">Weckerlautstärke allmählich erhöhen während:</string>
     <string name="wake_up_settings_both_timer_and_alarm_info">Wenn du einen Wecker und Timer gleichzeitig setzt, wird der effektive Wecker der frühere der beiden sein.</string>

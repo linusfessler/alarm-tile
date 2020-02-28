@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="statusBarColor">@color/colorSurface</color>
+    <color name="statusBarColor">@color/quickSettingsBackground</color>
 
-    <color name="toolbarColorBackground">@color/colorSurface</color>
-    <color name="toolbarColorOnBackground">@color/colorOnSurface</color>
+    <color name="toolbarDotsColor">@color/white</color>
+    <color name="toolbarColorBackground">@color/quickSettingsBackground</color>
+    <color name="toolbarColorOnBackground">@color/quickSettingsOnBackground</color>
 
     <color name="dialogColorBackground">@color/darkGrey</color>
     <color name="dialogColorOnBackground">@color/white</color>

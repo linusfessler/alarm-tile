@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".core.MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/menu_open_source_licenses"
-        android:title="@string/app_name"
+        android:title="@string/menu_open_source_licenses"
         app:showAsAction="never" />
 
 </menu>

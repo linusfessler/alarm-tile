@@ -1,8 +1,8 @@
 package linusfessler.alarmtiles.core
 
 import android.app.Application
-import android.app.UiModeManager
 import android.os.Build
+import androidx.appcompat.app.AppCompatDelegate
 import linusfessler.alarmtiles.alarm.AlarmComponent
 import linusfessler.alarmtiles.alarm.AlarmModule
 import linusfessler.alarmtiles.alarm.DaggerAlarmComponent
@@ -18,7 +18,6 @@ import linusfessler.alarmtiles.stopwatch.StopwatchModule
 import linusfessler.alarmtiles.timer.DaggerTimerComponent
 import linusfessler.alarmtiles.timer.TimerComponent
 import linusfessler.alarmtiles.timer.TimerModule
-import javax.inject.Inject
 
 class App : Application() {
     private val sharedModule: SharedModule = SharedModule(this)
@@ -46,17 +45,10 @@ class App : Application() {
             .sharedModule(sharedModule)
             .build()
 
-    @Inject
-    lateinit var uiModeManager: UiModeManager
-
     override fun onCreate() {
         super.onCreate()
-        sharedComponent.inject(this)
-
-        uiModeManager.nightMode = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            UiModeManager.MODE_NIGHT_YES
-        } else {
-            UiModeManager.MODE_NIGHT_AUTO
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
     }
 }

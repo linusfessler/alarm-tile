@@ -1,7 +1,6 @@
 package linusfessler.alarmtiles.shared
 
 import dagger.Component
-import linusfessler.alarmtiles.core.App
 import javax.inject.Singleton
 
 @Singleton
@@ -12,6 +11,4 @@ interface SharedComponent {
         fun sharedModule(sharedModule: SharedModule): Builder
         fun build(): SharedComponent
     }
-
-    fun inject(app: App)
 }
