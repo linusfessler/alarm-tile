@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/linusfessler/alarm-tiles.svg?branch=master)](https://travis-ci.com/linusfessler/alarm-tiles)
 [![Coverage Status](https://coveralls.io/repos/github/linusfessler/alarm-tiles/badge.svg?branch=master&service=github)](https://coveralls.io/github/linusfessler/alarm-tiles?branch=master&service=github)
-[![License](https://img.shields.io/github/license/linusfessler/alarm-tiles)](LICENSE)
+[![License](https://img.shields.io/github/license/linusfessler/alarm-tiles)](https://img.shields.io/github/license/linusfessler/alarm-tiles)
 
 Alarm Tiles is an Android app that provides quick settings tiles (sleep timer, alarm, alarm timer, stopwatch)
 that allow the user to effortlessly enable an alarm or sleep timer or use a stopwatch without leaving the context of their current app.
