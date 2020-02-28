@@ -32,7 +32,7 @@
         </activity>
 
         <service
-            android:name=".sleeptimer.SleepTimerTileService"
+            android:name="linusfessler.alarmtiles.tiles.sleeptimer.SleepTimerTileService"
             android:icon="@drawable/ic_music_off_24px"
             android:label="@string/sleep_timer"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
@@ -42,7 +42,7 @@
         </service>
 
         <service
-            android:name=".alarm.AlarmTileService"
+            android:name="linusfessler.alarmtiles.tiles.alarm.AlarmTileService"
             android:icon="@drawable/ic_alarm_24px"
             android:label="@string/alarm"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
@@ -52,7 +52,7 @@
         </service>
 
         <service
-            android:name=".timer.TimerTileService"
+            android:name="linusfessler.alarmtiles.tiles.timer.TimerTileService"
             android:icon="@drawable/ic_hourglass_empty_24px"
             android:label="@string/timer"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
@@ -62,7 +62,7 @@
         </service>
 
         <service
-            android:name=".stopwatch.StopwatchTileService"
+            android:name="linusfessler.alarmtiles.tiles.stopwatch.StopwatchTileService"
             android:icon="@drawable/ic_timer_24px"
             android:label="@string/stopwatch"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
@@ -73,9 +73,9 @@
 
         <service android:name=".services.AlarmService" />
 
-        <service android:name=".sleeptimer.SleepTimerNotificationService" />
+        <service android:name="linusfessler.alarmtiles.tiles.sleeptimer.SleepTimerNotificationService" />
 
-        <receiver android:name=".alarm.AlarmBroadcastReceiver" />
+        <receiver android:name="linusfessler.alarmtiles.shared.alarm.AlarmBroadcastReceiver" />
 
         <receiver android:name=".core.ResumeBroadcastReceiver">
             <intent-filter>

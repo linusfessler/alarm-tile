@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import linusfessler.alarmtiles.R
-import linusfessler.alarmtiles.alarm.AlarmFragment
 import linusfessler.alarmtiles.databinding.FragmentMainBinding
-import linusfessler.alarmtiles.sleeptimer.SleepTimerConfigFragment
-import linusfessler.alarmtiles.sleeptimer.SleepTimerFragment
-import linusfessler.alarmtiles.stopwatch.StopwatchFragment
-import linusfessler.alarmtiles.timer.TimerFragment
+import linusfessler.alarmtiles.tiles.alarm.AlarmTileFragment
+import linusfessler.alarmtiles.tiles.sleeptimer.SleepTimerConfigFragment
+import linusfessler.alarmtiles.tiles.sleeptimer.SleepTimerTileFragment
+import linusfessler.alarmtiles.tiles.stopwatch.StopwatchTileFragment
+import linusfessler.alarmtiles.tiles.timer.TimerTileFragment
 
 
 class MainFragment : Fragment() {
@@ -21,11 +21,11 @@ class MainFragment : Fragment() {
         super.onCreate(savedInstanceState)
         childFragmentManager
                 .beginTransaction()
-                .replace(R.id.sleep_timer_fragment_container, SleepTimerFragment())
+                .replace(R.id.sleep_timer_fragment_container, SleepTimerTileFragment())
                 .replace(R.id.sleep_timer_config_fragment_container, SleepTimerConfigFragment())
-                .replace(R.id.alarm_fragment_container, AlarmFragment())
-                .replace(R.id.timer_fragment_container, TimerFragment())
-                .replace(R.id.stopwatch_fragment_container, StopwatchFragment())
+                .replace(R.id.alarm_fragment_container, AlarmTileFragment())
+                .replace(R.id.timer_fragment_container, TimerTileFragment())
+                .replace(R.id.stopwatch_fragment_container, StopwatchTileFragment())
                 .commit()
     }
 

@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/sleepTimerConfigFragment"
-        android:name="linusfessler.alarmtiles.sleeptimer.SleepTimerConfigFragment"
+        android:name="linusfessler.alarmtiles.tiles.sleeptimer.SleepTimerConfigFragment"
         android:label="fragment_sleep_timer_config"
         tools:layout="@layout/fragment_sleep_timer_config" />
 

@@ -3,21 +3,21 @@ package linusfessler.alarmtiles.core
 import android.app.Application
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
-import linusfessler.alarmtiles.alarm.AlarmComponent
-import linusfessler.alarmtiles.alarm.AlarmModule
-import linusfessler.alarmtiles.alarm.DaggerAlarmComponent
 import linusfessler.alarmtiles.shared.DaggerSharedComponent
 import linusfessler.alarmtiles.shared.SharedComponent
 import linusfessler.alarmtiles.shared.SharedModule
-import linusfessler.alarmtiles.sleeptimer.DaggerSleepTimerComponent
-import linusfessler.alarmtiles.sleeptimer.SleepTimerComponent
-import linusfessler.alarmtiles.sleeptimer.SleepTimerModule
-import linusfessler.alarmtiles.stopwatch.DaggerStopwatchComponent
-import linusfessler.alarmtiles.stopwatch.StopwatchComponent
-import linusfessler.alarmtiles.stopwatch.StopwatchModule
-import linusfessler.alarmtiles.timer.DaggerTimerComponent
-import linusfessler.alarmtiles.timer.TimerComponent
-import linusfessler.alarmtiles.timer.TimerModule
+import linusfessler.alarmtiles.shared.alarm.AlarmComponent
+import linusfessler.alarmtiles.shared.alarm.AlarmModule
+import linusfessler.alarmtiles.shared.alarm.DaggerAlarmComponent
+import linusfessler.alarmtiles.tiles.sleeptimer.DaggerSleepTimerComponent
+import linusfessler.alarmtiles.tiles.sleeptimer.SleepTimerComponent
+import linusfessler.alarmtiles.tiles.sleeptimer.SleepTimerModule
+import linusfessler.alarmtiles.tiles.stopwatch.DaggerStopwatchComponent
+import linusfessler.alarmtiles.tiles.stopwatch.StopwatchComponent
+import linusfessler.alarmtiles.tiles.stopwatch.StopwatchModule
+import linusfessler.alarmtiles.tiles.timer.DaggerTimerComponent
+import linusfessler.alarmtiles.tiles.timer.TimerComponent
+import linusfessler.alarmtiles.tiles.timer.TimerModule
 
 class App : Application() {
     private val sharedModule: SharedModule = SharedModule(this)
