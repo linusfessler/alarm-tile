@@ -30,7 +30,7 @@ class SleepTimerTileService : TileService() {
                 .inject(this)
 
         // Wrap context for compatibility between material components and tile service
-        val context = ContextThemeWrapper(this, R.style.AppTheme)
+        val context = ContextThemeWrapper(this, R.style.Theme_App)
         startDialog = SleepTimerStartDialog(context, inputMethodManager, viewModel)
 
         tileLabel = getString(R.string.sleep_timer)

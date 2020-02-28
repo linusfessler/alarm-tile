@@ -31,7 +31,7 @@ class AlarmTileService : TileService() {
                 .inject(this)
 
         // Wrap context for compatibility between material components and tile service
-        val context = ContextThemeWrapper(this, R.style.AppTheme)
+        val context = ContextThemeWrapper(this, R.style.Theme_App)
         startDialog = AlarmStartDialog(context, viewModel, is24Hours)
         tileLabel = getString(R.string.sleep_timer)
     }

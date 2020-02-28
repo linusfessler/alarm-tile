@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="statusBarColor">@color/colorSurface</color>
+
+    <color name="toolbarColorBackground">@color/colorSurface</color>
+    <color name="toolbarColorOnBackground">@color/colorOnSurface</color>
+
+    <color name="dialogColorBackground">@color/darkGrey</color>
+    <color name="dialogColorOnBackground">@color/white</color>
+    <color name="dialogColorSurface">@color/dialogColorBackground</color>
+    <color name="dialogColorOnSurface">@color/dialogColorOnBackground</color>
+
+    !-- From Android Q dark quick settings panel -->
+    <color name="quickSettingsIconEnabled">#2E2E2E</color>
+    <color name="quickSettingsIconDisabled">#C3C3C3</color>
+    <color name="quickSettingsBackgroundEnabled">#8AB4F8</color>
+    <color name="quickSettingsBackgroundDisabled">#353535</color>
+    <color name="quickSettingsBackground">@color/black</color>
+    <color name="quickSettingsOnBackground">@color/white</color>
+    <color name="quickSettingsIndicatorEnabled">@color/quickSettingsBackgroundEnabled</color>
+    <color name="quickSettingsIndicatorDisabled">#3A4C67</color>
+</resources>

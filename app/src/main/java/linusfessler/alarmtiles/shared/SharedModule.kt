@@ -3,6 +3,7 @@ package linusfessler.alarmtiles.shared
 import android.app.AlarmManager
 import android.app.Application
 import android.app.NotificationManager
+import android.app.UiModeManager
 import android.content.ContentResolver
 import android.database.ContentObserver
 import android.hardware.camera2.CameraManager
@@ -66,6 +67,12 @@ class SharedModule(private val application: Application) {
     @Singleton
     fun vibrator(): Vibrator {
         return application.getSystemService(Vibrator::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun uiModeManager(): UiModeManager {
+        return application.getSystemService(UiModeManager::class.java)
     }
 
     @Provides

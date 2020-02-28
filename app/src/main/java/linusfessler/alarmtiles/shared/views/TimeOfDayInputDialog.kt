@@ -11,8 +11,10 @@ open class TimeOfDayInputDialog constructor(context: Context, is24Hours: Boolean
 
     init {
         @SuppressLint("InflateParams")
-        timePicker = layoutInflater.inflate(R.layout.time_picker, null) as TimePicker
+        val view = layoutInflater.inflate(R.layout.dialog_time_of_day_input, null)
+        this.setView(view)
+        
+        timePicker = view.findViewById(R.id.time_of_day_input)
         timePicker.setIs24HourView(is24Hours)
-        this.setView(timePicker)
     }
 }

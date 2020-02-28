@@ -14,7 +14,6 @@ class AlarmStartDialog constructor(context: Context, private val viewModel: Alar
     private var minuteOfHour = 0
 
     init {
-        setTitle(R.string.alarm)
         setButton(DialogInterface.BUTTON_POSITIVE, context.getString(R.string.dialog_ok)) { _: DialogInterface, _: Int ->
             viewModel.dispatch(AlarmEvent.Enable(hourOfDay, minuteOfHour))
         }
