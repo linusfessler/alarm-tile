@@ -78,12 +78,12 @@ class SleepTimerTileFragment : Fragment() {
         disposable.clear()
         binding.sleepTimer.setOnClickListener(null)
         binding.sleepTimer.setOnLongClickListener(null)
+        startDialog.dismiss()
+        descriptionDialog.dismiss()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         disposable.dispose()
-        startDialog.dismiss()
-        descriptionDialog.dismiss()
     }
 }

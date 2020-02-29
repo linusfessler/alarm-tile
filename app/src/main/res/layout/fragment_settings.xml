@@ -9,8 +9,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="@string/app_name"
-        app:menu="@menu/main" />
+        app:title="@string/settings" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,15 +23,19 @@
             android:gravity="center_horizontal"
             android:padding="@dimen/fragment_padding">
 
-            <include layout="@layout/alarm_tiles" />
+            <FrameLayout
+                android:id="@+id/sleep_timer_config_fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/user_message"
-                android:textAlignment="center"
-                android:lineSpacingMultiplier="1.25" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragment_padding" />
+
+            <FrameLayout
+                android:id="@+id/alarm_config_fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 

@@ -75,7 +75,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/main_snooze_duration" />
+            android:text="@string/alarm_config_snooze_duration" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/snooze_duration"
@@ -138,12 +138,12 @@
     <com.google.android.material.checkbox.MaterialCheckBox
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/main_vibrate" />
+        android:text="@string/alarm_config_vibrate" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/main_flashlight" />
+        android:text="@string/alarm_config_flashlight" />
 
     <!--com.google.android.material.slider.Slider
         android:layout_width="match_parent"

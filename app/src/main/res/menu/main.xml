@@ -3,8 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/menu_settings"
+        android:title="@string/settings"
+        android:icon="@drawable/ic_settings"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/menu_open_source_licenses"
-        android:title="@string/menu_open_source_licenses"
+        android:title="@string/open_source_licenses"
         app:showAsAction="never" />
 
 </menu>

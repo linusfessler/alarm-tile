@@ -38,7 +38,6 @@
 
     <style name="Title">
         <item name="android:layout_height">@dimen/settings_height</item>
-        <item name="android:layout_marginTop">@dimen/fragment_padding</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>

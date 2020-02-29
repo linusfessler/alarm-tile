@@ -78,12 +78,12 @@ class AlarmTimerTileFragment : Fragment() {
         disposable.clear()
         binding.alarmTimer.setOnClickListener(null)
         binding.alarmTimer.setOnLongClickListener(null)
+        startDialog.dismiss()
+        descriptionDialog.dismiss()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         disposable.dispose()
-        startDialog.dismiss()
-        descriptionDialog.dismiss()
     }
 }

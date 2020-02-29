@@ -57,6 +57,12 @@ class TimeInput : LinearLayout {
                     return
                 }
 
+                val text = timeInputEditText.text.toString()
+
+                if (text == ".") {
+                    return
+                }
+
                 val time = timeInputEditText.text.toString().toDouble()
                 if (time != this@TimeInput.time) {
                     timeSubject.onNext(time)

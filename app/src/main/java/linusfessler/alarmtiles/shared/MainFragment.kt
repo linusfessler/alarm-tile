@@ -6,15 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import linusfessler.alarmtiles.R
 import linusfessler.alarmtiles.databinding.FragmentMainBinding
 import linusfessler.alarmtiles.tiles.alarm.AlarmTileFragment
 import linusfessler.alarmtiles.tiles.alarmtimer.AlarmTimerTileFragment
-import linusfessler.alarmtiles.tiles.sleeptimer.SleepTimerConfigFragment
 import linusfessler.alarmtiles.tiles.sleeptimer.SleepTimerTileFragment
 import linusfessler.alarmtiles.tiles.stopwatch.StopwatchTileFragment
-
 
 class MainFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +24,6 @@ class MainFragment : Fragment() {
                 .replace(R.id.alarm_fragment_container, AlarmTileFragment())
                 .replace(R.id.alarm_timer_fragment_container, AlarmTimerTileFragment())
                 .replace(R.id.stopwatch_fragment_container, StopwatchTileFragment())
-                .replace(R.id.sleep_timer_config_fragment_container, SleepTimerConfigFragment())
                 .commit()
     }
 
@@ -36,9 +34,14 @@ class MainFragment : Fragment() {
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.menu_open_source_licenses -> {
-                    OssLicensesMenuActivity.setActivityTitle(getString(R.string.menu_open_source_licenses));
+                    OssLicensesMenuActivity.setActivityTitle(getString(R.string.open_source_licenses));
                     startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
                     return@setOnMenuItemClickListener true
+                }
+
+                R.id.menu_settings -> {
+                    Navigation.findNavController(binding.root)
+                            .navigate(MainFragmentDirections.actionMainFragmentToSettingsFragment())
                 }
             }
 

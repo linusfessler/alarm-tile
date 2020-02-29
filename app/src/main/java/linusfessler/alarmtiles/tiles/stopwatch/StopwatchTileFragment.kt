@@ -62,11 +62,11 @@ class StopwatchTileFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         disposable.clear()
+        descriptionDialog.dismiss()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         disposable.dispose()
-        descriptionDialog.dismiss()
     }
 }
