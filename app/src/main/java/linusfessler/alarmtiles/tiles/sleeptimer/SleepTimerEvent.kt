@@ -1,6 +1,6 @@
 package linusfessler.alarmtiles.tiles.sleeptimer
 
-import java.util.concurrent.TimeUnit
+import linusfessler.alarmtiles.shared.data.Time
 
 interface SleepTimerEvent {
     data class VolumeChanged(val volume: Int) : SleepTimerEvent
@@ -9,9 +9,9 @@ interface SleepTimerEvent {
 
     data class Initialized(val sleepTimer: SleepTimer) : SleepTimerEvent
 
-    data class Start(val time: Double, val timeUnit: TimeUnit) : SleepTimerEvent
+    data class Start(val duration: Time) : SleepTimerEvent
 
-    data class StartWith(val startTimestamp: Long, val time: Double, val timeUnit: TimeUnit) : SleepTimerEvent
+    data class StartWith(val startTimestamp: Long, val duration: Time) : SleepTimerEvent
 
     data class SetDecreasingVolume(val decreasingVolume: Boolean) : SleepTimerEvent
 

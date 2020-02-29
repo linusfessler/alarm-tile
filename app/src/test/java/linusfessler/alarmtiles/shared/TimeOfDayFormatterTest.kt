@@ -1,5 +1,6 @@
 package linusfessler.alarmtiles.shared
 
+import linusfessler.alarmtiles.shared.formatters.TimeOfDayFormatter
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

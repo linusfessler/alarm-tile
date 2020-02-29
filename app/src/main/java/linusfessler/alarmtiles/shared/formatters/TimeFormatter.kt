@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.shared
+package linusfessler.alarmtiles.shared.formatters
 
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -57,7 +57,7 @@ class TimeFormatter @Inject constructor() {
         if (hours == 0L && minutes == 0L) {
             return formatSeconds(seconds)
         }
-        
+
         return if (hours == 0L) {
             formatMinutes(minutes) + " " + formatSeconds(seconds)
         } else {

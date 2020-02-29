@@ -1,21 +1,21 @@
 package linusfessler.alarmtiles.tiles.alarm
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import linusfessler.alarmtiles.shared.data.TimeOfDay
 
 @Entity
 data class Alarm(
         @field:PrimaryKey val id: Long = 0,
         val isEnabled: Boolean = false,
-        val timestamp: Long = 0,
-        val hourOfDay: Int = 8,
-        val minuteOfHour: Int = 0
+        @field:Embedded val timeOfDay: TimeOfDay = TimeOfDay(8, 0),
+        val triggerTimestamp: Long = 0
 ) {
-    fun enable(timestamp: Long, hourOfDay: Int, minuteOfHour: Int) = copy(
+    fun enable(timeOfDay: TimeOfDay, triggerTimestamp: Long) = copy(
             isEnabled = true,
-            timestamp = timestamp,
-            hourOfDay = hourOfDay,
-            minuteOfHour = minuteOfHour
+            timeOfDay = timeOfDay,
+            triggerTimestamp = triggerTimestamp
     )
 
     fun disable() = copy(isEnabled = false)

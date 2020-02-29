@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.tiles.timer
+package linusfessler.alarmtiles.tiles.alarmtimer
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
@@ -7,17 +7,17 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import linusfessler.alarmtiles.shared.RoomTypeConverters
 
-@Database(entities = [Timer::class], version = 1)
+@Database(entities = [AlarmTimer::class], version = 1)
 @TypeConverters(RoomTypeConverters::class)
-abstract class TimerDatabase : RoomDatabase() {
-    fun populate(): TimerDatabase {
+abstract class AlarmTimerDatabase : RoomDatabase() {
+    fun populate(): AlarmTimerDatabase {
         GlobalScope.launch {
             if (dao().count() == 0) {
-                dao().insert(Timer())
+                dao().insert(AlarmTimer())
             }
         }
         return this
     }
 
-    abstract fun dao(): TimerDao
+    abstract fun dao(): AlarmTimerDao
 }

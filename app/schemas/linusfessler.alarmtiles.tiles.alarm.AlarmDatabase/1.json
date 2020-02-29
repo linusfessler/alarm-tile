@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "e77920c036c5e8b32579a25d7cd6b273",
+    "identityHash": "46aa7b1cc8d5dde97659917241e3b0d4",
     "entities": [
       {
         "tableName": "Alarm",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `isEnabled` INTEGER NOT NULL, `timestamp` INTEGER NOT NULL, `hourOfDay` INTEGER NOT NULL, `minuteOfHour` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `isEnabled` INTEGER NOT NULL, `triggerTimestamp` INTEGER NOT NULL, `hourOfDay` INTEGER NOT NULL, `minuteOfHour` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -21,19 +21,19 @@
             "notNull": true
           },
           {
-            "fieldPath": "timestamp",
-            "columnName": "timestamp",
+            "fieldPath": "triggerTimestamp",
+            "columnName": "triggerTimestamp",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "hourOfDay",
+            "fieldPath": "timeOfDay.hourOfDay",
             "columnName": "hourOfDay",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "minuteOfHour",
+            "fieldPath": "timeOfDay.minuteOfHour",
             "columnName": "minuteOfHour",
             "affinity": "INTEGER",
             "notNull": true
@@ -52,7 +52,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e77920c036c5e8b32579a25d7cd6b273')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '46aa7b1cc8d5dde97659917241e3b0d4')"
     ]
   }
 }

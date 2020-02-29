@@ -16,10 +16,10 @@ class AlarmEventHandler @Inject constructor() : Update<Alarm, AlarmEvent, AlarmE
 
             is AlarmEvent.Resumed -> next(event.alarm)
 
-            is AlarmEvent.Enable -> dispatch(effects(AlarmEffect.Enable(event.hourOfDay, event.minuteOfHour)))
+            is AlarmEvent.Enable -> dispatch(effects(AlarmEffect.Enable(event.timeOfDay)))
 
             is AlarmEvent.EnableWith -> {
-                val enabledAlarm = alarm.enable(event.triggerTimestamp, event.hourOfDay, event.minuteOfHour)
+                val enabledAlarm = alarm.enable(event.timeOfDay, event.triggerTimestamp)
                 next(enabledAlarm, effects(
                         AlarmEffect.SaveToDatabase(enabledAlarm),
                         AlarmEffect.SetAlarm(event.triggerTimestamp)))

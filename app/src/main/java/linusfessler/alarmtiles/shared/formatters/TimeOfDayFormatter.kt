@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.shared
+package linusfessler.alarmtiles.shared.formatters
 
 import java.text.SimpleDateFormat
 import java.util.*

@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.tiles.sleeptimer
+package linusfessler.alarmtiles.tiles.alarmtimer
 
 import com.spotify.mobius.MobiusLoop
 import io.reactivex.Observable
@@ -7,19 +7,17 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import linusfessler.alarmtiles.shared.formatters.TimeFormatter
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
-import javax.inject.Singleton
 import kotlin.math.ceil
 
 /**
  * Wraps the Mobius loop and prepares the model for the view
  */
-@Singleton
-class SleepTimerViewModel @Inject constructor(
-        private val loop: MobiusLoop<SleepTimer, SleepTimerEvent, SleepTimerEffect>,
-        private val timeFormatter: TimeFormatter
+class AlarmTimerViewModel @Inject constructor(
+        private val loop: MobiusLoop<AlarmTimer, AlarmTimerEvent, AlarmTimerEffect>,
+        timeFormatter: TimeFormatter
 ) {
-    val sleepTimer: Observable<SleepTimer> = Observable
-            .create { emitter: ObservableEmitter<SleepTimer> ->
+    val alarmTimer: Observable<AlarmTimer> = Observable
+            .create { emitter: ObservableEmitter<AlarmTimer> ->
                 val mobiusDisposable = loop.observe {
                     emitter.onNext(it)
                 }
@@ -29,7 +27,7 @@ class SleepTimerViewModel @Inject constructor(
             }
             .observeOn(AndroidSchedulers.mainThread())
 
-    val timeLeft: Observable<String> = sleepTimer
+    val timeLeft: Observable<String> = alarmTimer
             .switchMap {
                 if (!it.isEnabled) {
                     return@switchMap Observable.just("")
@@ -45,7 +43,7 @@ class SleepTimerViewModel @Inject constructor(
             }
             .observeOn(AndroidSchedulers.mainThread())
 
-    fun dispatch(event: SleepTimerEvent) {
+    fun dispatch(event: AlarmTimerEvent) {
         loop.dispatchEvent(event)
     }
 }

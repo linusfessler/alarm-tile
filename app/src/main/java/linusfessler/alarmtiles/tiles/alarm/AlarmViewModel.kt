@@ -4,7 +4,7 @@ import com.spotify.mobius.MobiusLoop
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.android.schedulers.AndroidSchedulers
-import linusfessler.alarmtiles.shared.TimeOfDayFormatter
+import linusfessler.alarmtiles.shared.formatters.TimeOfDayFormatter
 import javax.inject.Inject
 
 /**
@@ -28,7 +28,7 @@ class AlarmViewModel @Inject constructor(
     val timeLeft: Observable<String> = alarm
             .switchMap {
                 return@switchMap if (it.isEnabled) {
-                    Observable.just(timeOfDayFormatter.format(it.hourOfDay, it.minuteOfHour))
+                    Observable.just(timeOfDayFormatter.format(it.timeOfDay.hourOfDay, it.timeOfDay.minuteOfHour))
                 } else {
                     return@switchMap Observable.just("")
                 }

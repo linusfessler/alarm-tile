@@ -1,5 +1,6 @@
 package linusfessler.alarmtiles.shared
 
+import linusfessler.alarmtiles.shared.formatters.TimeFormatter
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.util.concurrent.TimeUnit

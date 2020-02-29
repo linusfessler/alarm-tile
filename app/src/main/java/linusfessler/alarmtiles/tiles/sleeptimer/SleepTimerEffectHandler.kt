@@ -43,7 +43,7 @@ class SleepTimerEffectHandler @Inject constructor(
 
                     is SleepTimerEffect.StartWith -> {
                         val startTimestamp = System.currentTimeMillis()
-                        eventConsumer.accept(SleepTimerEvent.StartWith(startTimestamp, effect.time, effect.timeUnit))
+                        eventConsumer.accept(SleepTimerEvent.StartWith(startTimestamp, effect.duration))
                     }
 
                     is SleepTimerEffect.FinishWith -> eventConsumer.accept(SleepTimerEvent.FinishWith(effect.sleepTimer))

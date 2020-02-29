@@ -1,13 +1,13 @@
 package linusfessler.alarmtiles.tiles.sleeptimer
 
-import java.util.concurrent.TimeUnit
+import linusfessler.alarmtiles.shared.data.Time
 
 interface SleepTimerEffect {
     data class LoadFromDatabase(val unused: Byte = 0) : SleepTimerEffect
 
     data class SaveToDatabase(val sleepTimer: SleepTimer) : SleepTimerEffect
 
-    data class StartWith(val time: Double, val timeUnit: TimeUnit) : SleepTimerEffect
+    data class StartWith(val duration: Time) : SleepTimerEffect
 
     data class FinishWith(val sleepTimer: SleepTimer) : SleepTimerEffect
 

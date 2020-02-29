@@ -18,7 +18,7 @@
 
         <activity
             android:name=".shared.MainActivity"
-            android:label="@string/activity_main_title"
+            android:label="@string/app_name"
             android:launchMode="singleTask"
             android:showOnLockScreen="true"
             android:windowSoftInputMode="adjustNothing">
@@ -32,16 +32,6 @@
         </activity>
 
         <service
-            android:name="linusfessler.alarmtiles.tiles.sleeptimer.SleepTimerTileService"
-            android:icon="@drawable/ic_music_off_24px"
-            android:label="@string/sleep_timer"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
-            <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE" />
-            </intent-filter>
-        </service>
-
-        <service
             android:name="linusfessler.alarmtiles.tiles.alarm.AlarmTileService"
             android:icon="@drawable/ic_alarm_24px"
             android:label="@string/alarm"
@@ -52,9 +42,19 @@
         </service>
 
         <service
-            android:name="linusfessler.alarmtiles.tiles.timer.TimerTileService"
+            android:name="linusfessler.alarmtiles.tiles.alarmtimer.AlarmTimerTileService"
             android:icon="@drawable/ic_hourglass_empty_24px"
-            android:label="@string/timer"
+            android:label="@string/alarm_timer"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name="linusfessler.alarmtiles.tiles.sleeptimer.SleepTimerTileService"
+            android:icon="@drawable/ic_music_off_24px"
+            android:label="@string/sleep_timer"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />

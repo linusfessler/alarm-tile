@@ -4,7 +4,7 @@ import com.spotify.mobius.MobiusLoop
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.android.schedulers.AndroidSchedulers
-import linusfessler.alarmtiles.shared.TimeFormatter
+import linusfessler.alarmtiles.shared.formatters.TimeFormatter
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton

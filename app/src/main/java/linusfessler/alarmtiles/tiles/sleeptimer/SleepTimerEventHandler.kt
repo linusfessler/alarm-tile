@@ -23,11 +23,11 @@ class SleepTimerEventHandler @Inject constructor() : Update<SleepTimer, SleepTim
                 )
 
             is SleepTimerEvent.Start -> {
-                return dispatch(effects(SleepTimerEffect.StartWith(event.time, event.timeUnit)))
+                return dispatch(effects(SleepTimerEffect.StartWith(event.duration)))
             }
 
             is SleepTimerEvent.StartWith -> {
-                val startedSleepTimer = sleepTimer.start(event.startTimestamp, event.time, event.timeUnit)
+                val startedSleepTimer = sleepTimer.start(event.startTimestamp, event.duration)
                 val millisLeft = startedSleepTimer.millisLeft
 
                 val effects = effects(

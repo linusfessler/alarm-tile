@@ -5,7 +5,6 @@
     <string name="activity_about_title_contact">Kontakt</string>
     <string name="activity_about_title_credits">Open-Source-Lizenzen</string>
     <string name="activity_alarm_title">Wecker</string>
-    <string name="activity_main_title">Alarm Tiles</string>
     <string name="activity_settings_title">Einstellungen</string>
     <string name="user_message">Tippe lange auf ein Tile für mehr Informationen.</string>
     <string name="alarm">Wecker</string>
@@ -39,7 +38,6 @@
     <string name="general_settings_name_hint">Alarm Tile Name</string>
     <string name="main_show_notification">Benachrichtigung anzeigen</string>
     <string name="general_settings_title">Allgemein</string>
-    <string name="main_title">Alarm Tiles</string>
     <string name="notification_missed_alarm_title">Versäumter Wecker</string>
     <string name="revert_info">Am nächsten Morgen werden alle Einstellungen wieder auf den Stand des vorherigen Abends zurückgesetzt.</string>
     <string name="sleep_settings_allow_priority_notifications">Dringende Benachrichtigungen erlauben</string>
@@ -48,7 +46,7 @@
     <string name="sleep_settings_open_settings">Einstell.</string>
     <string name="sleep_settings_title">Schlafen</string>
     <string name="snooze">Schlummern</string>
-    <string name="timer">Timer</string>
+    <string name="alarm_timer">Alarm Timer</string>
     <string name="menu_theme">Theme umschalten</string>
     <string name="menu_open_source_licenses">Open Source Lizenzen</string>
     <string name="wake_up_settings_alarm">Wecker</string>
@@ -64,16 +62,13 @@
     <string name="dismiss">Ausschalten</string>
     <string name="alarm_tile_create">Alarm Tile erstellen</string>
     <string name="alarm_tile_edit">Alarm Tile bearbeiten</string>
-    <string name="sleep_timer">Sleeptimer</string>
-    <string name="main_title_alarm">Wecker</string>
+    <string name="sleep_timer">Sleep Timer</string>
     <string name="settings_title_sleep_timer">Einschlaf-Timer</string>
-    <string name="main_title_snooze">Schlummern</string>
     <string name="accessibility_alarm_tile_ripple">Alarm Tile Effekt</string>
     <string name="accessibility_alarm_tile_icon">Alarm Tile Icon</string>
     <string name="accessibility_volume_down">Leiser</string>
     <string name="accessibility_volume_up">Lauter</string>
     <string name="sound_settings">Sound-Einstellungen</string>
-    <string name="main_title_other">Sonstiges</string>
     <string name="stopwatch">Stoppuhr</string>
     <string name="sleep_timer_running_notification_content_title">Sleeptimer</string>
     <string name="sleep_timer_running_notification_content_text">Aktiviert</string>

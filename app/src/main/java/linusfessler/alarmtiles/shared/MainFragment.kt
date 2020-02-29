@@ -10,10 +10,10 @@ import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import linusfessler.alarmtiles.R
 import linusfessler.alarmtiles.databinding.FragmentMainBinding
 import linusfessler.alarmtiles.tiles.alarm.AlarmTileFragment
+import linusfessler.alarmtiles.tiles.alarmtimer.AlarmTimerTileFragment
 import linusfessler.alarmtiles.tiles.sleeptimer.SleepTimerConfigFragment
 import linusfessler.alarmtiles.tiles.sleeptimer.SleepTimerTileFragment
 import linusfessler.alarmtiles.tiles.stopwatch.StopwatchTileFragment
-import linusfessler.alarmtiles.tiles.timer.TimerTileFragment
 
 
 class MainFragment : Fragment() {
@@ -22,10 +22,10 @@ class MainFragment : Fragment() {
         childFragmentManager
                 .beginTransaction()
                 .replace(R.id.sleep_timer_fragment_container, SleepTimerTileFragment())
-                .replace(R.id.sleep_timer_config_fragment_container, SleepTimerConfigFragment())
                 .replace(R.id.alarm_fragment_container, AlarmTileFragment())
-                .replace(R.id.timer_fragment_container, TimerTileFragment())
+                .replace(R.id.alarm_timer_fragment_container, AlarmTimerTileFragment())
                 .replace(R.id.stopwatch_fragment_container, StopwatchTileFragment())
+                .replace(R.id.sleep_timer_config_fragment_container, SleepTimerConfigFragment())
                 .commit()
     }
 

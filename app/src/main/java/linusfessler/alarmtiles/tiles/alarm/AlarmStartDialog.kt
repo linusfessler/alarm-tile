@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.widget.TimePicker
 import io.reactivex.disposables.CompositeDisposable
 import linusfessler.alarmtiles.R
+import linusfessler.alarmtiles.shared.data.TimeOfDay
 import linusfessler.alarmtiles.shared.views.TimeOfDayInputDialog
 
 class AlarmStartDialog constructor(context: Context, private val viewModel: AlarmViewModel, is24Hours: Boolean) : TimeOfDayInputDialog(context, is24Hours) {
@@ -15,7 +16,7 @@ class AlarmStartDialog constructor(context: Context, private val viewModel: Alar
 
     init {
         setButton(DialogInterface.BUTTON_POSITIVE, context.getString(R.string.dialog_ok)) { _: DialogInterface, _: Int ->
-            viewModel.dispatch(AlarmEvent.Enable(hourOfDay, minuteOfHour))
+            viewModel.dispatch(AlarmEvent.Enable(TimeOfDay(hourOfDay, minuteOfHour)))
         }
         setButton(DialogInterface.BUTTON_NEGATIVE, context.getString(R.string.dialog_cancel)) { _: DialogInterface, _: Int -> }
     }
@@ -27,8 +28,8 @@ class AlarmStartDialog constructor(context: Context, private val viewModel: Alar
                 .take(1)
                 .subscribe {
                     timePicker.apply {
-                        hour = it.hourOfDay
-                        minute = it.minuteOfHour
+                        hour = it.timeOfDay.hourOfDay
+                        minute = it.timeOfDay.minuteOfHour
                     }
                 })
 
