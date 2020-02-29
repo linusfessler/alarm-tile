@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.shared.alarm
+package linusfessler.alarmtiles.tiles.alarm
 
 import android.app.AlarmManager
 import android.app.Application
@@ -9,9 +9,10 @@ import com.spotify.mobius.android.AndroidLogger
 import dagger.Module
 import dagger.Provides
 import linusfessler.alarmtiles.R
-import linusfessler.alarmtiles.core.MainActivity
 import linusfessler.alarmtiles.shared.AlarmClockManager
+import linusfessler.alarmtiles.shared.MainActivity
 import linusfessler.alarmtiles.shared.SharedModule
+import linusfessler.alarmtiles.shared.alarmconfig.AlarmBroadcastReceiver
 import javax.inject.Singleton
 
 @Module(includes = [SharedModule::class])
@@ -32,17 +33,17 @@ class AlarmModule {
                 .loop(alarmEventHandler, alarmEffectHandler)
                 .logger(AndroidLogger.tag(application.getString(R.string.alarm)))
                 .startFrom(Alarm())
-        mobiusLoop.dispatchEvent(AlarmEvent.Initialize())
+        mobiusLoop.dispatchEvent(AlarmEvent.Resume())
         return mobiusLoop
     }
 
     @Provides
     @Singleton
     fun alarmClockManager(alarmManager: AlarmManager, application: Application): AlarmClockManager<MainActivity, AlarmBroadcastReceiver> {
-        return AlarmClockManager(alarmManager, application, ALARM_CLOCK_REQUEST_CODE, MainActivity::class.java, AlarmBroadcastReceiver::class.java)
+        return AlarmClockManager(application, alarmManager, MainActivity::class.java, AlarmBroadcastReceiver::class.java, ALARM_CLOCK_REQUEST_ID)
     }
 
     companion object {
-        const val ALARM_CLOCK_REQUEST_CODE = 548279
+        const val ALARM_CLOCK_REQUEST_ID = 768524
     }
 }

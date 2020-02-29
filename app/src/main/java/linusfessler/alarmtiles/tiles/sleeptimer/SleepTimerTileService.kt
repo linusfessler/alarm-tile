@@ -6,7 +6,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.view.ContextThemeWrapper
 import io.reactivex.disposables.CompositeDisposable
 import linusfessler.alarmtiles.R
-import linusfessler.alarmtiles.core.App
+import linusfessler.alarmtiles.shared.App
 import linusfessler.alarmtiles.shared.TileServiceCompat
 import javax.inject.Inject
 

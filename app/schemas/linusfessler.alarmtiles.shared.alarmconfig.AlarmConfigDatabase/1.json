@@ -1,0 +1,64 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "598372ad7b9bbb9e35d256d7a6338925",
+    "entities": [
+      {
+        "tableName": "AlarmConfig",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `alarmSoundUri` TEXT NOT NULL, `vibrate` INTEGER NOT NULL, `flashlight` INTEGER NOT NULL, `snoozeTime` REAL NOT NULL, `snoozeTimeUnit` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "alarmSoundUri",
+            "columnName": "alarmSoundUri",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vibrate",
+            "columnName": "vibrate",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "flashlight",
+            "columnName": "flashlight",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "snoozeTime",
+            "columnName": "snoozeTime",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "snoozeTimeUnit",
+            "columnName": "snoozeTimeUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '598372ad7b9bbb9e35d256d7a6338925')"
+    ]
+  }
+}

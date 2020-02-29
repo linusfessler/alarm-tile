@@ -13,8 +13,8 @@ import androidx.lifecycle.ViewModelProvider;
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
-import linusfessler.alarmtiles.core.App;
 import linusfessler.alarmtiles.databinding.FragmentTimerTileBinding;
+import linusfessler.alarmtiles.shared.App;
 
 public class TimerTileFragment extends Fragment {
 

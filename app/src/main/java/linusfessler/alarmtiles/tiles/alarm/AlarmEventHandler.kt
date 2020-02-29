@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.shared.alarm
+package linusfessler.alarmtiles.tiles.alarm
 
 import com.spotify.mobius.Effects.effects
 import com.spotify.mobius.Next
@@ -12,14 +12,14 @@ import javax.inject.Singleton
 class AlarmEventHandler @Inject constructor() : Update<Alarm, AlarmEvent, AlarmEffect> {
     override fun update(alarm: Alarm, event: AlarmEvent): Next<Alarm, AlarmEffect> {
         return when (event) {
-            is AlarmEvent.Initialize -> dispatch(effects(AlarmEffect.LoadFromDatabase()))
+            is AlarmEvent.Resume -> dispatch(effects(AlarmEffect.LoadFromDatabase()))
 
-            is AlarmEvent.Initialized -> next(event.alarm)
+            is AlarmEvent.Resumed -> next(event.alarm)
 
             is AlarmEvent.Enable -> dispatch(effects(AlarmEffect.Enable(event.hourOfDay, event.minuteOfHour)))
 
             is AlarmEvent.EnableWith -> {
-                val enabledAlarm = alarm.enable(event.hourOfDay, event.minuteOfHour, event.triggerTimestamp)
+                val enabledAlarm = alarm.enable(event.triggerTimestamp, event.hourOfDay, event.minuteOfHour)
                 next(enabledAlarm, effects(
                         AlarmEffect.SaveToDatabase(enabledAlarm),
                         AlarmEffect.SetAlarm(event.triggerTimestamp)))

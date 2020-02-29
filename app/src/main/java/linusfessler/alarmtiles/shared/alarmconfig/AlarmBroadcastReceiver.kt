@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.shared.alarm
+package linusfessler.alarmtiles.shared.alarmconfig
 
 import android.content.BroadcastReceiver
 import android.content.Context

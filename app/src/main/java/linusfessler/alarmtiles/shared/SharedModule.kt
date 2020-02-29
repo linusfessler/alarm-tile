@@ -13,10 +13,12 @@ import android.os.Vibrator
 import android.provider.Settings
 import android.text.format.DateFormat
 import android.view.inputmethod.InputMethodManager
+import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
+import linusfessler.alarmtiles.shared.alarmconfig.AlarmConfigDatabase
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -73,6 +75,15 @@ class SharedModule(private val application: Application) {
     @Singleton
     fun uiModeManager(): UiModeManager {
         return application.getSystemService(UiModeManager::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun alarmConfigDatabase(application: Application): AlarmConfigDatabase {
+        return Room
+                .databaseBuilder(application, AlarmConfigDatabase::class.java, "alarm-config-database")
+                .build()
+                .populate()
     }
 
     @Provides

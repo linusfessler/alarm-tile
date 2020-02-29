@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import io.reactivex.disposables.CompositeDisposable
-import linusfessler.alarmtiles.core.App
 import linusfessler.alarmtiles.databinding.FragmentSleepTimerConfigBinding
+import linusfessler.alarmtiles.shared.App
 import javax.inject.Inject
 
 class SleepTimerConfigFragment : Fragment() {

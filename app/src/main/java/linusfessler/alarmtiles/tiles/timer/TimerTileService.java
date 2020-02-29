@@ -7,7 +7,7 @@ import androidx.lifecycle.Observer;
 
 import javax.inject.Inject;
 
-import linusfessler.alarmtiles.core.App;
+import linusfessler.alarmtiles.shared.App;
 
 public class TimerTileService extends TileService {
 

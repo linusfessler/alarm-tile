@@ -4,7 +4,7 @@ import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import io.reactivex.disposables.CompositeDisposable
 import linusfessler.alarmtiles.R
-import linusfessler.alarmtiles.core.App
+import linusfessler.alarmtiles.shared.App
 import linusfessler.alarmtiles.shared.TileServiceCompat.Companion.setSubtitle
 import linusfessler.alarmtiles.tiles.stopwatch.StopwatchEvent.Toggle
 import javax.inject.Inject

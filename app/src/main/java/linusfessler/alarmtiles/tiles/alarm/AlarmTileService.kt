@@ -5,9 +5,8 @@ import android.service.quicksettings.TileService
 import androidx.appcompat.view.ContextThemeWrapper
 import io.reactivex.disposables.CompositeDisposable
 import linusfessler.alarmtiles.R
-import linusfessler.alarmtiles.core.App
+import linusfessler.alarmtiles.shared.App
 import linusfessler.alarmtiles.shared.TileServiceCompat
-import linusfessler.alarmtiles.shared.alarm.AlarmEvent
 import javax.inject.Inject
 import javax.inject.Named
 

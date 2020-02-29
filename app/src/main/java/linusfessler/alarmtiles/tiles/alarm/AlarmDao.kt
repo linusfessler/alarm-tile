@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.shared.alarm
+package linusfessler.alarmtiles.tiles.alarm
 
 import androidx.room.Dao
 import androidx.room.Insert

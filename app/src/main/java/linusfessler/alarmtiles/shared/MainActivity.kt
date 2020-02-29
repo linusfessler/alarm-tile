@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.core
+package linusfessler.alarmtiles.shared
 
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity

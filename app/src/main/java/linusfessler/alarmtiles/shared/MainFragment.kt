@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.core
+package linusfessler.alarmtiles.shared
 
 import android.content.Intent
 import android.os.Bundle

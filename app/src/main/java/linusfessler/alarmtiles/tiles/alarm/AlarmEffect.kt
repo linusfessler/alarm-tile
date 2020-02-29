@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.shared.alarm
+package linusfessler.alarmtiles.tiles.alarm
 
 interface AlarmEffect {
     data class LoadFromDatabase(val unused: Byte = 0) : AlarmEffect

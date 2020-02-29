@@ -8,9 +8,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import io.reactivex.disposables.CompositeDisposable
 import linusfessler.alarmtiles.R
-import linusfessler.alarmtiles.core.App
 import linusfessler.alarmtiles.databinding.FragmentAlarmTileBinding
-import linusfessler.alarmtiles.shared.alarm.AlarmEvent
+import linusfessler.alarmtiles.shared.App
 import javax.inject.Inject
 import javax.inject.Named
 

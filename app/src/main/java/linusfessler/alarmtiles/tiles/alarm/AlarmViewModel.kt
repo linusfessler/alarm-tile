@@ -5,9 +5,6 @@ import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import linusfessler.alarmtiles.shared.TimeOfDayFormatter
-import linusfessler.alarmtiles.shared.alarm.Alarm
-import linusfessler.alarmtiles.shared.alarm.AlarmEffect
-import linusfessler.alarmtiles.shared.alarm.AlarmEvent
 import javax.inject.Inject
 
 /**

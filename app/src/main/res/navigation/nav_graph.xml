@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="linusfessler.alarmtiles.core.MainFragment"
+        android:name="linusfessler.alarmtiles.shared.MainFragment"
         android:label="@string/main_title"
         tools:layout="@layout/fragment_main">
         <action

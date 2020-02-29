@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.services;
+package linusfessler.alarmtiles.shared;
 
 import android.app.Service;
 import android.content.Intent;

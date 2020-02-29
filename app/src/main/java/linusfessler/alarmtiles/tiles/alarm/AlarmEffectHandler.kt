@@ -1,11 +1,12 @@
-package linusfessler.alarmtiles.shared.alarm
+package linusfessler.alarmtiles.tiles.alarm
 
 import com.spotify.mobius.Connectable
 import com.spotify.mobius.Connection
 import com.spotify.mobius.functions.Consumer
 import io.reactivex.disposables.CompositeDisposable
-import linusfessler.alarmtiles.core.MainActivity
 import linusfessler.alarmtiles.shared.AlarmClockManager
+import linusfessler.alarmtiles.shared.MainActivity
+import linusfessler.alarmtiles.shared.alarmconfig.AlarmBroadcastReceiver
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -25,11 +26,11 @@ class AlarmEffectHandler @Inject constructor(
                             .take(1)
                             .subscribe {
                                 eventConsumer.accept(
-                                        if (it.isEnabled && it.triggerTimestamp!! <= System.currentTimeMillis()) {
+                                        if (it.isEnabled && it.timestamp <= System.currentTimeMillis()) {
                                             // TODO: Show notification that the alarm was missed
                                             AlarmEvent.Disable()
                                         } else {
-                                            AlarmEvent.Initialized(it)
+                                            AlarmEvent.Resumed(it)
                                         }
                                 )
                             })
@@ -55,7 +56,7 @@ class AlarmEffectHandler @Inject constructor(
                             calendar.add(Calendar.DAY_OF_MONTH, 1)
                         }
                         val triggerTimestamp = calendar.timeInMillis
-                        eventConsumer.accept(AlarmEvent.EnableWith(effect.hourOfDay, effect.minuteOfHour, triggerTimestamp))
+                        eventConsumer.accept(AlarmEvent.EnableWith(triggerTimestamp, effect.hourOfDay, effect.minuteOfHour))
                     }
 
                     is AlarmEffect.Disable -> eventConsumer.accept(AlarmEvent.Disable())

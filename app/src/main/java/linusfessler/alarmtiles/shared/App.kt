@@ -1,14 +1,11 @@
-package linusfessler.alarmtiles.core
+package linusfessler.alarmtiles.shared
 
 import android.app.Application
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
-import linusfessler.alarmtiles.shared.DaggerSharedComponent
-import linusfessler.alarmtiles.shared.SharedComponent
-import linusfessler.alarmtiles.shared.SharedModule
-import linusfessler.alarmtiles.shared.alarm.AlarmComponent
-import linusfessler.alarmtiles.shared.alarm.AlarmModule
-import linusfessler.alarmtiles.shared.alarm.DaggerAlarmComponent
+import linusfessler.alarmtiles.tiles.alarm.AlarmComponent
+import linusfessler.alarmtiles.tiles.alarm.AlarmModule
+import linusfessler.alarmtiles.tiles.alarm.DaggerAlarmComponent
 import linusfessler.alarmtiles.tiles.sleeptimer.DaggerSleepTimerComponent
 import linusfessler.alarmtiles.tiles.sleeptimer.SleepTimerComponent
 import linusfessler.alarmtiles.tiles.sleeptimer.SleepTimerModule
@@ -17,11 +14,13 @@ import linusfessler.alarmtiles.tiles.stopwatch.StopwatchComponent
 import linusfessler.alarmtiles.tiles.stopwatch.StopwatchModule
 import linusfessler.alarmtiles.tiles.timer.DaggerTimerComponent
 import linusfessler.alarmtiles.tiles.timer.TimerComponent
-import linusfessler.alarmtiles.tiles.timer.TimerModule
+import linusfessler.timertiles.tiles.timer.TimerModule
 
 class App : Application() {
     private val sharedModule: SharedModule = SharedModule(this)
-    private val sharedComponent: SharedComponent = DaggerSharedComponent.builder()
+
+    val alarmComponent: AlarmComponent = DaggerAlarmComponent.builder()
+            .alarmModule(AlarmModule())
             .sharedModule(sharedModule)
             .build()
 
@@ -30,18 +29,13 @@ class App : Application() {
             .sharedModule(sharedModule)
             .build()
 
-    val alarmComponent: AlarmComponent = DaggerAlarmComponent.builder()
-            .alarmModule(AlarmModule())
+    val stopwatchComponent: StopwatchComponent = DaggerStopwatchComponent.builder()
+            .stopwatchModule(StopwatchModule())
             .sharedModule(sharedModule)
             .build()
 
     val timerComponent: TimerComponent = DaggerTimerComponent.builder()
             .timerModule(TimerModule())
-            .sharedModule(sharedModule)
-            .build()
-
-    val stopwatchComponent: StopwatchComponent = DaggerStopwatchComponent.builder()
-            .stopwatchModule(StopwatchModule())
             .sharedModule(sharedModule)
             .build()
 

@@ -9,8 +9,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import io.reactivex.disposables.CompositeDisposable
 import linusfessler.alarmtiles.R
-import linusfessler.alarmtiles.core.App
 import linusfessler.alarmtiles.databinding.FragmentSleepTimerTileBinding
+import linusfessler.alarmtiles.shared.App
 import javax.inject.Inject
 
 class SleepTimerTileFragment : Fragment() {

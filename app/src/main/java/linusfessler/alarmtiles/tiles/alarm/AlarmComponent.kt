@@ -1,9 +1,7 @@
-package linusfessler.alarmtiles.shared.alarm
+package linusfessler.alarmtiles.tiles.alarm
 
 import dagger.Component
 import linusfessler.alarmtiles.shared.SharedModule
-import linusfessler.alarmtiles.tiles.alarm.AlarmTileFragment
-import linusfessler.alarmtiles.tiles.alarm.AlarmTileService
 import javax.inject.Singleton
 
 @Singleton

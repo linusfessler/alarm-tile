@@ -7,8 +7,8 @@ import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import io.reactivex.disposables.CompositeDisposable
 import linusfessler.alarmtiles.R
-import linusfessler.alarmtiles.core.App
-import linusfessler.alarmtiles.core.MainActivity
+import linusfessler.alarmtiles.shared.App
+import linusfessler.alarmtiles.shared.MainActivity
 import javax.inject.Inject
 
 /**

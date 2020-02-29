@@ -11,11 +11,11 @@ import javax.inject.Singleton
 
 @Singleton
 class AlarmClockManager<A : Activity, B : BroadcastReceiver> @Inject constructor(
-        private val alarmManager: AlarmManager,
         application: Application,
-        requestCode: Int,
+        private val alarmManager: AlarmManager,
         showActivity: Class<A>,
-        alarmBroadcastReceiver: Class<B>
+        alarmBroadcastReceiver: Class<B>,
+        requestCode: Int
 ) {
     private val showIntent = Intent(application, showActivity)
     private val alarmIntent = Intent(application, alarmBroadcastReceiver)

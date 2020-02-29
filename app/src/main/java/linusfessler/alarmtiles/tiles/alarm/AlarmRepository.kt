@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.shared.alarm
+package linusfessler.alarmtiles.tiles.alarm
 
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
