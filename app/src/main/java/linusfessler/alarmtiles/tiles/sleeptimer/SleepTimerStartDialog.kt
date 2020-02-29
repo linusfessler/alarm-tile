@@ -48,6 +48,6 @@ class SleepTimerStartDialog(
 
     override fun onStop() {
         super.onStop()
-        disposable.dispose()
+        disposable.clear()
     }
 }

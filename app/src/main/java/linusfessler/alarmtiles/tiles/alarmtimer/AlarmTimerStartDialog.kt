@@ -48,6 +48,6 @@ class AlarmTimerStartDialog(
 
     override fun onStop() {
         super.onStop()
-        disposable.dispose()
+        disposable.clear()
     }
 }
