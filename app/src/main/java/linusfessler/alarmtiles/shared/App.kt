@@ -1,8 +1,6 @@
 package linusfessler.alarmtiles.shared
 
 import android.app.Application
-import android.os.Build
-import androidx.appcompat.app.AppCompatDelegate
 import linusfessler.alarmtiles.tiles.alarm.AlarmComponent
 import linusfessler.alarmtiles.tiles.alarm.AlarmModule
 import linusfessler.alarmtiles.tiles.alarm.DaggerAlarmComponent
@@ -18,6 +16,10 @@ import linusfessler.alarmtiles.tiles.stopwatch.StopwatchModule
 
 class App : Application() {
     private val sharedModule: SharedModule = SharedModule(this)
+
+    val sharedComponent: SharedComponent = DaggerSharedComponent.builder()
+            .sharedModule(sharedModule)
+            .build()
 
     val alarmComponent: AlarmComponent = DaggerAlarmComponent.builder()
             .alarmModule(AlarmModule())
@@ -39,10 +41,20 @@ class App : Application() {
             .sharedModule(sharedModule)
             .build()
 
+//    @Inject
+//    lateinit var uiModeManager: UiModeManager
+
     override fun onCreate() {
         super.onCreate()
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        }
+        sharedComponent.inject(this)
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//            uiModeManager.nightMode = UiModeManager.MODE_NIGHT_NO
+//        }
+
+//        @Inject
+//        lateinit var uiModeManager: UiModeManager
+//        uiModeManager.nightMode = UiModeManager.MODE_NIGHT_NO
+//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
     }
 }

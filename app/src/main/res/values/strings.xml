@@ -2,7 +2,7 @@
 
     <string name="app_name">Alarm tiles</string>
 
-    <string name="user_message">Long click on a tile for more information.</string>
+    <string name="user_message">Long click a tile for more information.</string>
 
     <string name="sleep_timer">Sleep timer</string>
     <string name="alarm">Alarm</string>
@@ -44,7 +44,7 @@
     <string name="wake_up_settings_timer">Timer</string>
     <string name="wake_up_settings_both_timer_and_alarm_info">If you set both an alarm and a timer, the resulting alarm will be the one that sets in earlier.</string>
     <string name="wake_up_settings_button_info">While the alarm is ringing, you can press the volume up and down buttons to snooze or dismiss the alarm, respectively.</string>
-    <string name="alarm_config_title">Alarm settings</string>
+    <string name="alarm_config_title">Alarm</string>
     <string name="alarm_config_snooze_duration">Snooze duration</string>
     <string name="main_volume_timer">Gradually increase alarm volume over:</string>
     <string name="main_dismiss_timer">Automatically dismiss alarm after:</string>

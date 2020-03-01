@@ -28,6 +28,7 @@
         android:layout_height="8dp" />
 
     <linusfessler.alarmtiles.shared.views.TimeInput
+        android:id="@+id/snooze_duration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:hint="@string/alarm_config_snooze_duration" />

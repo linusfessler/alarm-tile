@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "598372ad7b9bbb9e35d256d7a6338925",
+    "identityHash": "5f2e5875a40d68c9c8e42893bba0a0a0",
     "entities": [
       {
         "tableName": "AlarmConfig",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `alarmSoundUri` TEXT NOT NULL, `vibrate` INTEGER NOT NULL, `flashlight` INTEGER NOT NULL, `snoozeTime` REAL NOT NULL, `snoozeTimeUnit` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `alarmSoundUri` TEXT NOT NULL, `vibrate` INTEGER NOT NULL, `flashlight` INTEGER NOT NULL, `time` REAL NOT NULL, `timeUnit` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -33,14 +33,14 @@
             "notNull": true
           },
           {
-            "fieldPath": "snoozeTime",
-            "columnName": "snoozeTime",
+            "fieldPath": "snoozeDuration.time",
+            "columnName": "time",
             "affinity": "REAL",
             "notNull": true
           },
           {
-            "fieldPath": "snoozeTimeUnit",
-            "columnName": "snoozeTimeUnit",
+            "fieldPath": "snoozeDuration.timeUnit",
+            "columnName": "timeUnit",
             "affinity": "TEXT",
             "notNull": true
           }
@@ -58,7 +58,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '598372ad7b9bbb9e35d256d7a6338925')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5f2e5875a40d68c9c8e42893bba0a0a0')"
     ]
   }
 }

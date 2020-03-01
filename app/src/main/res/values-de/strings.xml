@@ -53,7 +53,7 @@
     <string name="main_volume_timer">Weckerlautstärke allmählich erhöhen während:</string>
     <string name="wake_up_settings_both_timer_and_alarm_info">Wenn du einen Wecker und Timer gleichzeitig setzt, wird der effektive Wecker der frühere der beiden sein.</string>
     <string name="main_dismiss_timer">Wecker automatisch ausschalten nach:</string>
-    <string name="alarm_config_title">Weckereinstellungen</string>
+    <string name="alarm_config_title">Wecker</string>
     <string name="alarm_config_flashlight">Taschenlampe während Wecker anschalten</string>
     <string name="alarm_config_snooze_duration">Snooze Dauer</string>
     <string name="wake_up_settings_button_info">Während der Wecker klingelt, kannst du mit den Lauter- und Leiser-Tasten schlummern bzw. den Wecker ausschalten.</string>
