@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.shared.alarmconfig
+package linusfessler.alarmtiles.shared.alarm.config
 
 import androidx.room.Dao
 import androidx.room.Insert

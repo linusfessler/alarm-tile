@@ -7,6 +7,7 @@ import io.reactivex.disposables.CompositeDisposable
 import linusfessler.alarmtiles.R
 import linusfessler.alarmtiles.shared.App
 import linusfessler.alarmtiles.shared.TileServiceCompat
+import linusfessler.alarmtiles.shared.alarm.AlarmEvent
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -26,7 +27,7 @@ class AlarmTileService : TileService() {
     override fun onCreate() {
         super.onCreate()
 
-        (applicationContext as App)
+        (application as App)
                 .alarmComponent
                 .inject(this)
 
@@ -42,7 +43,7 @@ class AlarmTileService : TileService() {
                 .firstElement()
                 .subscribe {
                     if (it.isEnabled) {
-                        viewModel.dispatch(AlarmEvent.Disable())
+                        viewModel.dispatch(AlarmEvent.Cancel())
                     } else {
                         showDialog(startDialog)
                     }

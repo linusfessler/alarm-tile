@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.shared.alarmconfig
+package linusfessler.alarmtiles.shared.alarm.config
 
 import android.media.RingtoneManager
 import android.net.Uri

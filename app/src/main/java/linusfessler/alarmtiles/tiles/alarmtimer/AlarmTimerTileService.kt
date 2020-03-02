@@ -8,6 +8,7 @@ import io.reactivex.disposables.CompositeDisposable
 import linusfessler.alarmtiles.R
 import linusfessler.alarmtiles.shared.App
 import linusfessler.alarmtiles.shared.TileServiceCompat
+import linusfessler.alarmtiles.shared.alarm.AlarmEvent
 import javax.inject.Inject
 
 class AlarmTimerTileService : TileService() {
@@ -25,7 +26,7 @@ class AlarmTimerTileService : TileService() {
     override fun onCreate() {
         super.onCreate()
 
-        (applicationContext as App)
+        (application as App)
                 .alarmTimerComponent
                 .inject(this)
 
@@ -37,11 +38,11 @@ class AlarmTimerTileService : TileService() {
 
     override fun onClick() {
         super.onClick()
-        disposable.add(viewModel.alarmTimer
+        disposable.add(viewModel.alarm
                 .firstElement()
                 .subscribe {
                     if (it.isEnabled) {
-                        viewModel.dispatch(AlarmTimerEvent.Disable())
+                        viewModel.dispatch(AlarmEvent.Cancel())
                     } else {
                         showDialog(startDialog)
                     }
@@ -51,7 +52,7 @@ class AlarmTimerTileService : TileService() {
     override fun onStartListening() {
         super.onStartListening()
 
-        disposable.add(viewModel.alarmTimer
+        disposable.add(viewModel.alarm
                 .subscribe {
                     qsTile.state = if (it.isEnabled) {
                         Tile.STATE_ACTIVE

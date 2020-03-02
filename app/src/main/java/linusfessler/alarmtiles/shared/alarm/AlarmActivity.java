@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.shared;
+package linusfessler.alarmtiles.shared.alarm;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,6 +19,7 @@ import java.util.concurrent.Executors;
 
 import linusfessler.alarmtiles.FlashlightManager;
 import linusfessler.alarmtiles.R;
+import linusfessler.alarmtiles.shared.AlarmService;
 
 public class AlarmActivity extends Activity implements SeekBar.OnSeekBarChangeListener {
 

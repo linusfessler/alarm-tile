@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import linusfessler.alarmtiles.R
 import linusfessler.alarmtiles.databinding.FragmentSettingsBinding
-import linusfessler.alarmtiles.shared.alarmconfig.AlarmConfigFragment
+import linusfessler.alarmtiles.shared.alarm.config.AlarmConfigFragment
 import linusfessler.alarmtiles.tiles.sleeptimer.SleepTimerConfigFragment
 
 class SettingsFragment : Fragment() {

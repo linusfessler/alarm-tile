@@ -25,7 +25,7 @@ class SleepTimerTileService : TileService() {
     override fun onCreate() {
         super.onCreate()
 
-        (applicationContext as App)
+        (application as App)
                 .sleepTimerComponent
                 .inject(this)
 

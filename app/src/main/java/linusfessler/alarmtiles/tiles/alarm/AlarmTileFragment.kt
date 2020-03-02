@@ -10,6 +10,7 @@ import io.reactivex.disposables.CompositeDisposable
 import linusfessler.alarmtiles.R
 import linusfessler.alarmtiles.databinding.FragmentAlarmTileBinding
 import linusfessler.alarmtiles.shared.App
+import linusfessler.alarmtiles.shared.alarm.AlarmEvent
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -29,7 +30,7 @@ class AlarmTileFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (requireActivity().applicationContext as App)
+        (requireActivity().application as App)
                 .alarmComponent
                 .inject(this)
     }
@@ -49,7 +50,7 @@ class AlarmTileFragment : Fragment() {
                     .firstElement()
                     .subscribe {
                         if (it.isEnabled) {
-                            viewModel.dispatch(AlarmEvent.Disable())
+                            viewModel.dispatch(AlarmEvent.Cancel())
                         } else {
                             startDialog.show()
                         }

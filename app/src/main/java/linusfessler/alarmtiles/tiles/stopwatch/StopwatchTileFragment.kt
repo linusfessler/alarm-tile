@@ -22,7 +22,7 @@ class StopwatchTileFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (requireActivity().applicationContext as App)
+        (requireActivity().application as App)
                 .stopwatchComponent
                 .inject(this)
     }

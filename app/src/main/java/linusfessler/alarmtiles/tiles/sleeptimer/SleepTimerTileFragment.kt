@@ -28,7 +28,7 @@ class SleepTimerTileFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (requireActivity().applicationContext as App)
+        (requireActivity().application as App)
                 .sleepTimerComponent
                 .inject(this)
     }

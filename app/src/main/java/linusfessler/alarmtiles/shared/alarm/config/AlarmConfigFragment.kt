@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.shared.alarmconfig
+package linusfessler.alarmtiles.shared.alarm.config
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,7 +20,7 @@ class AlarmConfigFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (requireActivity().applicationContext as App)
+        (requireActivity().application as App)
                 .sharedComponent
                 .inject(this)
     }

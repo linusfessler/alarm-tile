@@ -4,6 +4,9 @@ import com.spotify.mobius.MobiusLoop
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.android.schedulers.AndroidSchedulers
+import linusfessler.alarmtiles.shared.alarm.Alarm
+import linusfessler.alarmtiles.shared.alarm.AlarmEffect
+import linusfessler.alarmtiles.shared.alarm.AlarmEvent
 import linusfessler.alarmtiles.shared.formatters.TimeFormatter
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -13,11 +16,11 @@ import kotlin.math.ceil
  * Wraps the Mobius loop and prepares the model for the view
  */
 class AlarmTimerViewModel @Inject constructor(
-        private val loop: MobiusLoop<AlarmTimer, AlarmTimerEvent, AlarmTimerEffect>,
+        private val loop: MobiusLoop<Alarm, AlarmEvent, AlarmEffect>,
         timeFormatter: TimeFormatter
 ) {
-    val alarmTimer: Observable<AlarmTimer> = Observable
-            .create { emitter: ObservableEmitter<AlarmTimer> ->
+    val alarm: Observable<Alarm> = Observable
+            .create { emitter: ObservableEmitter<Alarm> ->
                 val mobiusDisposable = loop.observe {
                     emitter.onNext(it)
                 }
@@ -27,7 +30,7 @@ class AlarmTimerViewModel @Inject constructor(
             }
             .observeOn(AndroidSchedulers.mainThread())
 
-    val timeLeft: Observable<String> = alarmTimer
+    val timeLeft: Observable<String> = alarm
             .switchMap {
                 if (!it.isEnabled) {
                     return@switchMap Observable.just("")
@@ -43,7 +46,7 @@ class AlarmTimerViewModel @Inject constructor(
             }
             .observeOn(AndroidSchedulers.mainThread())
 
-    fun dispatch(event: AlarmTimerEvent) {
+    fun dispatch(event: AlarmEvent) {
         loop.dispatchEvent(event)
     }
 }

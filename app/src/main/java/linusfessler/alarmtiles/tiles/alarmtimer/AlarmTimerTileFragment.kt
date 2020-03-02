@@ -11,6 +11,7 @@ import io.reactivex.disposables.CompositeDisposable
 import linusfessler.alarmtiles.R
 import linusfessler.alarmtiles.databinding.FragmentAlarmTimerTileBinding
 import linusfessler.alarmtiles.shared.App
+import linusfessler.alarmtiles.shared.alarm.AlarmEvent
 import javax.inject.Inject
 
 class AlarmTimerTileFragment : Fragment() {
@@ -28,7 +29,7 @@ class AlarmTimerTileFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (requireActivity().applicationContext as App)
+        (requireActivity().application as App)
                 .alarmTimerComponent
                 .inject(this)
     }
@@ -44,11 +45,11 @@ class AlarmTimerTileFragment : Fragment() {
                 .create()
 
         binding.alarmTimer.setOnClickListener {
-            disposable.add(viewModel.alarmTimer
+            disposable.add(viewModel.alarm
                     .firstElement()
                     .subscribe {
                         if (it.isEnabled) {
-                            viewModel.dispatch(AlarmTimerEvent.Disable())
+                            viewModel.dispatch(AlarmEvent.Cancel())
                         } else {
                             startDialog.show()
                         }
@@ -60,7 +61,7 @@ class AlarmTimerTileFragment : Fragment() {
             true
         }
 
-        disposable.add(viewModel.alarmTimer
+        disposable.add(viewModel.alarm
                 .subscribe {
                     binding.alarmTimer.isEnabled = it.isEnabled
                 })

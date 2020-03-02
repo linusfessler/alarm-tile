@@ -20,7 +20,7 @@ class StopwatchTileService : TileService() {
     override fun onCreate() {
         super.onCreate()
 
-        (applicationContext as App)
+        (application as App)
                 .stopwatchComponent
                 .inject(this)
 

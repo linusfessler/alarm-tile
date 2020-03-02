@@ -1,7 +1,7 @@
 package linusfessler.alarmtiles.shared
 
 import dagger.Component
-import linusfessler.alarmtiles.shared.alarmconfig.AlarmConfigFragment
+import linusfessler.alarmtiles.shared.alarm.config.AlarmConfigFragment
 import javax.inject.Singleton
 
 @Singleton
@@ -15,4 +15,5 @@ interface SharedComponent {
 
     fun inject(app: App)
     fun inject(alarmConfigFragment: AlarmConfigFragment)
+    fun inject(alarmService: AlarmService)
 }

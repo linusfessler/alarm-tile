@@ -1,5 +1,6 @@
-package linusfessler.alarmtiles.tiles.alarm
+package linusfessler.alarmtiles.shared.alarm
 
+import linusfessler.alarmtiles.shared.data.Time
 import linusfessler.alarmtiles.shared.data.TimeOfDay
 
 interface AlarmEffect {
@@ -7,9 +8,9 @@ interface AlarmEffect {
 
     data class SaveToDatabase(val alarm: Alarm) : AlarmEffect
 
-    data class Enable(val timeOfDay: TimeOfDay) : AlarmEffect
+    data class SetAtTimeOfDay(val timeOfDay: TimeOfDay) : AlarmEffect
 
-    data class Disable(val unused: Byte = 0) : AlarmEffect
+    data class SetAfterDuration(val duration: Time) : AlarmEffect
 
     data class SetAlarm(val triggerTimestamp: Long) : AlarmEffect
 

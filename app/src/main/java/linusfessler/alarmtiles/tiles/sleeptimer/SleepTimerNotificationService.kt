@@ -26,7 +26,7 @@ class SleepTimerNotificationService : LifecycleService() {
     override fun onCreate() {
         super.onCreate()
 
-        (applicationContext as App)
+        (application as App)
                 .sleepTimerComponent
                 .inject(this)
     }

@@ -1,4 +1,4 @@
-package linusfessler.alarmtiles.shared.alarmconfig
+package linusfessler.alarmtiles.shared
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -6,7 +6,8 @@ import android.content.Intent
 import android.widget.Toast
 
 class AlarmBroadcastReceiver : BroadcastReceiver() {
-    override fun onReceive(context: Context?, intent: Intent?) {
+    override fun onReceive(context: Context, intent: Intent) {
         Toast.makeText(context, "Alarm received!", Toast.LENGTH_LONG).show()
+        context.startService(Intent(context, AlarmService::class.java))
     }
 }

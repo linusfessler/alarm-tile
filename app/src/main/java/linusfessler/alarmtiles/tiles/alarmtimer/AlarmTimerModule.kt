@@ -2,48 +2,45 @@ package linusfessler.alarmtiles.tiles.alarmtimer
 
 import android.app.AlarmManager
 import android.app.Application
-import androidx.room.Room
 import com.spotify.mobius.Mobius
 import com.spotify.mobius.MobiusLoop
 import com.spotify.mobius.android.AndroidLogger
 import dagger.Module
 import dagger.Provides
 import linusfessler.alarmtiles.R
+import linusfessler.alarmtiles.shared.AlarmBroadcastReceiver
 import linusfessler.alarmtiles.shared.AlarmClockManager
 import linusfessler.alarmtiles.shared.MainActivity
 import linusfessler.alarmtiles.shared.SharedModule
-import linusfessler.alarmtiles.shared.alarmconfig.AlarmBroadcastReceiver
+import linusfessler.alarmtiles.shared.alarm.*
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module(includes = [SharedModule::class])
 class AlarmTimerModule {
     @Provides
     @Singleton
-    fun alarmTimerDatabase(application: Application): AlarmTimerDatabase {
-        return Room
-                .databaseBuilder(application, AlarmTimerDatabase::class.java, "alarm-timer-database")
-                .build()
-                .populate()
-    }
-
-    @Provides
-    @Singleton
-    fun mobiusLoop(application: Application, alarmTimerEventHandler: AlarmTimerEventHandler, alarmTimerEffectHandler: AlarmTimerEffectHandler): MobiusLoop<AlarmTimer, AlarmTimerEvent, AlarmTimerEffect> {
+    fun mobiusLoop(application: Application, alarmEventHandler: AlarmEventHandler, alarmEffectHandler: AlarmEffectHandler): MobiusLoop<Alarm, AlarmEvent, AlarmEffect> {
         val mobiusLoop = Mobius
-                .loop(alarmTimerEventHandler, alarmTimerEffectHandler)
+                .loop(alarmEventHandler, alarmEffectHandler)
                 .logger(AndroidLogger.tag(application.getString(R.string.alarm_timer)))
-                .startFrom(AlarmTimer())
-        mobiusLoop.dispatchEvent(AlarmTimerEvent.Resume())
+                .startFrom(Alarm(ALARM_ID))
+        mobiusLoop.dispatchEvent(AlarmEvent.Resume())
         return mobiusLoop
     }
 
     @Provides
+    @Named("alarmId")
     @Singleton
-    fun alarmClockManager(alarmManager: AlarmManager, application: Application): AlarmClockManager<MainActivity, AlarmBroadcastReceiver> {
-        return AlarmClockManager(application, alarmManager, MainActivity::class.java, AlarmBroadcastReceiver::class.java, ALARM_CLOCK_REQUEST_ID)
-    }
+    fun alarmId(): Long = ALARM_ID
+
+    @Provides
+    @Singleton
+    fun alarmClockManager(application: Application, alarmManager: AlarmManager): AlarmClockManager<MainActivity, AlarmBroadcastReceiver> =
+            AlarmClockManager(application, alarmManager, MainActivity::class.java, AlarmBroadcastReceiver::class.java, ALARM_REQUEST_CODE)
 
     companion object {
-        const val ALARM_CLOCK_REQUEST_ID = 865445
+        const val ALARM_ID = 1L
+        const val ALARM_REQUEST_CODE = 1
     }
 }
